@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />   
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+
+
+    <!-- SEO -->
+    <title>공간정보 융복합 핵심인재 양성사업 종합관리시스템</title>
+
+    <link href="../css/necgis.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+//<![CDATA[
+	var rt_path = ''
+			  , rt_charset = 'UTF-8';
+//]]>
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type='text/javascript' src='../js/common.js'></script>
+
+</head>
+<body>
+<div class="wrap"><!-- gnb -->
+	
+    <header>
+    	<div id="gnb_wrap">
+   			<div class="gnb area_ct">
+            	<ul class="flr">
+                	<li><a href="#">홈</a></li>
+                    <li><a href="#">로그인</a></li>
+                    <li><a href="#">회원가입</a></li>
+                    <li class="text">글자크기 <a href="#"><img src="../img/font_plus.png" alt="글씨크게"></a><a href="#"><img src="../img/font_minus.png" alt="글씨크게"></a><a href="#"><img src="../img/font_stop.png" alt="글씨크게"></a></li>
+            	</ul>
+            </div>
+   		</div>
+        
+        <div id="gmp">
+        <div id="snavi_wrap">
+       		<div id="navi_box" class="area_ct">    
+            	<div id="logo">
+						<a href="#"><img src="../img/logo.png"></a>
+				</div>
+                <!-- navi -->
+					<ul id="navi">
+						<li id="depth_1" class="nav_w">
+							<span class="navi_fir"><a href="#">사업소개</a></span>
+							<div class="navi_sec">
+								<ul style="margin-left:0;">
+									<li><a href="#">사업개요</a></li>
+									<li><a href="#">사업추진절차</a></li>
+                                    <li><a href="#">특성화학교현황</a></li>
+                                    <li><a href="#">특성화교과목현황</a></li>
+                                    <li><a href="#">사업보도자료</a></li>
+								</ul>
+							</div>
+						</li>
+						<li id="depth_2" class="nav_w">
+							<span class="navi_fir"><a href="#">학교공간</a></span>
+							<div class="navi_sec" style="margin-left:16%;">
+								<ul>
+									<li><a href="#">사업신청∙관리</a></li>
+								</ul>
+							</div>
+						</li>
+						<li id="depth_3" class="nav_w">
+							<span class="navi_fir"><a href="#">학생공간</a></span>
+							<div class="navi_sec" style="margin-left:32%;">
+								<ul>
+									<li><a href="#">사업신청∙관리</a></li>
+								</ul>
+							</div>
+						</li>
+						<li id="depth_4" class="nav_w">
+							<span class="navi_fir"><a href="#">소통공간</a></span>
+							<div class="navi_sec" style="margin-left:48%;">
+								<ul>
+									<li><a href="#">최신동향정보</a></li>
+									<li><a href="#">생생현장소식</a></li>
+								</ul>
+							</div>
+						</li>
+						<li id="depth_5" class="nav_w">
+							<span class="navi_fir"><a href="#">고객센터</a></span>
+							<div class="navi_sec" style="margin-left:64%;">
+								<ul>
+									<li><a href="#">공지사항</a></li>
+									<li><a href="#">문의∙제안∙신고</a></li>
+                                    <li><a href="#">서비스정책</a></li>
+                                    <li><a href="#">회원정보</a></li>
+								</ul>
+							</div>
+						</li>
+						<li id="depth_6" class="nav_w">
+							<span class="navi_fir"><a href="#">진흥원소개</a></span>
+							<div class="navi_sec" style="margin-left:80%">
+								<ul>
+									<li><a href="#">인사말</a></li>
+									<li><a href="#">비전 및 목표</a></li>
+                                    <li><a href="#">CI</a></li>
+                                    <li><a href="#">전체사업소개</a></li>
+                                    <li><a href="#">연혁</a></li>
+                                    <li><a href="#">조직도</a></li>
+									<li><a href="#">찾아오시는 길</a></li>
+								</ul>
+                                
+							</div>
+						</li>
+                       
+					</ul>
+					<!-- // navi -->
+            </div><!-- // navi_box -->
+        </div><!-- // navi_wrap -->
+        <div id="snavi_bg">
+			<div class="navi_bg_img area_ct"></div>
+		</div>
+        
+        <!-- m_menu_wrap -->
+				<div id="m_menu_wrap">
+					<!-- m_menu -->
+					<div class="m_menu">
+						<!-- Moblie Menu Open -->
+						<div class="m_menu_open">
+							<a href="#m_depth_wrap" title="전체보기" target="_self" onclick="active_menu();return false;"><img src="../img/btn_open.png" alt="메뉴"/></a>
+						</div>
+						<!-- // Moblie Menu Open -->
+						<!-- m_depth_wrap -->
+						<div id="m_depth_wrap" style="display:none">
+							<ul id="m_menu_box" >
+								<!-- 사업소개 -->
+								<li id="m_menu_link01" class="m_depth01">
+									<a href="#m_menu_link01" title="사업소개"><strong>사업소개</strong></a>
+									<ul class="m_depth02">
+									<li><a href="#">사업개요</a></li>
+									<li><a href="#">사업추진절차</a></li>
+                                    <li><a href="#">특성화학교현황</a></li>
+                                    <li><a href="#">특성화교과목현황</a></li>
+                                    <li><a href="#">사업보도자료</a></li>
+									</ul>
+								</li>
+								<!-- // 사업소개 -->
+								<!-- 학교공간 -->
+								<li id="m_menu_link02" class="m_depth01">
+									<a href="#m_menu_link02" title="학교공간"><strong>학교공간</strong></a>
+									<ul class="m_depth02">
+									<li><a href="#">사업신청∙관리</a></li>
+									</ul>
+								</li>
+								<!-- // 학교공간 -->
+								<!-- 학생공간 -->
+								<li id="m_menu_link03" class="m_depth01">
+									<a href="#m_menu_link03" title="학생공간"><strong>학생공간</strong></a>
+									<ul class="m_depth02">
+									<li><a href="#">사업신청∙관리</a></li>
+									</ul>
+								</li>
+								<!-- // 학생공간 -->
+								<!-- 소통공간 -->
+								<li id="m_menu_link04" class="m_depth01">
+									<a href="#m_menu_link04" title="소통공간"><strong>소통공간</strong></a>
+									<ul class="m_depth02">
+									<li><a href="#">최신동향정보</a></li>
+									<li><a href="#">생생현장소식</a></li>
+									</ul>
+								</li>
+								<!-- // 소통공간 -->
+								<!-- 고객센터 -->
+								<li id="m_menu_link05" class="m_depth01">
+									<a href="#m_menu_link05" title="고객센터"><strong>고객센터</strong></a>
+									<ul class="m_depth02">
+									<li><a href="#">공지사항</a></li>
+									<li><a href="#">문의∙제안∙신고</a></li>
+                                    <li><a href="#">서비스정책</a></li>
+                                    <li><a href="#">회원정보</a></li>
+									</ul>
+								</li>
+								<!-- // 고객센터 -->
+								<!-- 진흥원소개 -->
+								<li id="m_menu_link06" class="m_depth01">
+									<a href="#m_menu_link06" title="진흥원소개"><strong>진흥원소개</strong></a>
+									<ul class="m_depth02">
+									<li><a href="#">인사말</a></li>
+									<li><a href="#">비전 및 목표</a></li>
+                                    <li><a href="#">CI</a></li>
+                                    <li><a href="#">전체사업소개</a></li>
+                                    <li><a href="#">연혁</a></li>
+                                    <li><a href="#">조직도</a></li>
+									<li><a href="#">찾아오시는 길</a></li>
+									</ul>
+								</li>
+								<!-- // 진흥원소개 -->
+                                <li id="m_menu_link06" class="m_depth01">
+									<a href="#m_menu_link06" title="내정보"><strong>내정보</strong></a>
+									<ul class="m_depth02">
+									<li><a href="#">인사말</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<!-- m_depth_wrap -->
+					</div>
+					<!-- // m_menu -->
+					<!-- all_menu_close -->
+					<div id="m_menu_close" style="display:none">
+						<a href="#m_menu_close" onclick="active_menu();return false;"><img src="../img/btn_close.png" alt="전체보기 닫기"/></a>
+					</div>
+					<!-- // all_menu_close -->
+				</div>
+				<!-- // m_menu_wrap -->
+        </div>
+    </header>
+
+    <div id="container">  	
+        <div class="svisual" style="background-color:#41372e;background-image:url('../img/Visual01.jpg'); background-position:center">
+        </div><!--//svisual -->
+        
+        <div class="tit_wrap">
+        	<div class="title area_ct">
+            	<img src="../img/tit_customer.png" alt="고객센터"><span>Customer</span>
+            	<div class="depth"><a href="#"><img src="../img/ico_home.png" alt="home아이콘"></a><img src="../img/space.png" alt=""><a href="#">고객센터</a><img src="../img/space.png" alt=""><a href="#">공지사항</a></div>
+            </div>
+        </div>
+     	<div id="sub_container">
+        	<div id="content-group">
+        		<div id="lnb-group">
+            		<ul id="lnb">
+                	<li><a href="#" class="select">공지사항</a></li>
+					<li><a href="#">뉴스레터</a></li>
+					<li><a href="#">문의∙제안∙신고</a></li>
+                    <li><a href="#">온라인도움말</a></li>
+					<li><a href="#">서비스정책</a></li>
+					<li><a href="#">회원정보</a></li>
+                	</ul>
+                    
+                    <ul class="quick">
+                	<li class="q1"><a href="#" title="사업소개"></a></li>
+                    <li class="q2"><a href="#" title="운영메뉴얼"></a></li>
+                    <li class="q3"><a href="#" title="운영지침"></a></li>
+                    <li class="q4"><a href="#" title="운영서식"></a></li>
+               	 	</ul>
+            	</div>
+            	<!--//lnb-group -->
+               
+            
+            	<div id="contents" class="bg_cs">
+            		<div class="con_tit">회원정보 <span>Membership</span>
+                    	<span class="ex">고객님의 소중한 정보를 관리합니다.</span>
+                    </div>
+
+                    <div class="view_info mtf5 mb5">
+                        <div class="ico_box_w">
+                            <ul class="ico_box2">
+                            <li class="print"><a href="#" title="프린트">프린트</a></li>
+                            <li class="url"><a href="#" title="url">url</a></li>
+                            <li class="claim"><a href="#" title="신고하기">신고하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <ul class="tap5_wrp mt10">
+                    	<li><a href="#" class="select">회원가입</a></li>
+                        <li><a href="#">아이디/비밀번호 찾기</a></li>
+                        <li><a href="#">기본정보∙비밀번호 관리</a></li>
+                        <li><a href="#">부가정보 관리</a></li>
+                        <li><a href="#">회원탈퇴</a></li>
+                    </ul>
+                    
+                    <ul class="step_wrap">
+                    	<li><img src="../img/step01.png" alt="약관동의"></li>
+                        <li class="select"><img src="../img/step02_on.png" alt="2.실명확인"></li>
+                        <li><img src="../img/step03.png" alt="3. 회원정보입력"></li>
+                        <li class="end"><img src="../img/step04.png" alt="4. 가입완료"></li>
+                    </ul>
+                    
+                    <div class="mem_info fll txt12">
+                    	<ul>
+                            <li>아래의 이메일인증 또는 아이핀인증을 이용하여, 중복가입여부와 극소수 익명 사용자의 아이디, 허위정보 남용 등으로 발생되는 피해를 방지하기 위해 본인임을 확인합니다</li>
+                            <li>인증은 회원가입시 1회에 한하여 적용되며, 정부지원사업 참여를 위해서는 아이핀인증이 필요합니다.</li>
+                            <li>타인의 정보 및 주민등록번호를 부정하게 사용하는 경우 3년이하의 징역 또는 1천만원 이하의 벌금에 처해지게 됩니다. (관련법률_주민등록법 제37조 (벌칙) 제10호)</li>
+                            <li>회원님의 소중한 개인정보는 서비스 정책 등에 따른 명백한 동의 없이 공개 또는 제3자에게 제공되지 않습니다.</li>
+                        </ul>
+                    </div>                   
+                    
+                    <!-- 회원인증 및 가입확인 -->
+                    <div class="mem_info_sect">
+                        <p>회원인증 및 가입확인</p>
+                        
+                        <div class="mem_box fl100">
+                        	<div class="txt txt11">- 입력된 정보는 다음단계의 회원정보입력시 변경할 수 없으므로, 정확히 입력하여 주시기 바랍니다.<br/>
+- 기존 회원일 경우, 인증버튼 클릭시 가입여부가 노출되므로 아이디찾기, 비밀번호찾기를 이용해 로그인하여 주시기 바랍니다. <br/>&nbsp;&nbsp;단, 개인정보보호를 위해 일부정보는 암호화되어 표기됩니다. 
+							</div>
+                        	<ul class="info_put fl100">
+                            	<li><strong>성명(실명)</strong><span class="con"><input name="" type="text" class="w200"></span> </li>
+                                <li><strong>휴대폰</strong>
+                                	<span class="con">
+                                    <select name="phone">
+                                        <option>010</option>
+                                    </select>
+                                    <em>-</em><input name="" type="text" class="w40"><em>-</em><input name="" type="text" class="w40">
+                                    </span> 
+                                </li>
+                                <li><strong>이메일 </strong>
+                                	<span class="con">
+                                    <input name="" type="text" class="w100"><em>@</em><input name="input" type="text" class="w100">
+                                    <select name="이메일">
+                                        <option>naver.com</option>
+                                    </select>
+                                    </span>
+                                </li>
+                                <li class="end"><strong>인증번호 </strong>
+                                	<span class="con">
+                                    <input name="" type="text" class="w100">
+                                    <span class="con_inf txt11 fl100 fcYg">* 인증번호를 입력하여 주시기 바랍니다. 발송된 인증번호는 10분간 유효합니다.</span>
+                                    </span>
+                                </li>
+                            </ul>
+                            
+                            
+                            
+                    	</div><!-- //약관내용 박스 -->
+                        
+                        <div class="fl100 mt35">
+                            <div class="mem_btn">
+                                <div class="btn_nxt"><a href="#">이메일인증</a></div><div class="btn_ipin"><a href="#">아이핀(i-PIN) 인증 </a></div>
+                            </div>
+                        </div>
+                                            
+                    </div>
+                    <!-- //회원인증 및 가입확인 -->
+                    
+                    
+                    <div class="ipin">
+                   		<dl>
+                        	<dt>&nbsp;
+                            </dt>
+                            <dd>
+                            <img src="../img/ipin_tit.png" alt="아이핀(i-PIN) 인증이란?"> <br/>
+                            아이핀은 주민등록번호를 노출하지 않고도 본인임을 확인시킬 수 있는 주민등록번호 대체 수단입니다.<br/>
+아이핀 계정이 있으신 분은 바로 회원가입이 가능하며, 없을 경우 아래의 발급절차에 따라 <a href="#" class="link1">공공 i-PIN센터</a>(행정자치부)에서 발급받은 후 회원가입하여 주시기 바랍니다. <br/>
+<a href="#" class="link2">한국신용평가정보㈜</a> 등의 타기관에서 발급받은 아이핀도 사용가능합니다. 단, 아이디/비밀번호찾기는 아이핀 발급기관에서만 확인이 가능합니다.
+
+                            </dd>
+                        </dl>
+						<ul class="process">
+                        	<li>01<br/>
+                            하단 아이핀 클릭<br/>
+                            (신규발급)
+                            </li>
+                            <li>02<br/>
+                            공공 I-PIN센터<br/>
+                            (신규발급)
+                            </li>
+                            <li>03<br/>
+                           개인정보입력<br/>(ID, 비밀번호, 이메일 등)
+                            </li>
+                            <li>04<br/>
+                            신원확인<br/>(공인인증서, 신용카드 등)
+                            </li>
+                            <li>05<br/>
+                            아이핀 발급<br/>(본인 확인 활용)
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 버튼영역 --><!-- //버튼영역 -->
+
+            	</div>
+            	<!--//contents -->
+        	</div>
+        	<!--//content-group -->
+		</div><!--//sub_container -->
+    </div>
+    <span class="con">
+    
+    </span><!--//container -->
+    
+    <footer>
+        <div id="btm_gourl">
+            <div class="foot">
+                <div id="btm_gourl">
+                    <div class="foot">
+                        <div class="all_menu"><a href="#">전체메뉴</a></div>
+                        <div class="urlgo_wrap">
+                        	<ul>
+                            	<li><select name="">
+                            	    <option>특성화 고등학교 바로가기</option>
+                            	    <option>특성화 고등학교 바로가기</option>
+                            	    특성화 고등학교 바로가기</select>
+                                </li>
+                                <li><select name="">
+                            	    <option>특성화 대학원 바로가기</option>
+                            	    <option>고등학교 바로가기</option>
+                            	    고등학교 바로가기</select>
+                                </li>
+                                <li><select name="">
+                            	    <option>관련사이트 바로가기</option>
+                            	    <option>고등학교 바로가기</option>
+                            	    고등학교 바로가기</select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="foot_area">
+			<div class="foot">
+            	<ul class="mark">
+                	<li><img src="../img/mark_wa.png" alt="웹접근성마크"></li>
+                    <li><img src="../img/mark_qr.png" alt="qr코드"></li>
+                </ul>
+				<div class="logo_f"><img src="../img/footer_logo.png" alt="국토교통부 공간정보산업진흥원 로고"></div>
+                <div class="personal"><a href="#">이용약관</a><em>ㅣ</em><a href="#">개인정보처리방침</a><em>ㅣ</em><a href="#">이메일무단수집거부</a></div>
+				<div class="add">(339-012) 세종특별자치구 도움6로 11-6동 국토교통부<br>
+Copyright ⓒ 공간정보산업진흥원 All rights Reserved.
+</div>
+
+			</div>
+		</div>
+    </footer>
+    
+    
+    
+</div><!--//wrap -->
+<div class="mng"><div class="cont">
+
+<script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="../js/jquery.mainslider.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#container").addClass("main");
+
+    $('#d-main-visual').mainslider();
+
+    $('#d-image-banner').bannerslider({
+        targetSelector: 'img.bann'
+    });
+
+    $('#d-text-banner1, #d-text-banner2, #d-text-banner3').bannerslider({
+        autoSelector: 'button',
+        moveHorizontal: false,
+        moveSync: 'd-text-banner'
+    });
+    goNotice();
+    var tvalue = $("#titHeight").height();
+
+    //var hvalue = 306 - ($("#titHeight").height() + 33);
+    if(tvalue <= 42){
+    	$("#focusHeight").removeClass("row2 row3");
+    } else if(tvalue >= 43 && tvalue <=84){
+    	$("#focusHeight").removeClass("row2 row3");
+    	$("#focusHeight").addClass("row2");
+    } else if(tvalue >= 85){
+    	$("#focusHeight").removeClass("row2 row3");
+        $("#focusHeight").addClass("row3");
+    }
+    $("a.noticeCss").focus(function(){
+    	goNotice();
+    });
+    $("a.pressCss").focus(function(){
+    	goPress();
+    });
+
+});
+
+
+
+</script>
+
+
+
+</body>
+</html>
