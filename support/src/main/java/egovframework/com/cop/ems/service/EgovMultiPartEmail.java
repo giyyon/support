@@ -109,6 +109,10 @@ public class EgovMultiPartEmail implements Serializable{
 		email.setCharset("UTF-8");
 		email.setHostName(this.host);
 		email.setSmtpPort(this.port);
+		//2015.02.19 임시 메일 발송을 위한 gmail 의 smpt 정보 활용
+		email.setSSLOnConnect(true);
+		// email.setStartTLSEnabled(true);   테스트시 지메일인 경우 주석해제. 
+		
 		email.setTLS(true);
 		email.setAuthenticator(new DefaultAuthenticator(this.id, this.password));
 		email.setSocketConnectionTimeout(60000);

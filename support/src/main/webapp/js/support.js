@@ -28,3 +28,13 @@
 				alert ("500%확대 되었습니다. 더 이상 확대할 수 없습니다.");
 			}
 		}
+		
+		
+		function sleep(num){	//[1/1000초]
+			 var now = new Date();
+			   var stop = now.getTime() + num;
+			   while(true){
+				 now = new Date();
+				 if(now.getTime() > stop)return;
+			   }
+			}

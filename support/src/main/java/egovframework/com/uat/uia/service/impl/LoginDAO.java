@@ -1,7 +1,10 @@
 package egovframework.com.uat.uia.service.impl;
 
+import java.util.List;
+
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.impl.EgovComAbstractDAO;
+import egovframework.com.cop.bbs.service.BoardVO;
 
 import org.springframework.stereotype.Repository;
 
@@ -62,9 +65,8 @@ public class LoginDAO extends EgovComAbstractDAO {
 	 * @return LoginVO
 	 * @exception Exception
 	 */
-    public LoginVO searchId(LoginVO vo) throws Exception {
-
-    	return (LoginVO)select("loginDAO.searchId", vo);
+    public List<LoginVO> searchId(LoginVO vo) throws Exception {
+    	return (List<LoginVO>) list("loginDAO.searchId", vo);
     }
 
     /**

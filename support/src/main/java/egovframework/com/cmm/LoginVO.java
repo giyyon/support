@@ -52,6 +52,21 @@ public class LoginVO implements Serializable{
 	private String ip;
 	/** GPKI인증 DN */
 	private String dn;
+	
+	/**로그인 후 이동할 주소*/
+	private String reDirectUrl;
+	
+	/** 가입일 */
+	private String sbscrbDe;
+	
+	/** 핸드폰 번호 */
+	private String mbTlNum;
+	
+	/** 사업자 번호 */
+	private String bizRno;
+	
+	
+	
 	/**
 	 * id attribute 를 리턴한다.
 	 * @return String
@@ -246,5 +261,63 @@ public class LoginVO implements Serializable{
 	public void setOrgnztNm(String orgnztNm) {
 		this.orgnztNm = orgnztNm;
 	}
+	/**
+	 * @return the reDirectUrl
+	 */
+	public String getReDirectUrl() {
+	
+		return reDirectUrl;
+	}
+	/**
+	 * @param reDirectUrl the reDirectUrl to set
+	 */
+	public void setReDirectUrl(String reDirectUrl) {
+	
+		this.reDirectUrl = reDirectUrl;
+	}
+	/**
+	 * @return the mbTlNum
+	 */
+	public String getMbTlNum() {
+	
+		return mbTlNum;
+	}
+	/**
+	 * @param mbTlNum the mbTlNum to set
+	 */
+	public void setMbTlNum(String mbTlNum) {
+	
+		this.mbTlNum = mbTlNum;
+	}
+	/**
+	 * @return the sbscrbDe
+	 */
+	public String getSbscrbDe() {
+	
+		return sbscrbDe;
+	}
+	/**
+	 * @param sbscrbDe the sbscrbDe to set
+	 */
+	public void setSbscrbDe(String sbscrbDe) {
+	
+		this.sbscrbDe = sbscrbDe;
+	}
+	/**
+	 * @return the bizRno
+	 */
+	public String getBizRno() {
+	
+		return bizRno;
+	}
+	/**
+	 * @param bizRno the bizRno to set
+	 */
+	public void setBizRno(String bizRno) {
+	
+		this.bizRno = bizRno;
+	}
+	
+	
 	
 }

@@ -23,10 +23,13 @@
 		<result property="orgnztId" column="orgnztId" columnIndex="7"/>
 		<result property="uniqId" column="uniqId" columnIndex="8"/>		
 	</resultMap>
-	
 	<!-- 아이디 찾기를 위한 resultMap -->
 	<resultMap id="id" class="egovframework.com.cmm.LoginVO">
 		<result property="id" column="id" columnIndex="1"/>
+		<result property="name" column="name" columnIndex="2"/>
+		<result property="sbscrbDe" column="sbscrbDe" columnIndex="3"/>
+		<result property="email" column="email" columnIndex="4"/>
+		<result property="mbTlNum" column="mbTlNum" columnIndex="5"/>
 	</resultMap>
 	
 	<!-- 비밀번호 처리를 위한 resultMap -->
@@ -160,24 +163,33 @@
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="loginDAO.searchId" resultMap="id">
+	<select id="loginDAO.searchId" parameterClass="loginVO"  resultMap="id">
 		<!-- 일반회원 -->
 		<isEqual property="userSe" compareValue="GNR">
 			<![CDATA[
 			SELECT mber_id AS id
+			         ,MBER_NM as name			         
+			         ,SBSCRB_DE as sbscrbDe
+			         ,MBER_EMAIL_ADRES as email
+			         ,MBTLNUM as mbTlNum
 			  FROM COMTNGNRLMBER
-			 WHERE mber_nm = #name#
-			   AND mber_email_adres = #email#
-			   AND mber_sttus = 'P'
+			 WHERE (mber_nm = #name#
+					    OR  mber_email_adres = #email#
+					    OR  mbtlnum = #mbTlNum#)
+			    AND  mber_sttus = 'P'
 			]]>
 		</isEqual>
 		<!-- 기업회원 -->
 		<isEqual property="userSe" compareValue="ENT">
 			<![CDATA[
 			SELECT ENTRPRS_MBER_ID AS id
+			         ,CXFC as name	
+			         ,SBSCRB_DE as sbscrbDe
+			         ,applcnt_email_adres as email
 			  FROM COMTNENTRPRSMBER
-			 WHERE cmpny_nm = #name#
-			   AND applcnt_email_adres = #email#
+			 WHERE (CXFC = #name#
+					   OR    BIZRNO = #bizRno#		   
+					   OR applcnt_email_adres = #email#)
 			   AND entrprs_mber_sttus = 'P'
 			]]>
 		</isEqual>

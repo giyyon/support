@@ -2,11 +2,15 @@ package egovframework.com.uss.umt.service.impl;
 
 import java.util.List;
 
+import egovframework.com.cmm.LoginVO;
+import egovframework.com.cop.ems.service.EgovSndngMailRegistService;
+import egovframework.com.cop.ems.service.SndngMailVO;
 import egovframework.com.uss.umt.service.EgovMberManageService;
 import egovframework.com.uss.umt.service.MberManageVO;
 import egovframework.com.uss.umt.service.UserDefaultVO;
+import egovframework.com.utl.fcc.service.EgovNumberUtil;
+import egovframework.com.utl.fcc.service.EgovStringUtil;
 import egovframework.com.utl.sim.service.EgovFileScrty;
-
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 
@@ -77,7 +81,20 @@ public class EgovMberManageServiceImpl extends EgovAbstractServiceImpl implement
 		MberManageVO mberManageVO = mberManageDAO.selectMber(uniqId);		
 		return mberManageVO;
 	}
+	
+	/**
+	 * 기 등록된 사용자 중 검색조건에 맞는 일반회원의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * @param mberId 상세조회대상 일반회원아이디
+	 * @return mberManageVO 일반회원상세정보
+	 * @throws Exception
+	 */
+	public MberManageVO selectMberById(String mberId) {
+		MberManageVO mberManageVO = mberManageDAO.selectMberById(mberId);		
+		return mberManageVO;
+	}
 
+	
+	
 	/**
 	 * 기 등록된 회원 중 검색조건에 맞는 회원들의 정보를 데이터베이스에서 읽어와 화면에 출력
 	 * @param userSearchVO 검색조건
@@ -159,5 +176,4 @@ public class EgovMberManageServiceImpl extends EgovAbstractServiceImpl implement
 		MberManageVO mberManageVO = mberManageDAO.selectPassword(passVO);
 		return mberManageVO;
 	}
-	
 }

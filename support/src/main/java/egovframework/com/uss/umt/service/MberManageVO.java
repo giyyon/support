@@ -105,6 +105,89 @@ public class MberManageVO extends UserDefaultVO{
 	 * 이메일주소
 	 */
 	private String mberEmailAdres;
+	
+	/**
+	 * 양력음력
+	 */
+	private String sunLunar;
+	
+	/**
+	 * 이름공개여부
+	 */
+	private String nmOthbcAt;
+	/**
+	 * 생일공개여부
+	 */
+	private String birthOthbcAt;             
+	/**                                        
+	 * 성별공개여부                            
+	 */                                        
+	private String sexdstnOthbcAt;           
+	/**                                        
+	 * 이메일공개여부                            
+	 */                                        
+	private String mberEmailAdresOthbcAt;  
+	/**                                        
+	 * 별명                            
+	 */                                        
+	private String nick;                       
+	/**                                        
+	 * 별명공개여부                            
+	 */                                        
+	private String nickOthbcAt;              
+	/**                                        
+	 * 직업분야                            
+	 */                                        
+	private String jobArea;                   
+	/**                                        
+	 * 직업업종                            
+	 */                                        
+	private String jobType;                   
+	/**                                        
+	 *직업직종                     
+	 */                                        
+	private String jobClass;                  
+	/**                                        
+	 * 직업공개여부                            
+	 */                                        
+	private String jobOthbcAt;               
+	/**                                        
+	 * 전화공개여부                
+	 */                                        
+	private String telOthbcAt;               
+	/**                                        
+	 * 주소공개여부                 
+	 */                                        
+	private String adresOthbcAt;             
+	/**                                        
+	 * 수신여부                 
+	 */                                        
+	private String recvAt;             
+	
+	/**                                        
+	 * 소속기관              
+	 */                                        
+	private String pstinst;             
+	/**                                        
+	 * 소속기관부서           
+	 */                                        
+	private String pstinstDeptNm;             
+	/**                                        
+	 * 직위명               
+	 */                                        
+	private String ofcpsNm;             
+	/**                                        
+	 * 소속기관공개여부      
+	 */                                        
+	private String pstinstOthbcAt; 	
+	/**                                        
+	 *연락처공개여부
+	 */                                        
+	private String contacOthbcAt; 	
+	
+
+
+	
 	/**
 	 * oldPassword attribute 값을  리턴한다.
 	 * @return String
@@ -412,6 +495,258 @@ public class MberManageVO extends UserDefaultVO{
 	 */
 	public void setMberEmailAdres(String mberEmailAdres) {
 		this.mberEmailAdres = mberEmailAdres;
+	}
+	/**
+	 * @return the sunLunar
+	 */
+	public String getSunLunar() {
+	
+		return sunLunar;
+	}
+	/**
+	 * @param sunLunar the sunLunar to set
+	 */
+	public void setSunLunar(String sunLunar) {
+	
+		this.sunLunar = sunLunar;
+	}
+	/**
+	 * @return the nmOthbcAt
+	 */
+	public String getNmOthbcAt() {
+	
+		return nmOthbcAt;
+	}
+	/**
+	 * @param nmOthbcAt the nmOthbcAt to set
+	 */
+	public void setNmOthbcAt(String nmOthbcAt) {
+	
+		this.nmOthbcAt = nmOthbcAt;
+	}
+	/**
+	 * @return the birthOthbcAt
+	 */
+	public String getBirthOthbcAt() {
+	
+		return birthOthbcAt;
+	}
+	/**
+	 * @param birthOthbcAt the birthOthbcAt to set
+	 */
+	public void setBirthOthbcAt(String birthOthbcAt) {
+	
+		this.birthOthbcAt = birthOthbcAt;
+	}
+	/**
+	 * @return the sexdstnOthbcAt
+	 */
+	public String getSexdstnOthbcAt() {
+	
+		return sexdstnOthbcAt;
+	}
+	/**
+	 * @param sexdstnOthbcAt the sexdstnOthbcAt to set
+	 */
+	public void setSexdstnOthbcAt(String sexdstnOthbcAt) {
+	
+		this.sexdstnOthbcAt = sexdstnOthbcAt;
+	}
+	/**
+	 * @return the mber_email_adresOthbcAt
+	 */
+	public String getMberEmailAdresOthbcAt() {
+	
+		return mberEmailAdresOthbcAt;
+	}
+	/**
+	 * @param mber_email_adresOthbcAt the mber_email_adresOthbcAt to set
+	 */
+	public void setMberEmailAdresOthbcAt(String mberEmailAdresOthbcAt) {
+	
+		this.mberEmailAdresOthbcAt = mberEmailAdresOthbcAt;
+	}
+	/**
+	 * @return the nick
+	 */
+	public String getNick() {
+	
+		return nick;
+	}
+	/**
+	 * @param nick the nick to set
+	 */
+	public void setNick(String nick) {
+	
+		this.nick = nick;
+	}
+	/**
+	 * @return the nickOthbcAt
+	 */
+	public String getNickOthbcAt() {
+	
+		return nickOthbcAt;
+	}
+	/**
+	 * @param nickOthbcAt the nickOthbcAt to set
+	 */
+	public void setNickOthbcAt(String nickOthbcAt) {
+	
+		this.nickOthbcAt = nickOthbcAt;
+	}
+	/**
+	 * @return the jobArea
+	 */
+	public String getJobArea() {
+	
+		return jobArea;
+	}
+	/**
+	 * @param jobArea the jobArea to set
+	 */
+	public void setJobArea(String jobArea) {
+	
+		this.jobArea = jobArea;
+	}
+	/**
+	 * @return the jobType
+	 */
+	public String getJobType() {
+	
+		return jobType;
+	}
+	/**
+	 * @param jobType the jobType to set
+	 */
+	public void setJobType(String jobType) {
+	
+		this.jobType = jobType;
+	}
+	/**
+	 * @return the jobClass
+	 */
+	public String getJobClass() {
+	
+		return jobClass;
+	}
+	/**
+	 * @param jobClass the jobClass to set
+	 */
+	public void setJobClass(String jobClass) {
+	
+		this.jobClass = jobClass;
+	}
+	/**
+	 * @return the jobOthbcAt
+	 */
+	public String getJobOthbcAt() {
+	
+		return jobOthbcAt;
+	}
+	/**
+	 * @param jobOthbcAt the jobOthbcAt to set
+	 */
+	public void setJobOthbcAt(String jobOthbcAt) {
+	
+		this.jobOthbcAt = jobOthbcAt;
+	}
+	/**
+	 * @return the telOthbcAt
+	 */
+	public String getTelOthbcAt() {
+	
+		return telOthbcAt;
+	}
+	/**
+	 * @param telOthbcAt the telOthbcAt to set
+	 */
+	public void setTelOthbcAt(String telOthbcAt) {
+	
+		this.telOthbcAt = telOthbcAt;
+	}
+	/**
+	 * @return the adresOthbcAt
+	 */
+	public String getAdresOthbcAt() {
+	
+		return adresOthbcAt;
+	}
+	/**
+	 * @param adresOthbcAt the adresOthbcAt to set
+	 */
+	public void setAdresOthbcAt(String adresOthbcAt) {
+	
+		this.adresOthbcAt = adresOthbcAt;
+	}
+	/**
+	 * @return the recvAt
+	 */
+	public String getRecvAt() {
+	
+		return recvAt;
+	}
+	/**
+	 * @param recvAt the recvAt to set
+	 */
+	public void setRecvAt(String recvAt) {
+	
+		this.recvAt = recvAt;
+	}
+	/**
+	 * @return the pstinst
+	 */
+	public String getPstinst() {
+	
+		return pstinst;
+	}
+	/**
+	 * @param pstinst the pstinst to set
+	 */
+	public void setPstinst(String pstinst) {
+	
+		this.pstinst = pstinst;
+	}
+	/**
+	 * @return the pstinstDeptNm
+	 */
+	public String getPstinstDeptNm() {
+	
+		return pstinstDeptNm;
+	}
+	/**
+	 * @param pstinstDeptNm the pstinstDeptNm to set
+	 */
+	public void setPstinstDeptNm(String pstinstDeptNm) {
+	
+		this.pstinstDeptNm = pstinstDeptNm;
+	}
+	/**
+	 * @return the ofcpsNm
+	 */
+	public String getOfcpsNm() {
+	
+		return ofcpsNm;
+	}
+	/**
+	 * @param ofcpsNm the ofcpsNm to set
+	 */
+	public void setOfcpsNm(String ofcpsNm) {
+	
+		this.ofcpsNm = ofcpsNm;
+	}
+	/**
+	 * @return the pstinstOthbcAt
+	 */
+	public String getPstinstOthbcAt() {
+	
+		return pstinstOthbcAt;
+	}
+	/**
+	 * @param pstinstOthbcAt the pstinstOthbcAt to set
+	 */
+	public void setPstinstOthbcAt(String pstinstOthbcAt) {
+	
+		this.pstinstOthbcAt = pstinstOthbcAt;
 	}
 	
 }

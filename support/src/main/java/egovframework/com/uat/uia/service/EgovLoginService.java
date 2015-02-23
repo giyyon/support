@@ -1,5 +1,7 @@
 package egovframework.com.uat.uia.service;
 
+import java.util.List;
+
 import egovframework.com.cmm.LoginVO;
 
 /**
@@ -51,7 +53,7 @@ public interface EgovLoginService {
 	 * @return LoginVO
 	 * @exception Exception
 	 */
-    LoginVO searchId(LoginVO vo) throws Exception;
+    List<LoginVO> searchId(LoginVO vo) throws Exception;
     
     /**
 	 * 비밀번호를 찾는다.

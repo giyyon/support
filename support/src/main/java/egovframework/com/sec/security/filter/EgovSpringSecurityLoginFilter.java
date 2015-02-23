@@ -61,9 +61,18 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 		// 로그인 URL
 		String loginURL = config.getInitParameter("loginURL");
 		loginURL = loginURL.replaceAll("\r", "").replaceAll("\n", "");
+		
+		// 테스트용 로그인 URL
+		String testLoginURL = config.getInitParameter("testLoginURL");
+		testLoginURL = testLoginURL.replaceAll("\r", "").replaceAll("\n", "");
+		
 
 		String loginProcessURL = config.getInitParameter("loginProcessURL");
 		loginProcessURL = loginProcessURL.replaceAll("\r", "").replaceAll("\n", "");
+		
+		String testLoginProcessURL = config.getInitParameter("testLoginProcessURL");
+		testLoginProcessURL = testLoginProcessURL.replaceAll("\r", "").replaceAll("\n", "");
+		
 
 		ApplicationContext act = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
 		EgovLoginService loginService = (EgovLoginService) act.getBean("loginService");
@@ -79,9 +88,11 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 
 		//스프링 시큐리티 인증이 처리 되었는지 EgovUserDetailsHelper.getAuthenticatedUser() 메서드를 통해 확인한다.
 		//context-common.xml 빈 설정에 egovUserDetailsSecurityService를 등록 해서 사용해야 정상적으로 동작한다.
-		if (EgovUserDetailsHelper.getAuthenticatedUser() == null || requestURL.contains(loginProcessURL)) {
-
+		LOGGER.info("인증전 : EgovUserDetailsHelper.isAuthenticated() "+EgovUserDetailsHelper.isAuthenticated() + ", requestURL : "+requestURL);
+		if (EgovUserDetailsHelper.getAuthenticatedUser() == null || requestURL.contains(loginProcessURL) || requestURL.contains(testLoginProcessURL)) {
+			LOGGER.info("getAuthenticatedUser is null...");
 			if (isRemotelyAuthenticated != null && isRemotelyAuthenticated.equals("true")) {
+				LOGGER.info("isRemotelyAuthenticated is true...");
 				try {
 					//세션 토큰 정보를 가지고 DB로부터 사용자 정보를 가져옴
 					LoginVO loginVO = (LoginVO) session.getAttribute("loginVOForDBAuthentication");
@@ -120,11 +131,14 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 				}
 
 			} else if (isRemotelyAuthenticated == null) {
-				if (requestURL.contains(loginProcessURL)) {
+				LOGGER.info("isRemotelyAuthenticated is = null...");
+				LOGGER.debug("requst get Id : " + httpRequest.getParameter("id"));
+				LOGGER.debug("request get password : "+ httpRequest.getParameter("password"));
+				if (requestURL.contains(loginProcessURL) || requestURL.contains(testLoginProcessURL)) {
 
 					String password = httpRequest.getParameter("password");
 					
-					// 보안점검 후속 조치(Password 검증)
+				    //보안점검 후속 조치(Password 검증)
 					if (password == null || password.equals("") || password.length() < 8 || password.length() > 20) {
 						httpRequest.setAttribute("message", egovMessageSource.getMessage("fail.common.login.password"));
 						RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(loginURL);
@@ -142,10 +156,11 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 					loginVO.setUserSe(httpRequest.getParameter("userSe"));
 
 					try {
-
+						LOGGER.debug("before actionLogin call....");
 						//사용자 입력 id, password로 DB 인증을 실행함
 						loginVO = loginService.actionLogin(loginVO);
-
+						LOGGER.debug("after actionLogin call....");
+						
 						if (loginVO != null && loginVO.getId() != null && !loginVO.getId().equals("")) {
 							//세션 로그인
 							session.setAttribute("loginVO", loginVO);
@@ -153,6 +168,7 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 							//로컬 인증결과 세션에 저장
 							session.setAttribute("isLocallyAuthenticated", "true");
 
+						
 							//스프링 시큐리티 로그인
 							//httpResponse.sendRedirect(httpRequest.getContextPath() + "/j_spring_security_check?j_username=" + loginVO.getUserSe() + loginVO.getId() + "&j_password=" + loginVO.getUniqId());
 
@@ -169,9 +185,15 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 
 							LOGGER.debug("before security filter call....");
 							springSecurity.doFilter(new RequestWrapperForSecurity(httpRequest, loginVO.getUserSe() + loginVO.getId(), loginVO.getUniqId()), httpResponse, chain);
+							
+							LOGGER.info("인증후 : EgovUserDetailsHelper.isAuthenticated() "+EgovUserDetailsHelper.isAuthenticated());
+							LOGGER.info("인증후 : EgovUserDetailsHelper.getAuthenticatedUser() "+EgovUserDetailsHelper.getAuthenticatedUser());
+							
 							LOGGER.debug("after security filter call....");
 
 						} else {
+							
+							LOGGER.debug("after actionLogin call....사용자 정보가 없는 경우 로그인 화면으로 redirect 시킴 ");
 							//사용자 정보가 없는 경우 로그인 화면으로 redirect 시킴
 							httpRequest.setAttribute("message", egovMessageSource.getMessage("fail.common.login"));
 							RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(loginURL);

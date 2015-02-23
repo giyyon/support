@@ -173,9 +173,9 @@ function fnInit() {
   <tr>
     <td align="center">
 
-   		<c:import url="/uss/ion/lsi/getLoginScrinImageResult.do" charEncoding="utf-8">
+<%--    		<c:import url="/uss/ion/lsi/getLoginScrinImageResult.do" charEncoding="utf-8"> --%>
 
-        </c:import>
+<%--         </c:import> --%>
 
 
     </td>

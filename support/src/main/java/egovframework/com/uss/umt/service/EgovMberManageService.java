@@ -34,7 +34,16 @@ public interface EgovMberManageService {
 	 * @return mberManageVO 일반회원상세정보
 	 * @throws Exception
 	 */
-	public MberManageVO selectMber(String mberId) throws Exception;
+	public MberManageVO selectMber(String uniqId) throws Exception;
+	
+	
+	/**
+	 * 기 등록된 사용자 중 검색조건에 맞는 일반회원의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * @param mberId 상세조회대상 일반회원아이디
+	 * @return mberManageVO 일반회원상세정보
+	 * @throws Exception
+	 */
+	public MberManageVO selectMberById(String mberId) throws Exception;
 	
 	/**
 	 * 기 등록된 회원 중 검색조건에 맞는 회원들의 정보를 데이터베이스에서 읽어와 화면에 출력
@@ -88,6 +97,5 @@ public interface EgovMberManageService {
 	 * @throws Exception
 	 */
 	public MberManageVO selectPassword(MberManageVO passVO) throws Exception;
-	
-	
+		
 }

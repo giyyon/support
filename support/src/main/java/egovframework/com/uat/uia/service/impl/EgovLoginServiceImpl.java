@@ -1,5 +1,7 @@
 package egovframework.com.uat.uia.service.impl;
 
+import java.util.List;
+
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cop.ems.service.EgovSndngMailRegistService;
 import egovframework.com.cop.ems.service.SndngMailVO;
@@ -7,7 +9,6 @@ import egovframework.com.uat.uia.service.EgovLoginService;
 import egovframework.com.utl.fcc.service.EgovNumberUtil;
 import egovframework.com.utl.fcc.service.EgovStringUtil;
 import egovframework.com.utl.sim.service.EgovFileScrty;
-
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 
 import javax.annotation.Resource;
@@ -119,19 +120,19 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements
 	 * @return LoginVO
 	 * @exception Exception
 	 */
-    public LoginVO searchId(LoginVO vo) throws Exception {
+    public List<LoginVO> searchId(LoginVO vo) throws Exception {
 
-    	// 1. 이름, 이메일주소가 DB와 일치하는 사용자 ID를 조회한다.
-    	LoginVO loginVO = loginDAO.searchId(vo);
+    	// 1. 이름, 이메일주소, 휴대폰이 DB와 일치하는 사용자 ID를 조회한다.
+    	List<LoginVO> voList = loginDAO.searchId(vo);
     	
     	// 2. 결과를 리턴한다.
-    	if (loginVO != null && !loginVO.getId().equals("")) {
-    		return loginVO;
-    	} else {
-    		loginVO = new LoginVO();
-    	}
+//    	if (loginVO != null && !loginVO.getId().equals("")) {
+//    		return loginVO;
+//    	} else {
+//    		loginVO = new LoginVO();
+//    	}
     	
-    	return loginVO;
+    	return voList;
     }
     
     /**
@@ -150,9 +151,9 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements
     		return false;
     	}
     	
-    	// 2. 임시 비밀번호를 생성한다.(영+영+숫+영+영+숫=6자리)
+    	// 2. 임시 비밀번호를 생성한다.(영+영+숫+영+영+숫=8자리)
     	String newpassword = "";
-    	for (int i = 1; i <= 6; i++) {
+    	for (int i = 1; i <= 8; i++) {
     		// 영자
     		if (i % 3 != 0) {
     			newpassword += EgovStringUtil.getRandomStr('a', 'z');

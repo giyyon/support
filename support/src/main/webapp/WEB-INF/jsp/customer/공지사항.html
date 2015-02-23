@@ -11,43 +11,45 @@
     <!-- SEO -->
     <title>공간정보 융복합 핵심인재 양성사업 종합관리시스템</title>
 
-    <link href="../../../css/necgis.css" rel="stylesheet" type="text/css" />
+    <link href="../css/necgis.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
 //<![CDATA[
 	var rt_path = ''
 			  , rt_charset = 'UTF-8';
 //]]>
-// function MM_swapImgRestore() { //v3.0
-//   var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-// }
-// function MM_preloadImages() { //v3.0
-//   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-//     var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-//     if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-// }
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
 
-// function MM_findObj(n, d) { //v4.01
-//   var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-//     d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-//   if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-//   for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-//   if(!x && d.getElementById) x=d.getElementById(n); return x;
-// }
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
 
-// function MM_swapImage() { //v3.0
-//   var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-//    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-// }
-// function MM_jumpMenu(targ,selObj,restore){ //v3.0
-//   eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-//   if (restore) selObj.selectedIndex=0;
-// }
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
     </script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script type='text/javascript' src='../../../js/common.js'></script>
+	<script type='text/javascript' src='../js/common.js'></script>
 
 </head>
 <body>
+<div class="wrap"><!-- gnb -->
+	
     <header>
     	<div id="gnb_wrap">
    			<div class="gnb area_ct">
@@ -55,7 +57,7 @@
                 	<li><a href="#">홈</a></li>
                     <li><a href="#">로그인</a></li>
                     <li><a href="#">회원가입</a></li>
-                    <li>글자크기 <a href="#"><img src="../../../img/font_plus.png" alt="글씨크게"></a><a href="#"><img src="../../../img/font_minus.png" alt="글씨크게"></a><a href="#"><img src="../../../img/font_stop.png" alt="글씨크게"></a></li>       
+                    <li>글자크기 <a href="#"><img src="../img/font_plus.png" alt="글씨크게"></a><a href="#"><img src="../img/font_minus.png" alt="글씨크게"></a><a href="#"><img src="../img/font_stop.png" alt="글씨크게"></a></li>       
             	</ul>
             </div>
    		</div>
@@ -64,7 +66,7 @@
         <div id="snavi_wrap">
        		<div id="navi_box" class="area_ct">    
             	<div id="logo">
-						<a href="#"><img src="../../../img/logo.png"></a>
+						<a href="#"><img src="../img/logo.png"></a>
 				</div>
                 <!-- navi -->
 					<ul id="navi">
@@ -146,7 +148,7 @@
 					<div class="m_menu">
 						<!-- Moblie Menu Open -->
 						<div class="m_menu_open">
-							<a href="#m_depth_wrap" title="전체보기" target="_self" onclick="active_menu();return false;"><img src="../../../img/btn_open.png" alt="메뉴"/></a>
+							<a href="#m_depth_wrap" title="전체보기" target="_self" onclick="active_menu();return false;"><img src="../img/btn_open.png" alt="메뉴"/></a>
 						</div>
 						<!-- // Moblie Menu Open -->
 						<!-- m_depth_wrap -->
@@ -227,7 +229,7 @@
 					<!-- // m_menu -->
 					<!-- all_menu_close -->
 					<div id="m_menu_close" style="display:none">
-						<a href="#m_menu_close" onclick="active_menu();return false;"><img src="../../../img/btn_close.png" alt="전체보기 닫기"/></a>
+						<a href="#m_menu_close" onclick="active_menu();return false;"><img src="../img/btn_close.png" alt="전체보기 닫기"/></a>
 					</div>
 					<!-- // all_menu_close -->
 				</div>
@@ -241,8 +243,8 @@
         
         <div class="tit_wrap">
         	<div class="title area_ct">
-            	<img src="../../../img/tit_customer.png" alt="고객센터"><span>Customer</span>
-            	<div class="depth"><a href="#"><img src="../../../img/ico_home.png" alt="home아이콘"></a><img src="../../../img/space.png" alt=""><a href="#">고객센터</a><img src="../../../img/space.png" alt=""><a href="#">공지사항</a></div>
+            	<img src="../img/tit_customer.png" alt="고객센터"><span>Customer</span>
+            	<div class="depth"><a href="#"><img src="../img/ico_home.png" alt="home아이콘"></a><img src="../img/space.png" alt=""><a href="#">고객센터</a><img src="../img/space.png" alt=""><a href="#">공지사항</a></div>
             </div>
         </div>
      	<div id="sub_container">
@@ -268,18 +270,11 @@
                
             
             	<div id="contents" class="bg_cs">
+                	<div class="top"><a href="#"></a></div>
             		<div class="con_tit">공지사항 <span>Notice</span>
-                    	<span class="ex">공간정보산업진흥원에서 전하는 공지사항입니다.</span>
+                    	<span class="ex">(재)공간정보산업진흥원에서 전하는 공지사항입니다.</span>
                     </div>
-                    <div class="srh_wrap tlr mtf8">
-                    	<form name="form" id="form">
-                    	    <select name="jumpMenu" id="jumpMenu" onChange="MM_jumpMenu('parent',this,0)">
-                    	        <option>제목</option>
-                    	        <option>작성자</option>
-                	        </select><img src="../../../img/srp_spc.png" width="11" height="30">
-                            <input name="" type="text" class="inp180"><a href="#"><img src="../../../img/btn_srh.png" alt="검색"></a>
-                    	</form>
-                    </div>
+                    
                     <ul class="tap4_wrp mt10">
                     	<li><a href="#" class="select">전체공지사항</a></li>
                         <li><a href="#">사업공고</a></li>
@@ -287,9 +282,33 @@
                         <li><a href="#">운영공지</a></li>
                     </ul>
                     
+                    <!------------ 20150209추가/변경--------- -->
+                    <div class="srh_wrap tlr mtf14">
+                    	<ul class="lst_m">
+                        	<li class="mdfy br"><a href="#">수정</a></li>
+                            <li class="del br"><a href="#">삭제</a></li>
+                            <li class="wrt br"><a href="#">글쓰기</a></li>
+                            <li class="minfo"><a href="#">내정보</a></li>
+                        </ul>
+                        
+                    	<form name="form" id="form">
+                    	    <select name="jumpMenu" id="jumpMenu" onChange="MM_jumpMenu('parent',this,0)">
+                    	        <option>제목</option>
+                    	        <option>작성자</option>
+                	        </select><img src="../img/srp_spc.png" width="11" height="30">
+                            <input name="" type="text" class="inp180"><a href="#"><img src="../img/btn_srh.png" alt="검색"></a>
+                    	</form>
+                    </div>
+                    <!------------ //20150209추가/변경--------- -->
+                    
                     <div class="list_choice">
+                    
+                    <!------------ 20150209추가/변경--------- -->
+                    	<div class="total">총<strong>50</strong>건<em>l</em>페이지 1/10</div>
+                    <!------------ //20150209추가/변경--------- -->
+                        
 						<ul>
-							<li class="choice"><a href="#">최근등록일</a>
+							<li class="choice"><a href="#">최근등록일순</a>
 								<div>
 									<ul>
 									<li><a href="#">최근등록순</a></li>
@@ -309,18 +328,18 @@
                         </div>
 						<div class="bbs_lst">
 							<span class="num">989</span><span class="num"><em>사업공고</em></span><span class="bbs_sub"><a href="공지사항_뷰.html">제1회 친환경 주택건설 기술 및 신자재 개발 대상친환경 주택건설</a></span>
-							<span class="file"><a href="#"><img src="../../../img/ico_hwp.png" alt="아래한글"></a></span><span class="date">2014.03.23</span><span class="hit">9999</span>
+							<span class="file"><a href="#"><img src="../img/ico_hwp.png" alt="아래한글"></a></span><span class="date">2014.03.23</span><span class="hit">9999</span>
 						</div>
 						<div class="bbs_lst">
 							<span class="num">989</span><span class="num"><em>사업공고</em></span><span class="bbs_sub"><a href="공지사항_뷰.html">제1회 친환경 주택건설 기술 및 신자재 개발 대상친환경 주택건설</a></span>
-							<span class="file"><a href="#"><img src="../../../img/ico_hwp.png" alt="아래한글"></a></span><span class="date">2014.03.23</span><span class="hit">9999</span>
+							<span class="file"><a href="#"><img src="../img/ico_hwp.png" alt="아래한글"></a></span><span class="date">2014.03.23</span><span class="hit">9999</span>
 						</div>
                     </div>
                     <!-- //목록리스트 -->
                     <!--pageing -->
 					<div class="paginate_complex">
-						<a href="#" class="direction"><img src="../../../img/btn_pre_page.png" alt="이전페이지"></a>
-						<a href="#" class="direction"><img src="../../../img/btn_prev.png" alt="이전"></a>
+						<a href="#" class="direction"><img src="../img/btn_pre_page.png" alt="이전페이지"></a>
+						<a href="#" class="direction"><img src="../img/btn_prev.png" alt="이전"></a>
 						<a href="#" class="first">1</a>
 						<a href="#">2</a>
 						<a href="#">3</a>
@@ -331,8 +350,8 @@
 						<a href="#">8</a>
 						<a href="#">9</a>
 						<a href="#">10</a>
-						<a href="#" class="direction"><img src="../../../img/btn_next.png" alt="다음"></a>
-						<a href="#" class="direction"><img src="../../../img/btn_next_page.png" alt="다음페이지"></a>
+						<a href="#" class="direction"><img src="../img/btn_next.png" alt="다음"></a>
+						<a href="#" class="direction"><img src="../img/btn_next_page.png" alt="다음페이지"></a>
 					</div>
 					<!--//pageing -->
             	</div>
@@ -374,21 +393,21 @@
         <div id="foot_area">
 			<div class="foot">
             	<ul class="mark">
-                	<li><img src="../../../img/mark_wa.png" alt="웹접근성마크"></li>
-                    <li><img src="../../../img/mark_qr.png" alt="qr코드"></li>
+                	<!--<li><img src="../img/mark_wa.png" alt="웹접근성마크"></li> -->
+                    <li><img src="../img/mark_qr.png" alt="qr코드"></li>
                 </ul>
-				<div class="logo_f"><img src="../../../img/footer_logo.png" alt="국토교통부 공간정보산업진흥원 로고"></div>
+				<div class="logo_f"><img src="../img/footer_logo.png" alt="국토교통부 공간정보산업진흥원 로고"></div>
                 <div class="personal"><a href="#">이용약관</a><em>ㅣ</em>개인정보처리방침<em>ㅣ</em>이메일무단수집거부</div>
 				<div class="add">(339-012) 세종특별자치구 도움6로 11-6동 국토교통부<br>
-Copyright ⓒ 공간정보산업진흥원 All rights Reserved.
-</div>
-
+				Copyright ⓒ 2015 NECGIS, All rights Reserved.
+				</div>
 			</div>
 		</div>
     </footer>
     
     
-  
+    
+</div><!--//wrap -->
 <div class="mng"><div class="cont">
 
 <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>

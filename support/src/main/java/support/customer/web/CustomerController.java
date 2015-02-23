@@ -190,7 +190,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	model.addAttribute("brdMstrVO", master);
 	model.addAttribute("paginationInfo", paginationInfo);
 
-	return "basic_customer/noticeList";
+	return ".basic_customer/noticeList";
     }
 
     /**
@@ -281,7 +281,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 		}
 	}
 	////--------------------------
-	return "basic_customer/noticeInqire";
+	return ".basic_customer/noticeInqire";
     }
 	
     /**
@@ -367,7 +367,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 		}
 	}
 	////--------------------------
-	return "popup_noticeInqirePopUp";
+	return ".popup_noticeInqirePopUp";
     }
     
 }

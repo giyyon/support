@@ -266,10 +266,16 @@ function MM_swapImage() { //v3.0
                
             
             	<div id="contents" class="bg_cs">
+                	<div class="top"><a href="#"></a></div>
             		<div class="con_tit">회원정보 <span>Membership</span>
                     	<span class="ex">고객님의 소중한 정보를 관리합니다.</span>
                     </div>
-
+					<ul class="tap4_wrp mt10">
+                    	<li><a href="#" class="select">회원가입</a></li>
+                        <li><a href="#">아이디 찾기</a></li>
+                        <li><a href="#">비밀번호 찾기</a></li>
+                        <li><a href="#">내정보 바로가기</a></li>
+                    </ul>
                     <div class="view_info mtf5 mb5">
                         <div class="ico_box_w">
                             <ul class="ico_box2">
@@ -279,15 +285,6 @@ function MM_swapImage() { //v3.0
                             </ul>
                         </div>
                     </div>
-                    
-                    <ul class="tap5_wrp mt10">
-                    	<li><a href="#" class="select">회원가입</a></li>
-                        <li><a href="#">아이디/비밀번호 찾기</a></li>
-                        <li><a href="#">기본정보∙비밀번호 관리</a></li>
-                        <li><a href="#">부가정보 관리</a></li>
-                        <li><a href="#">회원탈퇴</a></li>
-                    </ul>
-                    
                     <ul class="step_wrap">
                     	<li><img src="../img/step01.png" alt="약관동의"></li>
                         <li><img src="../img/step02.png" alt="2.실명확인"></li>
@@ -296,12 +293,12 @@ function MM_swapImage() { //v3.0
                     </ul>
                     
                     <div class="mem_info fll txt12">
-                   입력된 정보는 가입이 완료되어야만 저장되며, 개인정보 취급방침에 따라 보호되고 있습니다.
+                   입력된 정보는 가입이 완료되어야만 저장되며, 개인정보 처리방침에 따라 보호되고 있습니다.
                     </div>                   
                     
                     <!-- 회원인증 및 가입확인 -->
                     <div class="mem_info_sect">
-                        <p>회원인증 및 가입확인</p>
+                        <p>회원기본정보</p>
                         
                         <div class="mem_box fl100">
                         	<ul class="info_put fl100">
@@ -311,7 +308,7 @@ function MM_swapImage() { //v3.0
                                 <li><strong>아이핀번호</strong><span class="con">111111</span> </li>
                                 <li><strong>* 아이디</strong>
                                     <span class="con"><input name="" type="text" class="w200"><a href="#"><img src="../img/btn_idchk.png" alt="중복확인"></a>
-                                    	<span class="con_inf txt11 fl100 fcYg">*4~8자의 영문, 숫자 조합으로 입력하여 주시기 바랍니다.</span>
+                                    	<span class="con_inf txt11 fl100 fcYg">*4~12자의 영문, 숫자 조합으로 입력하여 주시기 바랍니다.</span>
                                     </span> 
                                 </li>
                                 <li><strong>* 비밀번호</strong>
@@ -359,12 +356,16 @@ function MM_swapImage() { //v3.0
                                             <option>2</option>
                                             <option>1</option>
                                         </select>
+                                        <select name="">
+                                            <option>양력</option>
+                                            <option>음력</option>
+                                        </select>
                                         <span class="chk"><input name="" type="checkbox" value=""> 공개</span>
                                     </span> 
                                 </li>
                                 <li><strong>* 성별</strong>
                                 	<span class="con">
-                                    <input name="" type="radio" value="" checked>남성 <input name="" type="radio" value="">여성
+                                    <input name="" type="radio" value="" checked> 남성 &nbsp;<input name="" type="radio" value=""> 여성
                                     <span class="chk"><input name="" type="checkbox" value=""> 공개</span>
                                     </span>
                                 </li>
@@ -374,6 +375,7 @@ function MM_swapImage() { //v3.0
                                     <select name="이메일">
                                         <option>naver.com</option>
                                     </select>
+                                    <span class="txt11 fcYg"><input name="" type="checkbox" value=""> 이메일/SMS수신동의</span>
                                     <span class="chk"><input name="" type="checkbox" value=""> 공개</span>
                                     </span>
                                 </li>
@@ -415,12 +417,13 @@ function MM_swapImage() { //v3.0
                                         </select>
                                         <select name="">
                                             <option>직종 선택</option>
+                                            <option>직종 선택a</option>
                                         </select>
                                     	<span class="chk"><input name="" type="checkbox" value=""> 공개</span>
                                     </span> 
                                 </li>
                                 <li><strong>* 소속명</strong>
-                                    <span class="con"><input name="" type="text" class="long"><br/>
+                                    <span class="con"><input name="" type="text" class="long3"><br/>
                                     	<span class="stit"><b>부서(학과):</b><input name="" type="text" class="w100"></span>
                                         <span class="stit"><b>직위(학년):</b><input name="" type="text" class="w100"></span>
                                         <span class="chk"><input name="" type="checkbox" value=""> 공개</span>
@@ -454,7 +457,7 @@ function MM_swapImage() { //v3.0
                         <p>부가정보입력 요청</p>
                         <div class="mem_box fl100">
                         	<div class="txt2"><span class="inf">기본정보 외의 부가정보를 입력하시면 원활한 업무처리, 회원간 소통 및 홍보 등에 편리합니다.</span>
-<span class="txt12">• 특성화대학원 및 장학생 신청, 과제관리, 보고서관리 등에서 1회 입력으로 편리하게 사용<br/>
+<span class="txt12">• 특성화 고등학교, 특성화 대학원 및 장학생 신청, 과제관리, 보고서관리 등에서 1회 입력으로 편리하게 사용<br/>
 • 커뮤니티서비스를 이용하여 공간정보 관련업계에 기관, 기업, 개인을 홍보∙마케팅하는데 활용 가능<br/>
 • (재)공간정보산업진흥원의 관련사업 진행시 전문가, 기관 등으로 연계 가능</span>
 
@@ -464,7 +467,7 @@ function MM_swapImage() { //v3.0
                     
                     <!-- 버튼영역 -->
                     <div class="mbtn_wrap">
-                   		<a href="#"><img src="../img/btn_info.png" alt="부가정보"></a><a href="#"><img src="../img/btn_nextf.png" alt="다음단계"></a><a href="#"><img src="../img/btn_memcancle.png" alt="가입취소"></a></div>
+                   		<a href="#"><img src="../img/btn_info.png" alt="부가정보"></a><a href="#"><img src="../img/btn_nextf.png" alt="다음단계"></a><a href="#"><img src="../img/btn_cancle.png" alt="취소"></a></div>
                     <!-- //버튼영역 -->
 
             	</div>

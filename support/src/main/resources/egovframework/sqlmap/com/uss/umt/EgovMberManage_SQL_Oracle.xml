@@ -61,27 +61,46 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
     
     <insert id="mberManageDAO.insertMber_S">
         <![CDATA[
-            INSERT INTO COMTNGNRLMBER 
+           INSERT INTO COMTNGNRLMBER 
                 (   
-                    ESNTL_ID          ,
-                    MBER_ID          ,
-                    MBER_NM          ,
-                    PASSWORD         ,
-                    PASSWORD_HINT    ,
-                    PASSWORD_CNSR    ,
-                    IHIDNUM          ,
-                    SEXDSTN_CODE     ,
-                    ZIP              ,
-                    ADRES            ,
-                    AREA_NO          ,
-                    MBER_STTUS       ,
-                    DETAIL_ADRES     ,
-                    END_TELNO        ,
-                    MBTLNUM      ,
-                    GROUP_ID         ,
-                    MBER_FXNUM       ,
-                    MBER_EMAIL_ADRES ,
-                    MIDDLE_TELNO     ,
+                    ESNTL_ID                  ,
+                    MBER_ID                   ,
+                    MBER_NM                   ,
+                    PASSWORD                  ,
+                    PASSWORD_HINT             ,
+                    PASSWORD_CNSR             ,
+                    IHIDNUM                   ,
+                    SEXDSTN_CODE              ,
+                    ZIP                       ,
+                    ADRES                     ,
+                    AREA_NO                   ,
+                    MBER_STTUS                ,
+                    DETAIL_ADRES              ,
+                    END_TELNO                 ,
+                    MBTLNUM                   ,
+                    GROUP_ID                  ,
+                    MBER_FXNUM                ,
+                    MBER_EMAIL_ADRES          ,
+                    MIDDLE_TELNO              ,
+					SUN_LUNAR                 , 
+					NM_OTHBC_AT               ,
+					BIRTH_OTHBC_AT            ,
+					SEXDSTN_OTHBC_AT          ,
+					MBER_EMAIL_ADRES_OTHBC_AT ,
+					NICK                      ,
+					NICK_OTHBC_AT             ,
+					JOB_AREA                  ,
+					JOB_TYPE                  ,
+					JOB_CLASS                 ,
+					JOB_OTHBC_AT              ,
+					TEL_OTHBC_AT              ,
+					ADRES_OTHBC_AT            ,
+					RECV_AT                   ,
+					PSTINST                   ,
+					PSTINST_DEPT_NM           ,
+					OFCPS_NM                  ,
+					PSTINST_OTHBC_AT          ,
+					CONTAC_OTHBC_AT           ,
                     SBSCRB_DE        )
               VALUES(
                     #uniqId#,
@@ -103,7 +122,26 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
                     #mberFxnum#,
                     #mberEmailAdres#,
                     #middleTelno#,
-                    sysdate  )              
+					#sunLunar#, 
+					#nmOthbcAt#,
+					#birthOthbcAt#,
+					#sexdstnOthbcAt#,
+					#mberEmailAdresOthbcAt#,
+					#nick#,
+					#nickOthbcAt#,
+					#jobArea#,
+					#jobType#,
+					#jobClass#,
+					#jobOthbcAt#,
+					#telOthbcAt#,
+					#adresOthbcAt#,
+					#recvAt#,
+					#pstinst#,
+					#pstinstDeptNm#,
+					#ofcpsNm#,
+					#pstinstOthbcAt#,
+					#contacOthbcAt#,
+                    sysdate  )   
         ]]>
     </insert>
     
@@ -140,6 +178,35 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
                 SBSCRB_DE        sbscrbDe
             FROM COMTNGNRLMBER
             WHERE ESNTL_ID=#uniqId#
+        ]]>
+    </select>
+    
+    <select id="mberManageDAO.selectMberById" resultClass="mberVO">
+        <![CDATA[
+            SELECT
+                ESNTL_ID          uniqId,
+                'USR01'          userTy,
+                MBER_ID          mberId,
+                MBER_NM          mberNm,
+                PASSWORD         password,
+                PASSWORD_HINT    passwordHint,
+                PASSWORD_CNSR    passwordCnsr,
+                IHIDNUM          ihidnum,
+                SEXDSTN_CODE     sexdstnCode,
+                ZIP              zip,
+                ADRES            adres,
+                AREA_NO          areaNo,
+                MBER_STTUS       mberSttus,
+                DETAIL_ADRES     detailAdres,
+                END_TELNO        endTelno,
+                MBTLNUM      moblphonNo,
+                GROUP_ID         groupId,
+                MBER_FXNUM       mberFxnum,
+                MBER_EMAIL_ADRES mberEmailAdres,
+                MIDDLE_TELNO     middleTelno,
+                SBSCRB_DE        sbscrbDe
+            FROM COMTNGNRLMBER
+            WHERE MBER_ID=#mberId#
         ]]>
     </select>
     
