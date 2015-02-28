@@ -124,6 +124,49 @@ public class EgovMberManageServiceImpl extends EgovAbstractServiceImpl implement
 		mberManageVO.setPassword(pass);
 		mberManageDAO.updateMber(mberManageVO);
 	}
+	
+	/**
+	 * 신규: 화면에 조회된 일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+	 * @param mberManageVO 일반회원수정정보
+	 * @throws Exception
+	 */
+	public void updateMberMain(MberManageVO mberManageVO) throws Exception {
+		//패스워드 암호화
+		mberManageDAO.updateMberMain(mberManageVO);
+	}
+	/**
+	 * 신규:화면에 조회된 일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+	 * @param mberManageVO 일반회원수정정보
+	 * @throws Exception
+	 */
+	public void updateMberSub(MberManageVO mberManageVO) throws Exception {
+		//부가정보 기록
+		mberManageDAO.updateMberSub(mberManageVO);
+		
+		//수상정보 갱신
+		if(mberManageVO.getMberManageAwardVOList() != null){
+			mberManageDAO.deleteAward(mberManageVO.getMberId());
+			mberManageDAO.insertAward(mberManageVO.getMberManageAwardVOList());
+		}
+		
+		//경력정보 갱신
+		if(mberManageVO.getMberManageCareerVOList() != null){
+			mberManageDAO.deleteCareer(mberManageVO.getMberId());
+			mberManageDAO.insertCareer(mberManageVO.getMberManageCareerVOList());
+		}
+		//학위정보 갱신
+		if(mberManageVO.getMberManageDegreeVOList() != null){
+			mberManageDAO.deleteDegree(mberManageVO.getMberId());
+			mberManageDAO.insertDegree(mberManageVO.getMberManageDegreeVOList());
+		}
+		//논문정보 갱신
+		if(mberManageVO.getMberManagePaperVOList() != null){
+			mberManageDAO.deletePaper(mberManageVO.getMberId());
+			mberManageDAO.insertPaper(mberManageVO.getMberManagePaperVOList());
+		}
+		
+	}
+	
 
 	/**
 	 * 화면에 조회된 사용자의 정보를 데이터베이스에서 삭제

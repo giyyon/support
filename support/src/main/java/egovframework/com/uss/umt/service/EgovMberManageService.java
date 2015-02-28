@@ -68,6 +68,22 @@ public interface EgovMberManageService {
 	 */
 	public void updateMber(MberManageVO mberManageVO) throws Exception;
 	
+	
+	
+	/**
+	 * 신규 : 화면에 조회된 일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+	 * @param mberManageVO 일반회원수정정보
+	 * @throws Exception
+	 */
+	public void updateMberMain(MberManageVO mberManageVO) throws Exception;
+	
+	/**
+	 * 신규 : 화면에 조회된 일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+	 * @param mberManageVO 일반회원수정정보
+	 * @throws Exception
+	 */
+	public void updateMberSub(MberManageVO mberManageVO) throws Exception;
+	
 	/**
 	 * 화면에 조회된 사용자의 정보를 데이터베이스에서 삭제
 	 * @param checkedIdForDel 삭제대상 일반회원아이디

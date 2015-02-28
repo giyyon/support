@@ -35,17 +35,18 @@
                
             
             	<div id="contents" class="bg_cs">
-                	<div class="top"><a href="#"></a></div>
-            		<div class="con_tit">회원정보 <span>Membership</span>
-                    	<span class="ex">고객님의 소중한 정보를 관리합니다.</span>
-                    </div>
+<!--                 	<div class="top"><a href="#"></a></div> -->
+<!--             		<div class="con_tit">회원정보 <span>Membership</span> -->
+<!--                     	<span class="ex">고객님의 소중한 정보를 관리합니다.</span> -->
+<!--                     </div> -->
                     
-                    <ul class="tap4_wrp mt10">
-                    	<li><a href="#" class="select">회원가입</a></li>
-                        <li><a href="#">아이디 찾기</a></li>
-                        <li><a href="#">비밀번호 찾기</a></li>
-                        <li><a href="#">내정보 바로가기</a></li>
-                    </ul>
+<!--                     <ul class="tap4_wrp mt10"> -->
+<!--                     	<li><a href="#" class="select">회원가입</a></li> -->
+<!--                         <li><a href="#">아이디 찾기</a></li> -->
+<!--                         <li><a href="#">비밀번호 찾기</a></li> -->
+<!--                         <li><a href="#">내정보 바로가기</a></li> -->
+<!--                     </ul> -->
+						<%@ include file="../include/joinMenu.jsp" %>
                     
                     <div class="view_info_lst">
                     	

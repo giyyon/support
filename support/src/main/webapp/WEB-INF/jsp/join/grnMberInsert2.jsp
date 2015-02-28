@@ -35,16 +35,19 @@
                
             
             	<div id="contents" class="bg_cs">
-                	<div class="top"><a href="#"></a></div>
-            		<div class="con_tit">회원정보 <span>Membership</span>
-                    	<span class="ex">고객님의 소중한 정보를 관리합니다.</span>
-                    </div>
-					<ul class="tap4_wrp mt10">
-                    	<li><a href="#" class="select">회원가입</a></li>
-                        <li><a href="#">아이디 찾기</a></li>
-                        <li><a href="#">비밀번호 찾기</a></li>
-                        <li><a href="#">내정보 바로가기</a></li>
-                    </ul>
+<!--                 	<div class="top"><a href="#"></a></div> -->
+<!--             		<div class="con_tit">회원정보 <span>Membership</span> -->
+<!--                     	<span class="ex">고객님의 소중한 정보를 관리합니다.</span> -->
+<!--                     </div> -->
+                    
+<!--                     <ul class="tap4_wrp mt10"> -->
+<!--                     	<li><a href="#" class="select">회원가입</a></li> -->
+<!--                         <li><a href="#">아이디 찾기</a></li> -->
+<!--                         <li><a href="#">비밀번호 찾기</a></li> -->
+<!--                         <li><a href="#">내정보 바로가기</a></li> -->
+<!--                     </ul> -->
+						<%@ include file="../include/joinMenu.jsp" %>
+						
                     <div class="view_info mtf5 mb5">
                         <div class="ico_box_w">
                             <ul class="ico_box2">
@@ -68,12 +71,11 @@
                     <form:form commandName="mberManageVO"  id="form">      
                     <input type="hidden" id="mberNm" name="mberNm" value="<c:out value='${loginVO.name}'/>">
                     <input type="hidden" id="mberEmailAdres" name="mberEmailAdres" value="<c:out value='${loginVO.email}'/>">
-                    <input type="hidden" id="moblphonNo"  name="moblphonNo"  value="<c:out value='${loginVO.mbTlNum}'/>">
                     <input type="hidden" id="ihidnum" name="ihidnum" > <!--주민번호 -->
                     <input type="hidden" id="userSe" name="userSe" value="<c:out value='${loginVO.userSe}'/>">
                      <input type="hidden" id="zip" name="zip" value='' ><!-- 우편번호 -->
                      <input type="hidden" id="isDoneIDchk" name="isDoneIDchk"  value='N'>
-                     
+                      <input type="hidden" id="progressStauts" name="progressStauts"  value=''>
                     
                     
                     
@@ -84,7 +86,7 @@
                         <div class="mem_box fl100">
                         	<ul class="info_put fl100">
                             	<li><strong>성명</strong>
-                                	<span class="con"><c:out value='${loginVO.name}'/><span class="chk2"><input name="nmOthbcAt"  id="nmOthbcAt"  type="checkbox" value="Y"> 공개(비공개시 아이디로 대체) </span></span> 
+                                	<span class="con"><c:out value='${loginVO.name}'/><span class="chk2"><input name="nmOthbcAt"  id="nmOthbcAt"  type="checkbox" value="Y" > 공개(비공개시 아이디로 대체) </span></span> 
                                 </li>
                                 <li><strong>아이핀번호</strong><span class="con"></span> </li>
                                 <li><strong>* 아이디</strong>
@@ -103,7 +105,7 @@
                                 <li><strong>* 생일</strong>
                                 	<span class="con">
                                         <select name="birthYear" id="birthYear">
-                                            <option>연도</option>
+                                            <option>-연도-</option>
 											<option value='2009'>2009</option>
 											<option value='2008'>2008</option>
 											<option value='2007'>2007</option>
@@ -175,55 +177,18 @@
 											<option value='1941'>1941</option>
 											<option value='1940'>1940</option>
                                         </select>
-                                        <select id="birthMonth" name="birthMonth">
-                                            <option>월</option>
-											<option value='1'>1 </option>
-											<option value='2'>2 </option>
-											<option value='3'>3 </option>
-											<option value='4'>4 </option>
-											<option value='5'>5 </option>
-											<option value='6'>6 </option>
-											<option value='7'>7 </option>
-											<option value='8'>8 </option>
-											<option value='9'>9 </option>
-											<option value='10'>10</option>
-											<option value='11'>11</option>
-											<option value='12'>12</option>
-                                        </select>
-                                        <select id="birthDay" name="birthDay">
-                                            <option>일</option>
-											<option value='1'>1 </option>
-											<option value='2'>2 </option>
-											<option value='3'>3 </option>
-											<option value='4'>4 </option>
-											<option value='5'>5 </option>
-											<option value='6'>6 </option>
-											<option value='7'>7 </option>
-											<option value='8'>8 </option>
-											<option value='9'>9 </option>
-											<option value='10'>10</option>
-											<option value='11'>11</option>
-											<option value='12'>12</option>
-											<option value='13'>13</option>
-											<option value='14'>14</option>
-											<option value='15'>15</option>
-											<option value='16'>16</option>
-											<option value='17'>17</option>
-											<option value='18'>18</option>
-											<option value='19'>19</option>
-											<option value='20'>20</option>
-											<option value='21'>21</option>
-											<option value='22'>22</option>
-											<option value='23'>23</option>
-											<option value='24'>24</option>
-											<option value='25'>25</option>
-											<option value='26'>26</option>
-											<option value='27'>27</option>
-											<option value='28'>28</option>
-											<option value='29'>29</option>
-											<option value='30'>30</option>
-											<option value='31'>31</option>
-                                        </select>
+                                    <select  id ='birthMonth' name="birthMonth">
+                                    	<option value=''> - 월 - </option>
+	                                    <c:forEach var="result" items="${month_result}" varStatus="status">
+	                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
+	                                    </c:forEach>
+                                    </select>
+                                     <select  id ='birthDay' name="birthDay">
+                                    	<option value=''> - 일 - </option>
+	                                    <c:forEach var="result" items="${day_result}" varStatus="status">
+	                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
+	                                    </c:forEach>
+                                    </select>
                                         <select name="sunLunar" id="sunLunar">
                                             <option value='1'>양력</option>
                                             <option value='2'>음력</option>
@@ -233,27 +198,32 @@
                                 </li>
                                 <li><strong>* 성별</strong>
                                 	<span class="con">
-                                    <input name="sexdstnCode" type="radio" value="M" checked> 남성 &nbsp;<input name="sexdstnCode" type="radio" value="W"> 여성
-                                    <span class="chk"><input name="sexdstnCode" type="checkbox" value="Y"> 공개</span>
+                                    <input name="sexdstnCode" type="radio" value="M" checked> 남성 &nbsp;<input name="sexdstnCode" type="radio" value="F"> 여성
+                                    <span class="chk"><input name="sexdstnOthbcAt" type="checkbox" value="Y"> 공개</span>
                                     </span>
                                 </li>
                                 <li><strong>* 이메일 </strong>
                                 	<span class="con">
                                     <input name="emailHead" id="emailHead" type="text" class="w100" value="<c:out value='${emailHead}'/>"><em>@</em><input name="emailTail"  id="emailTail"   type="text" class="w100" value="<c:out value='${emailTail}'/>">
-                                    <form:select path="mberEmailAdres" id="mberEmailAdresList" title="이메일">
-				                        <form:option value="" label="--선택하세요--"/>
-				                        <form:options items="${email_result}" itemValue="codeNm" itemLabel="codeNm"/>
-				                    </form:select>
+                                   
+                                    <select  id ='mberEmailAdresList'>
+                                    	<option value=''>---선택하세요---</option>
+	                                    <c:forEach var="result" items="${email_result}" varStatus="status">
+	                                    	<option value='<c:out value="${result.codeNm}"/>' ><c:out value="${result.codeNm}"/></option>
+	                                    </c:forEach>
+                                    </select>
+                                    
+<%--                                     <form:select path="mailDomain" id="mberEmailAdresList" title="이메일"> --%>
+<%-- 				                        <form:option value="" label="--선택하세요--"/> --%>
+<%-- 				                        <form:options items="${email_result}" itemValue="codeNm" itemLabel="codeNm"/> --%>
+<%-- 				                    </form:select> --%>
                                     <span class="txt11 fcYg"><input name="recvAt" type="checkbox" value=""> 이메일/SMS수신동의</span>
                                     <span class="chk"><input name="mberEmailAdresOthbcAt" type="checkbox" value=""> 공개</span>
                                     </span>
                                 </li>
                                 <li><strong>휴대폰</strong>
                                 	<span class="con">
-                                    <select name="phoneHead">
-                                        <option value=''010'>010</option>
-                                    </select>
-                                    <em>-</em><input name="phoneMiddle" type="text" class="w40" value="<c:out value='${phoneMiddle}'/>" ><em>-</em><input name="phoneTail" type="text" class="w40" value="<c:out value='${phoneTail}'/>">
+                                	 <input type="text" id="moblphonNo"  name="moblphonNo"  class="w200" value="<c:out value='${loginVO.mbTlNum}'/>">
                                     <span class="con_inf txt11 fl100 fcYg">*휴대폰이 없을 경우, 반드시 이메일 주소를 입력바랍니다.</span>
                                     </span> 
                                 </li>
@@ -290,14 +260,14 @@
 					                        <form:option value="" label="직종 선택"/>
 					                        <form:options items="${jobClass_result}" itemValue="code" itemLabel="codeNm"/>
 					                    </form:select>    
-                                    	<span class="chk"><input name="" type="checkbox" value="Y"> 공개</span>
+                                    	<span class="chk"><input name="jobOthbcAt" type="checkbox" value="Y"> 공개</span>
                                     </span> 
                                 </li>
                                 <li><strong>* 소속명</strong>
                                     <span class="con"><input name="pstinst" type="text" class="long3"><br/>
                                     	<span class="stit"><b>부서(학과):</b><input name="pstinstDeptNm" type="text" class="w100"></span>
                                         <span class="stit"><b>직위(학년):</b><input name="ofcpsNm"  type="text" class="w100"></span>
-                                        <span class="chk"><input name="" type="checkbox" value="Y"> 공개</span>
+                                        <span class="chk"><input name="pstinstOthbcAt" type="checkbox" value="Y"> 공개</span>
                                     </span> 
                                 </li>
                                 <li><strong>* 소속연락처</strong>
@@ -306,7 +276,7 @@
                                         <option>02</option>
                                     </select>
                                     <em>-</em><input name="middleTelno" type="text" class="w40"><em>-</em><input name="endTelno" type="text" class="w40">
-                                    <span class="chk"><input name="" type="checkbox" value="Y"> 공개</span>
+                                    <span class="chk"><input name="contacOthbcAt" type="checkbox" value="Y"> 공개</span>
                                     <span class="con_inf txt11 fl100 fcYg">*긴급상황 발생시 활용할 수 있습니다.</span>
                                     </span> 
                                 </li>
@@ -315,7 +285,7 @@
                                     <input name="zip1" id="zip1" type="text" class="w40"><em>-</em><input name="zip2" id="zip2" type="text" class="w40"><a href="#"><img src="${contextPath}/img/btn_post.png" alt="우편번호"></a>
                                     <input name="adres" type="text" class="long2"><br/>
                                     <b>상세주소:</b><input name="detailAdres" type="text" class="long">
-                                    <span class="chk"><input name="" type="checkbox" value="Y"> 공개</span>
+                                    <span class="chk"><input name="adresOthbcAt" type="checkbox" value="Y"> 공개</span>
                                     </span> 
                                 </li>
                             </ul>
@@ -338,7 +308,7 @@
                     
                     <!-- 버튼영역 -->
                     <div class="mbtn_wrap">
-                   		<a href="#"><img src="${contextPath}/img/btn_info.png" alt="부가정보"></a><a href='javascript:goSave();' ><img src="${contextPath}/img/btn_nextf.png" alt="다음단계"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
+                   		<a href='javascript:goSave("H");'><img src="${contextPath}/img/btn_info.png" alt="부가정보"></a><a href='javascript:goSave("F");' ><img src="${contextPath}/img/btn_nextf.png" alt="다음단계"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
                     <!-- //버튼영역 -->
 
             	</div>
@@ -354,7 +324,7 @@
     
     <script type="text/javaScript" language="javascript">
 	$(function(){
- 		$("form").attr({action:"${contextPath}/join/GnrMberInsert.do", target:""});
+ 		$("form").attr({action:"${contextPath}/join/gnrMberInsertMain.do", target:""});
 
  		$("#resultChkID").css("float", "right");
 		$("#chkDupleID").click(function(){
@@ -362,7 +332,7 @@
         });
 		
 		$( "#mberEmailAdresList" ) .change(function () {
-		    																					$("#emailTail").val(  $( "#mberEmailAdresList option:selected" ).text());  
+		    																					$("#emailTail").val(  $( "#mberEmailAdresList option:selected" ).val());  
 		                                                                                       });
 		$('#zip1, #zip2').change(function(){
 			$('#zip').val( $('#zip1').val() + $('#zip2').val());
@@ -372,11 +342,18 @@
 		    																					$("#ihidnum").val(  $( "#birthYear option:selected" ).val() + '.' + $( "#birthMonth option:selected" ).val() + '.' + $( "#birthDay option:selected" ).val() );                                                                                   
 		});
 		
+
+		$("#mberId").change(function(){ 
+				$("#isDoneIDchk").val('N');
+				$('#resultChkID').html('');
+		});
+
     });
 	
-	function goSave(){
+	function goSave(status){
 		var  result = isOkAllproperty() ;
 		if(isOkAllproperty() == 'OK'){
+			$('#progressStauts').val(status);
 			$("form").submit();
 		}else{
 			alert(result);

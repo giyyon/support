@@ -44,7 +44,7 @@
 	    </div>
 	    <div class="ban_wrp"><img src="${contextPath}/img/m_banner.png" width="300" height="147"></div>
 	    <ul class="login_add">
-	        <li><a href="javascript:join()">회원가입</a></li><li><a href="#">아이디/비밀번호 찾기</a></li>
+	        <li><a href="javascript:join()">회원가입</a></li><li><a href="javascript:findId()">아이디/비밀번호 찾기</a></li>
 	    </ul>
 	    <div class="login_ex">
 	    (재)공간정보산업진흥원에서 운영하고 있는 공간정보 창의인재 양성사업관련 종합관리시스템은 통합아이디 하나로 간편하게 로그인할 수 있도록 단일 로그인 서비스를 시행합니다.<br>
@@ -92,5 +92,9 @@
 
 	    }
 	}
-
+	
+	function findId() {
+		$("#loginForm").attr({action:"${contextPath}/login/findId.do", target:""});
+		$("#loginForm").submit();
+	}
 </script>

@@ -12,3 +12,74 @@
 	a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
 	a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 
+
+.btn-style{
+	border : solid 1px #000000;
+	border-radius : 3px;
+	moz-border-radius : 3px;
+	-webkit-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+	-moz-box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+	box-shadow : 0px 0px 2px rgba(0,0,0,1.0);
+	font-size : 13px;
+	color : #ffffff;
+	padding : 1px 17px;
+	background : #5f6166;
+	background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5f6166), color-stop(100%,#00060a));
+	background : -moz-linear-gradient(top, #5f6166 0%, #00060a 100%);
+	background : -webkit-linear-gradient(top, #5f6166 0%, #00060a 100%);
+	background : -o-linear-gradient(top, #5f6166 0%, #00060a 100%);
+	background : -ms-linear-gradient(top, #5f6166 0%, #00060a 100%);
+	background : linear-gradient(top, #5f6166 0%, #00060a 100%);
+	filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#5f6166', endColorstr='#00060a',GradientType=0 );
+
+}
+
+  .textarea_atte_value{ border-collapse:collapse; }
+  .textarea_atte_value th{ text-align:left; }
+  .textarea_atte_value td{ padding-left:10px; }
+  .textarea_atte_value textarea{height:auto; !important;}
+      	  
+
+
+#tabs.ul.tab{
+	padding:0;
+}
+ul.tab li{
+	list-style-type:none;
+	width:100px;
+	height:40px;
+	float:left;
+}
+
+/* 탭  구조에 대한 내용 */
+#tabs.ul.tab li a{
+	outline:none;
+	background:url("http://cfile25.uf.tistory.com/image/17710F454FEE42C1326F65");
+	display:block;
+	color:blue;
+	line-height:40px;
+	text-align:center;
+}
+#tabs.ul.tab li a.selected{
+	background:url("http://cfile7.uf.tistory.com/image/18710F454FEE42C133F20E");
+	text-decoration:none;
+	color:#333;
+	cursor:default;
+}
+#tabs.ul.panel{
+	clear:both;
+	border:1px solid #9FB7D4;
+	border-top:none;
+	padding:0;
+}
+#tabs.ul.panel li{
+	list-style-type:none;
+	padding:10px;
+	text-indent:1em;
+	color:#333;
+}
+
+
+/* 회원관리 서브 상단 메뉴에 대한 css */
+#menuNaviJoin, #menuNaviLogin{display : none;}
+      	  

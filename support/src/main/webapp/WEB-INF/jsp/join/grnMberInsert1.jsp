@@ -35,16 +35,19 @@
                
             
             	<div id="contents" class="bg_cs">
-                	<div class="top"><a href="#"></a></div>
-            		<div class="con_tit">회원정보 <span>Membership</span>
-                    	<span class="ex">고객님의 소중한 정보를 관리합니다.</span>
-                    </div>
-                    <ul class="tap4_wrp mt10">
-                    	<li><a href="#" class="select">회원가입</a></li>
-                        <li><a href="#">아이디 찾기</a></li>
-                        <li><a href="#">비밀번호 찾기</a></li>
-                        <li><a href="#">내정보 바로가기</a></li>
-                    </ul>
+<!--                 	<div class="top"><a href="#"></a></div> -->
+<!--             		<div class="con_tit">회원정보 <span>Membership</span> -->
+<!--                     	<span class="ex">고객님의 소중한 정보를 관리합니다.</span> -->
+<!--                     </div> -->
+                    
+<!--                     <ul class="tap4_wrp mt10"> -->
+<!--                     	<li><a href="#" class="select">회원가입</a></li> -->
+<!--                         <li><a href="#">아이디 찾기</a></li> -->
+<!--                         <li><a href="#">비밀번호 찾기</a></li> -->
+<!--                         <li><a href="#">내정보 바로가기</a></li> -->
+<!--                     </ul> -->
+						<%@ include file="../include/joinMenu.jsp" %>
+						
                     <div class="view_info mtf5 mb5">
                         <div class="ico_box_w">
                             <ul class="ico_box2">
@@ -83,11 +86,8 @@
                             	<li><strong>성명(실명)</strong><span class="con"><input name="name" type="text" class="w200"></span> </li>
                                 <li><strong>휴대폰</strong>
                                 	<span class="con">
-                                    <select name="phoneHead" id="phoneHead" >
-                                        <option value='010'>010</option>
-                                    </select>
-                                    <em>-</em><input name="phoneMiddle" id="phoneMiddle"  type="text" class="w40"><em>-</em><input name="phoneTail" id="phoneTail"  type="text" class="w40">
-                                    </span> 
+                                	<input name="mbTlNum" type="text" class="w200"></span>
+                                	</span> 
                                 </li>
                                 
                                 <li><strong>이메일 </strong>
@@ -107,7 +107,6 @@
                                     </span>
                                 </li>
                             </ul>
-                            <input type="hidden" name="mbTlNum" id="mbTlNum" value="">
                             <input type="hidden" name="email" id="email" value="">
                             <input type="hidden" name="userSe" value='${loginVO.userSe}'>
                             </form:form>
@@ -184,7 +183,6 @@
     }
     
     function requestVerifyNumber1(){   
-        $('#mbTlNum').val($('#phoneHead').val()+$('#phoneMiddle').val()+$('#phoneTail').val());
         $('#email').val($('#emailHead').val()+'@'+$('#emailTail').val());
               
     	$("#div-similar").html('');  
@@ -213,13 +211,13 @@
             		if(data.ErrorCode == "ErrorSimilar"){            			
         				var list = data.Data;	
         				html = '<p>유사한 정보로 '+ list.length + '개의 아이디가 등록되어 있습니다. </p>';
-        				$body.append(html); 
+        				$body.append(html);                       
         				for (var i = 0; i < list.length; i++) {
-        					var $div = $('<div class="intxt"></div>');
-        					var subhtml = '아이디 : '+list[i].id + '<br>성명 : '+ list[i].name +' <br>가입일 : '+ list[i].sbscrbDe +' <br>이메일 : '+ list[i].email +' <br>휴대폰 : '+ list[i].mbTlNum ;
+        					var $div = $('<div class="intxt"></div>');       
+        					var subhtml = '아이디 : '+list[i].id.substring(0,3)+'***' + '<br>성명 : '+ list[i].name.substring(0,3)+'***' +' <br>가입일 : '+ list[i].sbscrbDe +' <br>이메일 : '+ list[i].email.substring(0,3)+'***' +' <br>휴대폰 : '+ list[i].mbTlNum.substring(0,3)+'***' ;
         					$div.html(subhtml);     
         					$body.append($div); 	
-        				}                             
+        				}
             		}else if(data.ErrorCode == "ErrorSendMail"){
         				html = '<p>'+data.Message+'</p>';
         				$body.append(html); 

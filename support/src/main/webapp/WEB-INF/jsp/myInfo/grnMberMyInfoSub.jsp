@@ -16,12 +16,10 @@
         	<div id="content-group">
         		<div id="lnb-group">
             		<ul id="lnb">
-                	<li><a href="#" class="select">공지사항</a></li>
-					<li><a href="#">뉴스레터</a></li>
-					<li><a href="#">문의∙제안∙신고</a></li>
-                    <li><a href="#">온라인도움말</a></li>
-					<li><a href="#">서비스정책</a></li>
-					<li><a href="#">회원정보</a></li>
+               	    <li><a href="#" class="select">회원정보 관리</a></li>
+					<li><a href="#">문의∙제안∙신고 관리</a></li>
+					<li><a href="#">최신동향정보 관리</a></li>
+                    <li><a href="#">생생현장소식 관리 </a></li>
                 	</ul>
                     
                     <ul class="quick">
@@ -35,18 +33,8 @@
                
             
             	<div id="contents" class="bg_cs">
-<!--                 	<div class="top"><a href="#"></a></div> -->
-<!--             		<div class="con_tit">회원정보 <span>Membership</span> -->
-<!--                     	<span class="ex">고객님의 소중한 정보를 관리합니다.</span> -->
-<!--                     </div> -->
-                    
-<!--                     <ul class="tap4_wrp mt10"> -->
-<!--                     	<li><a href="#" class="select">회원가입</a></li> -->
-<!--                         <li><a href="#">아이디 찾기</a></li> -->
-<!--                         <li><a href="#">비밀번호 찾기</a></li> -->
-<!--                         <li><a href="#">내정보 바로가기</a></li> -->
-<!--                     </ul> -->
-						<%@ include file="../include/joinMenu.jsp" %>
+            	
+				<%@ include file="../include/joinMenu.jsp" %>
 						
                     <div class="view_info mtf5 mb5">
                         <div class="ico_box_w">
@@ -57,12 +45,6 @@
                             </ul>
                         </div>
                     </div>
-                    <ul class="step_wrap">
-                    	<li><img src="${contextPath}/img/step01.png" alt="약관동의"></li>
-                        <li><img src="${contextPath}/img/step02.png" alt="2.실명확인"></li>
-                        <li class="select"><img src="${contextPath}/img/step03_on.png" alt="3. 회원정보입력"></li>
-                        <li class="end"><img src="${contextPath}/img/step04.png" alt="4. 가입완료"></li>
-                    </ul>
                     
                     <div class="mem_info fll txt12">
                    	본정보는 아래와 같이 활용할 수 있습니다. <br/>
@@ -77,15 +59,16 @@
                      <form:form commandName="mberManageVO"  id="form">    
                     <input type="hidden" name="uniqId" value = '<c:out value='${mberManageVO.uniqId}'/>'>
                     <input type="hidden" name="mberId" value = '<c:out value='${mberManageVO.mberId}'/>'>
+                    <input type="hidden" name="homeZip" value = '<c:out value='${mberManageVO.homeZip}'/>'>
                     
-                    <!-- 회원부가정보 -->
+                     <!-- 회원부가정보 -->
                     <div class="mem_info_sect">
                         <p>회원부가정보</p>
                         
                         <div class="mem_box fl100">
                         	<ul class="info_put fl100">
                             	 <li><strong>영문명</strong>
-                                    <span class="con"><input name="mberEngNm"  type="text" class="w200"></span> 
+                                    <span class="con"><form:input path="mberEngNm" class="w200" /></span> 
                                 </li>
                             	<li><strong>회원사진</strong>
                                 	<span class="con">
@@ -175,7 +158,7 @@
                                 </li>
                                 <li><strong>요약소개</strong>
                                     <span class="con">
-                                    	<textarea name="shortNotice" cols="" rows=""></textarea>
+                                    	<form:textarea  path="shortNotice" cols="" rows=""  ></form:textarea>
                                         <span class="con_inf2 fl100 txt11">
                                          * 관심분야가 포함된 자기소개를 간략 (100자까지)하게 입력하여 주시기 바랍니다. <br/>&nbsp;&nbsp;&nbsp;본정보는 사업신청, 채용·인재, 주소록 등에서 매우 많이 노출됩니다.<br/>
 예) OO대 OO학과를 졸업한 10년차 공간정보인입니다.  공간정보의 내비게이션, 온라인 지도 등에 관심이 많습니다. 언제나 긍정적인 생각을 가지고 최선을 다합니다. 많은 관심 부탁드립니다.
@@ -184,33 +167,37 @@
                                     </span> 
                                 </li>
                                 <li><strong>홈페이지</strong>
-                                    <span class="con"><input type="text" id='homepageUrl' class="long" value="http://"></span> 
+                                    <span class="con"><form:input path="homepageUrl" class="long" /> </span> 
                                 </li>
                                 <li><strong>블로그</strong>
-                                    <span class="con"><input type="text" id='blogUrl' class="long" value="http://"></span> 
+                                    <span class="con"><form:input path="blogUrl" class="long"/></span> 
                                 </li>
                                  <li><strong>소셜</strong>
-                                    <span class="con"><input type="text" id='socialUrl'  class="long" value="http://"></span> 
+                                    <span class="con"><form:input path="socialUrl" class="long"/></span> 
                                 </li>
                                 <li><strong>자택전화</strong>
                                 	<span class="con">
-                                    <select name="homeAreaNo">
-                                        <option>02</option>
-                                    </select>
-                                    <em>-</em><input name="homeMiddleTelno" type="text" class="w40"><em>-</em><input name="homeEndTelno" type="text" class="w40">
+                                	<form:select path="homeAreaNo" >
+										<form:option value="02" label="02" />
+									</form:select>
+                                    
+                                    <em>-</em><form:input path="homeMiddleTelno"   class="w40"  /> <em>-</em> <form:input path="homeEndTelno"   class="w40"  /> 
 									<span class="con_inf txt11 fl100 fcYg">* 긴급상황 발생시 활용할 수 있습니다.</span>
                                     </span> 
                                 </li>
                                 <li><strong>자택주소</strong>
                                 	<span class="con">
-                                    <input name="homeZip1" type="text" class="w40"><em>-</em><input name="homeZip2" type="text" class="w40"><a href="#"><img src="${contextPath}/img/btn_post.png" alt="우편번호"></a>
-                                    <input name="homeAdres" type="text" class="long2"><br/>
-                                    <b>상세주소:</b><input name="homeDetailAdres" type="text" class="long">
+                                	<input name="homeZip1" id="homeZip1" type="text" class="w40"  value="${fn:substring(mberManageVO.homeZip, 0, 3)}">
+                                    <em>-</em>
+                                    <input name="homeZip2" id="homeZip2" type="text"  value="${fn:substring(mberManageVO.homeZip, 3, 6)}" class="w40">
+                                    <a href="#"><img src="${contextPath}/img/btn_post.png" alt="우편번호"></a>
+                                   <form:input path="homeAdres"   class="long2"  /><br/>
+                                    <b>상세주소:</b><form:input path="homeDetailAdres"   class="long"  />
                                     </span> 
                                 </li>
                                 <li><strong>우편물</strong>
                                 	<span class="con">
-                                    <input name="mailSendTarget" type="radio" value="H" checked> 자택 &nbsp;<input name="mailSendTarget"  type="radio" value="C"> 직장
+                                    <form:radiobutton path="mailSendTarget"  value="H"  label="자택" /> &nbsp; <form:radiobutton  path="mailSendTarget"  value="C"  label="직장" /> 
                                     </span>
                                 </li>
                                 <li><strong>학교</strong>
@@ -219,54 +206,57 @@
                                     	
                                     	<div id="school_info_root">
 	                                    	<ul>
-		                                    	<li>
-				                                    	<div class="school_info">
-				                                    	
-					                                    <select  id ='compltCd'  class='headerLine'>
-					                                    	<option value='NaN'>수료상태</option>
-						                                    <c:forEach var="result" items="${complete_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-				                                        &nbsp;
-				                                        <span class="stit">입학
-					                                    <select  id ='enterYear'>
-					                                    	<option value=''>년도</option>
-						                                    <c:forEach var="result" items="${year_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-					                                    <select  id ='enterMonth'>
-					                                    	<option value=''>월</option>
-						                                    <c:forEach var="result" items="${month_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-				                                        </span>
-				                                        
-				                                        <span class="stit">졸업
-					                                    <select  id ='grdYear'>
-					                                    	<option value=''>년도</option>
-						                                    <c:forEach var="result" items="${year_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-					                                    <select  id ='grdMonth'>
-					                                    	<option value=''>월</option>
-						                                    <c:forEach var="result" items="${month_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-				                                        </span>
-				                                        <span class="stit">학교
-				                                            <input name="school" type="text" class="w80">
-				                                        </span>
-				                                        <span class="stit">학과
-				                                            <input name="major" type="text" class="w90">
-				                                        </span>
-				                                      	<span class="del"><img src="${contextPath}/img/btn_mdel.png" class="sch_row_delete"  alt="삭제"></span>  
-				                                        </div>
+		                                    	<c:forEach var="schoolResult" items="${mberManageVO.mberManageDegreeVOList} " varStatus="statusA">    
+							                    <li>
+				                                        <div class="school_info">
+							                                    <select  name ='compltCd'  class='headerLine'>
+							                                    	<option value='NaN'>수료상태</option>
+								                                    <c:forEach var="result" items="${complete_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'   ${result.code == mberManageVO.mberManageDegreeVOList[statusA.index].compltCd ? 'selected': '' }  > <c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+<%-- 								                                    ${result.code == schoolResult.compltCd ? 'selected="selected"' : '' }  --%>
+							                                    </select>
+						                                        &nbsp;
+						                                        <span class="stit">입학.
+							                                    <select  name ='enterYear'>
+							                                    	<option value=''>년도</option>
+								                                    <c:forEach var="result" items="${year_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManageDegreeVOList[statusA.index].enterYear ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>
+							                                    <select  name ='enterMonth'>
+							                                    	<option value=''>월</option>
+								                                    <c:forEach var="result" items="${month_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManageDegreeVOList[statusA.index].enterMonth ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>
+						                                        </span>
+						                                        
+						                                        <span class="stit">졸업
+							                                    <select  name ='grdYear'>
+							                                    	<option value=''>년도</option>
+								                                    <c:forEach var="result" items="${year_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManageDegreeVOList[statusA.index].grdYear ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>
+							                                    <select  name='grdMonth'>
+							                                    	<option value=''>월</option>
+								                                    <c:forEach var="result" items="${month_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManageDegreeVOList[statusA.index].grdMonth ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>
+						                                        </span>
+						                                        <span class="stit">학교
+						                                            <input type="text" name="school" value="${mberManageVO.mberManageDegreeVOList[statusA.index].school }"  class="w80"  >
+						                                        </span>
+						                                        <span class="stit">학과
+						                                            <input type="text" name="major" value="${mberManageVO.mberManageDegreeVOList[statusA.index].major }"  class="w80"  >
+						                                        </span>
+						                                      	<span class="del"><img src="${contextPath}/img/btn_mdel.png" class="sch_row_delete"  alt="삭제"></span>  
+						                                </div>
 		                                    	</li>
+						                    </c:forEach>
+
 	                                    	</ul>
 	                                   </div>
                                     	
@@ -279,56 +269,57 @@
                                     	<span class="add_b" ><img name="addCareer" src="${contextPath}/img/btn_addcareer.png" alt="경력추가"></a></span>
    
                                    	<div id="career_info_root">
-	                                    	<ul>
-		                                    	<li>
-   
-			                                        <div class="school_info">
-					                                    <select  id ='careerCd'  class='headerLine'>
-					                                    	<option value='NaN'>수료상태</option>
-						                                    <c:forEach var="result" items="${work_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>&nbsp;
-			                                            <span class="stit">입사
-					                                    <select  id ='joinEnterYear'>
-					                                    	<option value=''>년도</option>
-						                                    <c:forEach var="result" items="${year_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-					                                    <select  id ='joinEnterMonth'>
-					                                    	<option value=''>월</option>
-						                                    <c:forEach var="result" items="${month_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-			                                            </span>    
-			                                            <span class="stit">퇴사
-					                                    <select  id ='outYear'>
-					                                    	<option value=''>년</option>
-						                                    <c:forEach var="result" items="${year_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-					                                    <select  id ='outMonth'>
-					                                    	<option value=''>월</option>
-						                                    <c:forEach var="result" items="${month_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-			                                            </span>
-			                                            <span class="stit">소속명
-			                                            <input name="commpany" type="text" class="w40">
-			                                            </span>
-			                                            <span class="stit">직위
-			                                                <input name="position" type="text" class="w30">
-			                                            </span>
-			                                            <span class="stit">업무
-			                                            <input name="task" type="text" class="w60">
-			                                            </span>
-			                                            <span class="del"><img src="${contextPath}/img/btn_mdel.png"  class="car_row_delete" alt="삭제"></span>  
-			                                            </div>
-		                                    	</li>
+	                                    	<ul> 
+			                                        <c:forEach var="schoolResult" items="${mberManageVO.mberManageCareerVOList} " varStatus="statusA">    
+									                    <li>
+		   						                        <div class="school_info">
+									                                    <select  name ='careerCd'  class='headerLine'>
+									                                    	<option value='NaN'>수료상태</option>
+										                                    <c:forEach var="result" items="${work_result}" varStatus="status">
+										                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManageCareerVOList[statusA.index].careerCd ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+										                                    </c:forEach>
+									                                    </select>&nbsp;
+							                                            <span class="stit">입사
+									                                    <select  name ='joinEnterYear'>
+									                                    	<option value=''>년도</option>
+										                                    <c:forEach var="result" items="${year_result}" varStatus="status">
+										                                    	<option value='<c:out value="${result.code}"/>'   ${result.code == mberManageVO.mberManageCareerVOList[statusA.index].joinEnterYear ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+										                                    </c:forEach>
+									                                    </select>
+									                                    <select  name ='joinEnterMonth'>
+									                                    	<option value=''>월</option>
+										                                    <c:forEach var="result" items="${month_result}" varStatus="status">
+										                                    	<option value='<c:out value="${result.code}"/>'   ${result.code == mberManageVO.mberManageCareerVOList[statusA.index].joinEnterMonth ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+										                                    </c:forEach>
+									                                    </select>
+							                                            </span>    
+							                                            <span class="stit">퇴사
+									                                    <select  name ='outYear'>
+									                                    	<option value=''>년</option>
+										                                    <c:forEach var="result" items="${year_result}" varStatus="status">
+										                                    	<option value='<c:out value="${result.code}"/>'   ${result.code == mberManageVO.mberManageCareerVOList[statusA.index].outYear ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+										                                    </c:forEach>
+									                                    </select>
+									                                    <select  name ='outMonth'>
+									                                    	<option value=''>월</option>
+										                                    <c:forEach var="result" items="${month_result}" varStatus="status">
+										                                    	<option value='<c:out value="${result.code}"/>'   ${result.code == mberManageVO.mberManageCareerVOList[statusA.index].outMonth ? 'selected': '' } ><c:out value="${result.codeNm}"/></option>
+										                                    </c:forEach>
+									                                    </select>
+							                                            </span>
+							                                            <span class="stit">소속명
+							                                              <input type="exxt" name="commpany"   class="w40"  value="${mberManageVO.mberManageCareerVOList[statusA.index].commpany }" >
+							                                            </span>
+							                                            <span class="stit">직위
+							                                                 <input type="exxt" name="position"   class="w30"  value="${mberManageVO.mberManageCareerVOList[statusA.index].position }">
+							                                            </span>
+							                                            <span class="stit">업무
+							                                              <input type="exxt" name="task"   class="w60"    value="${mberManageVO.mberManageCareerVOList[statusA.index].task }">
+							                                            </span>
+							                                            <span class="del"><img src="${contextPath}/img/btn_mdel.png"  class="car_row_delete" alt="삭제"></span>  
+					                                            </div>
+				                                    	</li>
+			                                            </c:forEach>
 	                                    	</ul>
 	                                   </div>			                                            
                                             
@@ -340,28 +331,32 @@
                                     	<span class="add_b" ><img name="addAward" src="${contextPath}/img/btn_addaward.png" alt="자격수상추가"></span>
                                    	<div id="award_info_root">
 	                                    	<ul>
-		                                    	<li>		                                    	
-			                                    	<div class="school_info">
-					                                    <select  id ='awardCd'  class='headerLine'>
-					                                    	<option value='NaN' >수료상태</option>
-						                                    <c:forEach var="result" items="${award_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-			                                            &nbsp;
-					                                    <select  id ='awardYear'>
-					                                    	<option value=''>월</option>
-						                                    <c:forEach var="result" items="${month_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-			                                        	&nbsp;
-			                                               
-			                                            <span class="stit">자격∙수상명 <input name="awardNm" type="text" class="w180"></span>
-			                                            <span class="stit"> 발행기관 <input name="awardOrg" type="text" class="w175"></span>
-			                                            <span class="del"><img src="${contextPath}/img/btn_mdel.png"  class="award_row_delete"  alt="삭제"></span>  
-			                                        </div>
-		                                    	</li>
+		                                    		
+			                                    	<c:forEach var="schoolResult" items="${mberManageVO.mberManageAwardVOList} " varStatus="statusA">    
+							                        <li>		                                    	
+				                                        <div class="school_info">
+							                                    <select  name ='awardCd'  class='headerLine'>
+							                                    	<option value='NaN' >수료상태</option>
+								                                    <c:forEach var="result" items="${award_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManageAwardVOList[statusA.index].awardCd ? 'selected': '' }><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>
+					                                            &nbsp;
+							                                    <select  name ='awardYear'>
+							                                    	<option value=''>년도</option>
+								                                    <c:forEach var="result" items="${year_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManageAwardVOList[statusA.index].awardYear ? 'selected': '' }><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>
+					                                        	&nbsp;
+					                                               
+					                                            <span class="stit">자격∙수상명  <input type="exxt" name="awardNm"   class="w180"   value="${mberManageVO.mberManageAwardVOList[statusA.index].awardNm }"> </span>
+					                                            <span class="stit"> 발행기관  <input type="exxt" name="awardOrg"   class="w15"    value="${mberManageVO.mberManageAwardVOList[statusA.index].awardOrg }"> </span>
+					                                            <span class="del"><img src="${contextPath}/img/btn_mdel.png"  class="award_row_delete"  alt="삭제"></span>  
+					                                    </div>
+		                                    		</li>
+					                                </c:forEach>
+			                                       
 	                                    	</ul>
 	                                   </div>					                                        
 												</span>           
@@ -372,32 +367,35 @@
 	                                    	<span class="add_b" ><img name="addPaper" src="${contextPath}/img/btn_addpaper.png" alt="논문 및 저서 "></span>
 	                                   	<div id="paper_info_root">
 		                                    	<ul>
+
+			                                    	<c:forEach var="schoolResult" items="${mberManageVO.mberManagePaperVOList} " varStatus="statusA">    
 			                                    	<li>	
-			                                    	<div class="school_info">
-					                                    <select  id ='paperCd'  class='headerLine'>
-					                                    	<option value='NaN'>수료상태</option>
-						                                    <c:forEach var="result" items="${paper_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>&nbsp;
-			                                       
-					                                    <select  id ='paperYear'>
-					                                    	<option value=''>년</option>
-						                                    <c:forEach var="result" items="${year_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>
-					                                    <select  id ='paperMonth'>
-					                                    	<option value=''>월</option>
-						                                    <c:forEach var="result" items="${month_result}" varStatus="status">
-						                                    	<option value='<c:out value="${result.code}"/>' ><c:out value="${result.codeNm}"/></option>
-						                                    </c:forEach>
-					                                    </select>&nbsp;    
-			                                            <span class="stit">논문∙저서명 <input name="paperNm" type="text" class="w150"></span>
-			                                            <span class="stit">게재∙발행처 <input name="paperOrg" type="text" class="w143"></span>
-			                                            <span class="del"><img src="${contextPath}/img/btn_mdel.png"  class="paper_row_delete"  alt="삭제"></span>  
-			                                        </div>
+							                        <div class="school_info">
+			                                    	            <select  name ='paperCd'  class='headerLine'>
+							                                    	<option value='NaN'>수료상태</option>
+								                                    <c:forEach var="result" items="${paper_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManagePaperVOList[statusA.index].paperCd ? 'selected': '' }><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>&nbsp;
+					                                       
+							                                    <select  name ='paperYear'>
+							                                    	<option value=''>년</option>
+								                                    <c:forEach var="result" items="${year_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManagePaperVOList[statusA.index].paperYear ? 'selected': '' }><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>
+							                                    <select  name ='paperMonth'>
+							                                    	<option value=''>월</option>
+								                                    <c:forEach var="result" items="${month_result}" varStatus="status">
+								                                    	<option value='<c:out value="${result.code}"/>'  ${result.code == mberManageVO.mberManagePaperVOList[statusA.index].paperMonth ? 'selected': mberManageVO.mberManagePaperVOList[statusA.index].paperMonth }><c:out value="${result.codeNm}"/></option>
+								                                    </c:forEach>
+							                                    </select>&nbsp;    
+					                                            <span class="stit">논문∙저서명  <input type="exxt" name="paperNm"   class="w150"     value="${mberManageVO.mberManagePaperVOList[statusA.index].paperNm }"> </span>
+					                                            <span class="stit">게재∙발행처   <input type="exxt" name="paperOrg"   class="w143"     value="${mberManageVO.mberManagePaperVOList[statusA.index].paperOrg }"> </span>
+					                                            <span class="del"><img src="${contextPath}/img/btn_mdel.png"  class="paper_row_delete"  alt="삭제"></span>  
+					                                </div>
 		                                    	</li>
+					                            </c:forEach>
 	                                    	</ul>
 	                                   </div>			
 									</span>           
@@ -418,7 +416,9 @@
                                 
                                 <li><strong>자기소개</strong>
                                 	<span class="con">
-                                	<textarea rows="4" cols="60" name="atte_rows" id="notice" onkeyup="resize(this)"></textarea>
+                                	 <form:textarea path="notice"   rows="4" cols="60"   onkeyup="resize(this)"></form:textarea>
+<!--                                 	<textarea rows="4" cols="60" name="atte_rows" id="notice"  onkeyup="resize(this)"> -->
+<!--                                 	</textarea> -->
                                     <!--가로 665사이즈 입력폼 -->
 <%--                                     <img src="${contextPath}/img/smart_form.png" width="665" height="328">  --%>
                                     </span>
@@ -447,11 +447,12 @@
     
 <script type="text/javaScript" language="javascript">
 		
-	$("form").attr({action:"${contextPath}/join/gnrMberInsertSub.do", target:""});   
+	$("form").attr({action:"${contextPath}/myInfo/updateSubMyInfo.do", target:""});   
 		
 		
     $(document).ready(function () { 	
     		
+    	//탭 메뉴 구성. 탭을 누를때마다 해당 div 영역만 display되는 방식
   		$("#tabs ul.panel li:not("+$("#tabs ul.tap_w li a.selected").attr("href")+")").hide();
 		$(".tap_w li a").click(function(){
 	    			$("#tabs ul.tab li a").removeClass("selected");		    			
@@ -513,8 +514,12 @@
      //학교추가
     var fn_addSch = function()
     {
+    	 //항목 복사
     	var $e = $("#school_info_root ul li:last").clone();
-    	$e.find("input").val('');
+    	//초기화 처리
+    	 $e.find("input").val('');
+    	$e.find("select ").find('option:first').attr('selected', 'selected');
+    	//복사할 위치 지정
     	$("#school_info_root ul").append($e);
     }
      
@@ -530,9 +535,13 @@
     }
         //경력추가
         var fn_addCareer = function()
-        {
+        {        	
+       	 //항목 복사
         	var $e = $("#career_info_root ul li:last").clone();
-        	$e.find("input").val('');
+        	//초기화 처리
+        	 $e.find("input").val('');
+        	$e.find("select ").find('option:first').attr('selected', 'selected');
+        	//복사할 위치 지정
         	$("#career_info_root ul").append($e);
         }
          
@@ -550,8 +559,12 @@
         //수상추가
         var fn_addAward = function()
         {
+          	 //항목 복사
         	var $e = $("#award_info_root ul li:last").clone();
-        	$e.find("input").val('');
+        	//초기화 처리
+        	 $e.find("input").val('');
+        	$e.find("select ").find('option:first').attr('selected', 'selected');
+        	//복사할 위치 지정
         	$("#award_info_root ul").append($e);
         }
          
@@ -568,8 +581,12 @@
         //논문추가
         var fn_addPaper = function()
         {
+         	 //항목 복사
         	var $e = $("#paper_info_root ul li:last").clone();
-        	$e.find("input").val('');
+        	//초기화 처리
+        	 $e.find("input").val('');
+        	$e.find("select ").find('option:first').attr('selected', 'selected');
+        	//복사할 위치 지정
         	$("#paper_info_root ul").append($e);
         }
          

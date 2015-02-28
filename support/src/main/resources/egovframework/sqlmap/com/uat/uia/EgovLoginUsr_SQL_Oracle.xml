@@ -215,8 +215,6 @@
 			 WHERE mber_id = #id#
 			   AND mber_nm = #name#
 			   AND mber_email_adres = #email#
-			   AND password_hint = #passwordHint#
-			   AND password_cnsr = #passwordCnsr#
 			   AND mber_sttus = 'P'
 			]]>
 		</isEqual>
@@ -228,8 +226,6 @@
 			 WHERE ENTRPRS_MBER_ID = #id#
 			   AND cmpny_nm = #name#
 			   AND applcnt_email_adres = #email#
-			   AND entrprs_mber_password_hint = #passwordHint#
-			   AND entrprs_mber_password_cnsr = #passwordCnsr#
 			   AND entrprs_mber_sttus = 'P'
 			]]>
 		</isEqual>
@@ -241,8 +237,6 @@
 			 WHERE emplyr_id = #id#
 			   AND user_nm = #name#
 			   AND email_adres = #email#
-			   AND password_hint = #passwordHint#
-			   AND password_cnsr = #passwordCnsr#
 			   AND emplyr_sttus_code = 'P'
 			]]>
 		</isEqual>

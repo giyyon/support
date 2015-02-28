@@ -330,9 +330,11 @@ public class EgovLoginController {
 
 		// 1. 아이디 찾기
 		loginVO.setName(loginVO.getName().replaceAll(" ", ""));
-		LoginVO resultVO = loginService.searchId(loginVO);
-
-		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")) {
+		List<LoginVO> resultVOList = loginService.searchId(loginVO);
+		
+		LoginVO resultVO = resultVOList.get(0);
+		
+		if (  resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")) {
 
 			model.addAttribute("resultInfo", "아이디는 " + resultVO.getId() + " 입니다.");
 			return "egovframework/com/uat/uia/EgovIdPasswordResult";

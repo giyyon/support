@@ -6,12 +6,84 @@
     <typeAlias  alias="egovMap"      type = "egovframework.rte.psl.dataaccess.util.EgovMap"/>
     <typeAlias  alias="userSearchVO" type = "egovframework.com.uss.umt.service.UserDefaultVO"/>
     <typeAlias  alias="mberVO"       type = "egovframework.com.uss.umt.service.MberManageVO"/>
+    <typeAlias  alias="mberAwardVO"       type = "egovframework.com.uss.umt.service.MberManageAwardVO"/>
+    <typeAlias  alias="mberCareerVO"       type = "egovframework.com.uss.umt.service.MberManageCareerVO"/>
+    <typeAlias  alias="mberDegreeVO"       type = "egovframework.com.uss.umt.service.MberManageDegreeVO"/>
+    <typeAlias  alias="mberPaperVO"       type = "egovframework.com.uss.umt.service.MberManagePaperVO"/>
+    
 
     <resultMap id="stplatMap" class="egovframework.com.uss.umt.service.StplatVO">
         <result property="useStplatId"         column="USE_STPLAT_ID"          columnIndex="1"/>
         <result property="useStplatCn"         column="USE_STPLAT_CN"          columnIndex="2"/>
         <result property="infoProvdAgeCn"      column="INFO_PROVD_AGRE_CN"     columnIndex="3"/>
     </resultMap>
+    
+    <resultMap id="mberManageVOMap" class="egovframework.com.uss.umt.service.MberManageVO">
+        <result property="mberId"         column="MBER_ID" />
+        <result property="userTy"         column="USERTY"  />
+        <result property="password"         column="PASSWORD"  />
+        <result property="passwordHint"         column="PASSWORD_HINT"  />
+        <result property="passwordCnsr"         column="PASSWORD_CNSR"  />
+        <result property="ihidnum"         column="IHIDNUM"  />
+        <result property="mberNm"         column="MBER_NM"  />
+        <result property="zip"         column="ZIP"  />
+        <result property="adres"         column="ADRES"  />
+        <result property="areaNo"         column="AREA_NO"  />
+        <result property="mberSttus"         column="MBER_STTUS"  />
+        <result property="detailAdres"         column="DETAIL_ADRES"  />
+        <result property="endTelno"         column="END_TELNO"  />
+        <result property="moblphonNo"         column="MBTLNUM"  />
+        <result property="groupId"         column="GROUP_ID"  />
+        <result property="mberFxnum"         column="MBER_FXNUM"  />
+        <result property="mberEmailAdres"         column="MBER_EMAIL_ADRES"  />
+        <result property="middleTelno"         column="MIDDLE_TELNO"  />
+        <result property="sbscrbDe"         column="SBSCRB_DE"  />
+        <result property="sexdstnCode"         column="SEXDSTN_CODE"  />
+        <result property="uniqId"         column="ESNTL_ID"  />
+        <result property="sunLunar"         column="SUN_LUNAR"  />
+        <result property="nmOthbcAt"         column="NM_OTHBC_AT"  />
+        <result property="birthOthbcAt"         column="BIRTH_OTHBC_AT"  />
+        <result property="sexdstnOthbcAt"         column="SEXDSTN_OTHBC_AT"  />
+        <result property="mberEmailAdresOthbcAt"         column="MBER_EMAIL_ADRES_OTHBC_AT"  />
+        <result property="nick"         column="NICK"  />
+        <result property="nickOthbcAt"         column="NICK_OTHBC_AT"  />
+        <result property="jobArea"         column="JOB_AREA"  />
+        <result property="jobType"         column="JOB_TYPE"  />
+        <result property="jobClass"         column="JOB_CLASS"  />
+        <result property="jobOthbcAt"         column="JOB_OTHBC_AT"  />
+        <result property="telOthbcAt"         column="TEL_OTHBC_AT"  />
+        <result property="adresOthbcAt"         column="ADRES_OTHBC_AT"  />
+        <result property="recvAt"         column="RECV_AT"  />
+        <result property="pstinst"         column="PSTINST"  />
+        <result property="pstinstDeptNm"         column="PSTINST_DEPT_NM"  />
+        <result property="ofcpsNm"         column="OFCPS_NM"  />
+        <result property="pstinstOthbcAt"         column="PSTINST_OTHBC_AT"  />
+        <result property="contacOthbcAt"         column="CONTAC_OTHBC_AT"  />
+        <result property="mberEngNm"         column="MBER_ENG_NM"  />
+        <result property="atchImgMainFileId"         column="ATCH_IMG_MAIN_FILE_ID"  />
+        <result property="atchImgJobFileId"         column="ATCH_IMG_JOB_FILE_ID"  />
+        <result property="atchImgManFileId"         column="ATCH_IMG_MAN_FILE_ID"  />
+        <result property="atchImg1FileId"         column="ATCH_IMG_1_FILE_ID"  />
+        <result property="atchImg2FileId"         column="ATCH_IMG_2_FILE_ID"  />
+        <result property="shortNotice"         column="SHORT_NOTICE"  />
+        <result property="homepageUrl"         column="HOMEPAGE_URL"  />
+        <result property="blogUrl"         column="BLOG_URL"  />
+        <result property="socialUrl"         column="SOCIAL_URL"  />
+        <result property="homeAreaNo"         column="HOME_AREA_NO"  />
+        <result property="homeMiddleTelno"         column="HOME_MIDDLE_TELNO"  />
+        <result property="homeEndTelno"         column="HOME_END_TELNO"  />
+        <result property="homeZip"         column="HOME_ZIP"  />
+        <result property="homeAdres"         column="HOME_ADRES"  />
+        <result property="homeDetailAdres"         column="HOME_DETAIL_ADRES"  />
+        <result property="mailSendTarget"         column="MAIL_SEND_TARGET"  />
+        <result property="notice"         column="NOTICE"  />                
+        <result property="mberManageDegreeVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectDegreeList"/>
+		<result property="mberManageCareerVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectCareerList"/>
+		<result property="mberManageAwardVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectAwardList"/>
+		<result property="mberManagePaperVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectPaperList"/>                    
+    </resultMap>                      
+    
+    
     
  <select id="mberManageDAO.selectMberList" parameterClass="userSearchVO" resultClass="egovMap">
 SELECT * FROM ( SELECT rownum rn, TB.* FROM (
@@ -144,11 +216,67 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
                     sysdate  )   
         ]]>
     </insert>
+
+     <insert id="mberManageDAO.insertAward" parameterClass="mberAwardVO">
+        <![CDATA[
+        	INSERT INTO COMTNGNRLMBER_AWARD (MBER_ID    ,AWARD_SN   ,AWARD_CD   ,AWARD_YEAR ,AWARD_NM   ,AWARD_ORG)
+        		VALUES (#mberId#,#awardSn#,#awardCd#,#awardYear#,#awardNm#,#awardOrg#)
+        ]]>
+    </insert>   
+    
+      <insert id="mberManageDAO.insertCareer" parameterClass="mberCareerVO">
+        <![CDATA[
+        	INSERT INTO COMTNGNRLMBER_CAREER (MBER_ID    ,CAREER_SN  ,CAREER_CD  ,JOIN_ENTER_YEAR ,JOIN_ENTER_MONTH,OUT_YEAR   ,OUT_MONTH  ,COMMPANY   ,POSITION   ,TASK )
+        		VALUES (#mberId#,#careerSn#,#careerCd#,#joinEnterYear# ,  #joinEnterMonth#,#outYear#,#outMonth#,#commpany#,#position#,#task# )
+        ]]>
+    </insert>   
+       
+     <insert id="mberManageDAO.insertDegree" parameterClass="mberDegreeVO">
+        <![CDATA[
+        	INSERT INTO COMTNGNRLMBER_DEGREE (MBER_ID    ,DEGREE_SN  ,COMPLT_CD  ,ENTER_YEAR ,ENTER_MONTH,GRD_YEAR   ,GRD_MONTH  ,SCHOOL     ,MAJOR)
+        		VALUES (#mberId#,#degreeSn#,#compltCd#,#enterYear#,#enterMonth#,#grdYear#,#grdMonth#,#school#,#major#)
+        ]]>
+    </insert>   
+    
+    <insert id="mberManageDAO.insertPaper" parameterClass="mberPaperVO">
+        <![CDATA[
+        	INSERT INTO COMTNGNRLMBER_PAPER (MBER_ID      ,PAPER_SN     ,PAPER_CD     ,PAPER_YEAR   ,PAPER_MONTH ,PAPER_NM     ,PAPER_ORG)
+        		VALUES (#mberId#     ,#paperSn#    ,#paperCd#    ,#paperYear#  ,#paperMonth# ,#paperNm#    ,#paperOrg#)
+        ]]>
+    </insert>   
     
     <delete id="mberManageDAO.deleteMber_S">
         <![CDATA[
             DELETE FROM COMTNGNRLMBER 
             WHERE ESNTL_ID=#delId#
+        ]]>
+    </delete>
+    
+    <delete id="mberManageDAO.deleteAward">
+        <![CDATA[
+            DELETE FROM COMTNGNRLMBER_AWARD 
+            WHERE MBER_ID=#delId#
+        ]]>
+    </delete>
+    
+    <delete id="mberManageDAO.deletePaper">
+        <![CDATA[
+            DELETE FROM COMTNGNRLMBER_PAPER 
+            WHERE MBER_ID=#delId#
+        ]]>
+    </delete>
+    
+    <delete id="mberManageDAO.deleteCareer">
+        <![CDATA[
+            DELETE FROM COMTNGNRLMBER_CAREER 
+            WHERE MBER_ID=#delId#
+        ]]>
+    </delete>
+    
+    <delete id="mberManageDAO.deleteDegree">
+        <![CDATA[
+            DELETE FROM COMTNGNRLMBER_DEGREE 
+            WHERE MBER_ID=#delId#
         ]]>
     </delete>
     
@@ -181,34 +309,164 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
         ]]>
     </select>
     
-    <select id="mberManageDAO.selectMberById" resultClass="mberVO">
+<!--     <select id="mberManageDAO.selectMberById" resultClass="mberVO"> -->
+<!--         <![CDATA[ -->
+<!--             SELECT -->
+<!--                 ESNTL_ID          uniqId, -->
+<!--                 'USR01'          userTy, -->
+<!--                 MBER_ID          mberId, -->
+<!--                 MBER_NM          mberNm, -->
+<!--                 PASSWORD         password, -->
+<!--                 PASSWORD_HINT    passwordHint, -->
+<!--                 PASSWORD_CNSR    passwordCnsr, -->
+<!--                 IHIDNUM          ihidnum, -->
+<!--                 SEXDSTN_CODE     sexdstnCode, -->
+<!--                 ZIP              zip, -->
+<!--                 ADRES            adres, -->
+<!--                 AREA_NO          areaNo, -->
+<!--                 MBER_STTUS       mberSttus, -->
+<!--                 DETAIL_ADRES     detailAdres, -->
+<!--                 END_TELNO        endTelno, -->
+<!--                 MBTLNUM      moblphonNo, -->
+<!--                 GROUP_ID         groupId, -->
+<!--                 MBER_FXNUM       mberFxnum, -->
+<!--                 MBER_EMAIL_ADRES mberEmailAdres, -->
+<!--                 MIDDLE_TELNO     middleTelno, -->
+<!--                 SBSCRB_DE        sbscrbDe -->
+<!--             FROM COMTNGNRLMBER -->
+<!--             WHERE MBER_ID=#mberId# -->
+<!--         ]]> -->
+<!--     </select> -->
+    
+   <select id="mberManageDAO.selectMberById" resultMap="mberManageVOMap">
         <![CDATA[
             SELECT
-                ESNTL_ID          uniqId,
-                'USR01'          userTy,
-                MBER_ID          mberId,
-                MBER_NM          mberNm,
-                PASSWORD         password,
-                PASSWORD_HINT    passwordHint,
-                PASSWORD_CNSR    passwordCnsr,
-                IHIDNUM          ihidnum,
-                SEXDSTN_CODE     sexdstnCode,
-                ZIP              zip,
-                ADRES            adres,
-                AREA_NO          areaNo,
-                MBER_STTUS       mberSttus,
-                DETAIL_ADRES     detailAdres,
-                END_TELNO        endTelno,
-                MBTLNUM      moblphonNo,
-                GROUP_ID         groupId,
-                MBER_FXNUM       mberFxnum,
-                MBER_EMAIL_ADRES mberEmailAdres,
-                MIDDLE_TELNO     middleTelno,
-                SBSCRB_DE        sbscrbDe
-            FROM COMTNGNRLMBER
-            WHERE MBER_ID=#mberId#
-        ]]>
+								MBER_ID                  ,        
+								'USR01' as USERTY        ,     
+								PASSWORD                 ,
+								PASSWORD_HINT            ,
+								PASSWORD_CNSR            ,
+								IHIDNUM                  ,
+								MBER_NM                  ,
+								ZIP                      ,
+								ADRES                    ,
+								AREA_NO                  ,
+								MBER_STTUS               ,
+								DETAIL_ADRES             ,
+								END_TELNO                ,
+								MBTLNUM                  ,
+								GROUP_ID                 ,
+								MBER_FXNUM               ,
+								MBER_EMAIL_ADRES         ,  
+								MIDDLE_TELNO             ,
+								SBSCRB_DE                ,
+								SEXDSTN_CODE             ,
+								ESNTL_ID                 ,
+								SUN_LUNAR                ,
+								NM_OTHBC_AT              ,
+								BIRTH_OTHBC_AT           ,
+								SEXDSTN_OTHBC_AT         ,
+								MBER_EMAIL_ADRES_OTHBC_AT,      
+								NICK                     ,
+								NICK_OTHBC_AT            ,
+								JOB_AREA                 ,
+								JOB_TYPE                 ,
+								JOB_CLASS                ,
+								JOB_OTHBC_AT             ,
+								TEL_OTHBC_AT             ,
+								ADRES_OTHBC_AT           ,
+								RECV_AT                  ,
+								PSTINST                  ,
+								PSTINST_DEPT_NM          ,
+								OFCPS_NM                 ,
+								PSTINST_OTHBC_AT         ,
+								CONTAC_OTHBC_AT          ,
+								MBER_ENG_NM              ,
+								ATCH_IMG_MAIN_FILE_ID    ,
+								ATCH_IMG_JOB_FILE_ID     ,
+								ATCH_IMG_MAN_FILE_ID     ,
+								ATCH_IMG_1_FILE_ID       ,
+								ATCH_IMG_2_FILE_ID       ,
+								SHORT_NOTICE             ,
+								HOMEPAGE_URL             ,
+								BLOG_URL                 ,
+								SOCIAL_URL               ,
+								HOME_AREA_NO             ,
+								HOME_MIDDLE_TELNO        ,
+								HOME_END_TELNO           ,
+								HOME_ZIP                 ,
+								HOME_ADRES               ,
+								HOME_DETAIL_ADRES        ,
+								MAIL_SEND_TARGET         ,
+								NOTICE                   
+            FROM COMTNGNRLMBER               
+            WHERE MBER_ID=#mberId#           
+        ]]>                                  
     </select>
+    
+    <select id="mberManageDAO.selectDegreeList" resultClass="mberDegreeVO">
+        <![CDATA[
+            SELECT	MBER_ID     as mberId    ,
+										DEGREE_SN   as degreeSn  ,
+										COMPLT_CD   as compltCd  ,
+										ENTER_YEAR  as enterYear ,
+										ENTER_MONTH as enterMonth,
+										GRD_YEAR    as grdYear   ,
+										GRD_MONTH   as grdMonth  ,
+										SCHOOL      as school     ,
+										MAJOR       as major      
+           FROM COMTNGNRLMBER_DEGREE              
+            WHERE MBER_ID=#mberId#           
+            ORDER BY DEGREE_SN
+        ]]>                                  
+    </select>   
+    
+    <select id="mberManageDAO.selectCareerList" resultClass="mberCareerVO">
+        <![CDATA[
+            SELECT	MBER_ID          AS mberId          ,
+										CAREER_SN        AS careerSn        ,
+										CAREER_CD        AS careerCd        ,
+										JOIN_ENTER_YEAR  AS joinEnterYear  ,
+										JOIN_ENTER_MONTH AS joinEnterMonth ,
+										OUT_YEAR         AS outYear         ,
+										OUT_MONTH        AS outMonth        ,
+										COMMPANY         AS commpany         ,
+										POSITION         AS position         ,
+										TASK      			 AS task					
+           FROM COMTNGNRLMBER_CAREER               
+            WHERE MBER_ID=#mberId#           
+            ORDER BY CAREER_SN
+        ]]>                                  
+    </select>   
+    
+    <select id="mberManageDAO.selectAwardList" resultClass="mberAwardVO">
+        <![CDATA[
+            SELECT	MBER_ID    AS mberId   ,
+										AWARD_SN   AS awardSn  ,
+										AWARD_CD   AS awardCd  ,
+										AWARD_YEAR AS awardYear,
+										AWARD_NM   AS awardNm  ,
+										AWARD_ORG  AS awardOrg   
+           FROM COMTNGNRLMBER_AWARD               
+            WHERE MBER_ID=#mberId#           
+            ORDER BY AWARD_SN
+        ]]>                                  
+    </select>  
+    
+    <select id="mberManageDAO.selectPaperList" resultClass="mberPaperVO">
+        <![CDATA[
+            SELECT	MBER_ID    AS mberId   ,
+										PAPER_SN   AS paperSn  ,
+										PAPER_CD   AS paperCd  ,
+										PAPER_YEAR AS paperYear,
+										PAPER_MONTH AS paperMonth,
+										PAPER_NM   AS paperNm  ,										
+										PAPER_ORG  AS paperOrg  
+           FROM COMTNGNRLMBER_PAPER               
+            WHERE MBER_ID=#mberId#           
+            ORDER BY PAPER_SN
+        ]]>                                  
+    </select>      
     
     <update id="mberManageDAO.updateMber_S">
         <![CDATA[
@@ -233,6 +491,73 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
             WHERE ESNTL_ID=#uniqId#
         ]]>
     </update>
+    
+   <update id="mberManageDAO.updateMber_Main">
+        <![CDATA[
+			UPDATE COMTNGNRLMBER 
+			SET
+											IHIDNUM                  = #ihidnum#,                        
+											ZIP                      = #zip#,                        
+											ADRES                    = #adres#,                      
+											AREA_NO                  = #areaNo#,                     
+											MBER_STTUS               = #mberSttus#,                  
+											DETAIL_ADRES              = #detailAdres#,                
+											END_TELNO                = #endTelno#,                   
+											MBTLNUM                  = #moblphonNo#,                    
+											MBER_FXNUM               = #mberFxnum#,                  
+											MBER_EMAIL_ADRES          = #mberEmailAdres#,             
+											MIDDLE_TELNO             = #middleTelno#,                
+											SEXDSTN_CODE             = #sexdstnCode#,                
+											SUN_LUNAR                = #sunLunar#,                   
+											NM_OTHBC_AT                = #nmOthbcAt#,                  
+											BIRTH_OTHBC_AT             = #birthOthbcAt#,               
+											SEXDSTN_OTHBC_AT           = #sexdstnOthbcAt#,             
+											MBER_EMAIL_ADRES_OTHBC_AT   = #mberEmailAdresOthbcAt#,     
+											NICK                     = #nick#,                       
+											NICK_OTHBC_AT              = #nickOthbcAt#,                
+											JOB_AREA                  = #jobArea#,                    
+											JOB_TYPE                 = #jobType#,                    
+											JOB_CLASS                = #jobClass#,                   
+											JOB_OTHBC_AT               = #jobOthbcAt#,                 
+											TEL_OTHBC_AT               = #telOthbcAt#,                 
+											ADRES_OTHBC_AT             = #adresOthbcAt#,               
+											RECV_AT                   = #recvAt#,                     
+											PSTINST                  = #pstinst#,                    
+											PSTINST_DEPT_NM          = #pstinstDeptNm#,              
+											OFCPS_NM                 = #ofcpsNm#,                    
+											PSTINST_OTHBC_AT           = #pstinstOthbcAt#,             
+											CONTAC_OTHBC_AT            = #contacOthbcAt#        
+			WHERE ESNTL_ID=#uniqId#				
+        ]]>
+    </update>
+    
+     <update id="mberManageDAO.updateMber_Sub">
+        <![CDATA[
+			UPDATE COMTNGNRLMBER 
+			SET
+								MBER_ENG_NM             =#mberEngNm#        ,
+								ATCH_IMG_MAIN_FILE_ID   =#atchImgMainFileId#,
+								ATCH_IMG_JOB_FILE_ID    =#atchImgJobFileId# ,
+								ATCH_IMG_MAN_FILE_ID    =#atchImgManFileId# ,
+								ATCH_IMG_1_FILE_ID      =#atchImg1FileId#   ,
+								ATCH_IMG_2_FILE_ID      =#atchImg2FileId#   ,
+								SHORT_NOTICE            =#shortNotice#      ,
+								HOMEPAGE_URL            =#homepageUrl#      ,
+								BLOG_URL                =#blogUrl#          ,
+								SOCIAL_URL              =#socialUrl#        ,
+								HOME_AREA_NO            =#homeAreaNo#       ,
+								HOME_MIDDLE_TELNO       =#homeMiddleTelno#  ,
+								HOME_END_TELNO          =#homeEndTelno#     ,
+								HOME_ZIP                =#homeZip#          ,
+								HOME_ADRES              =#homeAdres#        ,
+								HOME_DETAIL_ADRES       =#homeDetailAdres#  ,
+								MAIL_SEND_TARGET        =#mailSendTarget#   ,
+								NOTICE                  =#notice#           ,
+								ATCH_HIST_FILE_ID       =#atchHistFileId#   ,
+								ATCH_PORT_FILE_ID       =#atchPortFileId#   
+			WHERE ESNTL_ID=#uniqId#				
+        ]]>
+    </update>      
     
     <select id="mberManageDAO.selectStplat_S" resultMap="stplatMap">
         <![CDATA[

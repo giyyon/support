@@ -149,12 +149,22 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 						return;
 					}
 
+					
 					LoginVO loginVO = new LoginVO();
 
-					loginVO.setId(httpRequest.getParameter("id"));
-					loginVO.setPassword(password);
-					loginVO.setUserSe(httpRequest.getParameter("userSe"));
-
+					//회원 가입 후 자동로그인 처리 과정을 거치기 위한 로직 삽입
+					//Object isRequstForAfterJoin = session.getAttribute("isRequstForAfterJoin");
+					//if(isRequstForAfterJoin== null){
+						loginVO.setId(httpRequest.getParameter("id"));
+						loginVO.setPassword(password);
+						loginVO.setUserSe(httpRequest.getParameter("userSe"));
+//					}else{
+//						LOGGER.debug("회원 가입 후 자동 로그인 처리 프로세스 진행....");
+//						loginVO.setId(session.getAttribute("id").toString());
+//						loginVO.setPassword(session.getAttribute("password").toString());
+//						loginVO.setUserSe(session.getAttribute("userSe").toString());
+//					}
+					
 					try {
 						LOGGER.debug("before actionLogin call....");
 						//사용자 입력 id, password로 DB 인증을 실행함

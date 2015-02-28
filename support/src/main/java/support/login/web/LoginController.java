@@ -1,5 +1,7 @@
 package support.login.web;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import egovframework.com.cmm.ComDefaultCodeVO;
@@ -8,22 +10,33 @@ import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.annotation.IncludedInfo;
 import egovframework.com.cmm.service.EgovCmmUseService;
+import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.Globals;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import egovframework.com.cop.ems.service.SndngMailVO;
 import egovframework.com.uat.uia.service.EgovLoginService;
+import egovframework.com.uss.umt.service.MberManageVO;
+import egovframework.com.utl.fcc.service.EgovStringUtil;
 import egovframework.com.utl.sim.service.EgovClntInfo;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import support.common.model.JsonObject;
+import support.util.JSONResponseUtil;
+import support.util.SupportUtil;
 
 /*
 import com.gpki.gpkiapi.cert.X509Certificate;
@@ -103,6 +116,120 @@ public class LoginController {
 	}
 
 	/**
+	 * 아이디 찾기  화면으로 들어간다
+	 * @param 
+	 * @return 아이디 찾기
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/findId.do")
+	public String findId(@ModelAttribute("mberManageVO") MberManageVO mberManageVO,
+			                              Model model) throws Exception {
+		
+		//이메일 목록
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		vo.setCodeId("SUP002");
+		List<?> email_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("email_result", email_result); //이메일 목록
+		
+		return ".basic_login/findId";
+	}
+	
+	/**
+	 * 아이디 검색 결과 리턴
+	 * @param vo - 아이디, 이름, 이메일주소, 비밀번호 힌트, 비밀번호 정답, 사용자구분이 담긴 LoginVO
+	 * @return result - 임시비밀번호전송결과
+	 * @exception Exception
+	 */
+
+	@RequestMapping(value = "/jsonFindId.do")
+	public ResponseEntity<String>  jsonFindId(
+		
+		@ModelAttribute LoginVO  loginVO, HttpSession session, HttpServletRequest request, Model model) throws Exception {
+
+		LOGGER.debug("loginVOgetName정보"+loginVO.getName());
+		LOGGER.debug("loginVOgetEmail 정보"+loginVO.getEmail());
+		LOGGER.debug("loginVOgetMbTlNum 정보"+loginVO.getMbTlNum());
+		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizRno());
+		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
+			
+		// 1. 유사 아이디 찾기	
+		List<LoginVO> listVO = loginService.searchId(loginVO);
+		boolean isSimilarUser = false;
+		
+		if(listVO.size() == 0){
+	
+		}else{
+			isSimilarUser = true;
+		}
+
+		// 2. 결과 리턴
+		//직접 raw 데이터를 입력해서 JSON형태로 출력하는 방법.
+		HashMap<String, Object> total  = new HashMap<String, Object>();
+
+		if(isSimilarUser){	
+			total.put("IsSucceed", Boolean.TRUE);
+			total.put("Data", listVO);	
+		}else{
+			total.put("IsSucceed", Boolean.FALSE);		
+		}
+		return JSONResponseUtil.getJSONResponse(total);
+	}
+		
+	/**
+	 * 패스워드 찾기  화면으로 들어간다
+	 * @param 
+	 * @return 아이디 찾기
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/findPassword.do")
+	public String findPassword(@ModelAttribute("mberManageVO") MberManageVO mberManageVO,
+			                              Model model) throws Exception {
+		
+		//이메일 목록
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		vo.setCodeId("SUP002");
+		List<?> email_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("email_result", email_result); //이메일 목록
+		
+		return ".basic_login/findPassword";
+	}	
+	
+	/**
+	 * 패스워드 검색 결과 리턴
+	 * @param vo - 아이디, 이름, 이메일주소, 비밀번호 힌트, 비밀번호 정답, 사용자구분이 담긴 LoginVO
+	 * @return result - 임시비밀번호전송결과
+	 * @exception Exception
+	 */
+
+	@RequestMapping(value = "/jsonFindPassword.do")
+	public ResponseEntity<String>  jsonFindPassword(
+		
+		@ModelAttribute LoginVO  loginVO, HttpSession session, HttpServletRequest request, Model model) throws Exception {
+
+		LOGGER.debug("loginVOgetId정보"+loginVO.getId());
+		LOGGER.debug("loginVOgetName정보"+loginVO.getName());
+		LOGGER.debug("loginVOgetEmail 정보"+loginVO.getEmail());
+		LOGGER.debug("loginVOgetMbTlNum 정보"+loginVO.getMbTlNum());
+		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizRno());
+		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
+			
+		// 1. 비밀번호 찾기
+		boolean result = loginService.searchPassword(loginVO);
+
+		// 2. 결과 리턴
+		//직접 raw 데이터를 입력해서 JSON형태로 출력하는 방법.
+		HashMap<String, Object> total  = new HashMap<String, Object>();
+		if (result) {
+			total.put("IsSucceed", Boolean.TRUE);
+			total.put("Message", "- 아이디 : "+loginVO.getId());
+		} else {
+			total.put("IsSucceed", Boolean.FALSE);
+		}
+
+		return JSONResponseUtil.getJSONResponse(total);
+	}	
+	
+	/**
 	 * 일반(세션) 로그인을 처리한다
 	 * @param vo - 아이디, 비밀번호가 담긴 LoginVO
 	 * @param request - 세션처리를 위한 HttpServletRequest
@@ -110,7 +237,10 @@ public class LoginController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/successLogin.do")
-	public String successLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) throws Exception {
+	public String successLogin(@ModelAttribute("loginVO") LoginVO loginVO, 
+			                                            HttpServletRequest request, 
+			                                            
+			                                            ModelMap model) throws Exception {
 
 		//사용자 로그인 처리는 이미 login-filter에서 처리 하여 넘어온 이후이기 때문에 별도로 로그인 할 필요가 없음.
 		
@@ -123,18 +253,48 @@ public class LoginController {
 		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 		
 		LOGGER.debug("User Id : {}", user.getId());
+		String requestAttrRedirectUrl  = "";
+		String  sessionAttrRedirectUrl  = "";
+		
+		if(request.getAttribute("reDirectUrl") ==null )
+				requestAttrRedirectUrl = "";
+		else
+			    requestAttrRedirectUrl  = request.getAttribute("reDirectUrl").toString();
+		
+		if(request.getSession().getAttribute("reDirectUrl") ==null )
+			sessionAttrRedirectUrl = "";
+		else
+			sessionAttrRedirectUrl  = request.getSession().getAttribute("reDirectUrl").toString();
+		
+		LOGGER.debug("request.getAttribute(reDirectUrl) : {}", ""+requestAttrRedirectUrl);
+		LOGGER.debug("Session.getAttribute(reDirectUrl) : {}", ""+sessionAttrRedirectUrl);
+
 		
 		String reDirectUrl = request.getParameter("reDirectUrl");
 		
 		try{
+			
 			if(reDirectUrl == null || "".equals(reDirectUrl)){
-				SavedRequest savedRequest = (SavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST");
 				
-				if(savedRequest == null){
-						reDirectUrl = "/customer/noticeList.do";				
+//				if(request.getAttribute("reDirectUrl") ==  null || "".equals(request.getAttribute("reDirectUrl").toString())){
+				if(  "".equals(requestAttrRedirectUrl) && "".equals(sessionAttrRedirectUrl)){
+					
+					SavedRequest savedRequest = (SavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+					
+					if(savedRequest == null){
+							reDirectUrl = EgovProperties.getProperty("Globals.MainPage");       // /customer/noticeList.do				
+							LOGGER.debug("명시적 리턴 url이 없는 경우 서버 환경 설정에서 가져옴 :  " + reDirectUrl);	
+					}else{
+						reDirectUrl = savedRequest.getRedirectUrl();
+						LOGGER.debug("명시적 리턴 url이 없는 경우 이전 request에서 추출 " + reDirectUrl);	
+					}
+					
 				}else{
-					reDirectUrl = savedRequest.getRedirectUrl();
-					LOGGER.debug("명시적 리턴 url이 없는 경우 이전 request에서 추출 " + reDirectUrl);	
+					reDirectUrl = requestAttrRedirectUrl;
+					if(reDirectUrl.equals("")){
+						reDirectUrl = sessionAttrRedirectUrl;
+						request.getSession().removeAttribute("reDirectUrl");
+					}
 				}
 
 			}

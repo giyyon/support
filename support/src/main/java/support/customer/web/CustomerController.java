@@ -126,8 +126,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	//log.debug(this.getClass().getName() + " user.getEmail() "+ user.getEmail());
 
 	//String attrbFlag = "";
-	
-	
+
 	//공지사항 게시판 아이디 : BBSMSTR_000000000001
 	if("".equals(boardVO.getBbsId()))
 			boardVO.setBbsId("BBSMSTR_000000000001");
@@ -145,10 +144,18 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	BoardMasterVO vo = new BoardMasterVO();
 	
 	vo.setBbsId(boardVO.getBbsId());
-	vo.setUniqId(user.getUniqId());
 	
-	BoardMasterVO master = bbsAttrbService.selectBBSMasterInf(vo);
+	if(user != null)
+		vo.setUniqId(user.getUniqId());
 	
+	BoardMasterVO master  = null; 
+//	new BoardMasterVO();
+	try{
+		 master = bbsAttrbService.selectBBSMasterInf(vo);
+	}catch(Exception e){
+		e.printStackTrace();
+		
+	}
 	//-------------------------------
 	// 방명록이면 방명록 URL로 forward
 	//-------------------------------

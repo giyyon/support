@@ -3,6 +3,10 @@ package egovframework.com.uss.umt.service.impl;
 import java.util.List;
 
 import egovframework.com.cmm.service.impl.EgovComAbstractDAO;
+import egovframework.com.uss.umt.service.MberManageAwardVO;
+import egovframework.com.uss.umt.service.MberManageCareerVO;
+import egovframework.com.uss.umt.service.MberManageDegreeVO;
+import egovframework.com.uss.umt.service.MberManagePaperVO;
 import egovframework.com.uss.umt.service.MberManageVO;
 import egovframework.com.uss.umt.service.UserDefaultVO;
 
@@ -86,6 +90,114 @@ public class MberManageDAO extends EgovComAbstractDAO{
     public void updateMber(MberManageVO mberManageVO){
         update("mberManageDAO.updateMber_S",mberManageVO);
     }
+    
+    /**
+     * 화면에 조회된일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+     * @param mberManageVO 일반회원수정정보
+     */
+    public void updateMberMain(MberManageVO mberManageVO){
+        update("mberManageDAO.updateMber_Main",mberManageVO);
+    }
+    
+    /**
+     * 화면에 조회된일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+     * @param mberManageVO 일반회원수정정보
+     */
+    public void updateMberSub(MberManageVO mberManageVO){
+        update("mberManageDAO.updateMber_Sub",mberManageVO);
+    }
+    
+	   /**
+     * 수상정보를 데이터베이스에서 삭제
+     * @param delId 삭제 대상 일반회원아이디
+     */
+    public void deleteAward(String delId){
+        delete("mberManageDAO.deleteAward", delId);
+    }
+    
+    /**
+     * 일반회원의 기본정보를 화면에서 입력하여 항목의 정합성을 체크하고 데이터베이스에 저장
+     * @param mberManageAwardVOList 일반회원 등록정보
+     * @return String 등록결과
+     */
+    public String insertAward(List<MberManageAwardVO> mberManageAwardVOList){
+         
+        MberManageAwardVO mberManageAwardVO = null;
+		 for(int i = 0; i < mberManageAwardVOList.size() ; i++){
+			 mberManageAwardVO = (MberManageAwardVO)mberManageAwardVOList.get(i);
+			 insert("mberManageDAO.insertAward", mberManageAwardVO);
+		 }
+	     return "";
+	     
+    }
+    
+	   /**
+	  * 경력정보를 데이터베이스에서 삭제
+	  * @param delId 삭제 대상 일반회원아이디
+	  */
+	 public void deleteCareer(String delId){
+	     delete("mberManageDAO.deleteCareer", delId);
+	 }
+	 
+	 /**
+	  * 경력일반회원의 기본정보를 화면에서 입력하여 항목의 정합성을 체크하고 데이터베이스에 저장
+	  * @param mberManageCareerVOList 일반회원 등록정보
+	  * @return String 등록결과
+	  */
+	 public String insertCareer(List<MberManageCareerVO> mberManageCareerVOList){
+	     
+	     MberManageCareerVO mberManageCareerVO = null;
+		 for(int i = 0; i < mberManageCareerVOList.size() ; i++){
+			 mberManageCareerVO = (MberManageCareerVO)mberManageCareerVOList.get(i);
+			 insert("mberManageDAO.insertCareer", mberManageCareerVO);
+		 }
+	     return "";
+	 }
+	 
+	   /**
+	  * 학위정보를 데이터베이스에서 삭제
+	  * @param delId 삭제 대상 일반회원아이디
+	  */
+	 public void deleteDegree(String delId){
+	     delete("mberManageDAO.deleteDegree", delId);
+	 }
+	 
+	 /**
+	  *  학위일반회원의 기본정보를 화면에서 입력하여 항목의 정합성을 체크하고 데이터베이스에 저장
+	  * @param mberManageCareerVOList 일반회원 등록정보
+	  * @return String 등록결과
+	  */
+	 public String insertDegree(List<MberManageDegreeVO> mberManageDegreeVOList){
+		 MberManageDegreeVO mberManageDegreeVO = null;
+		 for(int i = 0; i < mberManageDegreeVOList.size() ; i++){
+			 mberManageDegreeVO = (MberManageDegreeVO)mberManageDegreeVOList.get(i);
+			 insert("mberManageDAO.insertDegree", mberManageDegreeVO);
+		 }
+	     return "";
+	 }
+
+	   /**
+	  * 논문정보를 데이터베이스에서 삭제
+	  * @param delId 삭제 대상 일반회원아이디
+	  */
+	 public void deletePaper(String delId){
+	     delete("mberManageDAO.deletePaper", delId);
+	 }
+	 
+	 /**
+	  *  논문일반회원의 기본정보를 화면에서 입력하여 항목의 정합성을 체크하고 데이터베이스에 저장
+	  * @param mberManageCareerVOList 일반회원 등록정보
+	  * @return String 등록결과
+	  */
+	 public String insertPaper(List<MberManagePaperVO> mberManagePaperVOList){
+     
+	     MberManagePaperVO mberManagePaperVO = null;
+		 for(int i = 0; i < mberManagePaperVOList.size() ; i++){
+			 mberManagePaperVO = (MberManagePaperVO)mberManagePaperVOList.get(i);
+			 insert("mberManageDAO.insertPaper", mberManagePaperVO);
+		 }
+	     return "";
+	 }
 
     /**
      * 일반회원 약관확인

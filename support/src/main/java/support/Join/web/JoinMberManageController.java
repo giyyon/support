@@ -1,5 +1,6 @@
 package support.Join.web;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import support.common.model.JsonObject;
@@ -29,13 +33,20 @@ import support.util.SupportUtil;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.SessionVO;
 import egovframework.com.cmm.annotation.IncludedInfo;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.com.cop.ems.service.EgovSndngMailRegistService;
 import egovframework.com.cop.ems.service.SndngMailVO;
+import egovframework.com.sec.rgm.service.AuthorGroup;
+import egovframework.com.sec.rgm.service.EgovAuthorGroupService;
 import egovframework.com.uat.uia.service.EgovLoginService;
 import egovframework.com.uss.umt.service.EgovMberManageService;
+import egovframework.com.uss.umt.service.MberManageAwardVO;
+import egovframework.com.uss.umt.service.MberManageCareerVO;
+import egovframework.com.uss.umt.service.MberManageDegreeVO;
+import egovframework.com.uss.umt.service.MberManagePaperVO;
 import egovframework.com.uss.umt.service.MberManageVO;
 import egovframework.com.uss.umt.service.UserDefaultVO;
 import egovframework.com.utl.sim.service.EgovFileScrty;
@@ -61,8 +72,10 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
  * </pre>
  */
 
+
 @Controller
 @RequestMapping(value = "/join")
+//@SessionAttributes("mberManageVO")
 public class JoinMberManageController {
 
 	/** mberManageService */
@@ -94,6 +107,9 @@ public class JoinMberManageController {
 	@Resource(name = "loginService")
 	private EgovLoginService loginService;
 	
+    @Resource(name = "egovAuthorGroupService")
+    private EgovAuthorGroupService egovAuthorGroupService;
+    
 	/** log */
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
@@ -222,6 +238,21 @@ public class JoinMberManageController {
 		List<?> jobClass_result = cmmUseService.selectCmmCodeDetail(vo);
 		model.addAttribute("jobClass_result", jobClass_result); 
 		
+				
+		//년도목록
+		vo.setCodeId("SUP901");
+		List<?> year_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("year_result", year_result); 
+		//월목록
+		vo.setCodeId("SUP900");
+		List<?> month_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("month_result", month_result); 
+		//일목록
+		vo.setCodeId("SUP902");
+		List<?> day_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("day_result", day_result); 
+		
+		
 		model.addAttribute("phoneHead", emailHead);
 		model.addAttribute("phoneMiddle", phoneMiddle);
 		model.addAttribute("phoneTail", phoneTail);
@@ -232,7 +263,7 @@ public class JoinMberManageController {
 	}
 	
 	/**
-	 * 일반회원등록화면-부가 정보으로 이동한다.
+	 * 일반회원등록화면-부가 정보.  이 화면은 사용자가 직접 오지 못하고 insertMain을 거친 redirect Url이다. 세션에서 사용자 정보를 꺼내와 세팅이 필요하다
 	 * @param userSearchVO 검색조건정보
 	 * @param mberManageVO 일반회원초기화정보
 	 * @param model 화면모델
@@ -240,37 +271,280 @@ public class JoinMberManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/GnrMberInsertView3.do")
-	public String gnrMberInsertView3( @ModelAttribute("mberManageVO") MberManageVO mberManageVO, @ModelAttribute("loginVO") LoginVO  loginVO, Model model)
+	public String gnrMberInsertView3( HttpServletRequest  request, Model model)
 			throws Exception {
+		
+		MberManageVO mberManageVO = (MberManageVO)request.getSession().getAttribute("mberManageVO");
+		model.addAttribute("mberManageVO", mberManageVO);
+		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+		
+		//수료상태 목록
+		vo.setCodeId("SUP006");
+		List<?> complete_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("complete_result", complete_result); 
+		
+		//경력상태 목록
+		vo.setCodeId("SUP007");
+		List<?> work_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("work_result", work_result); 
 
-		//이메일 목록
-		vo.setCodeId("SUP002");
-		List<?> email_result = cmmUseService.selectCmmCodeDetail(vo);
-		model.addAttribute("email_result", email_result); //이메일 목록
+		//자격상태 목록
+		vo.setCodeId("SUP008");
+		List<?> award_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("award_result", award_result); 
+
+		//논문목록
+		vo.setCodeId("SUP009");
+		List<?> paper_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("paper_result", paper_result); 
+		
+		//년도목록
+		vo.setCodeId("SUP901");
+		List<?> year_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("year_result", year_result); 
+		//월목록
+		vo.setCodeId("SUP900");
+		List<?> month_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("month_result", month_result); 
+		
 		return ".basic_join/grnMberInsert3";
 	}
 	
+	
 	/**
-	 * 일반회원등록화면-최종 저장 .
+	 * 일반회원등록화면- 완료된 페이지로 이동한다.
 	 * @param userSearchVO 검색조건정보
 	 * @param mberManageVO 일반회원초기화정보
 	 * @param model 화면모델
 	 * @return uss/umt/EgovMberInsert
 	 * @throws Exception
 	 */
-	@RequestMapping("/GnrMberInsert.do")
-	public String gnrMberInsert( @ModelAttribute("mberManageVO") MberManageVO mberManageVO, @ModelAttribute("loginVO") LoginVO  loginVO, Model model)
+	@RequestMapping("/GnrMberInsertView4.do")
+	public String gnrMberInsertView4( HttpServletRequest request, Model model)
 			throws Exception {
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-		
-		//가입상태 초기화 A:요청, P:승인 D:삭제
-		mberManageVO.setMberSttus("P");
-		//그룹정보 초기화
-		//mberManageVO.setGroupId("1");
-		//일반회원가입신청 등록시 일반회원등록기능을 사용하여 등록한다.
-		mberManageService.insertMber(mberManageVO);
+
+		MberManageVO mberManageVO = (MberManageVO)request.getSession().getAttribute("mberManageVO");
+		model.addAttribute("mberManageVO", mberManageVO);
 		return ".basic_join/grnMberInsert4";
+	}
+	
+	@RequestMapping("/test.do")
+//	@RequestMapping("gnrMberInsertSub.do")
+	public String test( HttpServletRequest request, Model model)
+			throws Exception {
+
+
+		return "redirect:/join/GnrMberInsertView3.do";
+	}
+	
+	
+	
+	/**
+	 * 일반회원등록화면-최종 저장 .
+	 * @param userSearchVO 검색조건정보
+	 * @param mberManageVO 일반회원초기화정보
+	 * @param model 화면모델
+	 * @return F : .basic_join/grnMberInsert4, H : .basic_join/grnMberInsert3
+	 * @throws Exception
+	 */
+	@RequestMapping("/gnrMberInsertMain.do")
+	public String gnrMberInsertMain( @ModelAttribute("mberManageVO") MberManageVO mberManageVO, 
+					                                                @ModelAttribute("loginVO") LoginVO  loginVO, 
+					                                                @RequestParam("progressStauts") String progressStauts,
+//					                                                SessionStatus status,
+					                                                HttpServletRequest request,
+					                                                Model model)
+			throws Exception {
+			ComDefaultCodeVO vo = new ComDefaultCodeVO();
+			
+			mberManageVO.setOldPassword(mberManageVO.getPassword());
+			//가입상태 초기화 A:요청, P:승인 D:삭제
+			mberManageVO.setMberSttus("P");
+			//그룹정보 초기화
+			//mberManageVO.setGroupId("1");
+			//일반회원가입신청 등록시 일반회원등록기능을 사용하여 등록한다.
+			mberManageService.insertMber(mberManageVO);
+			
+			//권한 부여
+			MberManageVO afterMberManageVO = mberManageService.selectMberById(mberManageVO.getMberId());
+			AuthorGroup authorGroup = new AuthorGroup();
+			authorGroup.setUniqId(afterMberManageVO.getUniqId());
+			authorGroup.setAuthorCode("ROLE_USER");
+			authorGroup.setMberTyCode("USR01");
+			
+			egovAuthorGroupService.insertAuthorGroup(authorGroup);
+        
+//		LOGGER.debug("회원 가입 후 자동 로그인 처리 프로세스 진행....");
+//
+//		HttpSession session = request.getSession();
+//		
+//		session.setAttribute("isRequstForAfterJoin", "true");
+//		session.setAttribute("id", mberManageVO.getMberId());
+//		session.setAttribute("password", mberManageVO.getOldPassword());
+//		session.setAttribute("userSe", loginVO.getUserSe());
+//             
+//        session.setAttribute("reDirectUrl", "/join/GnrMberInsertView4.do");
+//        
+//        return "redirect:" + "/login/actionLogin.do";
+        
+			request.getSession().setAttribute("mberManageVO", afterMberManageVO);
+        String target = "";
+        if("F".equals(progressStauts)){
+//        	status.setComplete();
+        	return  ".basic_join/grnMberInsert4";
+    			
+        }else if("H".equals(progressStauts)){
+//        	model.addAttribute("redirectUrl", "/join/GnrMberInsertView3.do");
+//            target = "redirectUrl";
+			return "redirect:/join/GnrMberInsertView3.do";
+        }
+		return "";
+	}
+	
+	/**
+	 * 일반회원등록화면-  부가정보 저장 .
+	 * @param userSearchVO 검색조건정보
+	 * @param mberManageVO 일반회원초기화정보
+	 * @param model 화면모델
+	 * @return .basic_join/grnMberInsert4
+	 * @throws Exception
+	 */
+	@RequestMapping("/gnrMberInsertSub.do")
+	public String gnrMberInsertSub( 
+			                                                       @ModelAttribute("mberManageVO") MberManageVO mberManageVO, 
+					                                                @ModelAttribute("loginVO") LoginVO  loginVO, 
+					                                                
+					                                                @RequestParam(value="compltCd", required=false) List<String> compltCd,
+					                                                @RequestParam(value="enterYear", required=false) List<String> enterYear,
+					                                                @RequestParam(value="enterMonth", required=false) List<String> enterMonth,
+					                                                @RequestParam(value="grdYear", required=false) List<String> grdYear,
+					                                                @RequestParam(value="grdMonth", required=false) List<String> grdMonth,					                                                
+					                                                @RequestParam(value="school", required=false) List<String> school,
+					                                                @RequestParam(value="major", required=false) List<String> major,
+					                                                
+					                                                @RequestParam(value="careerCd", required=false) List<String> careerCd,
+					                                                @RequestParam(value="joinEnterYear", required=false) List<String> joinEnterYear,
+					                                                @RequestParam(value="joinEnterMonth", required=false) List<String> joinEnterMonth,
+					                                                @RequestParam(value="outYear", required=false) List<String> outYear,					                                                
+					                                                @RequestParam(value="outMonth", required=false) List<String> outMonth,
+					                                                @RequestParam(value="commpany", required=false) List<String> commpany,
+					                                                @RequestParam(value="position", required=false) List<String> position,
+					                                                @RequestParam(value="task", required=false) List<String> task,
+					                                                
+					                                                @RequestParam(value="awardCd", required=false) List<String> awardCd,					                                                
+					                                                @RequestParam(value="awardYear", required=false) List<String> awardYear,
+					                                                @RequestParam(value="awardNm", required=false) List<String> awardNm,
+					                                                @RequestParam(value="awardOrg", required=false) List<String> awardOrg,
+					                                                
+					                                                @RequestParam(value="paperCd", required=false) List<String> paperCd,
+					                                                @RequestParam(value="paperYear", required=false) List<String> paperYear,
+					                                                @RequestParam(value="paperMonth", required=false) List<String> paperMonth,
+					                                                @RequestParam(value="paperNm", required=false) List<String> paperNm,
+					                                                @RequestParam(value="paperOrg", required=false) List<String> paperOrg,					                                                
+					                                                
+//					                                                SessionStatus status,
+					                                                HttpServletRequest request,
+					                                                Model model)
+			throws Exception {
+
+		//일반회원가입신청 등록시 부가 정보만을 등록한다.
+		
+		//수상기록
+		List<MberManageAwardVO> mberManageAwardVOList = new ArrayList<MberManageAwardVO>();
+		if(compltCd == null || compltCd.size() == 0 ){
+
+		}else{
+			LOGGER.debug("수상기록 갯수"+compltCd.size());
+			MberManageAwardVO mberManageAwardVO = new MberManageAwardVO();
+			for(int i =  0 ;  i < compltCd.size() ; i++){
+				mberManageAwardVO.setMberId(mberManageVO.getMberId());
+				mberManageAwardVO.setAwardCd( (String)compltCd.get(i) );
+				mberManageAwardVO.setAwardSn(i+"");
+				mberManageAwardVO.setAwardYear((String)awardYear.get(i) );
+				mberManageAwardVO.setAwardNm( (String)awardNm.get(i) );
+				mberManageAwardVO.setAwardOrg((String)awardOrg.get(i) );		
+				mberManageAwardVOList.add(mberManageAwardVO);
+			}		
+		}
+
+		List<MberManageCareerVO> mberManageCareerVOList = new ArrayList<MberManageCareerVO>();
+		if(careerCd == null || careerCd.size() == 0 ){
+
+		}else{
+			LOGGER.debug("경력기록 갯수"+careerCd.size());
+			//경력기록
+			MberManageCareerVO mberManageCareerVO = new MberManageCareerVO();
+			for(int i =  0 ;  i < careerCd.size() ; i++){
+				mberManageCareerVO.setMberId(mberManageVO.getMberId());			
+				mberManageCareerVO.setCareerCd( (String)careerCd.get(i) );
+				mberManageCareerVO.setCareerSn(i+"");
+				mberManageCareerVO.setJoinEnterYear((String)joinEnterYear.get(i) );
+				mberManageCareerVO.setJoinEnterMonth( (String)joinEnterMonth.get(i) );
+				mberManageCareerVO.setOutYear((String)outYear.get(i) );		
+				mberManageCareerVO.setOutMonth((String)outMonth.get(i) );		
+				mberManageCareerVO.setCommpany((String)commpany.get(i) );		
+				mberManageCareerVO.setPosition((String)position.get(i) );		
+				mberManageCareerVO.setTask((String)task.get(i) );		
+				mberManageCareerVOList.add(mberManageCareerVO);
+			}
+		}
+				
+
+		List<MberManageDegreeVO> mberManageDegreeVOList = new ArrayList<MberManageDegreeVO>();
+
+		if(compltCd == null || compltCd.size() == 0 ){
+
+		}else{
+			LOGGER.debug("학위기록 갯수"+compltCd.size());
+			//학위기록
+			MberManageDegreeVO mberManageDegreeVO = new MberManageDegreeVO();
+			for(int i =  0 ;  i < compltCd.size() ; i++){
+				mberManageDegreeVO.setMberId(mberManageVO.getMberId());		
+				mberManageDegreeVO.setCompltCd( (String)compltCd.get(i) );
+				mberManageDegreeVO.setDegreeSn(i+"");
+				mberManageDegreeVO.setEnterYear((String)enterYear.get(i) );
+				mberManageDegreeVO.setEnterMonth( (String)enterMonth.get(i) );
+				mberManageDegreeVO.setGrdYear((String)grdYear.get(i) );		
+				mberManageDegreeVO.setGrdMonth((String)grdMonth.get(i) );		
+				mberManageDegreeVO.setSchool((String)school.get(i) );		
+				mberManageDegreeVO.setMajor((String)major.get(i) );		
+				mberManageDegreeVOList.add(mberManageDegreeVO);
+			}
+		}
+		
+		List<MberManagePaperVO> mberManagePaperVOList = new ArrayList<MberManagePaperVO>();
+		if(paperCd == null || paperCd.size() == 0 ){
+
+		}else{
+			LOGGER.debug("논문기록 갯수"+paperCd.size());
+			//논문
+			MberManagePaperVO mberManagePaperVO = new MberManagePaperVO();
+			for(int i =  0 ;  i < paperCd.size() ; i++){
+				mberManagePaperVO.setMberId(mberManageVO.getMberId());			
+				mberManagePaperVO.setPaperCd( (String)paperCd.get(i) );
+				mberManagePaperVO.setPaperSn(i+"");
+				mberManagePaperVO.setPaperYear((String)paperYear.get(i) );
+				mberManagePaperVO.setPaperMonth( (String)paperMonth.get(i) );
+				mberManagePaperVO.setPaperNm((String)paperNm.get(i) );		
+				mberManagePaperVO.setPaperOrg((String)paperOrg.get(i) );
+				mberManagePaperVOList.add(mberManagePaperVO);
+			}
+		}
+
+				
+		mberManageVO.setMberManageAwardVOList(mberManageAwardVOList);
+		mberManageVO.setMberManageCareerVOList(mberManageCareerVOList);
+		mberManageVO.setMberManageDegreeVOList(mberManageDegreeVOList);
+		mberManageVO.setMberManagePaperVOList(mberManagePaperVOList);
+		
+		mberManageService.updateMberSub(mberManageVO);		
+		
+		mberManageVO = mberManageService.selectMberById(mberManageVO.getMberId());
+		
+		model.addAttribute("mberManageVO", mberManageVO);
+
+		return  ".basic_join/grnMberInsert4";
 		
 	}
 	
@@ -445,7 +719,9 @@ public class JoinMberManageController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/uss/umt/EgovMberInsert.do")
-	public String insertMber(@ModelAttribute("entrprsManageVO") MberManageVO mberManageVO, BindingResult bindingResult, Model model) throws Exception {
+	public String insertMber(@ModelAttribute("entrprsManageVO") MberManageVO mberManageVO, 
+			                                        SessionStatus status,
+			                                        BindingResult bindingResult, Model model) throws Exception {
 
 		beanValidator.validate(mberManageVO, bindingResult);
 		if (bindingResult.hasErrors()) {

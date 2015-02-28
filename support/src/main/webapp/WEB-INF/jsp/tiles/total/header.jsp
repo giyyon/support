@@ -21,7 +21,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a href="${contextPath}/login/actionLogout.do">logOut</a></li>
-							<li><a href="${contextPath}/">정보수정</a></li>
+							<li><a href="${contextPath}/myInfo/myInfoView.do">내정보</a></li>
 						</c:otherwise>
 					</c:choose>
                     <li>글자크기 <a href="javascript:zoomOut();"><img src="${contextPath}/img/font_plus.png" alt="글씨크게"></a><a href="javascript:zoomIn();"><img src="${contextPath}/img/font_minus.png" alt="글씨작게"></a><a href="javascript:zoomReset();"><img src="${contextPath}/img/font_stop.png" alt="글씨크게"></a></li>       
@@ -81,7 +81,7 @@
 									<li><a href="${contextPath}/customer/noticeList.do">공지사항</a></li>
 									<li><a href="#">문의∙제안∙신고</a></li>
                                     <li><a href="#">서비스정책</a></li>
-                                    <li><a href="#">회원정보</a></li>
+                                    <li><a href="/myInfo/myInfoView.do">회원정보</a></li>
 								</ul>
 							</div>
 						</li>
@@ -165,7 +165,7 @@
 									<li><a href="#">공지사항</a></li>
 									<li><a href="#">문의∙제안∙신고</a></li>
                                     <li><a href="#">서비스정책</a></li>
-                                    <li><a href="#">회원정보</a></li>
+                                    <li><a href="/myInfo/myInfo.do">회원정보</a></li>
 									</ul>
 								</li>
 								<!-- // 고객센터 -->

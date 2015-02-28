@@ -1,5 +1,7 @@
 package egovframework.com.uss.umt.service;
 
+import java.util.List;
+
 /**
  * 일반회원VO클래스로서 일반회원관리 비지니스로직 처리용 항목을 구성한다.
  * @author 공통서비스 개발팀 조재영
@@ -20,6 +22,15 @@ public class MberManageVO extends UserDefaultVO{
 
 	/** 이전비밀번호 - 비밀번호 변경시 사용*/
     private String oldPassword = "";
+    
+    /* 계산성 항목*/
+    private String birthYear="";
+    private String birthMonth="";
+    private String birthDay="";
+    private String emailHead="";
+    private String emailTail="";
+    
+    
     
     /**
 	 * 사용자고유아이디
@@ -184,9 +195,107 @@ public class MberManageVO extends UserDefaultVO{
 	 *연락처공개여부
 	 */                                        
 	private String contacOthbcAt; 	
+
+	/**                                        
+	 *영문명
+	 */                                        
+	private String mberEngNm; 	
+	/**                                        
+	 *첨부대표사진파일ID
+	 */                                        
+	private String atchImgMainFileId; 	
+	/**                                        
+	 *첨부이력사진파일ID
+	 */                                        
+	private String atchImgJobFileId; 	
+	/**                                        
+	 *첨부인물사진파일ID
+	 */                                        
+	private String atchImgManFileId; 	
+	/**                                        
+	 *첨부1사진파일ID
+	 */                                        
+	private String atchImg1FileId; 	
+	/**                                        
+	 *첨부2사진파일ID
+	 */                                        
+	private String atchImg2FileId; 	
+	/**                                        
+	 *요약소개
+	 */                                        
+	private String shortNotice; 	
+	/**                                        
+	 *홈페이지
+	 */                                        
+	private String homepageUrl; 	
+	/**                                        
+	 *블로그
+	 */                                        
+	private String blogUrl; 	
+	/**                                        
+	 *쇼셜
+	 */                                        
+	private String socialUrl; 	
+	/**                                        
+	 *집지역번호
+	 */                                        
+	private String homeAreaNo; 	
+	/**                                        
+	 *집중간전화번호
+	 */                                        
+	private String homeMiddleTelno; 	
+	/**                                        
+	 *집끝전화번호
+	 */                                        
+	private String homeEndTelno; 	
+	/**                                        
+	 *자택우편번호
+	 */                                        
+	private String homeZip; 	
+	/**                                        
+	 *자택주소
+	 */                                        
+	private String homeAdres; 	
+	/**                                        
+	 *자택상세주소
+	 */                                        
+	private String homeDetailAdres; 	
+	/**                                        
+	 *우편발송처
+	 */                                        
+	private String mailSendTarget; 	
+	/**                                        
+	 *자기소개
+	 */                                        
+	private String notice; 	
+	
+	/**                                        
+	 *이력서첨부파일
+	 */                                        
+	private String atchHistFileId; 	
+	/**                                        
+	 *포트폴리오 첨부파일
+	 */                                        
+	private String atchPortFileId; 	
 	
 
-
+	/**                                        
+	 * 학위
+	 */                                        
+	private List<MberManageDegreeVO> mberManageDegreeVOList;
+	/**                                        
+	 * 경력
+	 */                                        
+	private List<MberManageCareerVO> mberManageCareerVOList;
+	/**                                        
+	 * 수상
+	 */                                        
+	private List<MberManageAwardVO> mberManageAwardVOList;
+	/**                                        
+	 * 논문
+	 */                                        
+	private List<MberManagePaperVO> mberManagePaperVOList;
+   
 	
 	/**
 	 * oldPassword attribute 값을  리턴한다.
@@ -748,5 +857,443 @@ public class MberManageVO extends UserDefaultVO{
 	
 		this.pstinstOthbcAt = pstinstOthbcAt;
 	}
+	/**
+	 * @return the contacOthbcAt
+	 */
+	public String getContacOthbcAt() {
+	
+		return contacOthbcAt;
+	}
+	/**
+	 * @param contacOthbcAt the contacOthbcAt to set
+	 */
+	public void setContacOthbcAt(String contacOthbcAt) {
+	
+		this.contacOthbcAt = contacOthbcAt;
+	}
+	
+	
+	/**
+	 * @return the mberEngNm
+	 */
+	public String getMberEngNm() {
+	
+		return mberEngNm;
+	}
+	/**
+	 * @param mberEngNm the mberEngNm to set
+	 */
+	public void setMberEngNm(String mberEngNm) {
+	
+		this.mberEngNm = mberEngNm;
+	}
+	/**
+	 * @return the atchImgMainFileId
+	 */
+	public String getAtchImgMainFileId() {
+	
+		return atchImgMainFileId;
+	}
+	/**
+	 * @param atchImgMainFileId the atchImgMainFileId to set
+	 */
+	public void setAtchImgMainFileId(String atchImgMainFileId) {
+	
+		this.atchImgMainFileId = atchImgMainFileId;
+	}
+	/**
+	 * @return the atchImgJobFileId
+	 */
+	public String getAtchImgJobFileId() {
+	
+		return atchImgJobFileId;
+	}
+	/**
+	 * @param atchImgJobFileId the atchImgJobFileId to set
+	 */
+	public void setAtchImgJobFileId(String atchImgJobFileId) {
+	
+		this.atchImgJobFileId = atchImgJobFileId;
+	}
+	/**
+	 * @return the atchImgManFileId
+	 */
+	public String getAtchImgManFileId() {
+	
+		return atchImgManFileId;
+	}
+	/**
+	 * @param atchImgManFileId the atchImgManFileId to set
+	 */
+	public void setAtchImgManFileId(String atchImgManFileId) {
+	
+		this.atchImgManFileId = atchImgManFileId;
+	}
+	/**
+	 * @return the atchImg1FileId
+	 */
+	public String getAtchImg1FileId() {
+	
+		return atchImg1FileId;
+	}
+	/**
+	 * @param atchImg1FileId the atchImg1FileId to set
+	 */
+	public void setAtchImg1FileId(String atchImg1FileId) {
+	
+		this.atchImg1FileId = atchImg1FileId;
+	}
+	/**
+	 * @return the atchImg2FileId
+	 */
+	public String getAtchImg2FileId() {
+	
+		return atchImg2FileId;
+	}
+	/**
+	 * @param atchImg2FileId the atchImg2FileId to set
+	 */
+	public void setAtchImg2FileId(String atchImg2FileId) {
+	
+		this.atchImg2FileId = atchImg2FileId;
+	}
+	/**
+	 * @return the shortNotice
+	 */
+	public String getShortNotice() {
+	
+		return shortNotice;
+	}
+	/**
+	 * @param shortNotice the shortNotice to set
+	 */
+	public void setShortNotice(String shortNotice) {
+	
+		this.shortNotice = shortNotice;
+	}
+	/**
+	 * @return the homepageUrl
+	 */
+	public String getHomepageUrl() {
+	
+		return homepageUrl;
+	}
+	/**
+	 * @param homepageUrl the homepageUrl to set
+	 */
+	public void setHomepageUrl(String homepageUrl) {
+	
+		this.homepageUrl = homepageUrl;
+	}
+	/**
+	 * @return the blogUrl
+	 */
+	public String getBlogUrl() {
+	
+		return blogUrl;
+	}
+	/**
+	 * @param blogUrl the blogUrl to set
+	 */
+	public void setBlogUrl(String blogUrl) {
+	
+		this.blogUrl = blogUrl;
+	}
+	/**
+	 * @return the socialUrl
+	 */
+	public String getSocialUrl() {
+	
+		return socialUrl;
+	}
+	/**
+	 * @param socialUrl the socialUrl to set
+	 */
+	public void setSocialUrl(String socialUrl) {
+	
+		this.socialUrl = socialUrl;
+	}
+	/**
+	 * @return the homeAreaNo
+	 */
+	public String getHomeAreaNo() {
+	
+		return homeAreaNo;
+	}
+	/**
+	 * @param homeAreaNo the homeAreaNo to set
+	 */
+	public void setHomeAreaNo(String homeAreaNo) {
+	
+		this.homeAreaNo = homeAreaNo;
+	}
+	/**
+	 * @return the homeMiddleTelno
+	 */
+	public String getHomeMiddleTelno() {
+	
+		return homeMiddleTelno;
+	}
+	/**
+	 * @param homeMiddleTelno the homeMiddleTelno to set
+	 */
+	public void setHomeMiddleTelno(String homeMiddleTelno) {
+	
+		this.homeMiddleTelno = homeMiddleTelno;
+	}
+	/**
+	 * @return the homeEndTelno
+	 */
+	public String getHomeEndTelno() {
+	
+		return homeEndTelno;
+	}
+	/**
+	 * @param homeEndTelno the homeEndTelno to set
+	 */
+	public void setHomeEndTelno(String homeEndTelno) {
+	
+		this.homeEndTelno = homeEndTelno;
+	}
+	/**
+	 * @return the homeZip
+	 */
+	public String getHomeZip() {
+	
+		return homeZip;
+	}
+	/**
+	 * @param homeZip the homeZip to set
+	 */
+	public void setHomeZip(String homeZip) {
+	
+		this.homeZip = homeZip;
+	}
+	/**
+	 * @return the homeAdres
+	 */
+	public String getHomeAdres() {
+	
+		return homeAdres;
+	}
+	/**
+	 * @param homeAdres the homeAdres to set
+	 */
+	public void setHomeAdres(String homeAdres) {
+	
+		this.homeAdres = homeAdres;
+	}
+	/**
+	 * @return the homeDetailAdres
+	 */
+	public String getHomeDetailAdres() {
+	
+		return homeDetailAdres;
+	}
+	/**
+	 * @param homeDetailAdres the homeDetailAdres to set
+	 */
+	public void setHomeDetailAdres(String homeDetailAdres) {
+	
+		this.homeDetailAdres = homeDetailAdres;
+	}
+	/**
+	 * @return the mailSendTarget
+	 */
+	public String getMailSendTarget() {
+	
+		return mailSendTarget;
+	}
+	/**
+	 * @param mailSendTarget the mailSendTarget to set
+	 */
+	public void setMailSendTarget(String mailSendTarget) {
+	
+		this.mailSendTarget = mailSendTarget;
+	}
+	/**
+	 * @return the notice
+	 */
+	public String getNotice() {
+	
+		return notice;
+	}
+	/**
+	 * @param notice the notice to set
+	 */
+	public void setNotice(String notice) {
+	
+		this.notice = notice;
+	}
+	/**
+	 * @return the mberManageDegreeVOList
+	 */
+	public List<MberManageDegreeVO> getMberManageDegreeVOList() {
+	
+		return mberManageDegreeVOList;
+	}
+	/**
+	 * @param mberManageDegreeVOList the mberManageDegreeVOList to set
+	 */
+	public void setMberManageDegreeVOList(List<MberManageDegreeVO> mberManageDegreeVOList) {
+	
+		this.mberManageDegreeVOList = mberManageDegreeVOList;
+	}
+	/**
+	 * @return the mberManageCareerVOList
+	 */
+	public List<MberManageCareerVO> getMberManageCareerVOList() {
+	
+		return mberManageCareerVOList;
+	}
+	/**
+	 * @param mberManageCareerVOList the mberManageCareerVOList to set
+	 */
+	public void setMberManageCareerVOList(List<MberManageCareerVO> mberManageCareerVOList) {
+	
+		this.mberManageCareerVOList = mberManageCareerVOList;
+	}
+	/**
+	 * @return the mberManageAwardVOList
+	 */
+	public List<MberManageAwardVO> getMberManageAwardVOList() {
+	
+		return mberManageAwardVOList;
+	}
+	/**
+	 * @param mberManageAwardVOList the mberManageAwardVOList to set
+	 */
+	public void setMberManageAwardVOList(List<MberManageAwardVO> mberManageAwardVOList) {
+	
+		this.mberManageAwardVOList = mberManageAwardVOList;
+	}
+	/**
+	 * @return the mberManagePaperVOList
+	 */
+	public List<MberManagePaperVO> getMberManagePaperVOList() {
+	
+		return mberManagePaperVOList;
+	}
+	/**
+	 * @param mberManagePaperVOList the mberManagePaperVOList to set
+	 */
+	public void setMberManagePaperVOList(List<MberManagePaperVO> mberManagePaperVOList) {
+	
+		this.mberManagePaperVOList = mberManagePaperVOList;
+	}
+	/**
+	 * @return the birthYear
+	 */
+	public String getBirthYear() {
+		
+		if (this.ihidnum == null || this.ihidnum.split("\\.").length != 3)
+			return "";
+		else
+			return this.ihidnum.split("\\.")[0];
+		//return birthYear;
+	}
+	/**
+	 * @param birthYear the birthYear to set
+	 */
+	public void setBirthYear(String birthYear) {
+	
+		this.birthYear = birthYear;
+	}
+	/**
+	 * @return the birthMonTh
+	 */
+	public String getBirthMonth() {
+		if (this.ihidnum == null || this.ihidnum.split("\\.").length != 3)
+			return "";
+		else
+			return this.ihidnum.split("\\.")[1];
+		//return birthMonTh;
+	}
+	/**
+	 * @param birthMonTh the birthMonTh to set
+	 */
+	public void setBirthMonth(String birthMonth) {
+	
+		this.birthMonth = birthMonth;
+	}
+	/**
+	 * @return the birthDay
+	 */
+	public String getBirthDay() {
+		if (this.ihidnum == null || this.ihidnum.split("\\.").length != 3)
+			return "";
+		else
+			return this.ihidnum.split("\\.")[2];
+
+		//return birthDay;
+	}
+	/**
+	 * @param birthDay the birthDay to set
+	 */
+	public void setBirthDay(String birthDay) {
+	
+		this.birthDay = birthDay;
+	}
+	/**
+	 * @return the emailHead
+	 */
+	public String getEmailHead() {	
+		if (this.mberEmailAdres == null || this.mberEmailAdres.split("@").length != 2)
+			return "";
+		else
+			return this.mberEmailAdres.split("@")[0];
+	}
+	/**
+	 * @param emailHead the emailHead to set
+	 */
+	public void setEmailHead(String emailHead) {
+	
+		this.emailHead = emailHead;
+	}
+	/**
+	 * @return the emailTail
+	 */
+	public String getEmailTail() {
+		if (this.mberEmailAdres == null || this.mberEmailAdres.split("@").length != 2)
+			return "";
+		else
+			return this.mberEmailAdres.split("@")[1];	
+	}
+	/**
+	 * @param emailTail the emailTail to set
+	 */
+	public void setEmailTail(String emailTail) {
+	
+		this.emailTail = emailTail;
+	}
+	/**
+	 * @return the atchHistFileId
+	 */
+	public String getAtchHistFileId() {
+	
+		return atchHistFileId;
+	}
+	/**
+	 * @param atchHistFileId the atchHistFileId to set
+	 */
+	public void setAtchHistFileId(String atchHistFileId) {
+	
+		this.atchHistFileId = atchHistFileId;
+	}
+	/**
+	 * @return the atchPortFileId
+	 */
+	public String getAtchPortFileId() {
+	
+		return atchPortFileId;
+	}
+	/**
+	 * @param atchPortFileId the atchPortFileId to set
+	 */
+	public void setAtchPortFileId(String atchPortFileId) {
+	
+		this.atchPortFileId = atchPortFileId;
+	}
+	
 	
 }
