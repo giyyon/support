@@ -25,6 +25,188 @@ public class FileVO {
 	private String height;
 	private String width;
 	private boolean hasThumnail;
+	
+	/**
+     * 첨부파일 아이디
+     */
+    public String atchFileId = "";
+    /**
+     * 생성일자
+     */
+    public String creatDt = "";
+    /**
+     * 파일내용
+     */
+    public String fileCn = "";
+    /**
+     * 파일확장자
+     */
+    public String fileExtsn = "";
+    /**
+     * 파일크기
+     */
+    public String fileMg = "";
+    /**
+     * 파일연번
+     */
+    public String fileSn = "";
+    /**
+     * 파일저장경로
+     */
+    public String fileStreCours = "";
+    /**
+     * 원파일명
+     */
+    public String orignlFileNm = "";
+    /**
+     * 저장파일명
+     */
+    public String streFileNm = "";
+
+
+	/**
+	 * @return the atchFileId
+	 */
+	public String getAtchFileId() {
+	
+		return atchFileId;
+	}
+
+	/**
+	 * @param atchFileId the atchFileId to set
+	 */
+	public void setAtchFileId(String atchFileId) {
+	
+		this.atchFileId = atchFileId;
+	}
+
+	/**
+	 * @return the creatDt
+	 */
+	public String getCreatDt() {
+	
+		return creatDt;
+	}
+
+	/**
+	 * @param creatDt the creatDt to set
+	 */
+	public void setCreatDt(String creatDt) {
+	
+		this.creatDt = creatDt;
+	}
+
+	/**
+	 * @return the fileCn
+	 */
+	public String getFileCn() {
+	
+		return fileCn;
+	}
+
+	/**
+	 * @param fileCn the fileCn to set
+	 */
+	public void setFileCn(String fileCn) {
+	
+		this.fileCn = fileCn;
+	}
+
+	/**
+	 * @return the fileExtsn
+	 */
+	public String getFileExtsn() {
+	
+		return fileExtsn;
+	}
+
+	/**
+	 * @param fileExtsn the fileExtsn to set
+	 */
+	public void setFileExtsn(String fileExtsn) {
+	
+		this.fileExtsn = fileExtsn;
+	}
+
+	/**
+	 * @return the fileMg
+	 */
+	public String getFileMg() {
+	
+		return fileMg;
+	}
+
+	/**
+	 * @param fileMg the fileMg to set
+	 */
+	public void setFileMg(String fileMg) {
+	
+		this.fileMg = fileMg;
+	}
+
+	/**
+	 * @return the fileSn
+	 */
+	public String getFileSn() {
+	
+		return fileSn;
+	}
+
+	/**
+	 * @param fileSn the fileSn to set
+	 */
+	public void setFileSn(String fileSn) {
+	
+		this.fileSn = fileSn;
+	}
+
+	/**
+	 * @return the fileStreCours
+	 */
+	public String getFileStreCours() {
+	
+		return fileStreCours;
+	}
+
+	/**
+	 * @param fileStreCours the fileStreCours to set
+	 */
+	public void setFileStreCours(String fileStreCours) {
+	
+		this.fileStreCours = fileStreCours;
+	}
+
+	/**
+	 * @return the orignlFileNm
+	 */
+	public String getOrignlFileNm() {
+	
+		return orignlFileNm;
+	}
+
+	/**
+	 * @param orignlFileNm the orignlFileNm to set
+	 */
+	public void setOrignlFileNm(String orignlFileNm) {
+	
+		this.orignlFileNm = orignlFileNm;
+	}
+
+	/**
+	 * @return the streFileNm
+	 */
+	public String getStreFileNm() {
+	
+		return streFileNm;
+	}
+
+	/**
+	 * @param streFileNm the streFileNm to set
+	 */
+	public void setStreFileNm(String streFileNm) {
+	
+		this.streFileNm = streFileNm;
+	}
 
 	public String getFileId() {
 

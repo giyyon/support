@@ -61,7 +61,7 @@ var BIT = {};
     $.extend($.fn, {
         // object를 queryString으로 변환합니다.
         // { name :'christina' } => name=christina
-        convertQueryString: function () {
+        convertQueryStrings: function () {
             var queryString = '';
             $.each($(this)[0], function (name, value) {
                 // queryString += name + "=" + $.trim(escape(value)) + "&";
@@ -1096,7 +1096,7 @@ function BitCommonClass() {
         var dt = new Date().getTime();
         var opts = $.extend({}, defaults, options);
         opts.data.containerId = 'cntr_' + dt.toString();
-        opts.url = opts.url + '?' + $(opts.data).convertQueryString();
+        opts.url = opts.url + '?' + $(opts.data).convertQueryStrings();
 
         var parent = getParent(window);
         var $div = parent.$('<div id="parent_' + dt.toString() + '"></div>');
@@ -1365,7 +1365,7 @@ function BitCommonClass() {
             obj[param] = value;
         }
 
-        return onlyUrl + $(obj).convertQueryString();
+        return onlyUrl + $(obj).convertQueryStrings();
     };
 
     /*

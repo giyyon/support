@@ -989,5 +989,11 @@ public class JoinMberManageController {
 		
 		return "egovframework/com/uss/umt/EgovMberPasswordUpdt";
 	}
+	
+	@RequestMapping(value="/test/upload.do")
+	public String testUploadPage(){
+		
+		return ".contents_popup/index";
+	}
 
 }

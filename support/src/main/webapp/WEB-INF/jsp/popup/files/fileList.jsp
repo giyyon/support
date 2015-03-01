@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div>
 	<form id="fileupload">
 		<div class="fileupload-buttonbar">
@@ -47,7 +48,7 @@
 					html += '   </td>';
 					html += '   <td>';
 					html += '       <p class="name">';
-					html += '       <a href="<c:url value="/rpnsample/files/download.do?" />' + $(files[i]).convertQueryString() + '" title="' + files[i].realName + '" class="fileDownload" download="' + files[i].realName + '" data-gallery>' + files[i].realName + '</a>';
+					html += '       <a href="<c:url value="/rpnsample/files/download.do?" />' + $(files[i]).convertQueryStrings() + '" title="' + files[i].realName + '" class="fileDownload" download="' + files[i].realName + '" data-gallery>' + files[i].realName + '</a>';
 					html += '       </p>';
 					html += '   </td>';
 					html += '   <td>';

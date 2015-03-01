@@ -58,6 +58,177 @@ public class FileVO implements Serializable {
      * 저장파일명
      */
     public String streFileNm = "";
+    
+    private String fileId;
+	private String createdDate;
+	private String contentType;
+	private long size;
+	private String category;
+	/**
+	 * @return the fileId
+	 */
+	public String getFileId() {
+	
+		return fileId;
+	}
+
+	/**
+	 * @param fileId the fileId to set
+	 */
+	public void setFileId(String fileId) {
+	
+		this.fileId = fileId;
+	}
+
+	/**
+	 * @return the createdDate
+	 */
+	public String getCreatedDate() {
+	
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(String createdDate) {
+	
+		this.createdDate = createdDate;
+	}
+
+	/**
+	 * @return the contentType
+	 */
+	public String getContentType() {
+	
+		return contentType;
+	}
+
+	/**
+	 * @param contentType the contentType to set
+	 */
+	public void setContentType(String contentType) {
+	
+		this.contentType = contentType;
+	}
+
+	/**
+	 * @return the size
+	 */
+	public long getSize() {
+	
+		return size;
+	}
+
+	/**
+	 * @param size the size to set
+	 */
+	public void setSize(long size) {
+	
+		this.size = size;
+	}
+
+	/**
+	 * @return the category
+	 */
+	public String getCategory() {
+	
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(String category) {
+	
+		this.category = category;
+	}
+
+	/**
+	 * @return the realName
+	 */
+	public String getRealName() {
+	
+		return realName;
+	}
+
+	/**
+	 * @param realName the realName to set
+	 */
+	public void setRealName(String realName) {
+	
+		this.realName = realName;
+	}
+
+	/**
+	 * @return the virtualName
+	 */
+	public String getVirtualName() {
+	
+		return virtualName;
+	}
+
+	/**
+	 * @param virtualName the virtualName to set
+	 */
+	public void setVirtualName(String virtualName) {
+	
+		this.virtualName = virtualName;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public String getHeight() {
+	
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(String height) {
+	
+		this.height = height;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public String getWidth() {
+	
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(String width) {
+	
+		this.width = width;
+	}
+
+	/**
+	 * @return the hasThumnail
+	 */
+	public boolean isHasThumnail() {
+	
+		return hasThumnail;
+	}
+
+	/**
+	 * @param hasThumnail the hasThumnail to set
+	 */
+	public void setHasThumnail(boolean hasThumnail) {
+	
+		this.hasThumnail = hasThumnail;
+	}
+
+	private String realName;
+	private String virtualName;
+	private String height;
+	private String width;
+	private boolean hasThumnail;
 
     /**
      * atchFileId attribute를 리턴한다.

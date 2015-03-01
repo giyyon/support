@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,16 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import egovframework.com.cmm.service.EgovFileMngService;
 import support.common.model.JsonObject;
-import support.common.model.FileVO;
-
+import egovframework.com.cmm.service.FileVO;
+import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 import support.util.file.FileUtil;
 
 @Controller
 @RequestMapping(value = "/files")
 public class RpnFileController {
 
-
+    @Resource(name = "EgovFileMngService")
+    private EgovFileMngService fileMngService;
+    
+    @Resource(name = "egovFileIdGnrService")
+	private EgovIdGnrService idgenService;
+    
 
 	/**
 	 * @Method Name : uploadPage
@@ -87,11 +94,14 @@ public class RpnFileController {
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		String atchFileId = idgenService.getNextStringId();
 		// upload to disk
-		List<FileVO> list = FileUtil.uploadFiles(request);
+		List<FileVO> list = FileUtil.uploadFiles(request, atchFileId);
+		
 		
 		// add to DB
-		///this.rpnFileService.upload(list);
+		
+		atchFileId = this.fileMngService.insertFileInfs(list);
 		
 		JsonObject jo = new JsonObject();
 		jo.IsSucceed = true;

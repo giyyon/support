@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div>
 	<form id="fileupload" method="post" action="<c:url value='/files/upload.do' />" enctype="multipart/form-data">
 		<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
@@ -40,11 +41,12 @@
 		</div>
 		<!-- // 1/24 수정 -->
 	</form>
-	<div>
+	<!-- 	 -->
+	<div> 
 		<button id="btnApply">적용</button>
 		<button id="btnModalTest">ModalTest</button>
 	</div>
-	
+
 	<!-- The template to display files available for upload -->
 	<script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -108,7 +110,7 @@
 			fileIds = unescape(fileOptions.data.FileIds);
 			$.cookie('fileIds', fileIds);
 		}
-
+		
 		$('#btnModalTest').click(function(e) {
 			e.preventDefault();
 			COM.openFileListPopup('Sample', $.cookie('fileIds'));
@@ -127,17 +129,18 @@
 					var files = new Array();
 					for (var i = 0; i < responseText.Data.length; i++) {
 						var item = responseText.Data[i];
+						debugger;
 						var file = {
 							fileRef : item,
 							fileId : item.fileId,
 							name : decodeURIComponent(item.realName),
-							url : '<c:url value="/files/download.do?" />' + $(item).convertQueryString(),
+							url : '<c:url value="/files/download.do?" />' + $(item).convertQueryStrings(),
 							size : parseInt(item.size),
 							deleteType : 'post',
-							deleteUrl : '<c:url value="/files/remove.do?" />' + $(item).convertQueryString()
+							deleteUrl : '<c:url value="/files/remove.do?" />' + $(item).convertQueryStrings()
 						};
 						if (item.hasThumnail) {
-							file.thumbnailUrl = '<c:url value="/uploadFiles/thumnails/" />' + item.virtualName;
+							file.thumbnailUrl =  '<c:url value="/webAttach/thumnails/" />' + item.virtualName;
 						}
 						files.push(file);
 					}

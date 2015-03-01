@@ -26,9 +26,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.service.EgovProperties;
-import support.common.model.FileVO;
-import support.util.bean.DynamicBeanProvider;
-
+import egovframework.rte.fdl.idgnr.EgovIdGnrService;
+import egovframework.com.cmm.service.FileVO;
 
 /**
  * @Class Name : FileUtil
@@ -49,6 +48,8 @@ public class FileUtil {
 
 	private static final Logger logger = Logger.getLogger(FileUtil.class.getName());
 	
+	@Resource(name = "egovFileIdGnrService")
+	private  EgovIdGnrService idgenService;
 
 	/**
 	 * @Method Name : downloadFile
@@ -153,10 +154,9 @@ public class FileUtil {
 	 * @throws Exception
 	 * @see
 	 */
-	public static List<FileVO> uploadFiles(HttpServletRequest request) throws Exception {
+	public static List<FileVO> uploadFiles(HttpServletRequest request, String atchFildID) throws Exception {
 
 		//MessageSourceWrapper messageSourceWrapper = (MessageSourceWrapper) DynamicBeanProvider.getBean("messageSourceWrapper");
-	    
 		
 		//String filePath = messageSourceWrapper.getMessage("file.uploadPath");
 		String filePath = EgovProperties.getProperty("Globals.fileStorePath");
@@ -166,9 +166,11 @@ public class FileUtil {
 		//String path = request.getSession().getServletContext().getRealPath(filePath);
 		String path = filePath;
 		File dir = new File(path);
-		dir.mkdir();
+		dir.mkdirs();
 
 		MultipartHttpServletRequest mptRequest = (MultipartHttpServletRequest) request;
+
+		String servletPath = mptRequest.getRealPath("webAttach");
 
 		Iterator<String> fileIter = mptRequest.getFileNames();
 
@@ -182,17 +184,29 @@ public class FileUtil {
 
 			if (fileName.lastIndexOf(".") != -1) {
 				FileVO vo = new FileVO();
+				//파일 아이디 생성
+				String VirtulName = java.util.UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
+				vo.setFileId(atchFildID );
 				vo.setRealName(file.getOriginalFilename());
-				vo.setVirtualName(java.util.UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf(".")));
+				vo.setVirtualName(VirtulName);
 				vo.setSize(file.getSize());
 				vo.setContentType(file.getContentType());
 				vo.setCategory(request.getParameter("Category"));
+				//전자 정부프레임워크에 맞게 데이타 입력하게 임시로 생성
+				vo.setFileExtsn(fileName.substring(fileName.lastIndexOf(".")));
+				vo.setFileStreCours(path +  vo.getCategory());
+				vo.setFileMg(Long.toString(file.getSize()));
+				vo.setOrignlFileNm(file.getOriginalFilename());
+				vo.setStreFileNm(VirtulName);
+				vo.setAtchFileId(atchFildID);
+				vo.setFileSn("1");
+
 
 				dir = new File(path + "/" + vo.getCategory());
-				dir.mkdir();
+				dir.mkdirs();
 
 				if (file.getSize() > 0) {
-					uploadThumnail(file, vo, path);
+					uploadThumnail(file, vo, servletPath);
 					writeFile(file, vo.getVirtualName(), path + "/" + vo.getCategory() + "/");
 					list.add(vo);
 				}
@@ -219,12 +233,12 @@ public class FileUtil {
 	 * @see
 	 */
 	private static void uploadThumnail(MultipartFile file, FileVO vo, String path) {
-
+		
 		if (file.getContentType().indexOf("image") >= 0) {
 			BufferedImage bi;
 			try {
 				File dir = new File(path + "/thumnails/");
-				dir.mkdir();
+				dir.mkdirs();
 
 				ImageIO.setUseCache(false);
 				bi = ImageIO.read(file.getInputStream());
