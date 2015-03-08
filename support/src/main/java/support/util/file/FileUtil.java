@@ -74,15 +74,15 @@ public class FileUtil {
 		//MessageSourceWrapper messageSourceWrapper = (MessageSourceWrapper) DynamicBeanProvider.getBean("messageSourceWrapper");
 		String filePath = EgovProperties.getProperty("Globals.fileStorePath");
 
-		String path = request.getSession().getServletContext().getRealPath(filePath) + "/" + fileVO.getCategory();
-		File file = new File(path + "/" + fileVO.getVirtualName());
+		String path = filePath + fileVO.getCategory();
+		File file = new File(path + "/" + fileVO.getStreFileNm());
 
 		if (!file.exists()) {
-			throw new FileNotFoundException(fileVO.getRealName());
+			throw new FileNotFoundException(fileVO.getOrignlFileNm());
 		}
 
 		if (!file.isFile()) {
-			throw new FileNotFoundException(fileVO.getRealName());
+			throw new FileNotFoundException(fileVO.getOrignlFileNm());
 		}
 
 		String userAgent = request.getHeader("User-Agent");
@@ -91,10 +91,10 @@ public class FileUtil {
 		String regex = "/Trident.*rv[ :]*11\\./";
 		boolean isIE11 = !userAgent.matches(regex);
 		if (ie || isIE11) {
-			fileName = URLEncoder.encode(fileVO.getRealName(), "utf-8").replace("+", " ");
+			fileName = URLEncoder.encode(fileVO.getOrignlFileNm(), "utf-8").replace("+", " ");
 		}
 		else {
-			fileName = new String(fileVO.getRealName().getBytes("utf-8"));
+			fileName = new String(fileVO.getOrignlFileNm().getBytes("utf-8"));
 		}
 
 		byte[] b = new byte[BUFF_SIZE]; // buffer size 2K.
@@ -173,7 +173,7 @@ public class FileUtil {
 		String servletPath = mptRequest.getRealPath("webAttach");
 
 		Iterator<String> fileIter = mptRequest.getFileNames();
-
+		int fileSn = 0;
 		while (fileIter.hasNext()) {
 			MultipartFile file = mptRequest.getFile(fileIter.next());
 
@@ -199,9 +199,9 @@ public class FileUtil {
 				vo.setOrignlFileNm(file.getOriginalFilename());
 				vo.setStreFileNm(VirtulName);
 				vo.setAtchFileId(atchFildID);
-				vo.setFileSn("1");
-
-
+				vo.setFileSn(String.valueOf( fileSn));
+				fileSn++;
+				
 				dir = new File(path + "/" + vo.getCategory());
 				dir.mkdirs();
 
@@ -242,12 +242,12 @@ public class FileUtil {
 
 				ImageIO.setUseCache(false);
 				bi = ImageIO.read(file.getInputStream());
-				if (bi.getWidth() < 80 && bi.getHeight() < 80) {
+				if (bi.getWidth() < 95 && bi.getHeight() < 95) {
 					BufferedImage img = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
 					ImageIO.write(img, "jpg", new File(path + "/thumnails/" + vo.getVirtualName()));
 				}
 				else {
-					double min = Math.min(80 / (double) bi.getWidth(), 80 / (double) bi.getHeight());
+					double min = Math.min(95 / (double) bi.getWidth(), 115 / (double) bi.getHeight());
 					BufferedImage img = new BufferedImage((int) (bi.getWidth() * min), (int) (bi.getHeight() * min), BufferedImage.TYPE_INT_RGB);
 					img.createGraphics().drawImage(bi.getScaledInstance((int) (bi.getWidth() * min), (int) (bi.getHeight() * min), Image.SCALE_SMOOTH), 0, 0, null);
 					ImageIO.write(img, "jpg", new File(path + "/thumnails/" + vo.getVirtualName()));
@@ -271,7 +271,7 @@ public class FileUtil {
 			stream = file.getInputStream();
 			File cFile = new File(path);
 
-			if (!cFile.isDirectory()) cFile.mkdir();
+			if (!cFile.isDirectory()) cFile.mkdirs();
 
 			bos = new FileOutputStream(path + File.separator + virtualName);
 
@@ -342,8 +342,12 @@ public class FileUtil {
 		
 		String filePath = EgovProperties.getProperty("Globals.fileStorePath");
 
-		String path = request.getSession().getServletContext().getRealPath(filePath) + "/" + fileVO.getCategory();
-		File file = new File(filePathBlackList(path + "/" + fileVO.getVirtualName()));
+		String path = filePath + fileVO.getCategory();
+		
+		System.out.println(path);
+
+		File file = new File(path + "/" + fileVO.getStreFileNm());
+		File file1 = new File(fileVO.getFileStreCours() + "/" + fileVO.getStreFileNm());
 		if (!file.exists()) {
 			throw new FileNotFoundException(fileVO.getRealName());
 		}

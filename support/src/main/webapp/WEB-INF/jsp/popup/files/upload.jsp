@@ -13,7 +13,7 @@
 				<button type="submit" class="start">업로드</button>
 				<button type="reset" class="cancel">취소</button>
 				<button type="button" class="delete">삭제</button>
-				<button type="button" class="download">전체 다운로드</button>
+				<!-- <button type="button" class="download">전체 다운로드</button> -->
 				<input type="checkbox" class="toggle" />
 				<!-- The global file processing state -->
 				<span class="fileupload-process"></span>
@@ -40,13 +40,14 @@
 			</table>
 		</div>
 		<!-- // 1/24 수정 -->
+		<input type="hidden" name="atchFileId"> 
 	</form>
-	<!-- 	 -->
+	<!-- 	 
 	<div> 
 		<button id="btnApply">적용</button>
 		<button id="btnModalTest">ModalTest</button>
 	</div>
-
+-->
 	<!-- The template to display files available for upload -->
 	<script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -104,20 +105,15 @@
     </script>
 	<script type="text/javascript">
 		var fileOptions = $('#fileupload').closest('div[id^=cntr]').data('options');
-
-		var fileIds = $.cookie('fileIds');
+		debugger;
+		var fileIds = ''; //$.cookie('fileIds');
 		if (fileIds == null || fileIds == '') {
 			fileIds = unescape(fileOptions.data.FileIds);
-			$.cookie('fileIds', fileIds);
+			//$.cookie('fileIds', fileIds);
 		}
-		
-		$('#btnModalTest').click(function(e) {
-			e.preventDefault();
-			COM.openFileListPopup('Sample', $.cookie('fileIds'));
-		});
 
 		$('#fileupload').fileupload({
-			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category,
+			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&atchFileId=' + $('[name=atchFileId]').val(),
 			maxFileSize : 1000000,
 			maxNumberOfFiles : parseInt(fileOptions.data.Max),
 			acceptFileTypes : fileOptions.data.Accept == null ? new RegExp('') : new RegExp('(.|)(' + unescape(fileOptions.data.Accept) + ')$'),
@@ -126,21 +122,21 @@
 					responseText = responseText.result;
 				}
 				if (responseText.IsSucceed) {
+					debugger;
 					var files = new Array();
 					for (var i = 0; i < responseText.Data.length; i++) {
 						var item = responseText.Data[i];
-						debugger;
 						var file = {
 							fileRef : item,
 							fileId : item.fileId,
-							name : decodeURIComponent(item.realName),
+							name : decodeURIComponent(item.orignlFileNm),
 							url : '<c:url value="/files/download.do?" />' + $(item).convertQueryStrings(),
-							size : parseInt(item.size),
+							size : parseInt(item.fileMg),
 							deleteType : 'post',
 							deleteUrl : '<c:url value="/files/remove.do?" />' + $(item).convertQueryStrings()
 						};
-						if (item.hasThumnail) {
-							file.thumbnailUrl =  '<c:url value="/webAttach/thumnails/" />' + item.virtualName;
+						if (fileOptions.data.Type == "img") {
+							file.thumbnailUrl =  '<c:url value="/webAttach/thumnails/" />' + item.streFileNm;
 						}
 						files.push(file);
 					}
@@ -150,6 +146,7 @@
 				}
 			},
 			destroyed : function(e, data) {
+				debugger;
 				if (data.result) {
 					data = data.result;
 				}
@@ -159,14 +156,17 @@
 				var files = $(this).closest('.modalContainer').data('data');
 				var newFiles = [];
 				for (var i = 0; i < files.length; i++) {
-					if (files[i].fileId != data.Data.fileId) {
+					if (files[i].atchFileId != data.Data.atchFileId) {
 						newFiles.push(files[i]);
 					}
 				}
-				setFileIds(newFiles);
+				//setFileIds(newFiles);
 				$(this).closest('.modalContainer').data('data', newFiles);
+				
+			parent.isDeleteFinish();
 			},
 			completed : function(e, data) {
+				debugger;
 				if (data.result) {
 					data = data.result;
 				}
@@ -177,7 +177,8 @@
 				for (var i = 0; i < data.Data.length; i++) {
 					files.push(data.Data[i]);
 				}
-				setFileIds(files);
+				//+setFileIds(files);
+				$('[name=atchFileId]').val('');
 				$(this).closest('.modalContainer').data('data', files);
 			}
 		});
@@ -204,12 +205,16 @@
 					fileIds += files[i].fileId + ',';
 				}
 			}
-			$.cookie('fileIds', fileIds);
+			//$.cookie('fileIds', fileIds);
 		};
 
 		$('#btnApply').click(function() {
-			BIT.modalDialogCloseClick('modalApply', fileOptions.data.containerId);
-			$.cookie('fileIds', '');
+			//BIT.modalDialogCloseClick('modalApply', fileOptions.data.containerId);
+			//$.cookie('fileIds', '');
 		});
+		
+		function ufn_closeModal(){
+			BIT.modalDialogCloseClick('modalApply', fileOptions.data.containerId);
+		}
 	</script>
 </div>

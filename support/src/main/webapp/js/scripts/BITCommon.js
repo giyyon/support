@@ -1177,7 +1177,8 @@ function BitCommonClass() {
 
         // 닫기 버튼(우상단X)
         $dialog.prev().find('button').click(function () {
-            closeModal();
+            //closeModal();
+        	ufn_closeModal();
         });
 
         // 하단의 닫기 버튼

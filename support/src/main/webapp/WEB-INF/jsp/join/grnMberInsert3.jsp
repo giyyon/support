@@ -101,13 +101,14 @@
 		                                        <ul class="panel">
 		                                        	<li id="tab1">
 			                                        	<dl class="pic_regist">
-				                                        	<dt>
+				                                        	<dt class="img_div">
+				                                        		
 				                                            </dt>
 				                                            <dd class="file_sector">
 				                                            	<input name="file1_text"  type="text" class="w200">
 				                                            	<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
-			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
-			                                            		<a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -123,7 +124,7 @@
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<input type="hidden" name="ATCH_IMG_JOB_FILE_ID" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
 					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -140,7 +141,7 @@
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<input type="hidden" name="ATCH_IMG_MAN_FILE_ID" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"  />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
 					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -158,7 +159,7 @@
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<input type="hidden" name="ATCH_IMG_1_FILE_ID" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"  />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -176,7 +177,7 @@
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<input type="hidden" name="ATCH_IMG_2_FILE_ID" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"  />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -425,7 +426,7 @@
                                 	<span class="con">
                                 		<input name="file1_text" type="text" class="w200">
 										<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
+										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
                                     	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     </span>
@@ -434,7 +435,7 @@
                                 	<span class="con">
                                     	<input name="file1_text" type="text" class="w200">
 										<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
+										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach" data_type="file" alt="찾아보기"   >
                                     	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     </span>
@@ -455,7 +456,9 @@
                     </form:form>
                     <!-- 버튼영역 -->
                     <div class="mbtn_wrap">
-                   		<a href="#"><img src="${contextPath}/img/btn_regist.png" alt="등록"  onclick="goSave();"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
+                   		<img src="${contextPath}/img/btn_regist.png" alt="등록"  onclick="goSave();">
+                   		<img src="${contextPath}/img/btn_cancle.png" alt="취소">
+                   	</div>
                     <!-- //버튼영역 -->
 
             	</div>
@@ -535,9 +538,15 @@
 	    		
 	    		var offset = $(this).offset();
 	    		var currPlace = $('body').scrollTop();
+	    		var thisType = $(this).attr('data_type');
+	    		var category = $(this).attr('data_category');
+	    		var fileMax = $(this).attr('data_fileMax');
+	    		
 	    		var $imgId = $(this).parent().find(':hidden');
 	    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+	    		var $imgDiv = $(this).closest('dl').find('dt');
 	    		
+	    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
 	    		e.preventDefault();
 	    			
 	    		var options = {
@@ -546,12 +555,7 @@
 	    			height : 300,
 	    			closeCallback : closeCallback,
 	    			title : 'Files',
-	    			data : {
-	    				Category : 'Sample',
-	    				Accept : 'jpg|jpeg|png|bmp|gif',
-	    				Max : 1,
-	    				FileIds : $imgId.val()
-	    			},
+	    			data : params,
 	    			buttonType : 0
 	    		};
 	    		var $dialog = BIT.modalDialog(options);
@@ -564,20 +568,33 @@
 	    				var files = returnValue;
 	    				var fileIds = '';
 	    				var fileNames = '';
+	    				//단일 이미지 처리시에만 적용 올려진 썸네일 이미지를 리턴받아 화면상에 이미지 영역에 뿌려줌
+	    				var imgUrl = "";
+	    				
 	    				for (var i = 0; i < files.length; i++) {
 	    					if (fileIds) {
-	    						fileIds += ',' + files[i].fileId;
-	    						fileNames += ',' + files[i].realName;
+	    						fileIds += ',' + files[i].atchFileId;
+	    						fileNames += ',' + files[i].orignlFileNm;
 	    					} else {
-	    						fileIds = files[i].fileId;
-	    						fileNames = files[i].realName;
+	    						fileIds = files[i].atchFileId;
+	    						fileNames = files[i].orignlFileNm;
+	    						imgUrl =  '<c:url value="/webAttach/thumnails/" />' + files[i].streFileNm;
 	    					}
 	    				}
+	    				var options = {"background":"url("+imgUrl+")", 'background-repeat' : 'no-repeat', 'background-position':'center left'};
 	    				$imgId.val(fileIds);
 	    				$fileNmme.val(fileNames);
+	    				if(thisType == 'img'){
+	    					$imgDiv.css(options);
+	    				}
+	    				
 	    			} else {
 	    				$imgId.val('');
 	    				$fileNmme.val('');
+	    				if(thisType == 'img'){
+	    					$imgDiv.css('background', 'url(/img/noimg.png)');
+	    				}
+	    				
 	    			}
 	    		}
 	    	});
@@ -591,6 +608,23 @@
 			$(this).parent().find(':hidden').val('');
     		$(this).parent('').find('[name=file1_text]').val('');
 		});
+		
+		$('[name=btnFileDelete]').click(function(e){
+			var $imgId = $(this).parent().find(':hidden');
+    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+    		var $imgDiv = $(this).closest('dl').find('dt');
+			
+    		$imgId.val('');
+    		$fileNmme.val('')
+    		var basicImg = '<c:url value="/webAttach/thumnails/" />'
+    		$imgDiv.css
+		});
+		
+
+		$(window).bind('scroll', function() {
+		     $(".ui-dialog").dialog('option', 'position', 'center');
+		});
+		
     });
     
     function replaceModalwindow(offset, currPlace) {
@@ -691,6 +725,30 @@
     	                $(this).attr('name', 'CustomerClerk[' + i + '].' + $(this).attr('name'));
     	            });
     	        });
+    	}
+    	
+    	function isDeleteFinish(){
     		
+    		  alert('파일이 삭제됩니다.');
+    	}
+    	
+    	function fn_dataParamSetting(category, fileMax, type, filesIds){
+    		var fileExtn = '';
+    		
+    		if(type == "img"){
+    			fileExtn = 'jpg|jpeg|png|bmp|gif';
+    		} else {
+    			fileExtn = '';
+    		}
+    		
+    		var params = {
+    				Category : category,
+					Accept : fileExtn,
+    				Max : Number(fileMax),
+    				Type : type,
+    				FileIds : filesIds
+    			}
+    		
+    		return params;
     	}
  </script>

@@ -44,4 +44,8 @@ public class JsonObject {
 	 * Data의 총 record 수
 	 */
 	public int totalRecordCount;
+	/**
+	 * 파일의 삭제 여부 성공시 true
+	 */
+	public boolean IsDeleted;
 }

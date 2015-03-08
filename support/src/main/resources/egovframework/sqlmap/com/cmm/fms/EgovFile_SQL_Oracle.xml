@@ -15,7 +15,8 @@
 		<result property="fileStreCours" column="FILE_STRE_COURS" columnIndex="6"/>
 		<result property="orignlFileNm" column="ORIGNL_FILE_NM" columnIndex="7"/>
 		<result property="streFileNm" column="STRE_FILE_NM" columnIndex="8"/>
-		<result property="creatDt" column="CREAT_DT" columnIndex="9"/>			
+		<result property="creatDt" column="CREAT_DT" columnIndex="9"/>	
+		<result property="category" column="CATEGORY" columnIndex="10"/>		
 	</resultMap>
 
 	<resultMap id="fileDetail" class="egovframework.com.cmm.service.FileVO">
@@ -27,6 +28,7 @@
 		<result property="fileStreCours" column="FILE_STRE_COURS" columnIndex="6"/>
 		<result property="orignlFileNm" column="ORIGNL_FILE_NM" columnIndex="7"/>
 		<result property="streFileNm" column="STRE_FILE_NM" columnIndex="8"/>
+		<result property="category" column="CATEGORY" columnIndex="9"/>
 	</resultMap>	
 
 
@@ -35,6 +37,7 @@
 			SELECT 
 				a.ATCH_FILE_ID, b.FILE_CN, b.FILE_SN, b.FILE_STRE_COURS, b.STRE_FILE_NM,
 				b.FILE_EXTSN, b.ORIGNL_FILE_NM, b.FILE_SIZE, a.CREAT_DT
+				, b.CATEGORY
 			FROM
 				COMTNFILE a, COMTNFILEDETAIL b
 			WHERE
@@ -60,10 +63,10 @@
 		<![CDATA[
 			INSERT INTO COMTNFILEDETAIL
 			( ATCH_FILE_ID, FILE_SN, FILE_STRE_COURS, STRE_FILE_NM, 
-			  ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN )
+			  ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN,  CATEGORY)
 			VALUES
 			( #atchFileId#, #fileSn#, #fileStreCours#, #streFileNm#, 
-			  #orignlFileNm#, #fileExtsn#, #fileMg#, #fileCn# )			
+			  #orignlFileNm#, #fileExtsn#, #fileMg#, #fileCn#, #category# )			
 		]]>
 	</insert>	
 	
@@ -89,7 +92,7 @@
  		<![CDATA[
 			SELECT 
 				ATCH_FILE_ID, FILE_CN, FILE_SN, FILE_STRE_COURS, STRE_FILE_NM,
-				FILE_EXTSN, ORIGNL_FILE_NM, FILE_SIZE
+				FILE_EXTSN, ORIGNL_FILE_NM, FILE_SIZE, CATEOGRY
 			FROM
 				COMTNFILEDETAIL
 			WHERE
@@ -163,7 +166,7 @@
 			AND 
 				a.ATCH_FILE_ID = b.ATCH_FILE_ID
 			AND
-				UPPER(b.FILE_EXTSN) IN ('GIF','JPG','BMP','PNG')
+				UPPER(b.FILE_EXTSN) IN ('GIF','JPG','BMP','PNG', 'JPEG')
 			AND 
 				a.USE_AT = 'Y'				
 			ORDER BY b.FILE_SN	

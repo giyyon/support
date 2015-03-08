@@ -1,13 +1,17 @@
 package support.util.web;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -94,10 +98,12 @@ public class RpnFileController {
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String atchFileId = idgenService.getNextStringId();
+		String atchFileId = "";
+		if( !"".equals(atchFileId) &&  atchFileId != null ) {
+			atchFileId = idgenService.getNextStringId();
+		}
 		// upload to disk
 		List<FileVO> list = FileUtil.uploadFiles(request, atchFileId);
-		
 		
 		// add to DB
 		
@@ -147,12 +153,21 @@ public class RpnFileController {
 	@ResponseBody
 	@RequestMapping(value = "/getFiles.do", method = RequestMethod.GET)
 	public JsonObject getFiles(String fileIds) {
+		FileVO fvo = new FileVO();
+		fvo.setAtchFileId(fileIds);
 		
-		List<FileVO> fileList = null; ///this.rpnFileService.getFiles(fileIds);
-
+		List<FileVO> fileList;
+				
 		JsonObject jo = new JsonObject();
 		jo.IsSucceed = true;
-		jo.Data = fileList;
+		try {
+			fileList = this.fileMngService.selectFileInfs(fvo);
+			jo.Data = fileList;
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return jo;
 	}
 
@@ -177,23 +192,20 @@ public class RpnFileController {
 	public void download(FileVO fileVO, HttpServletResponse response, HttpServletRequest request) throws Exception {
 
 		boolean hasError = false;
-		List<FileVO> fileList = null ; //this.rpnFileService.getFiles(fileVO.getFileId());
+		List<FileVO> fileList = this.fileMngService.selectFileInfs(fileVO);
 
 		if (fileList.size() == 0) {
 			hasError = true;
 		}
+		
 		FileVO dbFile = fileList.get(0);
-		if (dbFile.getSize() == fileVO.getSize() && dbFile.getContentType().equals(fileVO.getContentType()) && dbFile.getVirtualName().equals(fileVO.getVirtualName())) {
-			try {
-				FileUtil.downloadFile(dbFile, request, response);
-			}
-			catch (Exception ex) {
-				hasError = true;
-			}
+		try {
+			FileUtil.downloadFile(dbFile, request, response);
 		}
-		else {
+		catch (Exception ex) {
 			hasError = true;
 		}
+			
 		if (hasError) {
 			response.setHeader("Content-Type", "text/html; charset=utf-8");
 
@@ -201,54 +213,45 @@ public class RpnFileController {
 		}
 		else {
 			
-			//Cookie cookie = new Cookie("fileDownload", "true"); cookie.setPath("/"); response.addCookie(cookie);
-			 
-			// String a = EgovSessionCookieUtil.getCookie(request, "fileDownload");
-			//EgovSessionCookieUtil.setCookie(response, "fileDownload", "true");
-			// String c = EgovSessionCookieUtil.getCookie(request, "fileDownload");
 		}
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/remove.do", method = RequestMethod.POST)
-	public JsonObject remove(FileVO fileVO, HttpServletRequest request) {
+	public JsonObject remove(FileVO fileVO, HttpServletRequest request) throws Exception {
 
 		JsonObject jo = new JsonObject();
-		List<FileVO> fileList = null ; //this.rpnFileService.getFiles(fileVO.getFileId());
+		List<FileVO> fileList = this.fileMngService.selectFileInfs(fileVO);
 		if (fileList.size() == 0) {
 			jo.IsSucceed = false;
 			jo.Message = "파일이 존재하지 않습니다.";
 			return jo;
 		}
 		FileVO dbFile = fileList.get(0);
-		if (dbFile.getSize() == fileVO.getSize() && dbFile.getContentType().equals(fileVO.getContentType()) && dbFile.getVirtualName().equals(fileVO.getVirtualName())) {
 
+		try {
 			// remove from db
-			/*
-			if (this.rpnFileService.remove(fileVO)) {
-
-				// remove from disk
-				try {
-					FileUtil.removeFile(fileVO, request);
-					jo.IsSucceed = true;
-					jo.Message = "파일을 삭제하였습니다.";
-					jo.Data = fileVO;
-				}
-				catch (Exception e) {
-					jo.IsSucceed = false;
-					jo.Message = e.getMessage();
-				}
-			}
+			this.fileMngService.deleteFileInf(fileVO);
+			// remove from disk
+			FileUtil.removeFile(fileVO, request);
+			jo.IsSucceed = true;
+			jo.IsDeleted = true;
+			jo.Message = "파일을 삭제하였습니다.";
+			jo.Data = fileVO;
+		}
+		catch (Exception e) {
+			jo.IsSucceed = false;
+			jo.Message = e.getMessage();
+		}
+	/*			
+	}
 			else {
 				jo.IsSucceed = false;
 				jo.Message = "파일을 삭제하는데 실패 하였습니다.";
 			}
-			*/
 		}
-		else {
-			jo.IsSucceed = false;
-			jo.Message = "파일 정보가 옳지 않습니다.";
-		}
+		*/
+
 		return jo;
 	}
 }
