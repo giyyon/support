@@ -1,5 +1,3 @@
-
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -7,9 +5,7 @@
 <script type="text/javascript" src="${contextPath}/js/jquery.mainslider.js"></script>
 <script type="text/javascript" src="${contextPath}/js/support.js"></script>
 
-<link href="<c:url value='/css/jquery-ui-1.10.3.custom.min.css'/>" rel="stylesheet" />
-
-<script src="<c:url value='/js/scripts/jquery-1.10.2.min.js'/>"></script> 
+<!-- <script src="<c:url value='/js/scripts/jquery-1.10.2.min.js'/>"></script> --> 
 <script src="<c:url value='/js/scripts/jquery-ui-1.10.3.custom.min.js'/>"></script>
 <script src="<c:url value='/js/scripts/json2.js'/>"></script>
 <script src="<c:url value='/js/scripts/jquery.form.js'/>"></script>
@@ -33,13 +29,16 @@
 <script src="<c:url value='/js/scripts/jquery.fileupload-image.js'/>"></script>
 <script src="<c:url value='/js/scripts/jquery.multiDownload.js'/>"></script>
 
+<link href="<c:url value='/css/jquery-ui-1.10.3.custom.min.css'/>" rel="stylesheet" />
+<link href="${contextPath}/css/necgis.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/support.css" rel="stylesheet" type="text/css" />
+
 	<script type="text/javascript">
 		var rt_path = ''  , rt_charset = 'UTF-8';
 	</script>
 	<script type='text/javascript' src='${contextPath}/js/common.js'></script>
 
-<link href="${contextPath}/css/necgis.css" rel="stylesheet" type="text/css" />
-<link href="${contextPath}/css/support.css" rel="stylesheet" type="text/css" />
+
 
     <script type="text/javascript">
 	function MM_swapImgRestore() { //v3.0

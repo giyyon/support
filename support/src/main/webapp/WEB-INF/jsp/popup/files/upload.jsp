@@ -105,15 +105,16 @@
     </script>
 	<script type="text/javascript">
 		var fileOptions = $('#fileupload').closest('div[id^=cntr]').data('options');
-		debugger;
+
 		var fileIds = ''; //$.cookie('fileIds');
 		if (fileIds == null || fileIds == '') {
 			fileIds = unescape(fileOptions.data.FileIds);
+			//$('[name=atchFileId]').val(fileIds);
 			//$.cookie('fileIds', fileIds);
 		}
 
 		$('#fileupload').fileupload({
-			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&atchFileId=' + $('[name=atchFileId]').val(),
+			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category, // + '&atchFileId=' + $('[name=atchFileId]').val(),
 			maxFileSize : 1000000,
 			maxNumberOfFiles : parseInt(fileOptions.data.Max),
 			acceptFileTypes : fileOptions.data.Accept == null ? new RegExp('') : new RegExp('(.|)(' + unescape(fileOptions.data.Accept) + ')$'),
