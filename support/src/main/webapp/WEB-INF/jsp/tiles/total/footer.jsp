@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../include/taglib.jsp" %>
 
-    <footer>
         <div id="btm_gourl">
             <div class="foot">
                 <div id="btm_gourl">
@@ -43,9 +42,7 @@
 				</div>
 			</div>
 		</div>
-    </footer>
-</div><!--//wrap -->
-<div class="mng"><div class="cont">
+
 
 
 <script type="text/javascript" src="${contextPath}/js/common.js"></script>
@@ -88,5 +85,3 @@ $(function() {
 
 
 </script>
-</body>
-</html>

@@ -27,6 +27,7 @@ import support.common.model.JsonObject;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 import support.util.file.FileUtil;
+import egovframework.com.utl.fcc.service.EgovStringUtil;
 
 @Controller
 @RequestMapping(value = "/files")
@@ -98,8 +99,8 @@ public class RpnFileController {
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String atchFileId = "";
-		if( !"".equals(atchFileId) &&  atchFileId != null ) {
+		String atchFileId = request.getParameter("fileIds");
+		if( EgovStringUtil.isEmpty(atchFileId) ) {
 			atchFileId = idgenService.getNextStringId();
 		}
 		// upload to disk

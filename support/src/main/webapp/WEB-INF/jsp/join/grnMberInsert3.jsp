@@ -425,7 +425,7 @@
                                 	<span class="con">
                                 		<input name="file1_text" type="text" class="w200">
 										<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
                                     	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     </span>
@@ -434,7 +434,7 @@
                                 	<span class="con">
                                     	<input name="file1_text" type="text" class="w200">
 										<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach" data_type="file" alt="찾아보기"   >
+										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="3" data_category="memberAttach" data_type="file" alt="찾아보기"   >
                                     	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     </span>
@@ -569,8 +569,6 @@
 	    		};
 	    		var $dialog = BIT.modalDialog(options);
 	    		
-	    		//모달창의 위치를 재조정
-	    		replaceModalwindow(offset, currPlace);
 	    		function closeCallback(returnValue) {
 	    			if (returnValue != null && returnValue.length > 0) {
 	    				debugger;
@@ -627,11 +625,6 @@
     		$fileNmme.val('')
     		var basicImg = '<c:url value="/webAttach/thumnails/" />'
     		$imgDiv.css
-		});
-		
-
-		$(window).bind('scroll', function() {
-		     $(".ui-dialog").dialog('option', 'position', 'center');
 		});
 		
     });
