@@ -25,11 +25,12 @@
 	</resultMap>
 	<!-- 아이디 찾기를 위한 resultMap -->
 	<resultMap id="id" class="egovframework.com.cmm.LoginVO">
-		<result property="id" column="id" columnIndex="1"/>
-		<result property="name" column="name" columnIndex="2"/>
-		<result property="sbscrbDe" column="sbscrbDe" columnIndex="3"/>
-		<result property="email" column="email" columnIndex="4"/>
-		<result property="mbTlNum" column="mbTlNum" columnIndex="5"/>
+		<result property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="sbscrbDe" column="sbscrbDe" />
+		<result property="email" column="email" />
+		<result property="mbTlNum" column="mbTlNum" />
+		
 	</resultMap>
 	
 	<!-- 비밀번호 처리를 위한 resultMap -->
@@ -163,7 +164,7 @@
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="loginDAO.searchId" parameterClass="loginVO"  resultMap="id">
+	<select id="loginDAO.searchId" parameterClass="loginVO"  resultClass="loginVO">
 		<!-- 일반회원 -->
 		<isEqual property="userSe" compareValue="GNR">
 			<![CDATA[
@@ -188,7 +189,7 @@
 			         ,applcnt_email_adres as email
 			  FROM COMTNENTRPRSMBER
 			 WHERE (CXFC = #name#
-					   OR    BIZRNO = #bizRno#		   
+					   OR  BIZRNO = #bizrno#   
 					   OR applcnt_email_adres = #email#)
 			   AND entrprs_mber_sttus = 'P'
 			]]>
@@ -224,8 +225,9 @@
 			SELECT entrprs_mber_password AS password
 			  FROM COMTNENTRPRSMBER
 			 WHERE ENTRPRS_MBER_ID = #id#
-			   AND cmpny_nm = #name#
-			   AND applcnt_email_adres = #email#
+			   AND CXFC = #name#
+			   AND BIZRNO = #bizrno#
+			   AND REPRSNT_EMAIL_ADRES = #email#
 			   AND entrprs_mber_sttus = 'P'
 			]]>
 		</isEqual>

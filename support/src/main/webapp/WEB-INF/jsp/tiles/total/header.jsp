@@ -15,8 +15,6 @@
 <!-- 이 부분은 지정된 URL에 대한 권한이 있는 경우에 표시됨 -->
 <!-- </sec:authorize> -->
 
-<div class="wrap"><!-- gnb -->
-    <header>
     	<div id="gnb_wrap">
    			<div class="gnb area_ct">
             	<ul class="flr">
@@ -61,7 +59,7 @@
 												<span class="navi_fir"><a href="#">학교공간</a></span>
 												<div class="navi_sec" style="margin-left:16%;">
 													<ul>
-														<li><a href="#">사업신청∙관리</a></li>
+														<li><a href="#">사업신청?관리</a></li>
 													</ul>
 												</div>
 											</li>
@@ -69,7 +67,7 @@
 												<span class="navi_fir"><a href="#">학생공간</a></span>
 												<div class="navi_sec" style="margin-left:32%;">
 													<ul>
-														<li><a href="#">사업신청∙관리</a></li>
+														<li><a href="#">사업신청?관리</a></li>
 													</ul>
 												</div>
 											</li>
@@ -87,7 +85,7 @@
 												<div class="navi_sec" style="margin-left:64%;">
 													<ul>
 														<li><a href="${contextPath}/customer/noticeList.do">공지사항</a></li>
-														<li><a href="#">문의∙제안∙신고</a></li>
+														<li><a href="#">문의?제안?신고</a></li>
 					                                    <li><a href="#">서비스정책</a></li>
 					                                    <li><a href="/myInfo/myInfoView.do">회원정보</a></li>
 													</ul>
@@ -145,7 +143,7 @@
 													<li id="m_menu_link02" class="m_depth01">
 														<a href="#m_menu_link02" title="학교공간"><strong>학교공간</strong></a>
 														<ul class="m_depth02">
-														<li><a href="#">사업신청∙관리</a></li>
+														<li><a href="#">사업신청?관리</a></li>
 														</ul>
 													</li>
 													<!-- // 학교공간 -->
@@ -153,7 +151,7 @@
 													<li id="m_menu_link03" class="m_depth01">
 														<a href="#m_menu_link03" title="학생공간"><strong>학생공간</strong></a>
 														<ul class="m_depth02">
-														<li><a href="#">사업신청∙관리</a></li>
+														<li><a href="#">사업신청?관리</a></li>
 														</ul>
 													</li>
 													<!-- // 학생공간 -->
@@ -171,7 +169,7 @@
 														<a href="#m_menu_link05" title="고객센터"><strong>고객센터</strong></a>
 														<ul class="m_depth02">
 														<li><a href="#">공지사항</a></li>
-														<li><a href="#">문의∙제안∙신고</a></li>
+														<li><a href="#">문의?제안?신고</a></li>
 					                                    <li><a href="#">서비스정책</a></li>
 					                                    <li><a href="/myInfo/myInfo.do">회원정보</a></li>
 														</ul>
@@ -226,7 +224,7 @@
 										<span class="navi_fir"><a href="#">학교공간</a></span>
 										<div class="navi_sec">
 											<ul style="margin-left:0;">
-												<li><a href="#">사업신청∙관리</a></li>
+												<li><a href="#">사업신청?관리</a></li>
 											</ul>
 										</div>
 									</li>
@@ -234,7 +232,7 @@
 										<span class="navi_fir"><a href="#">학생공간</a></span>
 										<div class="navi_sec" style="margin-left:16%;">
 											<ul>
-												<li><a href="#">사업신청∙관리</a></li>
+												<li><a href="#">사업신청?관리</a></li>
 											</ul>
 										</div>
 									</li>
@@ -260,7 +258,7 @@
 										<div class="navi_sec" style="margin-left:64%;">
 											<ul>
 												<li><a href="${contextPath}/customer/noticeList.do">공지사항</a></li>
-												<li><a href="#">문의∙제안∙신고</a></li>
+												<li><a href="#">문의?제안?신고</a></li>
 			                                    <li><a href="#">서비스정책</a></li>
 			                                    <li><a href="/myInfo/myInfoView.do">회원정보</a></li>
 											</ul>
@@ -274,7 +272,7 @@
 												<li><a href="#">공지사항 글쓰기</a></li>
 			                                    <li><a href="#">온라인도움말 관리</a></li>
 			                                    <li><a href="#">온라인도움말글쓰기</a></li>
-			                                    <li><a href="#">문의∙제안∙신고</a></li>
+			                                    <li><a href="#">문의?제안?신고</a></li>
 											</ul>
 										</div>
 									</li>
@@ -291,4 +289,3 @@
 					</c:choose>
 		<!-- 관리자용 메뉴 구성-->
 
-    </header>

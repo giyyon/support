@@ -219,4 +219,11 @@ public class EgovMberManageServiceImpl extends EgovAbstractServiceImpl implement
 		MberManageVO mberManageVO = mberManageDAO.selectPassword(passVO);
 		return mberManageVO;
 	}
+
+	@Override
+	public void updateWithdraw(String mberId) throws Exception {
+
+		mberManageDAO.updateWithdraw(mberId);
+		
+	}
 }

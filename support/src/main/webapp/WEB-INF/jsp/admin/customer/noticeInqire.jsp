@@ -31,26 +31,6 @@
                	 	</ul>
             	</div>
             	<!--//lnb-group -->
-               
-            	
-           		<div class="layer">
-					<div class="bg"></div>
-					<div id="layer2" class="pop-layer">
-						<div class="pop-container">
-							<div class="pop-conts">
-								<!--content //-->
-								<p class="ctxt mb20"><strong><span></span></strong><br>
-								</p>
-								<div class="layerContent"></div>
-								<div class="btn-r">
-									<a href="#" class="cbtn">Close</a>
-								</div>
-								<!--// content-->
-							</div>
-						</div>
-					</div>
-				</div>
-            	
             	
             	<div id="contents" class="bg_cs">
 	            	<form id="frm" method="post"  action="${contextPath}/customer/noticeInqire.do"/>
@@ -63,15 +43,29 @@
 						<input name="searchWrd" type="hidden" value="<c:out value='${searchVO.searchWrd}'/>"/>
 						<input type="hidden" name="seq" value="<c:out value='${result.seq}'/>"/>											
 					</form>
+								<div class="top"><a href="#"></a></div>
             		<div class="con_tit">공지사항 <span>Notice</span>
-                    	<span class="ex">공간정보산업진흥원에서 전하는 공지사항입니다.</span>
+                    	<span class="ex">(재)공간정보산업진흥원에서 전하는 공지사항입니다.</span>
                     </div>
 
-                    
-                    <!-- 뷰 -->
-                    <div class="view_info mtf5 mb5">
-                    	No.<c:out value="${result.nttId}"/><em>|</em>Hits.<c:out value="${result.inqireCo}"/><em>|</em><c:out value="${result.frstRegisterPnttm}"/>
-                        <div class="ico_box_w">
+                   <ul class="tap4_wrp mt10">
+                    	<li><a href="#" class="select">전체공지사항</a></li>
+                        <li><a href="#">사업공고</a></li>
+                        <li><a href="#">행사공지</a></li>
+                        <li><a href="#">운영공지</a></li>
+                    </ul>
+ 
+ 				<!------------ 20150209추가/변경--------- -->
+                    <div class="view_info_lst">
+                    	
+                    	<ul class="lst_m">
+                        	<li class="mdfy br"><a href="#">수정</a></li>
+                            <li class="del br"><a href="#">삭제</a></li>
+                            <li class="wrt br"><a href="#">글쓰기</a></li>
+                            <li class="minfo"><a href="#">내정보</a></li>
+                        </ul>
+                        
+                        <div class="ico_box_lst">
                             <ul class="ico_box">
                             <li class="face"><a href="#" title="페이스북">페이스북</a></li>
                             <li class="twitter"><a href="#" title="트위터">트위터</a></li>
@@ -84,23 +78,30 @@
                             </ul>
                         </div>
                     </div>
+										<div class="etc_info">
+										  No.<c:out value="${result.nttId}"/><em>|</em>Hits.<c:out value="${result.inqireCo}"/><em>|</em><c:out value="${result.frstRegisterPnttm}"/>
+                    </div>
+                    <!------------ //20150209추가/변경--------- -->
+                    
                     <div class="bview_box">
                     	<ul>
-                            <li class="full"><strong><span>제목</span></strong><span><b><c:out value="${result.nttSj}" /></b> </span></li>
-                
+                            <li class="full"><strong><span>제목</span></strong><span class="fcR_B"><c:out value="${result.nttSj}" /></span></li>
                             <li class="full"><strong><span>등록자</span></strong><span>관리자</span></li>
-                            <li class="full"><strong><span>첨부파일</span></strong>
-	                            <c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+                            <li class="part"><strong><span>첨부파일</span></strong>
+                           		 <div class="file_bx">
+                            	<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 									<c:param name="param_atchFileId" value="${result.atchFileId}" />
-								</c:import>			
+								</c:import>	   
+                            	</div>                    	
                             </li>
-                            <li class="full"><strong><span>참조사이트</span></strong>
-                            	<span><a href="<c:out value="${result.refrnUrl1}" />"  target="_blank"><c:out value="${result.refrnUrl1}" /></a></span>
-                            	<span><a href="<c:out value="${result.refrnUrl2}" />" target="_blank"><c:out value="${result.refrnUrl2}" /></a></span>
-                            	<span><a href="<c:out value="${result.refrnUrl3}" />" target="_blank"><c:out value="${result.refrnUrl3}" /></a></span>
-                            	<span><a href="<c:out value="${result.refrnUrl4}" />" target="_blank"><c:out value="${result.refrnUrl4}" /></a></span>
-                            	<span><a href="<c:out value="${result.refrnUrl5}" />" target="_blank"><c:out value="${result.refrnUrl5}" /></a></span>
-                            	
+                            <li class="part"><strong><span>참조사이트</span></strong>
+                           		 <div class="file_bx">
+                            	<a href="<c:out value="${result.refrnUrl1}" />"  target="_blank"><c:out value="${result.refrnUrl1}" /></a><br>
+                            	<a href="<c:out value="${result.refrnUrl2}" />" target="_blank"><c:out value="${result.refrnUrl2}" /></a><br>
+                            	<a href="<c:out value="${result.refrnUrl3}" />" target="_blank"><c:out value="${result.refrnUrl3}" /></a><br>
+                            	<a href="<c:out value="${result.refrnUrl4}" />" target="_blank"><c:out value="${result.refrnUrl4}" /></a><br>
+                            	<a href="<c:out value="${result.refrnUrl5}" />" target="_blank"><c:out value="${result.refrnUrl5}" /></a>	<br>    
+                            	</div>                    	
                             </li>
                             
                         </ul>
@@ -110,9 +111,21 @@
                     </div>
 
                     <!-- //뷰 -->
-                    <!--ico_box -->
-                    <div class="view_info mtf5 mb5">
-                        <div class="ico_box_w">
+ 
+                    
+                    <!-- 뷰 -->
+                    
+                  <!------------ 20150209추가/변경--------- -->
+                    <div class="view_info">
+                    	
+                    	<ul class="lst_m">
+                        	<li class="mdfy br"><a href="#">수정</a></li>
+                            <li class="del br"><a href="#">삭제</a></li>
+                            <li class="wrt br"><a href="#">글쓰기</a></li>
+                            <li class="minfo"><a href="#">내정보</a></li>
+                        </ul>
+                        
+                        <div class="ico_box_lst">
                             <ul class="ico_box">
                             <li class="face"><a href="#" title="페이스북">페이스북</a></li>
                             <li class="twitter"><a href="#" title="트위터">트위터</a></li>
@@ -124,7 +137,7 @@
                             <li class="claim"><a href="#" title="신고하기">신고하기</a></li>
                             </ul>
                         </div>
-                    </div><!--//ico_box -->
+                    </div>
                     
                     <!--이전글다음글 -->
                     <ul class="wrt_box">
@@ -132,11 +145,13 @@
                         <li class="next"><strong>다음글</strong><a href='javascript:linkBeforeNextArticle(${resultNext.seq}, ${resultNext.nttId})'><c:out value="${resultNext.nttSj}" /></a></li>
                     </ul>
                     <!--// 이전글다음글 -->
-            	</div>
-            	<!--//contents -->
+   
             	     <div class="btn_wrap">
                     	<a href="javascript:linkListPage()"><img id="showNotice" src="${contextPath}/img/btn_list.png" alt="목록"></a>
                     </div>
+
+            	</div>
+            	<!--//contents -->
         	</div>
         	<!--//content-group -->
 		</div><!--//sub_container -->

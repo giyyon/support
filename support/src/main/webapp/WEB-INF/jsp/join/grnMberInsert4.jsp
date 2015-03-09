@@ -35,18 +35,7 @@
                
             
             	<div id="contents" class="bg_cs">
-                	<div class="top"><a href="#"></a></div>
-            		<div class="con_tit">회원정보 <span>Membership</span>
-                    	<span class="ex">고객님의 소중한 정보를 관리합니다.</span>
-                    </div>
-
-                    <ul class="tap5_wrp mt10">
-                    	<li><a href="#" class="select">회원가입</a></li>
-                        <li><a href="#">아이디/비밀번호 찾기</a></li>
-                        <li><a href="#">기본정보∙비밀번호 관리</a></li>
-                        <li><a href="#">부가정보 관리</a></li>
-                        <li><a href="#">회원탈퇴</a></li>
-                    </ul>
+					<%@ include file="../include/joinMenu.jsp" %>
                     <div class="view_info mtf5 mb5">
                         <div class="ico_box_w">
                             <ul class="ico_box2">
@@ -64,17 +53,17 @@
                     </ul>
                     
                     <div class="sect_tk fcBlue">
-                    	<span class="hi"><span class="fcBlue"><c:out value='${mberManageVO.mberNm}'/> 님</span>의 회원가입을 축하드립니다.</span><br/>
+                    	<span class="hi"><span class="fcBlue"><c:out value='${sessionScope.joinUserNm}'/> 님</span>의 회원가입을 축하드립니다.</span><br/>
 회원님의 가입에 감사드리며, 등록하신 정보는 아래와 같습니다. <br/>
 다양한 서비스를 편리하게 이용하기 위해서는 부가정보 입력 및 서비스도움말 확인이 필요합니다.
 						
                     </div>
                     <div class="memok_wrap mt40 mb20">
                     	<div class="box fll">
-                        	<p class="fw_b alc">아이디<em>/</em><c:out value='${mberManageVO.mberId}'/></p>
+                        	<p class="fw_b alc">아이디<em>/</em><c:out value='${sessionScope.joinUserId}'/></p>
                         </div>
                         <div class="box2">
-                        	<p class="fw_b alc">비밀번호<em>/</em>  <c:out value='${fn:substring(mberManageVO.oldPassword, 0, 3)}'/>***</p>
+                        	<p class="fw_b alc">비밀번호<em>/</em>  <c:out value='${fn:substring(sessionScope.joinUserPw, 0, 3)}'/>***</p>
                        	</div>
                     </div>
                     <div class="txt11 tlin20 les3 fcGy2">
@@ -134,11 +123,11 @@
                             </li>
                         </ul>
                     </div>
-					<span class="txt12"><input name="" type="checkbox" value="" checked> 종합관리시스템을 시작페이지로 설정</span>
+					<span class="txt12"><input name="" type="checkbox" value=""  onClick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://hg.test.com');"> 종합관리시스템을 시작페이지로 설정</span>
                     
                     <!-- 버튼영역 -->
                     <div class="mbtn_wrap">
-                   		<a href="#"><img src="${contextPath}/img/btn_home.png" alt="홈"></a><a href="#"><img src="${contextPath}/img/btn_info.png" alt="부가정보"></a><a href="#"><img src="${contextPath}/img/btn_service.png" alt="서비스도움말"></a></div>
+                   		<a href="/"><img src="${contextPath}/img/btn_home.png" alt="홈"></a><a href="#"><img src="${contextPath}/img/btn_service.png" alt="서비스도움말"></a></div>
                     <!-- //버튼영역 -->
             	</div>
             	<!--//contents -->
@@ -151,6 +140,7 @@
     <script type="text/javaScript" language="javascript">
 	$(function(){
  		$("form").attr({action:"${contextPath}/join/actionLogin.do", target:""});
+ 		
 
 		$("#chkAll").click(function(){
             var chk = $(this).is(':checked');

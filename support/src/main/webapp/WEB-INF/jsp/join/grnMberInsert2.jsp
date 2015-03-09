@@ -204,14 +204,14 @@
                                 </li>
                                 <li><strong>* 이메일 </strong>
                                 	<span class="con">
-                                    <input name="emailHead" id="emailHead" type="text" class="w100" value="<c:out value='${emailHead}'/>"><em>@</em><input name="emailTail"  id="emailTail"   type="text" class="w100" value="<c:out value='${emailTail}'/>">
+                                    <input name="emailHead" id="emailHead" type="text" class="w100" readonly="readonly"  value="<c:out value='${emailHead}'/>"><em>@</em><input name="emailTail"  id="emailTail"   type="text" readonly="readonly"  class="w100" value="<c:out value='${emailTail}'/>">
                                    
-                                    <select  id ='mberEmailAdresList'>
-                                    	<option value=''>---선택하세요---</option>
-	                                    <c:forEach var="result" items="${email_result}" varStatus="status">
-	                                    	<option value='<c:out value="${result.codeNm}"/>' ><c:out value="${result.codeNm}"/></option>
-	                                    </c:forEach>
-                                    </select>
+<!--                                     <select  id ='mberEmailAdresList'> -->
+<!--                                     	<option value=''>---선택하세요---</option> -->
+<%-- 	                                    <c:forEach var="result" items="${email_result}" varStatus="status"> --%>
+<%-- 	                                    	<option value='<c:out value="${result.codeNm}"/>' ><c:out value="${result.codeNm}"/></option> --%>
+<%-- 	                                    </c:forEach> --%>
+<!--                                     </select> -->
                                     
 <%--                                     <form:select path="mailDomain" id="mberEmailAdresList" title="이메일"> --%>
 <%-- 				                        <form:option value="" label="--선택하세요--"/> --%>
@@ -331,9 +331,9 @@
 			chkDupleID();
         });
 		
-		$( "#mberEmailAdresList" ) .change(function () {
-		    																					$("#emailTail").val(  $( "#mberEmailAdresList option:selected" ).val());  
-		                                                                                       });
+// 		$( "#mberEmailAdresList" ) .change(function () {
+// 		    																					$("#emailTail").val(  $( "#mberEmailAdresList option:selected" ).val());  
+// 		                                                                                       });
 		$('#zip1, #zip2').change(function(){
 			$('#zip').val( $('#zip1').val() + $('#zip2').val());
 		});
@@ -406,7 +406,7 @@
 		
     	var formData = $("form").serialize ();
         $.ajax({
-            url: "${contextPath}/join/chkDuplicationId.do",
+            url: "${contextPath}/join/chkDuplicationGnrId.do",
             type: "post",
             dataType:"json",
 			data: "mberId="+ $("#mberId").val(),   //             data: { "name" : $("#name").val(),  "email" : $("#email").val(), "mbTlNum" : $("#mbTlNum").val() },

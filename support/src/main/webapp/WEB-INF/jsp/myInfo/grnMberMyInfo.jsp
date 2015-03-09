@@ -186,9 +186,9 @@
 										  <form:option value="7" label="7" />
 										  <form:option value="8" label="8" />
 										  <form:option value="9" label="9" />
-										  <form:option value="1" label="1" />
-										  <form:option value="1" label="1" />
-										  <form:option value="1" label="1" />
+										  <form:option value="10" label="10" />
+										  <form:option value="11" label="11" />
+										  <form:option value="12" label="12" />
 										</form:select>										
                                         
 											<form:select path="birthDay" >
@@ -337,7 +337,7 @@
                     
                     <!-- 버튼영역 -->
                     <div class="mbtn_wrap">
-                   		<a href="#"><img src="${contextPath}/img/btn_info.png" alt="부가정보"></a><a href='javascript:goSave();' ><img src="${contextPath}/img/btn_nextf.png" alt="다음단계"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
+                   		<a href="javascript:goSave('H');"><img src="${contextPath}/img/btn_info.png" alt="부가정보"></a><a href='javascript:goSave('F');' ><img src="${contextPath}/img/btn_regist.png" alt="등록단계"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
                     <!-- //버튼영역 -->
 
             	</div>
@@ -353,7 +353,7 @@
     
     <script type="text/javaScript" language="javascript">
 	$(function(){
- 		$("form").attr({action:"${contextPath}/myInfo/updateMyInfo.do", target:""});
+ 		$("form").attr({action:"${contextPath}/myInfo/updateGnrMyInfo.do", target:""});
 
  		$("#resultChgPassword").css("float", "right");
 		
@@ -370,9 +370,10 @@
 
     });
 	
-	function goSave(){
+	function goSave(status){
 		var  result = isOkAllproperty() ;
 		if(isOkAllproperty() == 'OK'){
+			$('#progressStauts').val(status);
 			$("form").submit();
 		}else{
 			alert(result);
@@ -416,7 +417,7 @@
 		
     	var formData = $("form").serialize ();
         $.ajax({
-            url: "${contextPath}/myInfo/jsonPasswordChange.do",
+            url: "${contextPath}/myInfo/jsonGnrPasswordChange.do",
             type: "post",
             dataType:"json",
 			data: formData,   //             data:  "name="+ $("#name").val()+ "&"+ "email=$("#email").val()+ "&"+  "mbTlNum=""+$("#mbTlNum").val(); 

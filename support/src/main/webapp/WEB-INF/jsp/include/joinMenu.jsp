@@ -24,7 +24,7 @@
 	                    <ul class="tap3_wrp mt10">
 	                    	<li><a href="javascript:goMyInfo()" class="select" id="mainInfo">기본정보/비밀번호 관리</a></li>
 	                        <li><a href="javascript:goMyInfoSub()" id="subInfo">부가정보 관리</a></li>
-	                        <li><a href="javascript:goSecsn()" id="secsn">회원탈퇴</a></li>
+	                        <li><a href="javascript:gowithdraw()" id="secsn">회원탈퇴</a></li>
 	                    </ul>
                     </div>
 
@@ -85,5 +85,16 @@
     	function goMyInfoSub(){
     		window.location = "${contextPath}/myInfo/myInfoSubView.do";
     	}
+    	function gowithdraw(){
+    		if (confirm("확인을 누르면 회원 탈퇴 처리됩니다.정말 회원 탈퇴하시겠습니까?") == true){ 
+    			   //확인
+    			    window.location = "${contextPath}/myInfo/updateWithdraw.do";
+    			}else{   
+    				//취소
+    			    return;
+    			}
+    		
+    	}
+    	
     	
     </script>

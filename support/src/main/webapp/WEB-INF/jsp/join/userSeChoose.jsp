@@ -112,7 +112,7 @@
     			return false;
     		}
     			
-    	}else if(userSe == "GNR"){
+    	}else if(userSe == "ENT"){
     		$("form").submit();
     	}
     }

@@ -63,7 +63,7 @@ public class LoginVO implements Serializable{
 	private String mbTlNum;
 	
 	/** 사업자 번호 */
-	private String bizRno;
+	private String bizrno;
 	
 	
 	
@@ -306,16 +306,16 @@ public class LoginVO implements Serializable{
 	/**
 	 * @return the bizRno
 	 */
-	public String getBizRno() {
+	public String getBizrno() {
 	
-		return bizRno;
+		return bizrno;
 	}
 	/**
 	 * @param bizRno the bizRno to set
 	 */
-	public void setBizRno(String bizRno) {
+	public void setBizrno(String bizrno) {
 	
-		this.bizRno = bizRno;
+		this.bizrno = bizrno;
 	}
 	
 	

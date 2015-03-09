@@ -42,16 +42,16 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	HTTP request 객체값을 @CommandMap이 붙은  Map객체에 담아 Controller에서 사용도록 제공한다.
 	기존에 사용하던 CommandMapArgumentResolver은 deprecated되었으며 AnnotationCommandMapArgumentResolver이 이와 동일한 기능을 한다.
 	 -->
-<!-- 	<bean class="egovframework.rte.ptl.mvc.bind.annotation.EgovRequestMappingHandlerAdapter"> -->
-<!-- 		<property name="webBindingInitializer"> -->
-<!-- 			<bean class="egovframework.com.cmm.web.EgovBindingInitializer"/> -->
-<!-- 		</property> -->
-<!-- 		<property name="customArgumentResolvers"> -->
-<!-- 			<list> -->
-<!-- 				<bean class="egovframework.rte.ptl.mvc.bind.AnnotationCommandMapArgumentResolver"/> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
+	<bean class="egovframework.rte.ptl.mvc.bind.annotation.EgovRequestMappingHandlerAdapter">
+		<property name="webBindingInitializer">
+			<bean class="egovframework.com.cmm.web.EgovBindingInitializer"/>
+		</property>
+		<property name="customArgumentResolvers">
+			<list>
+				<bean class="egovframework.rte.ptl.mvc.bind.AnnotationCommandMapArgumentResolver"/>
+			</list>
+		</property>
+	</bean>
 	
 <!-- 	<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean> -->
 <!-- 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> -->

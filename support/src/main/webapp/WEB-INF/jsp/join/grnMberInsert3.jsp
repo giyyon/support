@@ -2,7 +2,6 @@
 <%@ include file="../include/taglib.jsp" %>
 
 
-    <div id="container">  	
         <div class="svisual" style="background-color:#41372e;background-image:url('${contextPath}/img/Visual01.jpg'); background-position:center">
         </div><!--//svisual -->
         
@@ -443,7 +442,18 @@
                                 
                                 <li><strong>자기소개</strong>
                                 	<span class="con">
-                                	<textarea rows="4" cols="60" name="atte_rows" id="notice" onkeyup="resize(this)"></textarea>
+                                	<form:textarea path="notice"  htmlEscape="false" ></form:textarea>
+                                    <script>
+                                    CKEDITOR.replace(
+                                 	'notice',
+                                 	{
+                                 		contenteditable:"false",
+                                 		filebrowserImageUploadUrl : '/files/ckEditor/insertImage.do',
+                                 		width : '100%', //넓이값
+                                 		height : '200'      //높이값
+                                 	}
+                                    );
+                                    </script>  
                                     <!--가로 665사이즈 입력폼 -->
 <%--                                     <img src="${contextPath}/img/smart_form.png" width="665" height="328">  --%>
                                     </span>
@@ -466,7 +476,6 @@
         	</div>
         	<!--//content-group -->
 		</div><!--//sub_container -->
-    </div>
     <span class="con">
     
     </span><!--//container -->

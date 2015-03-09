@@ -39,7 +39,33 @@
                     ENTRPRS_END_TELNO            ,
                     AREA_NO                      ,
                     APPLCNT_EMAIL_ADRES          ,
-                    APPLCNT_IHIDNUM              )
+                    APPLCNT_IHIDNUM,
+                    MBTLNUM                      ,
+					NICK                         ,
+					CMPNY_NM_OTHBC_AT            ,
+					BIZRNO_OTHBC_AT              ,
+					NICK_OTHBC_AT                ,
+					JOB_AREA                     ,
+					JOB_TYPE                     ,
+					JOB_CLASS                    ,
+					JOB_OTHBC_AT                 ,
+					ESTABLISH_YEAR               ,
+					ESTABLISH_MONTH              ,
+					ESTABLISH_DAY                ,
+					ESTABLISH_OTHBC_AT           ,
+					REPRSNT_EMAIL_ADRES          ,
+					REPRSNT_EMAIL_ADRES_OTHBC_AT ,
+					REPRSNT_RECV_AT              ,
+					REPRSNT_AREA_NO              ,
+					REPRSNT_ENTRPRS_MIDDLE_TELNO ,
+					REPRSNT_ENTRPRS_END_TELNO    ,
+					TEL_OTHBC_AT                 ,
+					FXNUM_OTHBC_AT               ,
+					ATCH_BIZ_FILE_ID             ,
+					PSTINST_DEPT_NM              ,
+					OFCPS_NM                     ,
+					APPLCNT_RECV_AT ,
+				    ADRES_OTHBC_AT           )
             VALUES (
                     #uniqId#,
                     #entrprsmberId#,
@@ -64,7 +90,33 @@
 	                #entrprsEndTelno#,
 	                #areaNo#,
 	                #applcntEmailAdres#,
-	                #applcntIhidnum#        )
+	                #applcntIhidnum#,
+	                #mbtlnum#,
+					#nick#,
+					#cmpnyNmOthbcAt#,
+					#bizrnoOthbcAt#,
+					#nickOthbcAt#,
+					#jobArea#,
+					#jobType#,
+					#jobClass#,
+					#jobOthbcAt#,
+					#establishYear#,
+					#establishMonth#,
+					#establishDay#,
+					#establishOthbcAt#,
+					#reprsntEmailAdres#,
+					#reprsntEmailAdresOthbcAt#,
+					#reprsntRecvAt#,
+					#reprsntAreaNo#,
+					#reprsntEntrprsMiddleTelno#,
+					#reprsntEntrprsEndTelno#,
+					#telOthbcAt#,
+					#fxnumOthbcAt#,
+					#atchBizFileId#,
+					#pstinstDeptNm#,
+					#ofcpsNm#,
+					#applcntRecvAt#,
+					#adresOthbcAt#        )
         ]]>
     </insert>
     
@@ -107,6 +159,97 @@
             WHERE ESNTL_ID=#uniqId#
         ]]>
     </select>
+    
+    <select id="entrprsManageDAO.selectEntrprsmberById" resultClass="entrprsVO">
+        <![CDATA[
+			SELECT
+							ESNTL_ID                     uniqId,
+							'USR02'                      userTy,
+							ENTRPRS_MBER_ID              entrprsmberId,
+							ENTRPRS_SE_CODE              entrprsSeCode,
+							BIZRNO                       bizrno,
+							JURIRNO                      jurirno,
+							CMPNY_NM                     cmpnyNm,
+							CXFC                         cxfc,
+							ZIP                          zip,
+							ADRES                        adres,
+							ENTRPRS_MIDDLE_TELNO         entrprsMiddleTelno,
+							FXNUM                        fxnum,
+							INDUTY_CODE                  indutyCode,
+							APPLCNT_NM                   applcntNm,
+							SBSCRB_DE                    sbscrbDe,
+							ENTRPRS_MBER_STTUS           entrprsMberSttus,
+							ENTRPRS_MBER_PASSWORD        entrprsMberPassword,
+							ENTRPRS_MBER_PASSWORD_HINT   entrprsMberPasswordHint,
+							ENTRPRS_MBER_PASSWORD_CNSR   entrprsMberPasswordCnsr,
+							GROUP_ID                     groupId,
+							DETAIL_ADRES                 detailAdres,
+							ENTRPRS_END_TELNO            entrprsEndTelno,
+							AREA_NO                      areaNo,
+							APPLCNT_IHIDNUM              applcntIhidnum,
+							APPLCNT_EMAIL_ADRES          applcntEmailAdres,
+							MBTLNUM                      mbtlnum,
+							NICK                         nick,
+							CMPNY_NM_OTHBC_AT            cmpnyNmOthbcAt,
+							BIZRNO_OTHBC_AT              bizrnoOthbcAt,
+							NICK_OTHBC_AT                nickOthbcAt,
+							JOB_AREA                     jobArea,
+							JOB_TYPE                     jobType,
+							JOB_CLASS                    jobClass,
+							JOB_OTHBC_AT                 jobOthbcAt,
+							ESTABLISH_YEAR               establishYear,
+							ESTABLISH_MONTH              establishMonth,
+							ESTABLISH_DAY                establishDay,
+							ESTABLISH_OTHBC_AT           establishOthbcAt,
+							REPRSNT_EMAIL_ADRES          reprsntEmailAdres,
+							REPRSNT_EMAIL_ADRES_OTHBC_AT reprsntEmailAdresOthbcAt,
+							REPRSNT_RECV_AT              reprsntRecvAt,
+							REPRSNT_AREA_NO              reprsntAreaNo,
+							REPRSNT_ENTRPRS_MIDDLE_TELNO reprsntEntrprsMiddleTelno,
+							REPRSNT_ENTRPRS_END_TELNO    reprsntEntrprsEndTelno,
+							TEL_OTHBC_AT                 telOthbcAt,
+							FXNUM_OTHBC_AT               fxnumOthbcAt,
+							ATCH_BIZ_FILE_ID             atchBizFileId,
+							PSTINST_DEPT_NM              pstinstDeptNm,
+							OFCPS_NM                     ofcpsNm,
+							APPLCNT_RECV_AT              applcntRecvAt,
+							ATCH_IMG_LOGO_FILE_ID        atchImgLogoFileId,
+							ATCH_IMG_1_FILE_ID           atchImg1FileId,
+							ATCH_IMG_2_FILE_ID           atchImg2FileId,
+							ATCH_IMG_3_FILE_ID           atchImg3FileId,
+							ATCH_IMG_4_FILE_ID           atchImg4FileId,
+							SHORT_NOTICE                 shortNotice,
+							HOMEPAGE_URL                 homepageUrl,
+							BLOG_URL                     blogUrl,
+							SOCIAL_URL                   socialUrl,
+							NVL(EMP_CNT,0)                      empCnt,
+							NVL(CAPITAL_MONEY,0)                capitalMoney,
+							NVL(SALES_MONEY,0)                  salesMoney,
+							ATCH_REPORT_FILE_ID          atchReportFileId,
+							ATCH_PORT_FILE_ID            atchPortFileId,
+							MNG_NM                       mngNm,
+							MNG_PSTINST_DEPT_NM          mngPstinstDeptNm,
+							MNG_OFCPS_NM                 mngOfcpsNm,
+							MNG_EMAIL_ADRES              mngEmailAdres,
+							MNG_MBTLNUM                  mngMbtlnum,
+							MNG_AREA_NO                  mngAreaNo,
+							MNG_ENTRPRS_MIDDLE_TELNO     mngEntrprsMiddleTelno,
+							MNG_ENTRPRS_END_TELNO        mngEntrprsEndTelno,
+							TAX_NM                       taxNm,
+							TAX_PSTINST_DEPT_NM          taxPstinstDeptNm,
+							TAX_OFCPS_NM                 taxOfcpsNm,
+							TAX_EMAIL_ADRES              taxEmailAdres,
+							TAX_MBTLNUM                  taxMbtlnum,
+							TAX_AREA_NO                  taxAreaNo,
+							TAX_ENTRPRS_MIDDLE_TELNO     taxEntrprsMiddleTelno,
+							TAX_ENTRPRS_END_TELNO        taxEntrprsEndTelno,
+							NOTICE                       notice,
+							CXFC_OTHBC_AT                cxfcOthbcAt,
+							ADRES_OTHBC_AT    adresOthbcAt
+			FROM COMTNENTRPRSMBER
+			WHERE ENTRPRS_MBER_ID=#entrprsmberId#
+        ]]>
+    </select>
 
     <update id="entrprsManageDAO.updateEntrprs_S">
         <![CDATA[
@@ -136,6 +279,96 @@
         ]]>
     </update>
     
+    <update id="entrprsManageDAO.updateEntrprsmber_Main">
+        <![CDATA[
+            UPDATE COMTNENTRPRSMBER 
+            SET 
+							ENTRPRS_SE_CODE              = #entrprsSeCode#,
+							BIZRNO                       = #bizrno#,
+							JURIRNO                      = #jurirno#,
+							CMPNY_NM                     = #cmpnyNm#,
+							CXFC                         = #cxfc#,
+							ZIP                          = #zip#,
+							ADRES                        = #adres#,
+							ENTRPRS_MIDDLE_TELNO         = #entrprsMiddleTelno#,
+							FXNUM                        = #fxnum#,
+							INDUTY_CODE                  = #indutyCode#,
+							APPLCNT_NM                   = #applcntNm#,
+							GROUP_ID                     = #groupId#,
+							DETAIL_ADRES                 = #detailAdres#,
+							ENTRPRS_END_TELNO            = #entrprsEndTelno#,
+							AREA_NO                      = #areaNo#,
+							APPLCNT_EMAIL_ADRES          = #applcntEmailAdres#,
+							MBTLNUM                      = #mbtlnum#,
+							NICK                         = #nick#,
+							CMPNY_NM_OTHBC_AT            = #cmpnyNmOthbcAt#,
+							BIZRNO_OTHBC_AT              = #bizrnoOthbcAt#,
+							NICK_OTHBC_AT                = #nickOthbcAt#,
+							JOB_AREA                     = #jobArea#,
+							JOB_TYPE                     = #jobType#,
+							JOB_CLASS                    = #jobClass#,
+							JOB_OTHBC_AT                 = #jobOthbcAt#,
+							ESTABLISH_YEAR               = #establishYear#,
+							ESTABLISH_MONTH              = #establishMonth#,
+							ESTABLISH_DAY                = #establishDay#,
+							ESTABLISH_OTHBC_AT           = #establishOthbcAt#,
+							REPRSNT_EMAIL_ADRES          = #reprsntEmailAdres#,
+							REPRSNT_EMAIL_ADRES_OTHBC_AT = #reprsntEmailAdresOthbcAt#,
+							REPRSNT_RECV_AT              = #reprsntRecvAt#,
+							REPRSNT_AREA_NO              = #reprsntAreaNo#,
+							REPRSNT_ENTRPRS_MIDDLE_TELNO = #reprsntEntrprsMiddleTelno#,
+							REPRSNT_ENTRPRS_END_TELNO    = #reprsntEntrprsEndTelno#,
+							TEL_OTHBC_AT                 = #telOthbcAt#,
+							FXNUM_OTHBC_AT               = #fxnumOthbcAt#,
+							ATCH_BIZ_FILE_ID             = #atchBizFileId#,
+							PSTINST_DEPT_NM              = #pstinstDeptNm#,
+							OFCPS_NM                     = #ofcpsNm#,
+							APPLCNT_RECV_AT              = #applcntRecvAt#,
+							CXFC_OTHBC_AT                = #cxfcOthbcAt#,
+							ADRES_OTHBC_AT              =#adresOthbcAt#
+            WHERE ESNTL_ID=#uniqId#
+        ]]>
+    </update>   
+    
+    <update id="entrprsManageDAO.updateEntrprsmber_Sub">
+        <![CDATA[
+            UPDATE COMTNENTRPRSMBER 
+            SET 
+							ATCH_IMG_LOGO_FILE_ID        = #atchImgLogoFileId#,
+							ATCH_IMG_1_FILE_ID           = #atchImg1FileId#,
+							ATCH_IMG_2_FILE_ID           = #atchImg2FileId#,
+							ATCH_IMG_3_FILE_ID           = #atchImg3FileId#,
+							ATCH_IMG_4_FILE_ID           = #atchImg4FileId#,
+							SHORT_NOTICE                 = #shortNotice#,
+							HOMEPAGE_URL                 = #homepageUrl#,
+							BLOG_URL                     = #blogUrl#,
+							SOCIAL_URL                   = #socialUrl#,
+							EMP_CNT                      = #empCnt#,
+							CAPITAL_MONEY                = #capitalMoney#,
+							SALES_MONEY                  = #salesMoney#,
+							ATCH_REPORT_FILE_ID          = #atchReportFileId#,
+							ATCH_PORT_FILE_ID            = #atchPortFileId#,
+							MNG_NM                       = #mngNm#,
+							MNG_PSTINST_DEPT_NM          = #mngPstinstDeptNm#,
+							MNG_OFCPS_NM                 = #mngOfcpsNm#,
+							MNG_EMAIL_ADRES              = #mngEmailAdres#,
+							MNG_MBTLNUM                  = #mngMbtlnum#,
+							MNG_AREA_NO                  = #mngAreaNo#,
+							MNG_ENTRPRS_MIDDLE_TELNO     = #mngEntrprsMiddleTelno#,
+							MNG_ENTRPRS_END_TELNO        = #mngEntrprsEndTelno#,
+							TAX_NM                       = #taxNm#,
+							TAX_PSTINST_DEPT_NM          = #taxPstinstDeptNm#,
+							TAX_OFCPS_NM                 = #taxOfcpsNm#,
+							TAX_EMAIL_ADRES              = #taxEmailAdres#,
+							TAX_MBTLNUM                  = #taxMbtlnum#,
+							TAX_AREA_NO                  = #taxAreaNo#,
+							TAX_ENTRPRS_MIDDLE_TELNO     = #taxEntrprsMiddleTelno#,
+							TAX_ENTRPRS_END_TELNO        = #taxEntrprsEndTelno#,
+							NOTICE                       = #notice#							
+            WHERE ESNTL_ID=#uniqId#
+        ]]>
+    </update>   
+    
     <select id="entrprsManageDAO.selectStplat_S" resultMap="stplatMap">
         <![CDATA[
             SELECT
@@ -153,6 +386,16 @@
             SET 
                    ENTRPRS_MBER_PASSWORD   =  #entrprsMberPassword#
             WHERE  ESNTL_ID  = #uniqId#
+        ]]>
+    </update>
+    
+    
+    <update id="entrprsManageDAO.updateWithdraw" >
+        <![CDATA[
+            UPDATE COMTNENTRPRSMBER 
+            SET 
+                   ENTRPRS_MBER_STTUS   =  'W'
+            WHERE  ENTRPRS_MBER_ID  = #entrprsmberId#
         ]]>
     </update>
     

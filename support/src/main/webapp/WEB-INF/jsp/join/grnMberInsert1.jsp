@@ -35,18 +35,7 @@
                
             
             	<div id="contents" class="bg_cs">
-<!--                 	<div class="top"><a href="#"></a></div> -->
-<!--             		<div class="con_tit">회원정보 <span>Membership</span> -->
-<!--                     	<span class="ex">고객님의 소중한 정보를 관리합니다.</span> -->
-<!--                     </div> -->
-                    
-<!--                     <ul class="tap4_wrp mt10"> -->
-<!--                     	<li><a href="#" class="select">회원가입</a></li> -->
-<!--                         <li><a href="#">아이디 찾기</a></li> -->
-<!--                         <li><a href="#">비밀번호 찾기</a></li> -->
-<!--                         <li><a href="#">내정보 바로가기</a></li> -->
-<!--                     </ul> -->
-						<%@ include file="../include/joinMenu.jsp" %>
+				<%@ include file="../include/joinMenu.jsp" %>
 						
                     <div class="view_info mtf5 mb5">
                         <div class="ico_box_w">
@@ -178,6 +167,10 @@
     	$('#verifyIPinFirst a').text('눌렀음');
 	});
     
+	$( "#mberEmailAdres" ) .change(function () {
+		$("#emailTail").val(  $( "#mberEmailAdres option:selected" ).val());  
+   });
+    
     function goFirstStep(){
     	window.location = "${contextPath}/join/UserSeChoose.do";
     }
@@ -250,7 +243,7 @@
             		//인증 성공
             		html = '<p>인증 성공</p>';
         			$body.append(html);    
-            		$("form").attr({action:"${contextPath}/join/GnrMberInsertView2.do", target:""});	
+            		$("form").attr({action:"${contextPath}/join/gnrMberInsertView2.do", target:""});	
             		$("form").submit();
             	}else {
             		

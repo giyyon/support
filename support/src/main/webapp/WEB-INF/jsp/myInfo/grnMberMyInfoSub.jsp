@@ -416,7 +416,18 @@
                                 
                                 <li><strong>자기소개</strong>
                                 	<span class="con">
-                                	 <form:textarea path="notice"   rows="4" cols="60"   onkeyup="resize(this)"></form:textarea>
+                                	<form:textarea path="notice"  htmlEscape="false" ></form:textarea>
+                                    <script>
+                                    CKEDITOR.replace(
+                                 	'notice',
+                                 	{
+                                 		contenteditable:"false",
+                                 		filebrowserImageUploadUrl : '/files/ckEditor/insertImage.do',
+                                 		width : '100%', //넓이값
+                                 		height : '200'      //높이값
+                                 	}
+                                    );
+                                    </script>       
 <!--                                 	<textarea rows="4" cols="60" name="atte_rows" id="notice"  onkeyup="resize(this)"> -->
 <!--                                 	</textarea> -->
                                     <!--가로 665사이즈 입력폼 -->
@@ -447,7 +458,7 @@
     
 <script type="text/javaScript" language="javascript">
 		
-	$("form").attr({action:"${contextPath}/myInfo/updateSubMyInfo.do", target:""});   
+	$("form").attr({action:"${contextPath}/myInfo/updateGnrSubMyInfo.do", target:""});   
 		
 		
     $(document).ready(function () { 	

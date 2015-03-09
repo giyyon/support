@@ -149,7 +149,7 @@ public class LoginController {
 		LOGGER.debug("loginVOgetName정보"+loginVO.getName());
 		LOGGER.debug("loginVOgetEmail 정보"+loginVO.getEmail());
 		LOGGER.debug("loginVOgetMbTlNum 정보"+loginVO.getMbTlNum());
-		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizRno());
+		LOGGER.debug("loginVOgetBizrno 정보"+loginVO.getBizrno());
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
 			
 		// 1. 유사 아이디 찾기	
@@ -210,7 +210,7 @@ public class LoginController {
 		LOGGER.debug("loginVOgetName정보"+loginVO.getName());
 		LOGGER.debug("loginVOgetEmail 정보"+loginVO.getEmail());
 		LOGGER.debug("loginVOgetMbTlNum 정보"+loginVO.getMbTlNum());
-		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizRno());
+		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizrno());
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
 			
 		// 1. 비밀번호 찾기

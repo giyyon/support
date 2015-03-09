@@ -4,6 +4,7 @@ import java.util.List;
 
 import egovframework.com.cmm.service.impl.EgovComAbstractDAO;
 import egovframework.com.uss.umt.service.EntrprsManageVO;
+import egovframework.com.uss.umt.service.MberManageVO;
 import egovframework.com.uss.umt.service.UserDefaultVO;
 
 import org.springframework.stereotype.Repository;
@@ -49,8 +50,8 @@ public class EntrprsManageDAO extends EgovComAbstractDAO{
      * @param entrprsmberId 상세조회대상 기업회원아이디
      * @return EntrprsManageVO 기업회원 상세정보
      */
-    public EntrprsManageVO selectEntrprsmber(String entrprsmberId){
-        return (EntrprsManageVO) select("entrprsManageDAO.selectEntrprs_S", entrprsmberId);
+    public EntrprsManageVO selectEntrprsmber(String uniqId){
+        return (EntrprsManageVO) select("entrprsManageDAO.selectEntrprs_S", uniqId);
     }
 
     /**
@@ -77,6 +78,15 @@ public class EntrprsManageDAO extends EgovComAbstractDAO{
     public void updatePassword(EntrprsManageVO passVO) {
     	update("entrprsManageDAO.updatePassword_S", passVO);
     }
+    
+    /**
+     * 기업회원 탈퇴처리
+     * @param mberId 기업회원ID
+     */
+    public void updateWithdraw(String entrprsmberId) {
+        update("entrprsManageDAO.updateWithdraw", entrprsmberId);
+    }
+
 
     /**
      * 기업회원이 비밀번호를 기억하지 못할 때 비밀번호를 찾을 수 있도록 함
@@ -103,4 +113,30 @@ public class EntrprsManageDAO extends EgovComAbstractDAO{
     public int selectEntrprsMberListTotCnt(UserDefaultVO userSearchVO) {
         return (Integer)select("entrprsManageDAO.selectEntrprsMberListTotCnt", userSearchVO);
     }
+    
+    /**
+     * 기 등록된 사용자 중 검색조건에 맞는일반회원의 정보를 데이터베이스에서 읽어와 화면에 출력
+     * @param mberId 상세조회대상 기업회원아이디
+     * @return MberManageVO 기업회원 상세정보
+     */
+    public EntrprsManageVO selectEntrprsmberById(String entrprsmberId){
+        return (EntrprsManageVO) select("entrprsManageDAO.selectEntrprsmberById", entrprsmberId);
+    }
+    
+    /**
+     * 화면에 조회된일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+     * @param mberManageVO 일반회원수정정보
+     */
+    public void updateEntrprsmberMain(EntrprsManageVO entrprsManageVO){
+        update("entrprsManageDAO.updateEntrprsmber_Main",entrprsManageVO);
+    }
+    
+    /**
+     * 화면에 조회된일반회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+     * @param mberManageVO 일반회원수정정보
+     */
+    public void updateEntrprsmberSub(EntrprsManageVO entrprsManageVO){
+        update("entrprsManageDAO.updateEntrprsmber_Sub",entrprsManageVO);
+    }    
+    
 }

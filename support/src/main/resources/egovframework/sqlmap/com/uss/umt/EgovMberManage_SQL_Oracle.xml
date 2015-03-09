@@ -500,7 +500,6 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
 											ZIP                      = #zip#,                        
 											ADRES                    = #adres#,                      
 											AREA_NO                  = #areaNo#,                     
-											MBER_STTUS               = #mberSttus#,                  
 											DETAIL_ADRES              = #detailAdres#,                
 											END_TELNO                = #endTelno#,                   
 											MBTLNUM                  = #moblphonNo#,                    
@@ -578,6 +577,16 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
             WHERE  ESNTL_ID  = #uniqId#
         ]]>
     </update>
+    
+     <update id="mberManageDAO.updateWithdraw" >
+        <![CDATA[
+            UPDATE COMTNGNRLMBER 
+            SET 
+                   MBER_STTUS   =  'W'
+            WHERE  MBER_ID  = #mberId#
+        ]]>
+    </update>
+    
     
     <select id="mberManageDAO.selectPassword_S" resultClass="mberVO">
         <![CDATA[

@@ -70,8 +70,8 @@
                     	<div class="box fll">
                         	<p class="fw_b fcBlt">개인회원</p>
                             <ul class="pw_put fl100">
-                            	<li><strong>아이디</strong><span class="con"><input id="id"  name="id"  type="text" class="w200"></span> </li>
-                            	<li><strong>성명(실명)</strong><span class="con"><input name="name" type="text" class="w200"></span> </li>
+                            	<li><strong>아이디</strong><span class="con"><input id="gnrId"  name="gnrId"  type="text" class="w200"></span> </li>
+                            	<li><strong>성명(실명)</strong><span class="con"><input name="grnName" id="grnName" type="text" class="w200"></span> </li>
                                 <li><strong>휴대폰</strong>
                                 	<span class="con">
                                     <select name="phoneHead"  id="phoneHead" >
@@ -82,8 +82,8 @@
                                 </li>
                                 <li class="end"><strong>이메일 </strong>
                                 	<span class="con">
-                                    <input name="emailHead" id="emailHead" type="text" class="w80"><em>@</em><input name="emailTail" id="emailTail" type="text" class="w100">
-                                    <form:select path="mberEmailAdres" id="mberEmailAdres" title="이메일">
+                                    <input name="gnrEmailHead" id="gnrEmailHead" type="text" class="w80"><em>@</em><input name="gnrEmailTail" id="gnrEmailTail" type="text" class="w100">
+                                    <form:select path="mberEmailAdres" id="mberEmailAdresList" title="이메일">
 				                        <form:option value="" label="--선택하세요--"/>
 				                        <form:options items="${email_result}" itemValue="codeNm" itemLabel="codeNm"/>
 				                    </form:select>
@@ -92,39 +92,42 @@
                             </ul>
                             <div class="fl100 mt35">
                                 <div class="mem_btn">
-                                    <div class="btn_nxt"><a href="javascript:;" id="verifyEmailFirst" >이메일 확인</a></div><div class="btn_ipin"><a href="#">아이핀확인 </a></div>
+                                    <div class="btn_nxt"><a href="javascript:;" id="verifyGnrEmailFirst" >이메일 확인</a></div><div class="btn_ipin"><a href="#">아이핀확인 </a></div>
                                 </div>
                         	</div>
                         </div><!--//개인회원 -->
                         <div class="box2">
                         <p class="fw_b fcBlt">기관∙기업회원</p>
                             <ul class="pw_put fl100">
-                            	<li><strong>아이디</strong><span class="con"><input name="" type="text" class="w200"></span> </li>
-                            	<li><strong>대표자명</strong><span class="con"><input name="" type="text" class="w200"></span> </li>
+                            	<li><strong>아이디</strong><span class="con"><input id="entId"  name="entId"  type="text" class="w200"></span> </li>
+                            	<li><strong>대표자명</strong><span class="con"><input name="entName" id="entName" type="text" class="w200"></span> </li>
                                 <li><strong>사업자등록번호</strong>
                                 	<span class="con">
-                                    
-                                    <input name="" type="text" class="w60"><em>-</em><input name="" type="text" class="w60"><em>-</em><input name="" type="text" class="w60">
+                                    <input name="bizrno1" id="bizrno1"  type="text" class="w60"><em>-</em><input name="bizrno2" id="bizrno2"  type="text" class="w60"><em>-</em><input name="bizrno3" id="bizrno3"  type="text" class="w60"> 
                                     </span> 
                                 </li>
                                 <li class="end"><strong>대표이메일 </strong>
                                 	<span class="con">
-                                    <input name="" type="text" class="w80"><em>@</em><input name="input" type="text" class="w100">
-                                    <select name="이메일">
-                                        <option>naver.com</option>
-                                    </select>
+                                    <input name="entEmailHead" id="entEmailHead" type="text" class="w80"><em>@</em><input name="entEmailTail" id="entEmailTail" type="text" class="w100">
+                                     <form:select path="mberEmailAdres" id="entMberEmailAdresList" title="이메일">
+				                        <form:option value="" label="--선택하세요--"/>
+				                        <form:options items="${email_result}" itemValue="codeNm" itemLabel="codeNm"/>
+				                    </form:select>
                                     </span>
                                 </li>
                             </ul>
                             <div class="fl100 mt35">
                                 <div class="mem_btn">
-                                    <div class="btn_nxt"><a href="#">이메일 확인</a></div><div class="btn_ipin"><a href="#">아이핀확인 </a></div>
+                                    <div class="btn_nxt"><a href="javascript:;" id="verifyEntEmailFirst" >이메일 확인</a></div><div class="btn_ipin"><a href="#">아이핀확인 </a></div>
                                 </div>
                         	</div>
                         </div><!--//기업회원 -->
                     </div>
                     
-                     <input type="hidden" name="mbTlNum" id="mbTlNum" value="">
+                    <input type="hidden" name="id" id="id" value="">
+                    <input type="hidden" name="name" id="name" value="">
+                    <input type="hidden" name="mbTlNum" id="mbTlNum" value="">
+                    <input type="hidden" name="bizrno" id="bizrno" value="">
                     <input type="hidden" name="email" id="email" value="">
                     <input type="hidden" name="userSe"   id="userSe" value='${loginVO.userSe}'>
                     </form:form>      
@@ -146,19 +149,37 @@
  <script type="text/javaScript" language="javascript">
     $("#div-similar").css("display","none");
     
-    $("#verifyEmailFirst").attr({onclick:"javascript:requestVerifyNumber('GNR')"});
+    $("#verifyGnrEmailFirst").attr({onclick:"javascript:requestVerifyNumber('GNR')"});
+    $("#verifyEntEmailFirst").attr({onclick:"javascript:requestVerifyNumber('ENT')"})
 
     
     $('#verifyIPinFirst').bind("click", function(){
     	$('#verifyIPinFirst a').text('눌렀음');
 	});
     
+	//이메일 도메인 선택
+	$( "#mberEmailAdresList" ).change(function () {
+	    																					$("#gnrEmailTail").val(  $( "#mberEmailAdresList option:selected" ).val());  
+	                                                                                       });
+	//이메일 도메인 선택
+	$( "#entMberEmailAdresList" ).change(function () {
+	    																					$("#entEmailTail").val(  $( "#entMberEmailAdresList option:selected" ).val());  
+	                                                                                       });
+	
     
     function requestVerifyNumber(userSe){   
-    	
+    	if(userSe == 'GNR'){
+    		$('#id').val($('#gnrId').val());
+    		$('#name').val($('#grnName').val());
+    		$('#mbTlNum').val($('#phoneHead').val()+$('#phoneMiddle').val()+$('#phoneTail').val());
+    		$('#email').val($('#gnrEmailHead').val()+"@"+$('#gnrEmailTail').val());
+    	}else{
+    		$('#id').val($('#entId').val());
+    		$('#name').val($('#entName').val());
+    		$('#bizrno').val( $('#bizrno1').val() + $('#bizrno2').val()+ $('#bizrno3').val());
+    		$('#email').val($('#entEmailHead').val()+"@"+$('#entEmailTail').val());
+    	}
     	$('#userSe').val(userSe);
-        $('#mbTlNum').val($('#phoneHead').val()+$('#phoneMiddle').val()+$('#phoneTail').val());
-        $('#email').val($('#emailHead').val()+'@'+$('#emailTail').val());
               
     	$("#div-similar").html('');  
     	

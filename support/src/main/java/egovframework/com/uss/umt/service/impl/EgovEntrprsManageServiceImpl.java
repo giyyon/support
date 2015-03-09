@@ -4,9 +4,9 @@ import java.util.List;
 
 import egovframework.com.uss.umt.service.EgovEntrprsManageService;
 import egovframework.com.uss.umt.service.EntrprsManageVO;
+import egovframework.com.uss.umt.service.MberManageVO;
 import egovframework.com.uss.umt.service.UserDefaultVO;
 import egovframework.com.utl.sim.service.EgovFileScrty;
-
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 
@@ -78,6 +78,18 @@ public class EgovEntrprsManageServiceImpl extends EgovAbstractServiceImpl implem
         return entrprsManageVO;
     }
 
+    
+	/**
+	 * 기 등록된 사용자 중 검색조건에 맞는 일반회원의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * @param mberId 상세조회대상 일반회원아이디
+	 * @return entrprsManageVO 기업회원정보
+	 * @throws Exception
+	 */
+	public EntrprsManageVO selectEntrprsmberById(String entrprsmberId) {
+		EntrprsManageVO entrprsManageVO = entrprsManageDAO.selectEntrprsmberById(entrprsmberId);		
+		return entrprsManageVO;
+	}
+	
 	/**
 	 * 화면에 조회된 기업회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
 	 * @param entrprsManageVO 기업회원수정정보
@@ -164,6 +176,29 @@ public class EgovEntrprsManageServiceImpl extends EgovAbstractServiceImpl implem
     public int selectEntrprsMberListTotCnt(UserDefaultVO userSearchVO) {
     	return entrprsManageDAO.selectEntrprsMberListTotCnt(userSearchVO);
     }
+
+	@Override
+	public void updateEntrprsmberMain(EntrprsManageVO entrprsManageVO) throws Exception {
+
+		entrprsManageDAO.updateEntrprsmberMain(entrprsManageVO);
+		
+	}
+
+	@Override
+	public void updateEntrprsmberSub(EntrprsManageVO entrprsManageVO) throws Exception {
+
+		//부가정보 기록
+		entrprsManageDAO.updateEntrprsmberSub(entrprsManageVO);
+		
+	}
+
+	@Override
+	public void updateWithdraw(String entrprsmberId) throws Exception {
+
+		//부가정보 기록
+		entrprsManageDAO.updateWithdraw(entrprsmberId);
+		
+	}
 	
 
 }

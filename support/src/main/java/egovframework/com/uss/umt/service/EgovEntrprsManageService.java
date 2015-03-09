@@ -34,7 +34,15 @@ public interface EgovEntrprsManageService {
 	 * @return entrprsManageVO 기업회원정보
 	 * @throws Exception
 	 */
-	public EntrprsManageVO selectEntrprsmber(String entrprsmberId) throws Exception;
+	public EntrprsManageVO selectEntrprsmber(String uniqId) throws Exception;
+
+	/**
+	 * 기 등록된 사용자 중 검색조건에 맞는기업회원의 정보를 데이터베이스에서 읽어와 화면에 출력
+	 * @param entrprsmberId 조회대상 기업회원아이디
+	 * @return entrprsManageVO 기업회원정보
+	 * @throws Exception
+	 */
+	public EntrprsManageVO selectEntrprsmberById(String entrprsmberId) throws Exception;
 	
 	/**
 	 * 화면에 조회된 기업회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
@@ -42,6 +50,20 @@ public interface EgovEntrprsManageService {
 	 * @throws Exception
 	 */
 	public void updateEntrprsmber(EntrprsManageVO entrprsManageVO) throws Exception;
+	
+	/**
+	 * 신규 : 화면에 조회된 기업회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+	 * @param mberManageVO 일반회원수정정보
+	 * @throws Exception
+	 */
+	public void updateEntrprsmberMain(EntrprsManageVO entrprsManageVO) throws Exception;
+	
+	/**
+	 * 신규 : 화면에 조회된 기업회원의 기본정보를 수정하여 항목의 정합성을 체크하고 수정된 데이터를 데이터베이스에 반영
+	 * @param mberManageVO 일반회원수정정보
+	 * @throws Exception
+	 */
+	public void updateEntrprsmberSub(EntrprsManageVO entrprsManageVO) throws Exception;
 	
 	/**
 	 * 화면에 조회된 기업회원의 정보를 데이터베이스에서 삭제
@@ -66,6 +88,12 @@ public interface EgovEntrprsManageService {
 	public void updatePassword(EntrprsManageVO entrprsManageVO) throws Exception;
 	
 	/**
+	 * 기업회원탈퇴
+	 * @param entrprsmberId 기업회원ID
+	 * @throws Exception
+	 */
+	public void updateWithdraw(String entrprsmberId) throws Exception;	
+	/**
 	 * 기업회원이 비밀번호를 기억하지 못할 때 비밀번호를 찾을 수 있도록 함
 	 * @param passVO 기업회원암호 조회조건정보
 	 * @return entrprsManageVO 기업회원암호정보
@@ -89,5 +117,4 @@ public interface EgovEntrprsManageService {
      */
     public int selectEntrprsMberListTotCnt(UserDefaultVO userSearchVO) throws Exception;
 	
-
 }

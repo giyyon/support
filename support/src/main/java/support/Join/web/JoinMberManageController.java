@@ -113,48 +113,6 @@ public class JoinMberManageController {
 	/** log */
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
-	
-	/**
-	 * 일반회원목록을 조회한다. (pageing)
-	 * @param userSearchVO 검색조건정보
-	 * @param model 화면모델
-	 * @return uss/umt/EgovMberManage
-	 * @throws Exception
-	 */
-	@IncludedInfo(name = "일반회원관리", order = 470, gid = 50)
-	@RequestMapping(value = "/uss/umt/EgovMberManage.do")
-	public String selectMberList(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, ModelMap model) throws Exception {
-		/** EgovPropertyService.sample */
-		userSearchVO.setPageUnit(propertiesService.getInt("pageUnit"));
-		userSearchVO.setPageSize(propertiesService.getInt("pageSize"));
-
-		/** pageing */
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(userSearchVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(userSearchVO.getPageUnit());
-		paginationInfo.setPageSize(userSearchVO.getPageSize());
-
-		userSearchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
-		userSearchVO.setLastIndex(paginationInfo.getLastRecordIndex());
-		userSearchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-
-		List<?> mberList = mberManageService.selectMberList(userSearchVO);
-		model.addAttribute("resultList", mberList);
-
-		int totCnt = mberManageService.selectMberListTotCnt(userSearchVO);
-		paginationInfo.setTotalRecordCount(totCnt);
-		model.addAttribute("paginationInfo", paginationInfo);
-
-		//일반회원 상태코드를 코드정보로부터 조회
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-		vo.setCodeId("COM013");
-		List<?> mberSttus_result = cmmUseService.selectCmmCodeDetail(vo);
-		model.addAttribute("entrprsMberSttus_result", mberSttus_result);//기업회원상태코드목록
-
-		return "egovframework/com/uss/umt/EgovMberManage";
-	}
-
-	
 	/**
 	 * 일반회원, 기업회원 선정 화면으로 이동한다.
 	 * @param userSearchVO 검색조건정보
@@ -178,7 +136,7 @@ public class JoinMberManageController {
 	 * @return uss/umt/EgovMberInsert
 	 * @throws Exception
 	 */
-	@RequestMapping("/GnrMberInsertView1.do")
+	@RequestMapping("/gnrMberInsertView1.do")
 	public String gnrMberInsertView1( @ModelAttribute("mberManageVO") MberManageVO mberManageVO, @ModelAttribute("loginVO") LoginVO  loginVO, Model model)
 			throws Exception {
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -198,7 +156,7 @@ public class JoinMberManageController {
 	 * @return uss/umt/EgovMberInsert
 	 * @throws Exception
 	 */
-	@RequestMapping("/GnrMberInsertView2.do")
+	@RequestMapping("/gnrMberInsertView2.do")
 	public String gnrMberInsertView2( 
 			@ModelAttribute("mberManageVO") MberManageVO mberManageVO, 
 			@ModelAttribute("loginVO") LoginVO  loginVO, 
@@ -213,7 +171,7 @@ public class JoinMberManageController {
 		LOGGER.debug("loginVOgetName정보"+loginVO.getName());
 		LOGGER.debug("loginVOgetEmail 정보"+loginVO.getEmail());
 		LOGGER.debug("loginVOgetMbTlNum 정보"+loginVO.getMbTlNum());
-		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizRno());
+		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizrno());
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
 		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
@@ -270,7 +228,7 @@ public class JoinMberManageController {
 	 * @return uss/umt/EgovMberInsert
 	 * @throws Exception
 	 */
-	@RequestMapping("/GnrMberInsertView3.do")
+	@RequestMapping("/gnrMberInsertView3.do")
 	public String gnrMberInsertView3( HttpServletRequest  request, Model model)
 			throws Exception {
 		
@@ -320,7 +278,7 @@ public class JoinMberManageController {
 	 * @return uss/umt/EgovMberInsert
 	 * @throws Exception
 	 */
-	@RequestMapping("/GnrMberInsertView4.do")
+	@RequestMapping("/gnrMberInsertView4.do")
 	public String gnrMberInsertView4( HttpServletRequest request, Model model)
 			throws Exception {
 
@@ -388,7 +346,13 @@ public class JoinMberManageController {
 //        
 //        return "redirect:" + "/login/actionLogin.do";
         
-			request.getSession().setAttribute("mberManageVO", afterMberManageVO);
+			HttpSession sesseion = request.getSession();
+			sesseion.setAttribute("mberManageVO", afterMberManageVO);
+			
+			sesseion.setAttribute("joinUserNm", mberManageVO.getMberNm());
+			sesseion.setAttribute("joinUserId", mberManageVO.getMberId());
+			sesseion.setAttribute("joinUserPw", mberManageVO.getOldPassword());
+			
         String target = "";
         if("F".equals(progressStauts)){
 //        	status.setComplete();
@@ -397,7 +361,7 @@ public class JoinMberManageController {
         }else if("H".equals(progressStauts)){
 //        	model.addAttribute("redirectUrl", "/join/GnrMberInsertView3.do");
 //            target = "redirectUrl";
-			return "redirect:/join/GnrMberInsertView3.do";
+			return "redirect:/join/gnrMberInsertView3.do";
         }
 		return "";
 	}
@@ -563,7 +527,7 @@ public class JoinMberManageController {
 		LOGGER.debug("loginVOgetName정보"+loginVO.getName());
 		LOGGER.debug("loginVOgetEmail 정보"+loginVO.getEmail());
 		LOGGER.debug("loginVOgetMbTlNum 정보"+loginVO.getMbTlNum());
-		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizRno());
+		LOGGER.debug("loginVOgetBizRno 정보"+loginVO.getBizrno());
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
 			
 		// 1. 유사 아이디 찾기	
@@ -683,8 +647,8 @@ public class JoinMberManageController {
 	 * @exception Exception
 	 */
 
-	@RequestMapping(value = "/chkDuplicationId.do")
-	public ResponseEntity<String>  chkDuplicationId(
+	@RequestMapping(value = "/chkDuplicationGnrId.do")
+	public ResponseEntity<String>  chkDuplicationGnrId(
 			@ModelAttribute("mberManageVO") MberManageVO mberManageVO) throws Exception {
 
 		LOGGER.debug("getMberId정보 : "+mberManageVO.getMberId());
@@ -708,74 +672,6 @@ public class JoinMberManageController {
     	
     	}
 		return JSONResponseUtil.getJSONResponse(total);
-	}
-	
-	/**
-	 * 일반회원등록처리후 목록화면으로 이동한다.
-	 * @param mberManageVO 일반회원등록정보
-	 * @param bindingResult 입력값검증용 bindingResult
-	 * @param model 화면모델
-	 * @return forward:/uss/umt/EgovMberManage.do
-	 * @throws Exception
-	 */
-	@RequestMapping("/uss/umt/EgovMberInsert.do")
-	public String insertMber(@ModelAttribute("entrprsManageVO") MberManageVO mberManageVO, 
-			                                        SessionStatus status,
-			                                        BindingResult bindingResult, Model model) throws Exception {
-
-		beanValidator.validate(mberManageVO, bindingResult);
-		if (bindingResult.hasErrors()) {
-			return "egovframework/com/uss/umt/EgovMberInsert";
-		} else {
-			if (mberManageVO.getGroupId().equals("")) {
-				mberManageVO.setGroupId(null);
-			}
-			mberManageService.insertMber(mberManageVO);
-			//Exception 없이 진행시 등록 성공메시지
-			model.addAttribute("resultMsg", "success.common.insert");
-		}
-		return "forward:/uss/umt/EgovMberManage.do";
-	}
-
-	/**
-	 * 일반회원정보 수정을 위해 일반회원정보를 상세조회한다.
-	 * @param mberId 상세조회대상 일반회원아이디
-	 * @param userSearchVO 검색조건
-	 * @param model 화면모델
-	 * @return uss/umt/EgovMberSelectUpdt
-	 * @throws Exception
-	 */
-	@RequestMapping("/uss/umt/EgovMberSelectUpdtView.do")
-	public String updateMberView(@RequestParam("selectedId") String mberId, @ModelAttribute("searchVO") UserDefaultVO userSearchVO, Model model) throws Exception {
-
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		//패스워드힌트목록을 코드정보로부터 조회
-		vo.setCodeId("COM022");
-		List<?> passwordHint_result = cmmUseService.selectCmmCodeDetail(vo);
-
-		//성별구분코드를 코드정보로부터 조회
-		vo.setCodeId("COM014");
-		List<?> sexdstnCode_result = cmmUseService.selectCmmCodeDetail(vo);
-
-		//사용자상태코드를 코드정보로부터 조회
-		vo.setCodeId("COM013");
-		List<?> mberSttus_result = cmmUseService.selectCmmCodeDetail(vo);
-
-		//그룹정보를 조회 - GROUP_ID정보
-		vo.setTableNm("COMTNORGNZTINFO");
-		List<?> groupId_result = cmmUseService.selectGroupIdDetail(vo);
-
-		model.addAttribute("passwordHint_result", passwordHint_result); //패스워트힌트목록
-		model.addAttribute("sexdstnCode_result", sexdstnCode_result); //성별구분코드목록
-		model.addAttribute("mberSttus_result", mberSttus_result); //사용자상태코드목록
-		model.addAttribute("groupId_result", groupId_result); //그룹정보 목록
-
-		MberManageVO mberManageVO = mberManageService.selectMber(mberId);
-		model.addAttribute("mberManageVO", mberManageVO);
-		model.addAttribute("userSearchVO", userSearchVO);
-
-		return "egovframework/com/uss/umt/EgovMberSelectUpdt";
 	}
 
 	/**
@@ -817,27 +713,6 @@ public class JoinMberManageController {
 		//Exception 없이 진행시 삭제성공메시지
 		model.addAttribute("resultMsg", "success.common.delete");
 		return "forward:/uss/umt/EgovMberManage.do";
-	}
-
-	// 탈퇴 처리 기능에 대한 예시
-	@RequestMapping("/uss/umt/EgovMberWithdraw.do")
-	public String withdrawMber(Model model) throws Exception {
-		LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
-
-		String returnPage = "/"; // 탈퇴 처리 후 화면 지정
-
-		if (!isAuthenticated) {
-			model.addAttribute("resultMsg", "fail.common.delete");
-
-			return "redirect:" + returnPage;
-		}
-
-		mberManageService.deleteMber(user.getUniqId());
-		//Exception 없이 진행시 삭제성공메시지
-		model.addAttribute("resultMsg", "success.common.delete");
-
-		return "redirect:" + returnPage;
 	}
 
 	/**
@@ -916,84 +791,4 @@ public class JoinMberManageController {
 
 		return ".basic_join/sbscrbCnfirm";
 	}
-
-	/**
-	 * @param model 화면모델
-	 * @param commandMap 파라메터전달용 commandMap
-	 * @param userSearchVO 검색조건
-	 * @param mberManageVO 일반회원수정정보(비밀번호)
-	 * @return uss/umt/EgovMberPasswordUpdt
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/uss/umt/EgovMberPasswordUpdt.do")
-	public String updatePassword(ModelMap model, @CommandMap Map<String, Object> commandMap, @ModelAttribute("searchVO") UserDefaultVO userSearchVO,
-			@ModelAttribute("mberManageVO") MberManageVO mberManageVO) throws Exception {
-		String oldPassword = (String) commandMap.get("oldPassword");
-		String newPassword = (String) commandMap.get("newPassword");
-		String newPassword2 = (String) commandMap.get("newPassword2");
-		String uniqId = (String) commandMap.get("uniqId");
-
-		boolean isCorrectPassword = false;
-		MberManageVO resultVO = new MberManageVO();
-		mberManageVO.setPassword(newPassword);
-		mberManageVO.setOldPassword(oldPassword);
-		mberManageVO.setUniqId(uniqId);
-
-		String resultMsg = "";
-		resultVO = mberManageService.selectPassword(mberManageVO);
-		//패스워드 암호화
-		String encryptPass = EgovFileScrty.encryptPassword(oldPassword);
-		if (encryptPass.equals(resultVO.getPassword())) {
-			if (newPassword.equals(newPassword2)) {
-				isCorrectPassword = true;
-			} else {
-				isCorrectPassword = false;
-				resultMsg = "fail.user.passwordUpdate2";
-			}
-		} else {
-			isCorrectPassword = false;
-			resultMsg = "fail.user.passwordUpdate1";
-		}
-
-		if (isCorrectPassword) {
-			mberManageVO.setPassword(EgovFileScrty.encryptPassword(newPassword));
-			mberManageService.updatePassword(mberManageVO);
-			model.addAttribute("mberManageVO", mberManageVO);
-			resultMsg = "success.common.update";
-		} else {
-			model.addAttribute("mberManageVO", mberManageVO);
-		}
-		model.addAttribute("userSearchVO", userSearchVO);
-		model.addAttribute("resultMsg", resultMsg);
-
-		return "egovframework/com/uss/umt/EgovMberPasswordUpdt";
-	}
-
-	/**
-	 * 일반회원 암호 수정 화면 이동
-	 * @param model 화면모델
-	 * @param commandMap 파라메터전달용 commandMap
-	 * @param userSearchVO 검색조건
-	 * @param mberManageVO 일반회원수정정보(비밀번호)
-	 * @return uss/umt/EgovMberPasswordUpdt
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/uss/umt/EgovMberPasswordUpdtView.do")
-	public String updatePasswordView(ModelMap model, @CommandMap Map<String, Object> commandMap, @ModelAttribute("searchVO") UserDefaultVO userSearchVO,
-			@ModelAttribute("mberManageVO") MberManageVO mberManageVO) throws Exception {
-		String userTyForPassword = (String) commandMap.get("userTyForPassword");
-		mberManageVO.setUserTy(userTyForPassword);
-
-		model.addAttribute("userSearchVO", userSearchVO);
-		model.addAttribute("mberManageVO", mberManageVO);
-		
-		return "egovframework/com/uss/umt/EgovMberPasswordUpdt";
-	}
-	
-	@RequestMapping(value="/test/upload.do")
-	public String testUploadPage(){
-		
-		return ".contents_popup/index";
-	}
-
 }

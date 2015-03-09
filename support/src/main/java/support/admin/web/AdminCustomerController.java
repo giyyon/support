@@ -1,4 +1,4 @@
-package support.customer.web;
+package support.admin.web;
 
 import java.util.Map;
 
@@ -38,11 +38,11 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 
 @Controller
-@RequestMapping(value = "/customer")
-public class CustomerController implements ApplicationContextAware, InitializingBean {
+@RequestMapping(value = "/admin")
+public class AdminCustomerController implements ApplicationContextAware, InitializingBean {
 	
 	//protected Logger log = Logger.getLogger(this.getClass());
-	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminCustomerController.class);
 	//protected Logger logger = Logger.getLogger(this.getClass());
 
     @Resource(name = "EgovBBSAttributeManageService")
@@ -126,7 +126,8 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	//log.debug(this.getClass().getName() + " user.getEmail() "+ user.getEmail());
 
 	//String attrbFlag = "";
-
+	
+	
 	//공지사항 게시판 아이디 : BBSMSTR_000000000001
 	if("".equals(boardVO.getBbsId()))
 			boardVO.setBbsId("BBSMSTR_000000000001");
@@ -144,25 +145,9 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	BoardMasterVO vo = new BoardMasterVO();
 	
 	vo.setBbsId(boardVO.getBbsId());
+	vo.setUniqId(user.getUniqId());
 	
-	if(user != null)
-		vo.setUniqId(user.getUniqId());
-	
-	BoardMasterVO master  = null; 
-//	new BoardMasterVO();
-	try{
-		 master = bbsAttrbService.selectBBSMasterInf(vo);
-	}catch(Exception e){
-		e.printStackTrace();
-		
-	}
-	//-------------------------------
-	// 방명록이면 방명록 URL로 forward
-	//-------------------------------
-	if (master.getBbsTyCode().equals("BBST04")) {
-	    return "forward:/cop/bbs/selectGuestList.do";
-	}
-	////-----------------------------
+	BoardMasterVO master = bbsAttrbService.selectBBSMasterInf(vo);
 
 	boardVO.setPageUnit(propertyService.getInt("pageUnit"));
 	boardVO.setPageSize(propertyService.getInt("pageSize"));
@@ -197,7 +182,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	model.addAttribute("brdMstrVO", master);
 	model.addAttribute("paginationInfo", paginationInfo);
 
-	return ".basic_customer/noticeList";
+	return "basic_admin/customer/noticeList";
     }
 
     /**
@@ -239,8 +224,8 @@ public class CustomerController implements ApplicationContextAware, Initializing
 //			boardVO.setNttId(nttId);BbsId("BBSMSTR_000000000001");
 //		
 
-	if(user != null)
-		boardVO.setLastUpdusrId(user.getUniqId());
+	
+	boardVO.setLastUpdusrId(user.getUniqId());
 	BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
 
 	model.addAttribute("result", vo);
@@ -249,7 +234,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	
 	//CommandMap의 형태로 개선????
 
-//	model.addAttribute("sessionUniqId", user.getUniqId());
+	model.addAttribute("sessionUniqId", user.getUniqId());
 
 	//----------------------------
 	// template 처리 (기본 BBS template 지정  포함)
@@ -257,7 +242,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	BoardMasterVO master = new BoardMasterVO();
 	
 	master.setBbsId(boardVO.getBbsId());
-//	master.setUniqId(user.getUniqId());
+	master.setUniqId(user.getUniqId());
 	
 	BoardMasterVO masterVo = bbsAttrbService.selectBBSMasterInf(master);
 
@@ -288,7 +273,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 		}
 	}
 	////--------------------------
-	return ".basic_customer/noticeInqire";
+	return "basic_customer/noticeInqire";
     }
 	
     /**
@@ -326,7 +311,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 		boardVO.setSortType("0");
     }
 	
-//	boardVO.setLastUpdusrId(user.getUniqId());
+	boardVO.setLastUpdusrId(user.getUniqId());
 	BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
 
 	model.addAttribute("result", vo);
@@ -335,7 +320,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	
 	//CommandMap의 형태로 개선????
 
-//	model.addAttribute("sessionUniqId", user.getUniqId());
+	model.addAttribute("sessionUniqId", user.getUniqId());
 
 	//----------------------------
 	// template 처리 (기본 BBS template 지정  포함)
@@ -343,7 +328,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	BoardMasterVO master = new BoardMasterVO();
 	
 	master.setBbsId(boardVO.getBbsId());
-//	master.setUniqId(user.getUniqId());
+	master.setUniqId(user.getUniqId());
 	
 	BoardMasterVO masterVo = bbsAttrbService.selectBBSMasterInf(master);
 
@@ -374,7 +359,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
 		}
 	}
 	////--------------------------
-	return ".popup_noticeInqirePopUp";
+	return "popup_noticeInqirePopUp";
     }
     
 }

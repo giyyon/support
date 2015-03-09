@@ -127,7 +127,7 @@ public class EgovFileDownloadController {
 
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
-		if (isAuthenticated) {
+//		if (isAuthenticated) {
 
 			FileVO fileVO = new FileVO();
 			fileVO.setAtchFileId(atchFileId);
@@ -184,5 +184,5 @@ public class EgovFileDownloadController {
 				printwriter.close();
 			}
 		}
-	}
+//	}
 }

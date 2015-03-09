@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,9 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.com.cop.ems.service.EgovSndngMailRegistService;
 import egovframework.com.sec.rgm.service.EgovAuthorGroupService;
 import egovframework.com.uat.uia.service.EgovLoginService;
+import egovframework.com.uss.umt.service.EgovEntrprsManageService;
 import egovframework.com.uss.umt.service.EgovMberManageService;
+import egovframework.com.uss.umt.service.EntrprsManageVO;
 import egovframework.com.uss.umt.service.MberManageAwardVO;
 import egovframework.com.uss.umt.service.MberManageCareerVO;
 import egovframework.com.uss.umt.service.MberManageDegreeVO;
@@ -66,6 +69,10 @@ public class MyInfoController {
 	/** mberManageService */
 	@Resource(name = "mberManageService")
 	private EgovMberManageService mberManageService;
+	
+    /** entrprsManageService */
+    @Resource(name = "entrprsManageService")
+    private EgovEntrprsManageService entrprsManageService;
 
 	/** cmmUseService */
 	@Resource(name = "EgovCmmUseService")
@@ -116,39 +123,47 @@ public class MyInfoController {
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
 		
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-		
-		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 
 		String returnpage = "";
+		
+		//이메일 목록
+		vo.setCodeId("SUP002");
+		List<?> email_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("email_result", email_result); 
+		
+		//직업 분야 목록
+		vo.setCodeId("SUP003");
+		List<?> jobArea_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("jobArea_result", jobArea_result); 
+
+		//업종 목록
+		vo.setCodeId("SUP004");
+		List<?> jobType_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("jobType_result", jobType_result); 
+
+		//직종목록
+		vo.setCodeId("SUP005");
+		List<?> jobClass_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("jobClass_result", jobClass_result); 		
+		
+		//년도목록
+		vo.setCodeId("SUP901");
+		List<?> year_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("year_result", year_result); 
+		
+		//일목록
+		vo.setCodeId("SUP902");
+		List<?> day_result = cmmUseService.selectCmmCodeDetail(vo);
+		model.addAttribute("day_result", day_result); 
+		
 		//일반 회원
-		if(loginVO.getUserSe().equals("GNR")){
-			
-			//이메일 목록
-			vo.setCodeId("SUP002");
-			List<?> email_result = cmmUseService.selectCmmCodeDetail(vo);
-			model.addAttribute("email_result", email_result); 
-			
-			//직업 분야 목록
-			vo.setCodeId("SUP003");
-			List<?> jobArea_result = cmmUseService.selectCmmCodeDetail(vo);
-			model.addAttribute("jobArea_result", jobArea_result); 
-
-			//업종 목록
-			vo.setCodeId("SUP004");
-			List<?> jobType_result = cmmUseService.selectCmmCodeDetail(vo);
-			model.addAttribute("jobType_result", jobType_result); 
-
-			//직종목록
-			vo.setCodeId("SUP005");
-			List<?> jobClass_result = cmmUseService.selectCmmCodeDetail(vo);
-			model.addAttribute("jobClass_result", jobClass_result); 		
-			
+		if(loginVO.getUserSe().equals("GNR")){			
 			MberManageVO mberManageVO = mberManageService.selectMberById(loginVO.getId());
 			model.addAttribute("mberManageVO", mberManageVO);
-			
-			returnpage =  ".basic_myInfo/grnMberMyInfo";
-			
+			returnpage =  ".basic_myInfo/grnMberMyInfo";			
 		}else if(loginVO.getUserSe().equals("ENT")){
+			EntrprsManageVO entrprsManageVO = entrprsManageService.selectEntrprsmberById(loginVO.getId());
+			model.addAttribute("entrprsManageVO", entrprsManageVO);
 			returnpage =  ".basic_myInfo/entMberMyInfo";
 		}
 			 
@@ -175,7 +190,6 @@ public class MyInfoController {
 		LOGGER.debug("loginVOgetid정보"+loginVO.getId());
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
 		
-		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		ComDefaultCodeVO vo = new ComDefaultCodeVO();
 		
 		String returnpage = "";
@@ -218,6 +232,14 @@ public class MyInfoController {
 			returnpage =  ".basic_myInfo/grnMberMyInfoSub";
 			
 		}else if(loginVO.getUserSe().equals("ENT")){
+			//이메일 목록
+			vo.setCodeId("SUP002");
+			List<?> email_result = cmmUseService.selectCmmCodeDetail(vo);
+			model.addAttribute("email_result", email_result); 
+			
+			EntrprsManageVO entrprsManageVO = entrprsManageService.selectEntrprsmberById(loginVO.getId());
+			model.addAttribute("entrprsManageVO", entrprsManageVO);
+			
 			returnpage =  ".basic_myInfo/entMberMyInfoSub";
 		}
 			 
@@ -232,8 +254,8 @@ public class MyInfoController {
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/jsonPasswordChange.do")
-	public ResponseEntity<String>  updatePassword(
+	@RequestMapping(value = "/jsonGnrPasswordChange.do")
+	public ResponseEntity<String>  jsonGnrPasswordChange(
 			@ModelAttribute("mberManageVO") MberManageVO mberManageVO) throws Exception {
 
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
@@ -277,6 +299,55 @@ public class MyInfoController {
 	
 
 	/**
+	 * @param mberManageVO 기업회원수정정보(비밀번호)
+	 * @return ResponseEntity
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/jsonEntPasswordChange.do")
+	public ResponseEntity<String>  jsonEntPasswordChange(
+			@ModelAttribute("entrprsManageVO") EntrprsManageVO entrprsManageVO) throws Exception {
+
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+
+		LOGGER.debug("getPassword정보 : "+entrprsManageVO.getEntrprsMberPassword());
+		LOGGER.debug("getOldPassword정보 : "+entrprsManageVO.getOldPassword());
+		
+		entrprsManageVO.setUniqId(user.getUniqId());
+
+		boolean isCorrectPassword = false;
+	
+		EntrprsManageVO resultVO = entrprsManageService.selectPassword(entrprsManageVO);
+		//패스워드 암호화
+		String encryptPass = EgovFileScrty.encryptPassword(entrprsManageVO.getOldPassword());
+		if (encryptPass.equals(resultVO.getEntrprsMberPassword())) {
+			isCorrectPassword = true;
+		} else {
+			//비밀번호 오류.
+			isCorrectPassword = false;
+		}
+
+		// 2. 결과 리턴
+		//직접 raw 데이터를 입력해서 JSON형태로 출력하는 방법.
+		HashMap<String, Object> total  = new HashMap<String, Object>();
+		
+    	if(isCorrectPassword  ){
+    		entrprsManageVO.setEntrprsMberPassword(EgovFileScrty.encryptPassword(entrprsManageVO.getEntrprsMberPassword()));
+    		entrprsManageService.updatePassword(entrprsManageVO);
+    		
+    		//비밀번호 일치
+			total.put("IsSucceed", Boolean.TRUE);
+			total.put("Message",  "비밀번호가 성공적으로 변경되었습니다.");	
+    	}else{
+    		//비밀번호 불일치
+			total.put("IsSucceed", Boolean.FALSE);
+			total.put("Message",  "저장된 비밀번호와 일치하지 않습니다.");	
+    	
+    	}
+		return JSONResponseUtil.getJSONResponse(total);
+	}	
+	
+
+	/**
 	 * 일반회원정보 수정
 	 * @param mberId 상세조회대상 일반회원아이디
 	 * @param userSearchVO 검색조건
@@ -284,17 +355,70 @@ public class MyInfoController {
 	 * @return uss/umt/EgovMberSelectUpdt
 	 * @throws Exception
 	 */
-	@RequestMapping("/updateMyInfo.do")
-	public String updateMberView(@ModelAttribute("mberManageVO") MberManageVO mberManageVO, Model model) throws Exception {
+	@RequestMapping("/updateGnrMyInfo.do")
+	public String updateGnrMyInfo(@ModelAttribute("mberManageVO") MberManageVO mberManageVO,
+																 @RequestParam("progressStauts") String progressStauts,
+																 Model model) throws Exception {
 		
+		LoginVO loginVO = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 
+		LOGGER.debug("loginVOgetid정보"+loginVO.getId());
+		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
+		
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		String returnpage = "";
+		
 		mberManageService.updateMberMain(mberManageVO);
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");
-		return "forward:/myInfo/myInfoView.do";
-
+		
+		
+        if("F".equals(progressStauts)){
+			return "forward:/myInfo/myInfoView.do";
+   			
+        }else{
+    		//"H".equals(progressStauts)
+        	return  ".basic_myInfo/grnMberMyInfoSub"; 
+        }
 	}
 	
+	/**
+	 * 기업회원정보 수정
+	 * @param mberId 상세조회대상 일반회원아이디
+	 * @param userSearchVO 검색조건
+	 * @param model 화면모델
+	 * @return uss/umt/EgovMberSelectUpdt
+	 * @throws Exception
+	 */
+	@RequestMapping("/updateEntMyInfo.do")
+	public String updateEntMyInfo(@ModelAttribute("entrprsManageVO") EntrprsManageVO entrprsManageVO,
+																@RequestParam("progressStauts") String progressStauts,
+																Model model) throws Exception {
+		
+		LoginVO loginVO = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+
+		LOGGER.debug("loginVOgetid정보"+loginVO.getId());
+		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
+		
+		ComDefaultCodeVO vo = new ComDefaultCodeVO();
+
+		String returnpage = "";
+		
+		entrprsManageService.updateEntrprsmberMain(entrprsManageVO);
+		//Exception 없이 진행시 수정성공메시지
+		model.addAttribute("resultMsg", "success.common.update");
+		
+        if("F".equals(progressStauts)){
+        	return "forward:/myInfo/myInfoView.do";
+        	
+    			
+        }else{
+    		//"H".equals(progressStauts)
+        	return  ".basic_myInfo/entMberMyInfoSub";
+        }
+
+	}	
 	/**
 	 * 일반회원정보 수정-부가정보
 	 * @param mberId 상세조회대상 일반회원아이디
@@ -303,8 +427,8 @@ public class MyInfoController {
 	 * @return uss/umt/EgovMberSelectUpdt
 	 * @throws Exception
 	 */
-	@RequestMapping("/updateSubMyInfo.do")
-	public String updateSubMyInfo(
+	@RequestMapping("/updateGnrSubMyInfo.do")
+	public String updateGnrSubMyInfo(
 			@ModelAttribute("mberManageVO") MberManageVO mberManageVO, 
             
             @RequestParam(value="compltCd", required=false) List<String> compltCd,
@@ -437,5 +561,56 @@ public class MyInfoController {
 		return "redirect:/myInfo/myInfoSubView.do";
 
 	}
+	
+	/**
+	 * 일반회원정보 수정-부가정보
+	 * @param mberId 상세조회대상 일반회원아이디
+	 * @param userSearchVO 검색조건
+	 * @param model 화면모델
+	 * @return uss/umt/EgovMberSelectUpdt
+	 * @throws Exception
+	 */
+	@RequestMapping("/updateEntSubMyInfo.do")
+	public String updateEntSubMyInfo(
+			@ModelAttribute("entrprsManageVO") EntrprsManageVO entrprsManageVO,
+            HttpServletRequest request,
+            Model model) throws Exception {
+		//escape된 문자열을 다시 원래 형태로 복원하여 DB에 저장한다. ckEditor의 사용상 화명에 태그 형태 대로 적용하기 위한 처리 방식임.
+		entrprsManageVO.setNotice(StringEscapeUtils.unescapeHtml(entrprsManageVO.getNotice()));
+		entrprsManageService.updateEntrprsmberSub(entrprsManageVO);	
+		//Exception 없이 진행시 수정성공메시지
+		model.addAttribute("resultMsg", "정상적으로 수정 처리 되었습니다.");
+		return "redirect:/myInfo/myInfoSubView.do";
+
+	}
+	
+	// 탈퇴 처리 기능에 대한 예시
+	@RequestMapping("/updateWithdraw.do")
+	public String updateWithdraw(Model model) throws Exception {
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+
+		String returnPage = "/"; // 탈퇴 처리 후 화면 지정
+
+		if (!isAuthenticated) {
+			model.addAttribute("resultMsg", "fail.common.delete");
+
+			return "redirect:" + returnPage;
+		}else{
+			returnPage = "/login/actionLogout.do";
+		}
+		
+		//일반 회원
+		if(loginVO.getUserSe().equals("GNR")){			
+			mberManageService.updateWithdraw(loginVO.getId());
+		}else if(loginVO.getUserSe().equals("ENT")){
+			entrprsManageService.updateWithdraw(loginVO.getId());
+		}
+		
+		//Exception 없이 진행시 삭제성공메시지
+		model.addAttribute("resultMsg", "success.common.delete");
+
+		return "redirect:" + returnPage;
+	}	
 	
 }
