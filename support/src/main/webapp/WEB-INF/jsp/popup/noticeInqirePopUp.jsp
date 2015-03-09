@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/taglib.jsp" %>
 
-<!--     <div id="container">  	 -->
-        
      	<div id="sub_container">
         	<div id="content-group">    	
             	<div id="contents" class="bg_cs">
@@ -87,7 +85,6 @@
         	</div>
         	<!--//content-group -->
 		</div><!--//sub_container -->
-<!--     </div>//container -->
  
   <script> 
 	// 이전/다음 게시물 클릭

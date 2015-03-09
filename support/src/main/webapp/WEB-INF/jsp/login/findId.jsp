@@ -2,7 +2,6 @@
 
 <%@ include file="../include/taglib.jsp" %>
 
-     <div id="container">  	
         <div class="svisual" style="background-color:#41372e;background-image:url('${contextPath}/img/Visual01.jpg'); background-position:center">
         </div><!--//svisual -->
         
@@ -143,8 +142,6 @@
             	<!--//contents -->
         	</div><!--//content-group -->
 		</div><!--//sub_container -->
-    </div><!--//container -->
-
     
  <script type="text/javaScript" language="javascript">
     $("#div-similar").css("display","none");

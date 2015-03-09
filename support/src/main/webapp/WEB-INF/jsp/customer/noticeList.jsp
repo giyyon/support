@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="../include/taglib.jsp" %>
-
-    <div id="container">  	
+  	
         <div class="svisual" style="background-color:#41372e;background-image:url('${contextPath}/img/Visual01.jpg'); background-position:center">
         </div><!--//svisual -->
         
@@ -177,7 +176,6 @@
         	</div>
         	<!--//content-group -->
 		</div><!--//sub_container -->
-    </div><!--//container -->
     
     <script type="text/javascript" charset="utf-8">
     
