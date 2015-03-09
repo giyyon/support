@@ -1,63 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- Bootstrap styles -->
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<!-- Generic page styles -->
-<link rel="stylesheet" href="http://blueimp.github.io/jQuery-File-Upload/css/style.css">
-<!-- blueimp Gallery styles -->
-<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-<link rel="stylesheet" href="http://blueimp.github.io/jQuery-File-Upload/css/jquery.fileupload.css">
-<link rel="stylesheet" href="http://blueimp.github.io/jQuery-File-Upload/css/jquery.fileupload-ui.css">
-<!-- CSS adjustments for browsers with JavaScript disabled -->
 
 <div>
-	<form id="fileupload" action="http://jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
-        <!-- Redirect browsers with JavaScript disabled to the origin page -->
-        <noscript>&lt;input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"&gt;</noscript>
-        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-        <div class="row fileupload-buttonbar">
-            <div class="col-lg-7">
-                <!-- The fileinput-button span is used to style the file input field as button -->
-                <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Add files...</span>
-                    <input type="file" name="files[]" multiple="">
-                </span>
-                <button type="submit" class="btn btn-primary start">
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start upload</span>
-                </button>
-                <button type="reset" class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel upload</span>
-                </button>
-                <button type="button" class="btn btn-danger delete">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" class="toggle">
-                <!-- The global file processing state -->
-                <span class="fileupload-process"></span>
-            </div>
-            <!-- The global progress state -->
-            <div class="col-lg-5 fileupload-progress fade">
-                <!-- The global progress bar -->
-                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                </div>
-                <!-- The extended global progress state -->
-                <div class="progress-extended">&nbsp;</div>
-            </div>
-        </div>
-        <!-- The table listing the files available for upload/download -->
-        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-
+	<form id="fileupload" method="post" action="<c:url value='/files/upload.do' />" enctype="multipart/form-data">
+		<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+		<div class="fileupload-buttonbar">
+			<div class="fileupload-buttons">
+				<!-- The fileinput-button span is used to style the file input field as button -->
+				<span class="fileinput-button"> <span>파일추가...</span> <input type="file" name="files[]" multiple="multiple" />
+				</span>
+				<button type="submit" class="start">업로드</button>
+				<button type="reset" class="cancel">취소</button>
+				<button type="button" class="delete">삭제</button>
+				<!-- <button type="button" class="download">전체 다운로드</button> -->
+				<input type="checkbox" class="toggle" />
+				<!-- The global file processing state -->
+				<span class="fileupload-process"></span>
+			</div>
+			<!-- The global progress state -->
+			<div class="fileupload-progress fade" style="display: none">
+				<!-- The global progress bar -->
+				<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+				<!-- The extended global progress state -->
+				<div class="progress-extended">&nbsp;</div>
+			</div>
+		</div>
+		<!-- The table listing the files available for upload/download -->
+		<!-- form 내부에 있어야 함. -->
+		<div class="scroll_auto margin_t5" style="height: 145px;">
+			<table role="presentation" style="width: 99%;">
+				<colgroup>
+					<col width="25%">
+					<col width="35%">
+					<col width="20%">
+					<col width="20%">
+				</colgroup>
+				<tbody class="files"></tbody>
+			</table>
+		</div>
 		<!-- // 1/24 수정 -->
 		<input type="hidden" name="atchFileId"> 
 	</form>
-
+	<!-- 	 
+	<div> 
+		<button id="btnApply">적용</button>
+		<button id="btnModalTest">ModalTest</button>
+	</div>
+-->
 	<!-- The template to display files available for upload -->
 	<script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -115,15 +105,16 @@
     </script>
 	<script type="text/javascript">
 		var fileOptions = $('#fileupload').closest('div[id^=cntr]').data('options');
-// 		debugger;
+
 		var fileIds = ''; //$.cookie('fileIds');
 		if (fileIds == null || fileIds == '') {
 			fileIds = unescape(fileOptions.data.FileIds);
+			//$('[name=atchFileId]').val(fileIds);
 			//$.cookie('fileIds', fileIds);
 		}
 
 		$('#fileupload').fileupload({
-			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&atchFileId=' + $('[name=atchFileId]').val(),
+			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category, // + '&atchFileId=' + $('[name=atchFileId]').val(),
 			maxFileSize : 1000000,
 			maxNumberOfFiles : parseInt(fileOptions.data.Max),
 			acceptFileTypes : fileOptions.data.Accept == null ? new RegExp('') : new RegExp('(.|)(' + unescape(fileOptions.data.Accept) + ')$'),
@@ -132,7 +123,7 @@
 					responseText = responseText.result;
 				}
 				if (responseText.IsSucceed) {
-// 					debugger;
+					debugger;
 					var files = new Array();
 					for (var i = 0; i < responseText.Data.length; i++) {
 						var item = responseText.Data[i];
@@ -156,7 +147,7 @@
 				}
 			},
 			destroyed : function(e, data) {
-// 				debugger;
+				debugger;
 				if (data.result) {
 					data = data.result;
 				}
@@ -176,7 +167,7 @@
 			parent.isDeleteFinish();
 			},
 			completed : function(e, data) {
-// 				debugger;
+				debugger;
 				if (data.result) {
 					data = data.result;
 				}
