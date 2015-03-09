@@ -10,8 +10,6 @@
 <!-- 이 부분은 지정된 URL에 대한 권한이 있는 경우에 표시됨 -->
 <!-- </sec:authorize> -->
 
-<div class="wrap"><!-- gnb -->
-    <header>
     	<div id="gnb_wrap">
    			<div class="gnb area_ct">
             	<ul class="flr">
@@ -204,4 +202,4 @@
 				</div>
 				<!-- // m_menu_wrap -->
         </div>
-    </header>
+
