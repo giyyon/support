@@ -170,7 +170,7 @@ public class FileUtil {
 
 		MultipartHttpServletRequest mptRequest = (MultipartHttpServletRequest) request;
 
-		String servletPath = mptRequest.getRealPath("webAttach");
+//		String servletPath = mptRequest.getRealPath("webAttach");
 
 		Iterator<String> fileIter = mptRequest.getFileNames();
 		int fileSn = 0;
@@ -185,7 +185,7 @@ public class FileUtil {
 			if (fileName.lastIndexOf(".") != -1) {
 				FileVO vo = new FileVO();
 				//파일 아이디 생성
-				String VirtulName = java.util.UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
+				String VirtulName = java.util.UUID.randomUUID().toString().replace("-", "");
 				vo.setFileId(atchFildID );
 				vo.setRealName(file.getOriginalFilename());
 				vo.setVirtualName(VirtulName);
@@ -206,7 +206,8 @@ public class FileUtil {
 				dir.mkdirs();
 
 				if (file.getSize() > 0) {
-					uploadThumnail(file, vo, servletPath);
+//					uploadThumnail(file, vo, servletPath);
+					uploadThumnail(file, vo, path + "/" + vo.getCategory() + "/");
 					writeFile(file, vo.getVirtualName(), path + "/" + vo.getCategory() + "/");
 					list.add(vo);
 				}

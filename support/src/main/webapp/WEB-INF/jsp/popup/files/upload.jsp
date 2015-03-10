@@ -114,7 +114,7 @@
 
 		$('#fileupload').fileupload({
 			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&atchFileId=' + $('[name=atchFileId]').val(),
-			maxFileSize : 1000000,
+			maxFileSize : 10000000,
 			maxNumberOfFiles : parseInt(fileOptions.data.Max),
 			acceptFileTypes : fileOptions.data.Accept == null ? new RegExp('') : new RegExp('(.|)(' + unescape(fileOptions.data.Accept) + ')$'),
 			getFilesFromResponse : function(responseText) {
@@ -136,7 +136,11 @@
 							deleteUrl : '<c:url value="/files/remove.do?" />' + $(item).convertQueryStrings()
 						};
 						if (fileOptions.data.Type == "img") {
-							file.thumbnailUrl =  '<c:url value="/webAttach/thumnails/" />' + item.streFileNm;
+							file.thumbnailUrl =  '<c:url value="/files/imageSrc.do?path=" />'+fileOptions.data.Category  +'/thumnails&physical='  + item.streFileNm;
+							
+// 							file.thumbnailUrl =  fileOptions.data.Category+'/thumnails/" />' + item.streFileNm;
+							
+							
 						}
 						files.push(file);
 					}
@@ -162,8 +166,8 @@
 				}
 				//setFileIds(newFiles);
 				$(this).closest('.modalContainer').data('data', newFiles);
-				
-			parent.isDeleteFinish();
+			//첨부파일을 파일 DB에서 삭제한 이후 원 데이터 테이블의 fileID에 해당하는 컬럼도 갱신, 동기화 위한 메소드 호출. parent.doFinish()는 해당 화면에서 구현한다.	
+			parent.doFinish();
 			},
 			completed : function(e, data) {
 // 				debugger;
@@ -185,6 +189,7 @@
 
 		if (fileIds != null && fileIds != '' && fileIds != 'undefined') {
 			$('#fileupload').addClass('fileupload-processing');
+// 			debugger;
 			$.ajax({
 				url : '<c:url value="/files/getFiles.do?fileIds=" />' + fileIds,
 				dataType : 'json',
