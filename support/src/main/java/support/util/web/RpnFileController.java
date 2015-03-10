@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.com.cmm.service.EgovFileMngService;
+import egovframework.com.cmm.service.EgovProperties;
 import support.common.model.JsonObject;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 import support.util.file.FileUtil;
+import egovframework.com.utl.fcc.service.EgovFormBasedFileUtil;
 import egovframework.com.utl.fcc.service.EgovStringUtil;
 
 @Controller
@@ -38,6 +40,9 @@ public class RpnFileController {
     
     @Resource(name = "egovFileIdGnrService")
 	private EgovIdGnrService idgenService;
+    
+    /** 첨부파일 위치 지정 */
+    private final String uploadDir = EgovProperties.getProperty("Globals.fileStorePath");
     
 
 	/**
@@ -255,4 +260,22 @@ public class RpnFileController {
 
 		return jo;
 	}
+	
+    /**
+     * 이미지 view를 제공한다.
+     *
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping(value="/imageSrc.do",method=RequestMethod.GET)
+    public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        
+	String subPath = request.getParameter("path");
+	String physical = request.getParameter("physical");
+	String mimeType = request.getParameter("contentType");
+
+	EgovFormBasedFileUtil.viewFile(response, uploadDir, subPath, physical, mimeType);
+    }
 }

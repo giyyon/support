@@ -1,5 +1,6 @@
 package support.util.web;
 
+import java.io.File;
 import java.util.List;
 
 import egovframework.com.cmm.service.EgovProperties;
@@ -36,7 +37,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SupportWebEditorImageController {
 
     /** 첨부파일 위치 지정 */
-    private final String uploadDir = EgovProperties.getProperty("Globals.fileStorePath")+"ckEditorImage/";
+    private final String uploadDir = EgovProperties.getProperty("Globals.fileStorePath")+File.separator+"ckEditorImage";
 
     /** 첨부 최대 파일 크기 지정 */
     private final long maxFileSize = 1024 * 1024 * 100;   //업로드 최대 사이즈 설정 (100M)

@@ -83,10 +83,20 @@
 		                                        <ul class="panel">
 		                                        	<li id="tab1">
 			                                        	<dl class="pic_regist">
-				                                        	<dt>
-				                                            </dt>
-				                                            <dd><input name="file1_text" id='file1_text'  type="text" class="w200"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"   onclick="document.all.file1.click();document.all.file1_text.value=document.all.file1.value"	    ><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
-				                                            
+			                                        		<c:choose>
+			                                        			<c:when test= "${mberManageVO.atchImgMainFileId ==null || mberManageVO.atchImgMainFileId ==''}">
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:when>
+				                                        		<c:otherwise>
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:otherwise>
+				                                        	</c:choose>
+				                                        	
+				                                            <dd class="file_sector">
+				                                            	<input name="file1_text"  type="text" class="w200">
+				                                            	 <form:hidden path="atchImgMainFileId"/>
+			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -99,8 +109,11 @@
 				                                        	<dl class="pic_regist">
 					                                        	<dt>
 					                                            </dt>
-					                                            <dd><input name="file1_text" id='file1_text'  type="text" class="w200"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"   onclick="document.all.file1.click();document.all.file1_text.value=document.all.file1.value"	    ><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
-					                                            
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImgJobFileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -113,7 +126,11 @@
 				                                        	<dl class="pic_regist">
 					                                        	<dt>
 					                                            </dt>
-					                                            <dd><input name="file1_text" id='file1_text'  type="text" class="w200"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"   onclick="document.all.file1.click();document.all.file1_text.value=document.all.file1.value"	    ><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImgManFileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
+					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -127,7 +144,11 @@
 				                                        	<dl class="pic_regist">
 					                                        	<dt>
 					                                            </dt>
-					                                            <dd><input name="file1_text" id='file1_text'  type="text" class="w200"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"   onclick="document.all.file1.click();document.all.file1_text.value=document.all.file1.value"	    ><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImg1FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
+			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -141,7 +162,11 @@
 				                                        	<dl class="pic_regist">
 					                                        	<dt>
 					                                            </dt>
-					                                            <dd><input name="file1_text" id='file1_text'  type="text" class="w200"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"   onclick="document.all.file1.click();document.all.file1_text.value=document.all.file1.value"	    ><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImg2FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
+			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -461,27 +486,27 @@
 		
     $(document).ready(function () { 	
     		
-    	//탭 메뉴 구성. 탭을 누를때마다 해당 div 영역만 display되는 방식
-  		$("#tabs ul.panel li:not("+$("#tabs ul.tap_w li a.selected").attr("href")+")").hide();
-		$(".tap_w li a").click(function(){
-	    			$("#tabs ul.tab li a").removeClass("selected");		    			
-	    			$("#tabs ul.tap_w li").removeClass("select");
-	    			
-	    			$(this).addClass("selected");
-	    			$(this).parent().addClass("select");
-	    			
-	    			
-	    			$("#tabs ul.panel li").hide();
-	    			
-	    			$($(this).attr("href")).show();
-	    			return false;
-	    		});
-    	
+	    	//탭 메뉴 구성. 탭을 누를때마다 해당 div 영역만 display되는 방식
+	  		$("#tabs ul.panel li:not("+$("#tabs ul.tap_w li a.selected").attr("href")+")").hide();
+			$(".tap_w li a").click(function(){
+		    			$("#tabs ul.tab li a").removeClass("selected");		    			
+		    			$("#tabs ul.tap_w li").removeClass("select");
+		    			
+		    			$(this).addClass("selected");
+		    			$(this).parent().addClass("select");
+		    			
+		    			
+		    			$("#tabs ul.panel li").hide();
+		    			
+		    			$($(this).attr("href")).show();
+		    			return false;
+		    });
+	    	
 	    	//학교 행추가 이벤트 
 			$("[name=addSch]").click(function(){
 				fn_addSch();
 			}); 
-    	
+	    	
 	    	//학교 행삭제 이벤트 
 	    	$('#school_info_root').on('click', '.sch_row_delete', function () {
 	    		sch_row_delete($(this));
@@ -517,8 +542,98 @@
 	    		paper_row_delete($(this));
 	    	});
 	
+			$('[name=btnFileUpload]').click(function(e) {
+	    		
+	    		var offset = $(this).offset();
+	    		var currPlace = $('body').scrollTop();
+	    		var thisType = $(this).attr('data_type');
+	    		var category = $(this).attr('data_category');
+	    		var fileMax = $(this).attr('data_fileMax');
+	    		
+	    		var $imgId = $(this).parent().find(':hidden');
+	    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+	    		var $imgDiv = $(this).closest('dl').find('dt');
+	    		
+	    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
+	    		e.preventDefault();
+	    			
+	    		var options = {
+	    			url : '<c:url value="/files/uploadPage.do" />',
+	    			width : 510,
+	    			height : 300,
+	    			closeCallback : closeCallback,
+	    			title : 'Files',
+	    			data : params,
+	    			buttonType : 0
+	    		};
+	    		var $dialog = BIT.modalDialog(options);
+	    		
+	    		function closeCallback(returnValue) {
+	    			if (returnValue != null && returnValue.length > 0) {
+// 	    				debugger;
+	    				var files = returnValue;
+	    				var fileIds = '';
+	    				var fileNames = '';
+	    				//단일 이미지 처리시에만 적용 올려진 썸네일 이미지를 리턴받아 화면상에 이미지 영역에 뿌려줌
+	    				var imgUrl = "";
+	    				
+	    				for (var i = 0; i < files.length; i++) {
+	    					if (fileIds) {
+	    						fileIds += ',' + files[i].atchFileId;
+	    						fileNames += ',' + files[i].orignlFileNm;
+	    					} else {
+	    						fileIds = files[i].atchFileId;
+	    						fileNames = files[i].orignlFileNm;
+	    						imgUrl =   '<c:url value="/files/imageSrc.do?path=" />'+files[i].category  +'/thumnails&physical=' + files[i].streFileNm;    
+// 	    						imgUrl =  '<c:url value="/webAttach/thumnails/" />' + files[i].streFileNm;
+	    					}
+	    				}
+	    				var options = {"background":"url("+imgUrl+")", 'background-repeat' : 'no-repeat', 'background-position':'center left'};
+	    				$imgId.val(fileIds);
+	    				$fileNmme.val(fileNames);
+	    				if(thisType == 'img'){
+	    					$imgDiv.css(options);
+	    				}
+	    				
+	    			} else {
+	    				$imgId.val('');
+	    				$fileNmme.val('');
+	    				if(thisType == 'img'){
+	    					$imgDiv.css('background', 'url(/img/noimg.png)');
+	    				}
+	    				
+	    			}
+	    		}
+	    	});
 
+	    	$('#btnFileDownload').click(function(e) {
+	    		e.preventDefault();
+	    		COM.openFileListPopup('Sample', $('#fileIds').val());
+	    	});
+	
+			$('[name=btnImgDelete]').click(function(e){
+				$(this).parent().find(':hidden').val('');
+	    		$(this).parent('').find('[name=file1_text]').val('');
+			});
+			
+			$('[name=btnFileDelete]').click(function(e){
+				var $imgId = $(this).parent().find(':hidden');
+	    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+	    		var $imgDiv = $(this).closest('dl').find('dt');
+				
+	    		$imgId.val('');
+	    		$fileNmme.val('')
+	    		var basicImg = '<c:url value="/webAttach/thumnails/" />'
+	    		$imgDiv.css
+			});
+		
     });
+    
+	    function replaceModalwindow(offset, currPlace) {
+	    	$('.ui-dialog').css('top', offset.top +'px');
+	    	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
+	    }
+
 
      //학교추가
     var fn_addSch = function()
@@ -619,4 +734,40 @@
     			});
 			$("form").submit();
     	}
+    	
+    	function settingFormName() { 
+   		 $('#addClerks tbody tr').each(function (i) {
+   	            $(this).find('input').each(function () {
+   	                $(this).attr('name', 'CustomerClerk[' + i + '].' + $(this).attr('name'));
+   	            });
+   	            $(this).find('select').each(function () {
+   	                $(this).attr('name', 'CustomerClerk[' + i + '].' + $(this).attr('name'));
+   	            });
+   	        });
+   	}
+   	
+   	function doFinish(){
+   		
+   		  alert('파일이 삭제됩니다.');
+   	}
+   	
+   	function fn_dataParamSetting(category, fileMax, type, filesIds){
+   		var fileExtn = '';
+   		
+   		if(type == "img"){
+   			fileExtn = 'jpg|jpeg|png|bmp|gif';
+   		} else {
+   			fileExtn = '';
+   		}
+   		
+   		var params = {
+   				Category : category,
+					Accept : fileExtn,
+   				Max : Number(fileMax),
+   				Type : type,
+   				FileIds : filesIds
+   			}
+   		
+   		return params;
+   	}
  </script>

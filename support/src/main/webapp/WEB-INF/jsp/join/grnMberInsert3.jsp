@@ -105,7 +105,7 @@
 				                                            </dt>
 				                                            <dd class="file_sector">
 				                                            	<input name="file1_text"  type="text" class="w200">
-				                                            	<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
+				                                            	<input type="hidden" name="atchImgMainFileId" />
 			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
 			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            <span class="con_inf2 fl100">
@@ -122,7 +122,7 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="ATCH_IMG_JOB_FILE_ID" />
+					                                            	<input type="hidden" name="atchImgJobFileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
 					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 						                                            <span class="con_inf2 fl100">
@@ -139,7 +139,7 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="ATCH_IMG_MAN_FILE_ID" />
+					                                            	<input type="hidden" name="atchImgManFileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
 					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
@@ -157,7 +157,7 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="ATCH_IMG_1_FILE_ID" />
+					                                            	<input type="hidden" name="atchImg1FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
@@ -175,7 +175,7 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="ATCH_IMG_2_FILE_ID" />
+					                                            	<input type="hidden" name="atchImg2FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
@@ -424,7 +424,7 @@
                                 <li><strong>이력서</strong>
                                 	<span class="con">
                                 		<input name="file1_text" type="text" class="w200">
-										<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
+										<input type="hidden" name="atchHistFileId" />
 										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
                                     	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
@@ -433,7 +433,7 @@
                                 <li><strong>포트폴리오</strong>
                                 	<span class="con">
                                     	<input name="file1_text" type="text" class="w200">
-										<input type="hidden" name="ATCH_IMG_MAIN_FILE_ID" />
+										<input type="hidden" name="atchPortFileId" />
 										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="3" data_category="memberAttach" data_type="file" alt="찾아보기"   >
                                     	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
@@ -571,7 +571,7 @@
 	    		
 	    		function closeCallback(returnValue) {
 	    			if (returnValue != null && returnValue.length > 0) {
-	    				debugger;
+// 	    				debugger;
 	    				var files = returnValue;
 	    				var fileIds = '';
 	    				var fileNames = '';
@@ -585,7 +585,8 @@
 	    					} else {
 	    						fileIds = files[i].atchFileId;
 	    						fileNames = files[i].orignlFileNm;
-	    						imgUrl =  '<c:url value="/webAttach/thumnails/" />' + files[i].streFileNm;
+	    						imgUrl =   '<c:url value="/files/imageSrc.do?path=" />'+files[i].category  +'/thumnails&physical=' + files[i].streFileNm;    
+// 	    						imgUrl =  '<c:url value="/webAttach/thumnails/" />' + files[i].streFileNm;
 	    					}
 	    				}
 	    				var options = {"background":"url("+imgUrl+")", 'background-repeat' : 'no-repeat', 'background-position':'center left'};
@@ -729,7 +730,7 @@
     	        });
     	}
     	
-    	function isDeleteFinish(){
+    	function doFinish(){
     		
     		  alert('파일이 삭제됩니다.');
     	}
