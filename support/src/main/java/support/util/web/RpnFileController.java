@@ -18,11 +18,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.com.cmm.service.EgovFileMngService;
@@ -43,7 +40,6 @@ public class RpnFileController {
     
     @Resource(name = "egovFileIdGnrService")
 	private EgovIdGnrService idgenService;
-
     
     /** 첨부파일 위치 지정 */
     private final String uploadDir = EgovProperties.getProperty("Globals.fileStorePath");
@@ -64,9 +60,8 @@ public class RpnFileController {
 	 * @return
 	 */
 	@RequestMapping(value = "/uploadPage.do", method = RequestMethod.GET)
-	public String uploadPage(ModelMap model) throws Exception{
-		String atchFileId  = idgenService.getNextStringId();			
-		model.addAttribute("serverAtchFileId", atchFileId);
+	public String uploadPage() {
+
 		return ".popup_files/upload";
 	}
 
@@ -109,11 +104,7 @@ public class RpnFileController {
 	@RequestMapping(value = "/upload.do", method = RequestMethod.POST)
 	public void upload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
-		System.out.println("request.getParameter(Category) : " + request.getParameter("Category"));
-		System.out.println("request.getParameter(AtchFileId) : " + request.getParameter("AtchFileId"));
-		
-		String atchFileId = request.getParameter("AtchFileId");
+		String atchFileId = request.getParameter("fileIds");
 		if( EgovStringUtil.isEmpty(atchFileId) ) {
 			atchFileId = idgenService.getNextStringId();
 		}
@@ -122,7 +113,7 @@ public class RpnFileController {
 		
 		// add to DB
 		
-		atchFileId = this.fileMngService.insertFileInfsAdvence(list);
+		atchFileId = this.fileMngService.insertFileInfs(list);
 		
 		JsonObject jo = new JsonObject();
 		jo.IsSucceed = true;
@@ -189,14 +180,14 @@ public class RpnFileController {
 	/**
 	 * @Method Name : download
 	 * @Method 설명 : 파일 다운로드
-	 * @작성일 : 2015.3. 11.오전 10:37:05
-	 * @작성자 : 박세은
+	 * @작성일 : 2014. 4. 22.오전 10:37:05
+	 * @작성자 : 이방은
 	 * @Modification Information
 	 * 
 	 * <pre>
 		 *     수정일         수정자                   수정내용
 		 *     -------          --------        ---------------------------
-		 *   2015. 3. 11.     박세은                  최초 생성
+		 *   2014. 4. 22.      이방은                  최초 생성
 		 * </pre>
 	 * @param fileVO
 	 * @param response
@@ -207,8 +198,13 @@ public class RpnFileController {
 	public void download(FileVO fileVO, HttpServletResponse response, HttpServletRequest request) throws Exception {
 
 		boolean hasError = false;
-		FileVO dbFile = this.fileMngService.selectFileInf(fileVO);
+		List<FileVO> fileList = this.fileMngService.selectFileInfs(fileVO);
 
+		if (fileList.size() == 0) {
+			hasError = true;
+		}
+		
+		FileVO dbFile = fileList.get(0);
 		try {
 			FileUtil.downloadFile(dbFile, request, response);
 		}
@@ -225,32 +221,6 @@ public class RpnFileController {
 			
 		}
 	}
-	
-    /**
-     * 첨부파일에 대한 목록을 조회한다.
-     *
-     * @param fileVO
-     * @param atchFileId
-     * @param sessionVO
-     * @param model
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/selectFileInfsAdvence.do")
-    public String selectFileInfsAdvence(@ModelAttribute("searchVO") FileVO fileVO, 
-    																	@RequestParam("param_atchFileId")  String atchFileId,
-    		     	                                                     ModelMap model) throws Exception {
-
-	fileVO.setAtchFileId(atchFileId);
-	List<FileVO> result = fileMngService.selectFileInfs(fileVO);
-
-	model.addAttribute("fileList", result);
-	model.addAttribute("updateFlag", "N");
-	model.addAttribute("fileListCnt", result.size());
-	model.addAttribute("atchFileId", atchFileId);
-
-	return ".popup_common/supportFileList";
-    }
 
 	@ResponseBody
 	@RequestMapping(value = "/remove.do", method = RequestMethod.POST)
@@ -299,7 +269,7 @@ public class RpnFileController {
      * @throws Exception
      */
     @RequestMapping(value="/imageSrc.do",method=RequestMethod.GET)
-    public void imageSrc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         
 	String subPath = request.getParameter("path");
@@ -308,31 +278,4 @@ public class RpnFileController {
 
 	EgovFormBasedFileUtil.viewFile(response, uploadDir, subPath, physical, mimeType);
     }
-    
-    
-    
-    /**
-     * 이미지 view를 제공한다.
-     *
-     * @param request
-     * @param response
-     * @throws Exception
-     */
-    @RequestMapping(value="/imageSrcByFileId.do",method=RequestMethod.GET)
-    public void imageSrcByFileId(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        
-		String fileId = request.getParameter("fileId");
-		FileVO fvo = new FileVO();
-		fvo.setAtchFileId(fileId);
-		
-		List<FileVO> fileList;
-
-		fileList = this.fileMngService.selectFileInfs(fvo);
-		fvo =  fileList.get(0);
-
-		EgovFormBasedFileUtil.viewFile(response, fvo.getFileStreCours(), "thumnails", fvo.getStreFileNm(), "");
-    }
-	
-    	
 }

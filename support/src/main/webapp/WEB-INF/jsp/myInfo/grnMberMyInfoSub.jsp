@@ -87,6 +87,7 @@
 			                                        			<c:when test= "${mberManageVO.atchImgMainFileId ==null || mberManageVO.atchImgMainFileId ==''}">
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
+<<<<<<< HEAD
 				                                        		<c:otherwise>				                                        		
 				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgMainFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
@@ -97,6 +98,17 @@
 				                                            	<form:hidden path="atchImgMainFileId"/>
 			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
 			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+=======
+				                                        		<c:otherwise>
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:otherwise>
+				                                        	</c:choose>
+				                                        	
+				                                            <dd class="file_sector">
+				                                            	<input name="file1_text"  type="text" class="w200">
+				                                            	 <form:hidden path="atchImgMainFileId"/>
+			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -108,6 +120,7 @@
 				                                        </li>
 				                                        <li id="tab2">
 				                                        	<dl class="pic_regist">
+<<<<<<< HEAD
 			                                        		<c:choose>
 			                                        			<c:when test= "${mberManageVO.atchImgJobFileId ==null || mberManageVO.atchImgJobFileId ==''}">
 				                                        			<dt class="img_div"  ></dt>
@@ -122,6 +135,15 @@
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
 					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+=======
+					                                        	<dt>
+					                                            </dt>
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImgJobFileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -132,6 +154,7 @@
 			                                        </li>
 			                                        <li id="tab3">
 				                                        	<dl class="pic_regist">
+<<<<<<< HEAD
 			                                        		<c:choose>
 			                                        			<c:when test= "${mberManageVO.atchImgManFileId ==null || mberManageVO.atchImgManFileId ==''}">
 				                                        			<dt class="img_div"  ></dt>
@@ -146,6 +169,15 @@
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
 					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+=======
+					                                        	<dt>
+					                                            </dt>
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImgManFileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
+					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -157,6 +189,7 @@
 			                                        </li>
 			                                        <li id="tab4">
 				                                        	<dl class="pic_regist">
+<<<<<<< HEAD
 			                                        		<c:choose>
 			                                        			<c:when test= "${mberManageVO.atchImg1FileId ==null || mberManageVO.atchImg1FileId ==''}">
 				                                        			<dt class="img_div"  ></dt>
@@ -170,6 +203,14 @@
 					                                            	<form:hidden path="atchImg1FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
 			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+=======
+					                                        	<dt>
+					                                            </dt>
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImg1FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -182,6 +223,7 @@
 			                                        </li>
 			                                        <li id="tab5">
 				                                        	<dl class="pic_regist">
+<<<<<<< HEAD
 			                                        		<c:choose>
 			                                        			<c:when test= "${mberManageVO.atchImg2FileId ==null || mberManageVO.atchImg2FileId ==''}">
 				                                        			<dt class="img_div"  ></dt>
@@ -195,6 +237,14 @@
 					                                            	<form:hidden path="atchImg2FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
 			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+=======
+					                                        	<dt>
+					                                            </dt>
+					                                            <dd>
+					                                            	<input name="file1_text"  type="text" class="w200">
+					                                            	<input type="hidden" name="atchImg2FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -604,6 +654,7 @@
 	    		
 	    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
 	    		e.preventDefault();
+<<<<<<< HEAD
 	    				
 	    		var options = {
 	    			url : '<c:url value="/files/uploadPage.do" />',
@@ -627,6 +678,32 @@
 	    				for (var i = 0; i < files.length; i++) {
 	    					if (fileIds) {
 	    						fileIds = files[i].atchFileId;
+=======
+	    			
+	    		var options = {
+	    			url : '<c:url value="/files/uploadPage.do" />',
+	    			width : 510,
+	    			height : 300,
+	    			closeCallback : closeCallback,
+	    			title : 'Files',
+	    			data : params,
+	    			buttonType : 0
+	    		};
+	    		var $dialog = BIT.modalDialog(options);
+	    		
+	    		function closeCallback(returnValue) {
+	    			if (returnValue != null && returnValue.length > 0) {
+// 	    				debugger;
+	    				var files = returnValue;
+	    				var fileIds = '';
+	    				var fileNames = '';
+	    				//단일 이미지 처리시에만 적용 올려진 썸네일 이미지를 리턴받아 화면상에 이미지 영역에 뿌려줌
+	    				var imgUrl = "";
+	    				
+	    				for (var i = 0; i < files.length; i++) {
+	    					if (fileIds) {
+	    						fileIds += ',' + files[i].atchFileId;
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 	    						fileNames += ',' + files[i].orignlFileNm;
 	    					} else {
 	    						fileIds = files[i].atchFileId;
@@ -653,11 +730,17 @@
 	    		}
 	    	});
 
+<<<<<<< HEAD
 	    	$('[name=btnFileDownload]').click(function(e) {
 	    		e.preventDefault();
 	    		var category = $(this).attr('data_category');
 	    		var $imgId = $(this).parent().find(':hidden');
 	    		COM.openFileListPopup(category, $imgId.val());
+=======
+	    	$('#btnFileDownload').click(function(e) {
+	    		e.preventDefault();
+	    		COM.openFileListPopup('Sample', $('#fileIds').val());
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 	    	});
 	
 			$('[name=btnImgDelete]').click(function(e){
@@ -682,6 +765,10 @@
 	    	$('.ui-dialog').css('top', offset.top +'px');
 	    	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
 	    }
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
 
 	   	function fn_dataParamSetting(category, fileMax, type, filesIds){
 	   		var fileExtn = '';
@@ -814,6 +901,7 @@
    	        });
    	}
    	
+<<<<<<< HEAD
    	function doSync(){
 //  		 goJsonSave();
    		goSave();
@@ -835,4 +923,30 @@
   	}
 
    	
+=======
+   	function doFinish(){
+   		
+   		  alert('파일이 삭제됩니다.');
+   	}
+   	
+   	function fn_dataParamSetting(category, fileMax, type, filesIds){
+   		var fileExtn = '';
+   		
+   		if(type == "img"){
+   			fileExtn = 'jpg|jpeg|png|bmp|gif';
+   		} else {
+   			fileExtn = '';
+   		}
+   		
+   		var params = {
+   				Category : category,
+					Accept : fileExtn,
+   				Max : Number(fileMax),
+   				Type : type,
+   				FileIds : filesIds
+   			}
+   		
+   		return params;
+   	}
+>>>>>>> branch 'master' of https://github.com/giyyon/support.git
  </script>
