@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import egovframework.com.cmm.service.EgovProperties;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
+
 /**
  * 게시물 관리를 위한 VO 클래스
  * @author 공통서비스개발팀 이삼섭
@@ -35,6 +38,10 @@ public class BoardVO extends Board implements Serializable {
     
     /** 검색단어 */
     private String searchWrd = "";
+    
+    
+    /** 검색사업유형 */
+    private String searchBsnsSe = "";
     
     /** 정렬순서(DESC,ASC) */
     private long sortOrdr = 0L;
@@ -105,16 +112,6 @@ public class BoardVO extends Board implements Serializable {
     /** 하위 페이지 인덱스 (댓글 및 만족도 조사 여부 확인용) */
     private String subPageIndex = "";
     ////-------------------------------
-
-    //---------------------------------
-    // 2015.02.05 : 기능 추가
-    //---------------------------------
-    
-    /** 게시유형코드(사업/행사/운영)*/
-    private String nttTyCode = "";
-    
-    /** 게시유형코드(사업/행사/운영)*/
-    private String nttTyCodeNm = "";
     
     /** 조회된 검색 리스트 상에서의 순번*/
     private int seq = 0;
@@ -128,6 +125,28 @@ public class BoardVO extends Board implements Serializable {
     /** 정렬 조건이름 */
     private String sortTypeNm = "";
     
+    /** 공지유형 조건 */
+    private String searchNttTy = "";
+
+    /** 공지유형 조건이름 */
+    private String searchNttTyNm = "";
+    
+	/**
+	 * @return the searchBsnsSe
+	 */
+	public String getSearchBsnsSe() {
+	
+		return searchBsnsSe;
+	}
+
+	/**
+	 * @param searchBsnsSe the searchBsnsSe to set
+	 */
+	public void setSearchBsnsSe(String searchBsnsSe) {
+	
+		this.searchBsnsSe = searchBsnsSe;
+	}
+
 	/**
 	 * @return the seq
 	 */
@@ -196,38 +215,6 @@ public class BoardVO extends Board implements Serializable {
 	public void setArticleDirection(String articleDirection) {
 	
 		this.articleDirection = articleDirection;
-	}
-
-	/**
-	 * @return the nttTyCodeNm
-	 */
-	public String getNttTyCodeNm() {
-	
-		return nttTyCodeNm;
-	}
-
-	/**
-	 * @param nttTyCodeNm the nttTyCodeNm to set
-	 */
-	public void setNttTyCodeNm(String nttTyCodeNm) {
-	
-		this.nttTyCodeNm = nttTyCodeNm;
-	}
-
-	/**
-	 * @return the nttTyCode
-	 */
-	public String getNttTyCode() {
-	
-		return nttTyCode;
-	}
-
-	/**
-	 * @param nttTyCode the nttTyCode to set
-	 */
-	public void setNttTyCode(String nttTyCode) {
-	
-		this.nttTyCode = nttTyCode;
 	}
 
 	/**
@@ -724,4 +711,49 @@ public class BoardVO extends Board implements Serializable {
     public String toString() {
 	return ToStringBuilder.reflectionToString(this);
     }
+
+	/**
+	 * @return the searchNttTy
+	 */
+	public String getSearchNttTy() {
+	
+		return searchNttTy;		
+	}
+
+	/**
+	 * @param searchNttTy the searchNttTy to set
+	 */
+	public void setSearchNttTy(String searchNttTy) {
+	
+		this.searchNttTy = searchNttTy;
+	}
+
+	/**
+	 * @return the searchNttTyNm
+	 */
+	public String getSearchNttTyNm() {
+	
+		if(searchNttTy.equals("")){
+			searchNttTyNm = "전체공지사항";
+		}else if(searchNttTy.equals("1")){
+			searchNttTyNm = "사업공고";
+		}else if(searchNttTy.equals("2")){
+			searchNttTyNm = "행사공지";
+		}else if(searchNttTy.equals("3")){
+			searchNttTyNm = "운영공지";
+		}
+		return searchNttTyNm;
+	}
+
+	/**
+	 * @param searchNttTyNm the searchNttTyNm to set
+	 */
+	public void setSearchNttTyNm(String searchNttTyNm) {
+	
+		this.searchNttTyNm = searchNttTyNm;
+	}
+	
+	
+    
+    
 }

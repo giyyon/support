@@ -33,17 +33,14 @@
 
 <link href="<c:url value='/css/jquery-ui-1.10.3.custom.min.css'/>" rel="stylesheet" />
 <link href="${contextPath}/css/necgis.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/common.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/adm.css" rel="stylesheet" type="text/css" />
 <link href="${contextPath}/css/support.css" rel="stylesheet" type="text/css" />
 
 	<script type="text/javascript">
 		var rt_path = ''  , rt_charset = 'UTF-8';
 	</script>
 	<script type='text/javascript' src='${contextPath}/js/common.js'></script>
-
-
-
-    <link href="${contextPath}/css/common.css" rel="stylesheet" type="text/css" />
-    <link href="${contextPath}/css/adm.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
 	function MM_swapImgRestore() { //v3.0

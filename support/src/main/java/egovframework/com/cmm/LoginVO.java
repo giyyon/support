@@ -2,6 +2,8 @@ package egovframework.com.cmm;
 
 import java.io.Serializable;
 
+import egovframework.com.cmm.service.EgovProperties;
+
 /**
  * @Class Name : LoginVO.java
  * @Description : Login VO class
@@ -65,8 +67,20 @@ public class LoginVO implements Serializable{
 	/** 사업자 번호 */
 	private String bizrno;
 	
+	/** 로그인한 시스템의 사업 유형(사업자지정(A:특성화고등, B:대학원, C:온라인교육센터)) 
+	 *    이 필드는 getter만 존재한다.*/
+	
+	private String userBsnsSe;
 	
 	
+	/**
+	 * @return the userBsnSe
+	 */
+	public String getUserBsnsSe() {
+		userBsnsSe = EgovProperties.getProperty("Globals.BsnsSe");
+		return userBsnsSe;
+	}
+
 	/**
 	 * id attribute 를 리턴한다.
 	 * @return String

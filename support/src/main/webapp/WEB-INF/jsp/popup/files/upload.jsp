@@ -2,7 +2,26 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div>
+<style type="text/css">
+.my_modalTable {padding:2px; border-collapse:separate; }
+.my_modalTable td {vertical-align: middle;}
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f4f4f4}
+</style>
+<script>
+//esc 키로 모달 창을 닫는 경우 modal dialog가 정상적으로 해제 처리 되지 않아 다시 여는 경우 화면이 깨지는 현상 발생. esc키 입력을 ufn_closeModal() 수행으로 연결
+var KEYCODE_ESC = 27;
+$(document).ready(function(){
+	$(document).keyup(function(e) {
+		  if (e.keyCode == KEYCODE_ESC){
+			  e.preventDefault();
+			  ufn_closeModal();
+		  }
+	});
+});
+
+</script>
+<div background>
 	<form id="fileupload" method="post" action="<c:url value='/files/upload.do' />" enctype="multipart/form-data">
 		<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 		<div class="fileupload-buttonbar">
@@ -10,10 +29,10 @@
 				<!-- The fileinput-button span is used to style the file input field as button -->
 				<span class="fileinput-button"> <span>파일추가...</span> <input type="file" name="files[]" multiple="multiple" />
 				</span>
-				<button type="submit" class="start">업로드</button>
+				<button type="submit" class="start">일괄업로드</button>
 				<button type="reset" class="cancel">취소</button>
-				<button type="button" class="delete">삭제</button>
-				<!-- <button type="button" class="download">전체 다운로드</button> -->
+				<button type="button" class="delete">일괄삭제</button>
+<!-- 				<button type="button" class="download">전체 다운로드</button> -->
 				<input type="checkbox" class="toggle" />
 				<!-- The global file processing state -->
 				<span class="fileupload-process"></span>
@@ -28,15 +47,15 @@
 		</div>
 		<!-- The table listing the files available for upload/download -->
 		<!-- form 내부에 있어야 함. -->
-		<div class="scroll_auto margin_t5" style="height: 145px;">
-			<table role="presentation" style="width: 99%;">
+		<div class="scroll_auto margin_t5" style="height: 280px;">
+			<table role="presentation" style="width: 99%;"   class="my_modalTable  table-striped" >
 				<colgroup>
-					<col width="25%">
+					<col width="15%">
 					<col width="35%">
 					<col width="20%">
-					<col width="20%">
+					<col width="30%">
 				</colgroup>
-				<tbody class="files"></tbody>
+				<tbody class="files" style="vertical-align:middle;" ></tbody>
 			</table>
 		</div>
 		<!-- // 1/24 수정 -->
@@ -51,7 +70,7 @@
 	<!-- The template to display files available for upload -->
 	<script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
-        <tr class="template-upload fade">
+		<tr class="template-upload fade">
             <td>
                 <span class="preview"></span>
             </td>
@@ -77,7 +96,7 @@
 	<!-- The template to display files available for download -->
 	<script id="template-download" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
-        <tr class="template-download fade">
+        <tr class="template-download fade" >
             <td>
                 <span class="preview">
                     {% if (file.thumbnailUrl) { %}
@@ -104,6 +123,15 @@
     {% } %}
     </script>
 	<script type="text/javascript">
+		//-------------------------------------------------------------------------------------------------------------------------------------- 
+	    //처음 화면 로드 시 화면이 정상적으로 뜨지 않는 현상이 간헐적으로 있어.. 임시로 이런 구문을 넣어봤음.
+		$(document).ready(function(){
+			$(".fileupload-buttons").hide().delay(500).slideDown(400);
+		});
+		//--------------------------------------------------------------------------------------------------------------------------------------     
+	    //갱신(입력/삭제)등이 있는 경우에 한해 창 닫기 누르면 부모창의 동기화 전용 함수 호출(향후 시스템 성능 향상을 위해 ajax형태로 데이터를 동기화가 되도록 구현)
+	    var isModified = false;
+	   //-------------------------------------------------------------------------------------------------------------------------------------- 
 		var fileOptions = $('#fileupload').closest('div[id^=cntr]').data('options');
 // 		debugger;
 		var fileIds = ''; //$.cookie('fileIds');
@@ -111,9 +139,16 @@
 			fileIds = unescape(fileOptions.data.FileIds);
 			//$.cookie('fileIds', fileIds);
 		}
-
+		//-------------------------------------------------------------------------------------------------------------------------------------- 
+		// 일괄 첨부파일 등록을 위해서 서버에서 선 id 값을 발행해서 처음 등록시점에 활용. 추가 등록인 경우는 무시 처리한다.
+		var serverAtchFileId = '${serverAtchFileId}';
+		$('input[name=atchFileId]').val(fileOptions.data.FileIds);
+		if($('input[name=atchFileId]').val() == null || $('input[name=atchFileId]').val() == ''){
+			$('input[name=atchFileId]').val(serverAtchFileId);
+		}
+		//-------------------------------------------------------------------------------------------------------------------------------------- 	
 		$('#fileupload').fileupload({
-			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&atchFileId=' + $('[name=atchFileId]').val(),
+			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&AtchFileId=' + $('input[name=atchFileId]').val(),
 			maxFileSize : 10000000,
 			maxNumberOfFiles : parseInt(fileOptions.data.Max),
 			acceptFileTypes : fileOptions.data.Accept == null ? new RegExp('') : new RegExp('(.|)(' + unescape(fileOptions.data.Accept) + ')$'),
@@ -137,10 +172,6 @@
 						};
 						if (fileOptions.data.Type == "img") {
 							file.thumbnailUrl =  '<c:url value="/files/imageSrc.do?path=" />'+fileOptions.data.Category  +'/thumnails&physical='  + item.streFileNm;
-							
-// 							file.thumbnailUrl =  fileOptions.data.Category+'/thumnails/" />' + item.streFileNm;
-							
-							
 						}
 						files.push(file);
 					}
@@ -149,7 +180,11 @@
 					return [];
 				}
 			},
+			started : function(e, data) {
+				isModified = true;
+			},
 			destroyed : function(e, data) {
+				isModified = true;
 // 				debugger;
 				if (data.result) {
 					data = data.result;
@@ -160,17 +195,16 @@
 				var files = $(this).closest('.modalContainer').data('data');
 				var newFiles = [];
 				for (var i = 0; i < files.length; i++) {
-					if (files[i].atchFileId != data.Data.atchFileId) {
+					if (files[i].streFileNm != data.Data.streFileNm) {
 						newFiles.push(files[i]);
 					}
 				}
 				//setFileIds(newFiles);
 				$(this).closest('.modalContainer').data('data', newFiles);
-			//첨부파일을 파일 DB에서 삭제한 이후 원 데이터 테이블의 fileID에 해당하는 컬럼도 갱신, 동기화 위한 메소드 호출. parent.doFinish()는 해당 화면에서 구현한다.	
-			parent.doFinish();
 			},
 			completed : function(e, data) {
 // 				debugger;
+				
 				if (data.result) {
 					data = data.result;
 				}
@@ -178,11 +212,16 @@
 				if (files == null) {
 					files = [];
 				}
+				var uploadedFileId = "";
 				for (var i = 0; i < data.Data.length; i++) {
+					uploadedFileId = data.Data[i].atchFileId;
 					files.push(data.Data[i]);
 				}
-				//+setFileIds(files);
-				$('[name=atchFileId]').val('');
+				//-------------------------------------------------------------------------------------------------------------------------------------- 
+				//첨부파일 하나를 최초로 올린 시점에는 fileId가 없으나 성공 이후에는 fileId를 받아와 url을 갱신해줘야 추가적인 작업시 또다른 fileId가 발번되는 것을 방지할 수 있음.
+				var new_url =  '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&AtchFileId=' + uploadedFileId;
+				$(this).fileupload('option', 'url', new_url);
+				//-------------------------------------------------------------------------------------------------------------------------------------- 
 				$(this).closest('.modalContainer').data('data', files);
 			}
 		});
@@ -193,7 +232,10 @@
 			$.ajax({
 				url : '<c:url value="/files/getFiles.do?fileIds=" />' + fileIds,
 				dataType : 'json',
-				context : $('#fileupload')[0]
+				context : $('#fileupload')[0],
+				error:function(request,status,error){
+			        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    }
 			}).always(function() {
 				$(this).removeClass('fileupload-processing');
 			}).done(function(responseText) {
@@ -220,6 +262,12 @@
 		
 		function ufn_closeModal(){
 			BIT.modalDialogCloseClick('modalApply', fileOptions.data.containerId);
+			//첨부파일을 파일 DB에서 삭제 및 등록 이후 원 데이터 테이블의 fileID에 해당하는 컬럼도 갱신, 동기화 위한 메소드 호출. parent.doFinish()는 해당 화면에서 구현한다.	
+			if(isModified)
+				if(fileOptions.data.Type == 'img')
+					parent.doJsonSync();
+				else
+					parent.doSync();
 		}
 	</script>
 </div>

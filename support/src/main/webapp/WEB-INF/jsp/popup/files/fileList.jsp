@@ -1,20 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style type="text/css">
+.my_modalTable {padding:2px; border-collapse:separate; }
+.my_modalTable td {vertical-align: middle;}
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f4f4f4}
+</style>
 <div>
 	<form id="fileupload">
 		<div class="fileupload-buttonbar">
 			<div class="fileupload-buttons">
 				<button class="download ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false" type="button">
-					<span class="ui-button-icon-primary ui-icon ui-icon-arrowreturnthick-1-s"></span> <span class="ui-button-text">전체 다운로드</span>
+<!-- 					<span class="ui-button-icon-primary ui-icon ui-icon-arrowreturnthick-1-s"></span> <span class="ui-button-text">전체 다운로드</span> -->
 				</button>
 			</div>
 		</div>
 		<!-- The table listing the files available for upload/download -->
 		<!-- 1/24 수정 -->
 		<div class="margin_t5" style="height: 200px; overflow: auto;">
-			<table role="presentation" style="width: 99%;">
+			<table role="presentation" style="width: 99%;" class="my_modalTable  table-striped" >
 				<colgroup>
 					<col width="25%">
 					<col width="45%">
@@ -29,9 +34,8 @@
 		var fileOptions = $('#fileupload').closest('div[id^=cntr]').data('options');
 
 		fileIds = unescape(fileOptions.data.FileIds);
-
 		if (fileIds != null && fileIds != '') {
-			BIT.callAjax('<c:url value="/rpnsample/files/getFiles.do" />', 'GET', {
+			BIT.callAjax('<c:url value="/files/getFiles.do" />', 'GET', {
 				fileIds : fileIds
 			}, function(responseText) {
 				var $body = $('.files');
@@ -48,11 +52,11 @@
 					html += '   </td>';
 					html += '   <td>';
 					html += '       <p class="name">';
-					html += '       <a href="<c:url value="/rpnsample/files/download.do?" />' + $(files[i]).convertQueryStrings() + '" title="' + files[i].realName + '" class="fileDownload" download="' + files[i].realName + '" data-gallery>' + files[i].realName + '</a>';
+					html += '       <a href="<c:url value="/files/download.do?" />' + $(files[i]).convertQueryStrings() + '" title="' + files[i].orignlFileNm + '" class="fileDownload" download="' + files[i].orignlFileNm + '" data-gallery>' + files[i].orignlFileNm + '</a>';
 					html += '       </p>';
 					html += '   </td>';
 					html += '   <td>';
-					html += '       <span class="size">' + BIT.formatFileSize(files[i].size) + '</span>';
+					html += '       <span class="size">' + BIT.formatFileSize(files[i].fileMg) + '</span>';
 					html += '   </td>';
 					$tr.append(html);
 					$tr.data('file', files[i]);

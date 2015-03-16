@@ -367,10 +367,10 @@ function CommonClass() {
 	 */
 	this.openFileListPopup = function(categoryName, fileIds) {
 		var options = {
-			url : '/rpn/rpnsample/files/listPage.do',
+			url : '/files/listPage.do',
 			width : 500,
 			height : 300,
-			title : BIT.messages.common_file_title,
+			title : '[File download center]',            //BIT.messages.common_file_title,
 			data : {
 				Category : categoryName,
 				FileIds : fileIds

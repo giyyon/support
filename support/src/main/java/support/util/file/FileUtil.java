@@ -193,7 +193,7 @@ public class FileUtil {
 				vo.setContentType(file.getContentType());
 				vo.setCategory(request.getParameter("Category"));
 				//전자 정부프레임워크에 맞게 데이타 입력하게 임시로 생성
-				vo.setFileExtsn(fileName.substring(fileName.lastIndexOf(".")));
+				vo.setFileExtsn(fileName.substring(fileName.lastIndexOf(".") + 1));
 				vo.setFileStreCours(path +  vo.getCategory());
 				vo.setFileMg(Long.toString(file.getSize()));
 				vo.setOrignlFileNm(file.getOriginalFilename());

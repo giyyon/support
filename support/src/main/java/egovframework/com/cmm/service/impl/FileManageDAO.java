@@ -47,6 +47,34 @@ public class FileManageDAO extends EgovComAbstractDAO {
 
 		return atchFileId;
 	}
+	
+	
+	
+	/**
+	 * 여러 개의 파일에 대한 정보(속성 및 상세)를 등록한다.
+	 * 이 기능은 파일 순번을 사용자가 계산하는 방식이 아니라 db의 최종 입력값 +1 하는 방식을 적용
+	 * 이렇게 되면 첨부파일을 추가적으로 올릴때 유용하게 처리할수 있음. 기존에는 처리 불가. (기존:0번부터 발번 처리).
+	 * @param fileList
+	 * @return
+	 * @throws Exception
+	 */
+	public String insertFileInfsAdvence(List<?> fileList) throws Exception {
+		FileVO vo = (FileVO) fileList.get(0);
+		String atchFileId = vo.getAtchFileId();
+
+		List<FileVO> isFileMaster = selectFileInfs(vo);
+		if(isFileMaster == null || isFileMaster.size() == 0)
+			insert("FileManageDAO.insertFileMaster", vo);
+
+		Iterator<?> iter = fileList.iterator();
+		while (iter.hasNext()) {
+			vo = (FileVO) iter.next();
+
+			insert("FileManageDAO.insertFileDetailAdvence", vo);
+		}
+
+		return atchFileId;
+	}
 
 	/**
 	 * 하나의 파일에 대한 정보(속성 및 상세)를 등록한다.

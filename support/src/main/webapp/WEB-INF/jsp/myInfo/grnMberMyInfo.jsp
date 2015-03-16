@@ -65,7 +65,7 @@
 	                    <input type="hidden" id="userSe" name="userSe" value="<c:out value='${loginVO.userSe}'/>">
 	                    <input type="hidden" id="zip" name="zip" value='' ><!-- 우편번호 -->
 	                    <input type="hidden" name="uniqId" value = '<c:out value='${mberManageVO.uniqId}'/>'>
-	                     
+	                     <input type="hidden" id="progressStauts" name="progressStauts" value='' >
                     
                     
                     
@@ -336,7 +336,7 @@
                     
                     <!-- 버튼영역 -->
                     <div class="mbtn_wrap">
-                   		<a href="javascript:goSave('H');"><img src="${contextPath}/img/btn_info.png" alt="부가정보"></a><a href='javascript:goSave('F');' ><img src="${contextPath}/img/btn_regist.png" alt="등록단계"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
+                   		<a href="javascript:goSave('H');"><img src="${contextPath}/img/btn_info.png" alt="부가정보"></a><a href="javascript:goSave('F');"><img src="${contextPath}/img/btn_regist.png" alt="등록단계"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
                     <!-- //버튼영역 -->
 
             	</div>

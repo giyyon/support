@@ -18,9 +18,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
+import support.common.model.JsonObject;
 import support.login.web.LoginController;
 import support.util.JSONResponseUtil;
 import egovframework.com.cmm.ComDefaultCodeVO;
@@ -262,9 +264,6 @@ public class MyInfoController {
 
 		LOGGER.debug("getPassword정보 : "+mberManageVO.getPassword());
 		LOGGER.debug("getOldPassword정보 : "+mberManageVO.getOldPassword());
-		
-		mberManageVO.setUniqId(user.getUniqId());
-
 		boolean isCorrectPassword = false;
 	
 		MberManageVO resultVO = mberManageService.selectPassword(mberManageVO);
@@ -468,7 +467,7 @@ public class MyInfoController {
 		if(awardCd == null || awardCd.size() == 0 ){
 
 		}else{
-			LOGGER.debug("수상기록 갯수"+compltCd.size());
+			LOGGER.debug("수상기록 갯수"+awardCd.size());
 			MberManageAwardVO mberManageAwardVO = null;
 			for(int i =  0 ;  i < awardCd.size() ; i++){
 				mberManageAwardVO = new MberManageAwardVO();
@@ -570,6 +569,163 @@ public class MyInfoController {
 	 * @return uss/umt/EgovMberSelectUpdt
 	 * @throws Exception
 	 */
+	@ResponseBody
+	@RequestMapping("/jsonUpdateGnrSubMyInfo.do")
+	public JsonObject jsonUpdateGnrSubMyInfo(
+			@ModelAttribute("mberManageVO") MberManageVO mberManageVO, 
+            
+            @RequestParam(value="compltCd", required=false) List<String> compltCd,
+            @RequestParam(value="enterYear", required=false) List<String> enterYear,
+            @RequestParam(value="enterMonth", required=false) List<String> enterMonth,
+            @RequestParam(value="grdYear", required=false) List<String> grdYear,
+            @RequestParam(value="grdMonth", required=false) List<String> grdMonth,					                                                
+            @RequestParam(value="school", required=false) List<String> school,
+            @RequestParam(value="major", required=false) List<String> major,
+            
+            @RequestParam(value="careerCd", required=false) List<String> careerCd,
+            @RequestParam(value="joinEnterYear", required=false) List<String> joinEnterYear,
+            @RequestParam(value="joinEnterMonth", required=false) List<String> joinEnterMonth,
+            @RequestParam(value="outYear", required=false) List<String> outYear,					                                                
+            @RequestParam(value="outMonth", required=false) List<String> outMonth,
+            @RequestParam(value="commpany", required=false) List<String> commpany,
+            @RequestParam(value="position", required=false) List<String> position,
+            @RequestParam(value="task", required=false) List<String> task,
+            
+            @RequestParam(value="awardCd", required=false) List<String> awardCd,					                                                
+            @RequestParam(value="awardYear", required=false) List<String> awardYear,
+            @RequestParam(value="awardNm", required=false) List<String> awardNm,
+            @RequestParam(value="awardOrg", required=false) List<String> awardOrg,
+            
+            @RequestParam(value="paperCd", required=false) List<String> paperCd,
+            @RequestParam(value="paperYear", required=false) List<String> paperYear,
+            @RequestParam(value="paperMonth", required=false) List<String> paperMonth,
+            @RequestParam(value="paperNm", required=false) List<String> paperNm,
+            @RequestParam(value="paperOrg", required=false) List<String> paperOrg,					                                                
+            
+//            SessionStatus status,
+            HttpServletRequest request,
+            Model model) throws Exception {
+		
+		//수상기록
+		List<MberManageAwardVO> mberManageAwardVOList = new ArrayList<MberManageAwardVO>();
+		if(awardCd == null || awardCd.size() == 0 ){
+			
+		}else{
+			LOGGER.debug("수상기록 갯수"+awardCd.size());
+			MberManageAwardVO mberManageAwardVO = null;
+			for(int i =  0 ;  i < awardCd.size() ; i++){
+				if(! ((String)awardCd.get(i)).equals("NaN")){
+					mberManageAwardVO = new MberManageAwardVO();
+					mberManageAwardVO.setMberId(mberManageVO.getMberId());
+					mberManageAwardVO.setAwardCd( (String)awardCd.get(i) );
+					mberManageAwardVO.setAwardSn(i+"");
+					mberManageAwardVO.setAwardYear((String)awardYear.get(i) );
+					mberManageAwardVO.setAwardNm( (String)awardNm.get(i) );
+					mberManageAwardVO.setAwardOrg((String)awardOrg.get(i) );		
+					mberManageAwardVOList.add(mberManageAwardVO);					
+				}
+
+			}		
+		}
+
+		List<MberManageCareerVO> mberManageCareerVOList = new ArrayList<MberManageCareerVO>();
+		if(careerCd == null || careerCd.size() == 0 ){
+
+		}else{
+			LOGGER.debug("경력기록 갯수"+careerCd.size());
+			//경력기록
+			MberManageCareerVO mberManageCareerVO = null;
+			for(int i =  0 ;  i < careerCd.size() ; i++){
+				if(! ((String)careerCd.get(i)).equals("NaN")){
+					mberManageCareerVO = new MberManageCareerVO();
+					mberManageCareerVO.setMberId(mberManageVO.getMberId());			
+					mberManageCareerVO.setCareerCd( (String)careerCd.get(i) );
+					mberManageCareerVO.setCareerSn(i+"");
+					mberManageCareerVO.setJoinEnterYear((String)joinEnterYear.get(i) );
+					mberManageCareerVO.setJoinEnterMonth( (String)joinEnterMonth.get(i) );
+					mberManageCareerVO.setOutYear((String)outYear.get(i) );		
+					mberManageCareerVO.setOutMonth((String)outMonth.get(i) );		
+					mberManageCareerVO.setCommpany((String)commpany.get(i) );		
+					mberManageCareerVO.setPosition((String)position.get(i) );		
+					mberManageCareerVO.setTask((String)task.get(i) );		
+					mberManageCareerVOList.add(mberManageCareerVO);
+				}
+			}
+		}
+				
+
+		List<MberManageDegreeVO> mberManageDegreeVOList = new ArrayList<MberManageDegreeVO>();
+
+		if(compltCd == null || compltCd.size() == 0 ){
+
+		}else{
+			LOGGER.debug("학위기록 갯수"+compltCd.size());
+			//학위기록
+			MberManageDegreeVO mberManageDegreeVO = null;
+			for(int i =  0 ;  i < compltCd.size() ; i++){
+				if(! ((String)compltCd.get(i)).equals("NaN")){
+					mberManageDegreeVO = new MberManageDegreeVO();
+					mberManageDegreeVO.setMberId(mberManageVO.getMberId());		
+					mberManageDegreeVO.setCompltCd( (String)compltCd.get(i) );
+					mberManageDegreeVO.setDegreeSn(i+"");
+					mberManageDegreeVO.setEnterYear((String)enterYear.get(i) );
+					mberManageDegreeVO.setEnterMonth( (String)enterMonth.get(i) );
+					mberManageDegreeVO.setGrdYear((String)grdYear.get(i) );		
+					mberManageDegreeVO.setGrdMonth((String)grdMonth.get(i) );		
+					mberManageDegreeVO.setSchool((String)school.get(i) );		
+					mberManageDegreeVO.setMajor((String)major.get(i) );		
+					mberManageDegreeVOList.add(mberManageDegreeVO);
+				}
+			}
+		}
+		
+		List<MberManagePaperVO> mberManagePaperVOList = new ArrayList<MberManagePaperVO>();
+		if(paperCd == null || paperCd.size() == 0 ){
+
+		}else{
+			LOGGER.debug("논문기록 갯수"+paperCd.size());
+			//논문
+			MberManagePaperVO mberManagePaperVO = null;
+			for(int i =  0 ;  i < paperCd.size() ; i++){
+				if(! ((String)paperCd.get(i)).equals("NaN")){
+					mberManagePaperVO = new MberManagePaperVO();
+					mberManagePaperVO.setMberId(mberManageVO.getMberId());			
+					mberManagePaperVO.setPaperCd( (String)paperCd.get(i) );
+					mberManagePaperVO.setPaperSn(i+"");
+					mberManagePaperVO.setPaperYear((String)paperYear.get(i) );
+					mberManagePaperVO.setPaperMonth( (String)paperMonth.get(i) );
+					mberManagePaperVO.setPaperNm((String)paperNm.get(i) );		
+					mberManagePaperVO.setPaperOrg((String)paperOrg.get(i) );
+					mberManagePaperVOList.add(mberManagePaperVO);
+				}
+			}
+		}
+
+				
+		mberManageVO.setMberManageAwardVOList(mberManageAwardVOList);
+		mberManageVO.setMberManageCareerVOList(mberManageCareerVOList);
+		mberManageVO.setMberManageDegreeVOList(mberManageDegreeVOList);
+		mberManageVO.setMberManagePaperVOList(mberManagePaperVOList);
+		
+		mberManageService.updateMberSub(mberManageVO);	
+		//Exception 없이 진행시 수정성공메시지
+		
+		
+		
+		JsonObject jo = new JsonObject();
+		jo.IsSucceed = true;
+		return jo;
+
+	}	
+	
+	/**
+	 * 일반회원정보 수정-부가정보
+	 * @param mberId 상세조회대상 일반회원아이디
+	 * @param userSearchVO 검색조건
+	 * @param model 화면모델
+	 * @return uss/umt/EgovMberSelectUpdt
+	 * @throws Exception
+	 */
 	@RequestMapping("/updateEntSubMyInfo.do")
 	public String updateEntSubMyInfo(
 			@ModelAttribute("entrprsManageVO") EntrprsManageVO entrprsManageVO,
@@ -581,6 +737,30 @@ public class MyInfoController {
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "정상적으로 수정 처리 되었습니다.");
 		return "redirect:/myInfo/myInfoSubView.do";
+
+	}
+	
+	/**
+	 * 일반회원정보 수정-부가정보
+	 * @param mberId 상세조회대상 일반회원아이디
+	 * @param userSearchVO 검색조건
+	 * @param model 화면모델
+	 * @return uss/umt/EgovMberSelectUpdt
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/jsonUpdateEntSubMyInfo.do")
+	public JsonObject jsonUpdateEntSubMyInfo(
+			@ModelAttribute("entrprsManageVO") EntrprsManageVO entrprsManageVO,
+            HttpServletRequest request,
+            Model model) throws Exception {
+		//escape된 문자열을 다시 원래 형태로 복원하여 DB에 저장한다. ckEditor의 사용상 화명에 태그 형태 대로 적용하기 위한 처리 방식임.
+		entrprsManageVO.setNotice(StringEscapeUtils.unescapeHtml(entrprsManageVO.getNotice()));
+		entrprsManageService.updateEntrprsmberSub(entrprsManageVO);	
+		//Exception 없이 진행시 수정성공메시지
+		JsonObject jo = new JsonObject();
+		jo.IsSucceed = true;
+		return jo;
 
 	}
 	

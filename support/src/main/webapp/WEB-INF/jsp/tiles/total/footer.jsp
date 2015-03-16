@@ -52,16 +52,17 @@ $(function() {
 
     $('#d-main-visual').mainslider();
 
-    $('#d-image-banner').bannerslider({
-        targetSelector: 'img.bann'
-    });
+//     $('#d-image-banner').bannerslider({
+//         targetSelector: 'img.bann'
+//     });
 
-    $('#d-text-banner1, #d-text-banner2, #d-text-banner3').bannerslider({
-        autoSelector: 'button',
-        moveHorizontal: false,
-        moveSync: 'd-text-banner'
-    });
-    goNotice();
+//     $('#d-text-banner1, #d-text-banner2, #d-text-banner3').bannerslider({
+//         autoSelector: 'button',
+//         moveHorizontal: false,
+//         moveSync: 'd-text-banner'
+//     });
+    
+//     goNotice();
     var tvalue = $("#titHeight").height();
 
     //var hvalue = 306 - ($("#titHeight").height() + 33);

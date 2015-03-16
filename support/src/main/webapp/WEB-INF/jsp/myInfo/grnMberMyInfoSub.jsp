@@ -87,15 +87,16 @@
 			                                        			<c:when test= "${mberManageVO.atchImgMainFileId ==null || mberManageVO.atchImgMainFileId ==''}">
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
-				                                        		<c:otherwise>
-				                                        			<dt class="img_div"  ></dt>
+				                                        		<c:otherwise>				                                        		
+				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgMainFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 				                                        	
 				                                            <dd class="file_sector">
 				                                            	<input name="file1_text"  type="text" class="w200">
-				                                            	 <form:hidden path="atchImgMainFileId"/>
+				                                            	<form:hidden path="atchImgMainFileId"/>
 			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -107,13 +108,20 @@
 				                                        </li>
 				                                        <li id="tab2">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+			                                        		<c:choose>
+			                                        			<c:when test= "${mberManageVO.atchImgJobFileId ==null || mberManageVO.atchImgJobFileId ==''}">
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:when>
+				                                        		<c:otherwise>				                                        		
+				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgJobFileId}) 0% 50% no-repeat;"></dt>
+				                                        		</c:otherwise>
+				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImgJobFileId" />
+					                                            	<form:hidden path="atchImgJobFileId"/>
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -124,13 +132,20 @@
 			                                        </li>
 			                                        <li id="tab3">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+			                                        		<c:choose>
+			                                        			<c:when test= "${mberManageVO.atchImgManFileId ==null || mberManageVO.atchImgManFileId ==''}">
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:when>
+				                                        		<c:otherwise>				                                        		
+				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgManFileId}) 0% 50% no-repeat;"></dt>
+				                                        		</c:otherwise>
+				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImgManFileId" />
+					                                            	<form:hidden path="atchImgManFileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -142,12 +157,19 @@
 			                                        </li>
 			                                        <li id="tab4">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+			                                        		<c:choose>
+			                                        			<c:when test= "${mberManageVO.atchImg1FileId ==null || mberManageVO.atchImg1FileId ==''}">
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:when>
+				                                        		<c:otherwise>				                                        		
+				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImg1FileId}) 0% 50% no-repeat;"></dt>
+				                                        		</c:otherwise>
+				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg1FileId" />
+					                                            	<form:hidden path="atchImg1FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -160,12 +182,19 @@
 			                                        </li>
 			                                        <li id="tab5">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+			                                        		<c:choose>
+			                                        			<c:when test= "${mberManageVO.atchImg2FileId ==null || mberManageVO.atchImg2FileId ==''}">
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:when>
+				                                        		<c:otherwise>				                                        		
+				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImg2FileId}) 0% 50% no-repeat;"></dt>
+				                                        		</c:otherwise>
+				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg2FileId" />
+					                                            	<form:hidden path="atchImg2FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -238,7 +267,6 @@
 								                                    <c:forEach var="result" items="${complete_result}" varStatus="status">
 								                                    	<option value='<c:out value="${result.code}"/>'   ${result.code == mberManageVO.mberManageDegreeVOList[statusA.index].compltCd ? 'selected': '' }  > <c:out value="${result.codeNm}"/></option>
 								                                    </c:forEach>
-<%-- 								                                    ${result.code == schoolResult.compltCd ? 'selected="selected"' : '' }  --%>
 							                                    </select>
 						                                        &nbsp;
 						                                        <span class="stit">입학.
@@ -427,14 +455,34 @@
                                 
                                 <li><strong>이력서</strong>
                                 	<span class="con">
-                                    <input name="atchHistFileId" type="text" class="w200"><a href="#"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"></a><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+                                    <div>
+	                                    <input name="file1_text" type="text" class="w200">
+										<form:hidden path="atchHistFileId" />
+										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+	                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+	                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                   
+                                    </div>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
+                                    <br>
+                                     <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
+										<c:param name="param_atchFileId" value="${mberManageVO.atchHistFileId}" />
+									</c:import>	 
                                     </span>
                                 </li>
                                 <li><strong>포트폴리오</strong>
                                 	<span class="con">
-                                    <input name="atchPortFileId" type="text" class="w200"><a href="#"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"></a><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+                                	<div>
+                                    <input name="file1_text" type="text" class="w200">
+									<form:hidden path="atchPortFileId" />
+									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"   alt="다운로드"> 
+                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
+                                    </div>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
+                                    <br>
+                                     <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
+										<c:param name="param_atchFileId" value="${mberManageVO.atchPortFileId}" />
+									 </c:import>	 
                                     </span>
                                 </li>
                                 
@@ -556,13 +604,13 @@
 	    		
 	    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
 	    		e.preventDefault();
-	    			
+	    				
 	    		var options = {
 	    			url : '<c:url value="/files/uploadPage.do" />',
-	    			width : 510,
-	    			height : 300,
+	    			width : 650,
+	    			height : 400,
 	    			closeCallback : closeCallback,
-	    			title : 'Files',
+	    			title : '[File upload center]',
 	    			data : params,
 	    			buttonType : 0
 	    		};
@@ -570,7 +618,6 @@
 	    		
 	    		function closeCallback(returnValue) {
 	    			if (returnValue != null && returnValue.length > 0) {
-// 	    				debugger;
 	    				var files = returnValue;
 	    				var fileIds = '';
 	    				var fileNames = '';
@@ -579,7 +626,7 @@
 	    				
 	    				for (var i = 0; i < files.length; i++) {
 	    					if (fileIds) {
-	    						fileIds += ',' + files[i].atchFileId;
+	    						fileIds = files[i].atchFileId;
 	    						fileNames += ',' + files[i].orignlFileNm;
 	    					} else {
 	    						fileIds = files[i].atchFileId;
@@ -606,9 +653,11 @@
 	    		}
 	    	});
 
-	    	$('#btnFileDownload').click(function(e) {
+	    	$('[name=btnFileDownload]').click(function(e) {
 	    		e.preventDefault();
-	    		COM.openFileListPopup('Sample', $('#fileIds').val());
+	    		var category = $(this).attr('data_category');
+	    		var $imgId = $(this).parent().find(':hidden');
+	    		COM.openFileListPopup(category, $imgId.val());
 	    	});
 	
 			$('[name=btnImgDelete]').click(function(e){
@@ -634,29 +683,48 @@
 	    	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
 	    }
 
+	   	function fn_dataParamSetting(category, fileMax, type, filesIds){
+	   		var fileExtn = '';
+	   		
+	   		if(type == "img"){
+	   			fileExtn = 'jpg|jpeg|png|bmp|gif';
+	   		} else {
+	   			fileExtn = '';
+	   		}
+	   		
+	   		var params = {
+	   				Category : category,
+						Accept : fileExtn,
+	   				Max : Number(fileMax),
+	   				Type : type,
+	   				FileIds : filesIds
+	   			}
+	   		
+	   		return params;
+	   	}
 
-     //학교추가
-    var fn_addSch = function()
-    {
-    	 //항목 복사
-    	var $e = $("#school_info_root ul li:last").clone();
-    	//초기화 처리
-    	 $e.find("input").val('');
-    	$e.find("select ").find('option:first').attr('selected', 'selected');
-    	//복사할 위치 지정
-    	$("#school_info_root ul").append($e);
-    }
-     
-    //학교 삭제
-    function sch_row_delete(obj) {
-    	if($('#school_info_root ul li').size() > 1){
-    		$(obj).parent().parent().parent().remove();
-    	}
-    	else {
-    		alert('마지막 데이터는 삭제 불가합니다.');
-    		return false;
-    	}
-    }
+	     //학교추가
+	    var fn_addSch = function()
+	    {
+	    	 //항목 복사
+	    	var $e = $("#school_info_root ul li:last").clone();
+	    	//초기화 처리
+	    	 $e.find("input").val('');
+	    	$e.find("select ").find('option:first').attr('selected', 'selected');
+	    	//복사할 위치 지정
+	    	$("#school_info_root ul").append($e);
+	    }
+	     
+	    //학교 삭제
+	    function sch_row_delete(obj) {
+	    	if($('#school_info_root ul li').size() > 1){
+	    		$(obj).parent().parent().parent().remove();
+	    	}
+	    	else {
+	    		alert('마지막 데이터는 삭제 불가합니다.');
+	    		return false;
+	    	}
+	    }
         //경력추가
         var fn_addCareer = function()
         {        	
@@ -746,28 +814,25 @@
    	        });
    	}
    	
-   	function doFinish(){
-   		
-   		  alert('파일이 삭제됩니다.');
-   	}
+   	function doSync(){
+//  		 goJsonSave();
+   		goSave();
+ 	}
    	
-   	function fn_dataParamSetting(category, fileMax, type, filesIds){
-   		var fileExtn = '';
-   		
-   		if(type == "img"){
-   			fileExtn = 'jpg|jpeg|png|bmp|gif';
-   		} else {
-   			fileExtn = '';
-   		}
-   		
-   		var params = {
-   				Category : category,
-					Accept : fileExtn,
-   				Max : Number(fileMax),
-   				Type : type,
-   				FileIds : filesIds
-   			}
-   		
-   		return params;
-   	}
+   	function doJsonSync(){
+		 goJsonSave();
+	}
+
+  	function goJsonSave(){      	
+		var formData = $("form").serialize ();
+		var params = $("form").serialize();
+		BIT.callAjax('${contextPath}/myInfo/jsonUpdateGnrSubMyInfo.do'
+				, 'post'
+				, params
+				, function(responseText){
+					return false;
+				});
+  	}
+
+   	
  </script>

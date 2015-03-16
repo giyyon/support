@@ -195,7 +195,12 @@
                                 </li>
                                 <li><strong>* 사업자등록증</strong>
                                 	<span class="con">
-                                    <input name="atchBizFileId" type="text" class="w200"><a href="#"><img src="${contextPath}/img/btn_find.png" alt="찾아보기"></a><a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+                                    <input name="file1_text" type="text" class="w200">
+                                    <form:hidden path="atchBizFileId" />
+									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
+                                    
                                     <span class="con_inf txt11 fl100 fcYg">* 5M 미만의 파일만 허용됩니다.</span>
                                     </span>
                                 </li>
@@ -397,4 +402,125 @@
             }
         });
     }	
+  	
+	$(document).ready(function(){
+		//----------------------------------------------------------------------------------------------------------------------------------------
+		//첨부파일 등록하는 전용 스크립트
+		$('[name=btnFileUpload]').click(function(e) {
+    		
+    		var offset = $(this).offset();
+    		var currPlace = $('body').scrollTop();
+    		var thisType = $(this).attr('data_type');
+    		var category = $(this).attr('data_category');
+    		var fileMax = $(this).attr('data_fileMax');
+    		
+    		var $imgId = $(this).parent().find(':hidden');
+    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+    		var $imgDiv = $(this).closest('dl').find('dt');
+    		
+    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
+    		e.preventDefault();
+    				
+    		var options = {
+    			url : '<c:url value="/files/uploadPage.do" />',
+    			width : 650,
+    			height : 400,
+    			closeCallback : closeCallback,
+    			title : '[File upload center]',
+    			data : params,
+    			buttonType : 0
+    		};
+    		var $dialog = BIT.modalDialog(options);
+    		
+    		function closeCallback(returnValue) {
+    			if (returnValue != null && returnValue.length > 0) {
+    				var files = returnValue;
+    				var fileIds = '';
+    				var fileNames = '';
+    				//단일 이미지 처리시에만 적용 올려진 썸네일 이미지를 리턴받아 화면상에 이미지 영역에 뿌려줌
+    				var imgUrl = "";
+    				
+    				for (var i = 0; i < files.length; i++) {
+    					if (fileIds) {
+    						fileIds = files[i].atchFileId;
+    						fileNames += ',' + files[i].orignlFileNm;
+    					} else {
+    						fileIds = files[i].atchFileId;
+    						fileNames = files[i].orignlFileNm;
+    						imgUrl =   '<c:url value="/files/imageSrc.do?path=" />'+files[i].category  +'/thumnails&physical=' + files[i].streFileNm;    
+//	    						imgUrl =  '<c:url value="/webAttach/thumnails/" />' + files[i].streFileNm;
+    					}
+    				}
+    				var options = {"background":"url("+imgUrl+")", 'background-repeat' : 'no-repeat', 'background-position':'center left'};
+    				$imgId.val(fileIds);
+    				$fileNmme.val(fileNames);
+    				if(thisType == 'img'){
+    					$imgDiv.css(options);
+    				}
+    				
+    			} else {
+    				$imgId.val('');
+    				$fileNmme.val('');
+    				if(thisType == 'img'){
+    					$imgDiv.css('background', 'url(/img/noimg.png)');
+    				}
+    				
+    			}
+    		}
+    	});
+
+    	$('[name=btnFileDownload]').click(function(e) {
+    		e.preventDefault();
+    		var category = $(this).attr('data_category');
+    		var $imgId = $(this).parent().find(':hidden');
+    		COM.openFileListPopup(category, $imgId.val());
+    	});
+
+		$('[name=btnImgDelete]').click(function(e){
+			$(this).parent().find(':hidden').val('');
+    		$(this).parent('').find('[name=file1_text]').val('');
+		});
+		
+		$('[name=btnFileDelete]').click(function(e){
+			var $imgId = $(this).parent().find(':hidden');
+    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+    		var $imgDiv = $(this).closest('dl').find('dt');
+			
+    		$imgId.val('');
+    		$fileNmme.val('');
+    		var basicImg = '<c:url value="/webAttach/thumnails/" />';
+    		$imgDiv.css;
+		});
+				
+		
+	});
+	
+	function fn_dataParamSetting(category, fileMax, type, filesIds){
+   		var fileExtn = '';
+   		
+   		if(type == "img"){
+   			fileExtn = 'jpg|jpeg|png|bmp|gif';
+   		} else {
+   			fileExtn = '';
+   		}
+   		
+   		var params = {
+   				Category : category,
+					Accept : fileExtn,
+   				Max : Number(fileMax),
+   				Type : type,
+   				FileIds : filesIds
+   			}
+   		
+   		return params;
+   	}
+
+    function replaceModalwindow(offset, currPlace) {
+    	$('.ui-dialog').css('top', offset.top +'px');
+    	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
+    }
+  	
+  	
+  	
+  	
 	</script>

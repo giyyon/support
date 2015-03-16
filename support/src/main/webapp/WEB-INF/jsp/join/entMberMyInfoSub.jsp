@@ -477,7 +477,7 @@
 	    			width : 510,
 	    			height : 300,
 	    			closeCallback : closeCallback,
-	    			title : 'Files',
+	    			title : '[File upload center]',
 	    			data : {
 	    				Category : 'Sample',
 	    				Accept : 'jpg|jpeg|png|bmp|gif',
@@ -492,7 +492,6 @@
 	    		replaceModalwindow(offset, currPlace);
 	    		function closeCallback(returnValue) {
 	    			if (returnValue != null && returnValue.length > 0) {
-	    				debugger;
 	    				var files = returnValue;
 	    				var fileIds = '';
 	    				var fileNames = '';

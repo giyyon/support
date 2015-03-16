@@ -278,6 +278,20 @@ public class MberManageVO extends UserDefaultVO{
 	 */                                        
 	private String atchPortFileId; 	
 	
+	/**사업구분        */
+	 private String bsnsSe ;     
+	/**회원유형        */
+	 private String mberType;
+	/**회원분류        */
+	 private String mberSe;
+	 private String mberSeNm;	
+	/**접속일자        */
+	 private String loginDe;
+	/**수정일자        */
+	 private String updtDe;
+	/**첨부관리용파일ID*/
+	 private String atchManageFileId;
+
 
 	/**                                        
 	 * 학위
@@ -296,7 +310,11 @@ public class MberManageVO extends UserDefaultVO{
 	 */                                        
 	private List<MberManagePaperVO> mberManagePaperVOList;
    
-	
+	/**                                        
+	 * 활동분류
+	 */                                        
+	private List<MberManageActiveTyVO> mberManageActiveTyVOList;
+   
 	/**
 	 * oldPassword attribute 값을  리턴한다.
 	 * @return String
@@ -1294,6 +1312,119 @@ public class MberManageVO extends UserDefaultVO{
 	
 		this.atchPortFileId = atchPortFileId;
 	}
+	/**
+	 * @return the bsnSe
+	 */
+	public String getBsnsSe() {
+	
+		return bsnsSe;
+	}
+	/**
+	 * @param bsnSe the bsnSe to set
+	 */
+	public void setBsnsSe(String bsnsSe) {
+	
+		this.bsnsSe = bsnsSe;
+	}
+	/**
+	 * @return the mberType
+	 */
+	public String getMberType() {
+	
+		return mberType;
+	}
+	/**
+	 * @param mberType the mberType to set
+	 */
+	public void setMberType(String mberType) {
+	
+		this.mberType = mberType;
+	}
+	/**
+	 * @return the mberSe
+	 */
+	public String getMberSe() {
+	
+		return mberSe;
+	}
+	/**
+	 * @param mberSe the mberSe to set
+	 */
+	public void setMberSe(String mberSe) {
+	
+		this.mberSe = mberSe;
+	}
+	/**
+	 * @return the loginDe
+	 */
+	public String getLoginDe() {
+	
+		return loginDe;
+	}
+	/**
+	 * @param loginDe the loginDe to set
+	 */
+	public void setLoginDe(String loginDe) {
+	
+		this.loginDe = loginDe;
+	}
+	/**
+	 * @return the atchManageFileId
+	 */
+	public String getAtchManageFileId() {
+	
+		return atchManageFileId;
+	}
+	/**
+	 * @param atchManageFileId the atchManageFileId to set
+	 */
+	public void setAtchManageFileId(String atchManageFileId) {
+	
+		this.atchManageFileId = atchManageFileId;
+	}
+	/**
+	 * @return the updtDe
+	 */
+	public String getUpdtDe() {
+	
+		return updtDe;
+	}
+	/**
+	 * @param updtDe the updtDe to set
+	 */
+	public void setUpdtDe(String updtDe) {
+	
+		this.updtDe = updtDe;
+	}
+	/**
+	 * @return the mberSeNm
+	 */
+	public String getMberSeNm() {
+	
+		return mberSeNm;
+	}
+	/**
+	 * @param mberSeNm the mberSeNm to set
+	 */
+	public void setMberSeNm(String mberSeNm) {
+	
+		this.mberSeNm = mberSeNm;
+	}
+	/**
+	 * @return the mberManageActiveTyVOList
+	 */
+	public List<MberManageActiveTyVO> getMberManageActiveTyVOList() {
+	
+		return mberManageActiveTyVOList;
+	}
+	/**
+	 * @param mberManageActiveTyVOList the mberManageActiveTyVOList to set
+	 */
+	public void setMberManageActiveTyVOList(List<MberManageActiveTyVO> mberManageActiveTyVOList) {
+	
+		this.mberManageActiveTyVOList = mberManageActiveTyVOList;
+	}
+
 	
 	
 }

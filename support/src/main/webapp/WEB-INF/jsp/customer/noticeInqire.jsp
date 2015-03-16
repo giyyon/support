@@ -32,7 +32,7 @@
             	<!--//lnb-group -->
             	
             	<div id="contents" class="bg_cs">
-	            	<form id="frm" method="post"  action="${contextPath}/customer/noticeInqire.do"/>
+            		<form:form commandName="result"  id="frm" action="${contextPath}/customer/noticeInqire.do">    
 	            		<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" />
 						<input type="hidden" name="nttId"  value="<c:out value="${result.nttId}"/>" />
 						<input type="hidden" name="pageIndex" value="<c:out value='${searchVO.pageIndex}'/>"/>
@@ -41,7 +41,6 @@
 						<input name="searchCnd" type="hidden" value="<c:out value='${searchVO.searchCnd}'/>"/>
 						<input name="searchWrd" type="hidden" value="<c:out value='${searchVO.searchWrd}'/>"/>
 						<input type="hidden" name="seq" value="<c:out value='${result.seq}'/>"/>											
-					</form>
 								<div class="top"><a href="#"></a></div>
             		<div class="con_tit">공지사항 <span>Notice</span>
                     	<span class="ex">(재)공간정보산업진흥원에서 전하는 공지사항입니다.</span>
@@ -58,10 +57,20 @@
                     <div class="view_info_lst">
                     	
                     	<ul class="lst_m">
-                        	<li class="mdfy br"><a href="#">수정</a></li>
-                            <li class="del br"><a href="#">삭제</a></li>
+						<c:choose>
+						<c:when test="${empty isAdminRole}">
+                        	<li class="mdfy br"><a href='javascript:alert("관리자만 수정할 수 있습니다.");'>수정</a></li>
+                            <li class="del br"><a href='javascript:alert("관리자만  삭제할 수 있습니다.");'>삭제</a></li>
+                            <li class="wrt br"><a href='javascript:alert("관리자만 삭제할 수 있습니다.");'>글쓰기</a></li>
+                            <li class="minfo"><a href="#">내정보</a></li>
+						</c:when>						
+						<c:otherwise>
+                        	<li class="mdfy br"><a href="/admin/noticeModifyPage.do?nttId=<c:out value="${result.nttId}"/>">수정</a></li>
+                            <li class="del br"><a href="/admin/deleteBoardArticle.do?nttId=<c:out value="${result.nttId}"/>">삭제</a></li>
                             <li class="wrt br"><a href="#">글쓰기</a></li>
                             <li class="minfo"><a href="#">내정보</a></li>
+						</c:otherwise>
+						</c:choose>
                         </ul>
                         
                         <div class="ico_box_lst">
@@ -88,9 +97,12 @@
                             <li class="full"><strong><span>등록자</span></strong><span>관리자</span></li>
                             <li class="part"><strong><span>첨부파일</span></strong>
                            		 <div class="file_bx">
-                            	<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+                          		    <form:hidden path="atchFileId" />
+                                  	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+                                   <br>
+                                    <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
 									<c:param name="param_atchFileId" value="${result.atchFileId}" />
-								</c:import>	   
+								 </c:import>	  
                             	</div>                    	
                             </li>
                             <li class="part"><strong><span>참조사이트</span></strong>
@@ -148,7 +160,7 @@
             	     <div class="btn_wrap">
                     	<a href="javascript:linkListPage()"><img id="showNotice" src="${contextPath}/img/btn_list.png" alt="목록"></a>
                     </div>
-
+					</form:form>
             	</div>
             	<!--//contents -->
         	</div>
@@ -174,16 +186,14 @@
 		$('#frm').attr('target', '_popUp');
 		$("#frm").submit();
 		$('#frm').attr('target', '_self');
-		
-		
-// 		var htmlString = $( "#contents" ).html();
-// 		$( "#contents_print" ).html( htmlString );
-		  
-		//$("#contents_print").html($("#contents").html()); 
-		//$("#frm").submit();
-		
-		
 	}
+	
+	$('[name=btnFileDownload]').click(function(e) {
+		e.preventDefault();
+		var category = $(this).attr('data_category');
+		var $imgId = $(this).parent().find(':hidden');
+		COM.openFileListPopup(category, $imgId.val());
+	});
   </script>
     
 

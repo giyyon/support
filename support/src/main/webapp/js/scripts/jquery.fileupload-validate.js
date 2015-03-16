@@ -68,7 +68,7 @@
             // Error and info messages:
             messages: {
                 maxNumberOfFiles:  "파일 갯수가 초과되었습니다." ,//BIT.messages.file_maxNumber,
-                acceptFileTypes: BIT.messages.file_denied,
+                acceptFileTypes:  "허용 가능한 파일 포맷이 아닙니다." ,//BIT.messages.file_denied,
                 maxFileSize: BIT.messages.file_toobig,
                 minFileSize: 'File is too small'
             }

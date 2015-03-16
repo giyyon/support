@@ -105,8 +105,9 @@
 				                                            </dt>
 				                                            <dd class="file_sector">
 				                                            	<input name="file1_text"  type="text" class="w200">
-				                                            	<input type="hidden" name="atchImgMainFileId" />
+				                                            	<form:hidden path="atchImgMainFileId"/>
 			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -122,9 +123,10 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImgJobFileId" />
+					                                            	<form:hidden path="atchImgJobFileId"/>
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -139,9 +141,10 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImgManFileId" />
+					                                            	<form:hidden path="atchImgManFileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -157,8 +160,9 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg1FileId" />
+					                                            	<form:hidden path="atchImg1FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -175,8 +179,9 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg2FileId" />
+					                                            	<form:hidden path="atchImg2FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
 					                                            
 						                                            <span class="con_inf2 fl100">
@@ -424,19 +429,29 @@
                                 <li><strong>이력서</strong>
                                 	<span class="con">
                                 		<input name="file1_text" type="text" class="w200">
-										<input type="hidden" name="atchHistFileId" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+									<form:hidden path="atchHistFileId" />
+									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                   
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
+                                    <br>
+                                     <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
+										<c:param name="param_atchFileId" value="${mberManageVO.atchHistFileId}" />
+									</c:import>	 
                                     </span>
                                 </li>
                                 <li><strong>포트폴리오</strong>
                                 	<span class="con">
                                     	<input name="file1_text" type="text" class="w200">
-										<input type="hidden" name="atchPortFileId" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="3" data_category="memberAttach" data_type="file" alt="찾아보기"   >
-                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+									<form:hidden path="atchPortFileId" />
+									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"   alt="다운로드"> 
+                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
+                                    <br>
+                                     <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
+										<c:param name="param_atchFileId" value="${mberManageVO.atchPortFileId}" />
+									 </c:import>	 
                                     </span>
                                 </li>
                                 
@@ -543,7 +558,7 @@
 	    		paper_row_delete($(this));
 	    	});
 	    	
-	    	$('[name=btnFileUpload]').click(function(e) {
+			$('[name=btnFileUpload]').click(function(e) {
 	    		
 	    		var offset = $(this).offset();
 	    		var currPlace = $('body').scrollTop();
@@ -557,13 +572,13 @@
 	    		
 	    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
 	    		e.preventDefault();
-	    			
+	    				
 	    		var options = {
 	    			url : '<c:url value="/files/uploadPage.do" />',
-	    			width : 510,
-	    			height : 300,
+	    			width : 650,
+	    			height : 400,
 	    			closeCallback : closeCallback,
-	    			title : 'Files',
+	    			title : '[File upload center]',
 	    			data : params,
 	    			buttonType : 0
 	    		};
@@ -571,7 +586,6 @@
 	    		
 	    		function closeCallback(returnValue) {
 	    			if (returnValue != null && returnValue.length > 0) {
-// 	    				debugger;
 	    				var files = returnValue;
 	    				var fileIds = '';
 	    				var fileNames = '';
@@ -580,7 +594,7 @@
 	    				
 	    				for (var i = 0; i < files.length; i++) {
 	    					if (fileIds) {
-	    						fileIds += ',' + files[i].atchFileId;
+	    						fileIds = files[i].atchFileId;
 	    						fileNames += ',' + files[i].orignlFileNm;
 	    					} else {
 	    						fileIds = files[i].atchFileId;
@@ -607,34 +621,56 @@
 	    		}
 	    	});
 
-	    	$('#btnFileDownload').click(function(e) {
+	    	$('[name=btnFileDownload]').click(function(e) {
 	    		e.preventDefault();
-	    		COM.openFileListPopup('Sample', $('#fileIds').val());
+	    		var category = $(this).attr('data_category');
+	    		var $imgId = $(this).parent().find(':hidden');
+	    		COM.openFileListPopup(category, $imgId.val());
 	    	});
 	
-		$('[name=btnImgDelete]').click(function(e){
-			$(this).parent().find(':hidden').val('');
-    		$(this).parent('').find('[name=file1_text]').val('');
-		});
-		
-		$('[name=btnFileDelete]').click(function(e){
-			var $imgId = $(this).parent().find(':hidden');
-    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
-    		var $imgDiv = $(this).closest('dl').find('dt');
+			$('[name=btnImgDelete]').click(function(e){
+				$(this).parent().find(':hidden').val('');
+	    		$(this).parent('').find('[name=file1_text]').val('');
+			});
 			
-    		$imgId.val('');
-    		$fileNmme.val('')
-    		var basicImg = '<c:url value="/webAttach/thumnails/" />'
-    		$imgDiv.css
-		});
+			$('[name=btnFileDelete]').click(function(e){
+				var $imgId = $(this).parent().find(':hidden');
+	    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+	    		var $imgDiv = $(this).closest('dl').find('dt');
+				
+	    		$imgId.val('');
+	    		$fileNmme.val('')
+	    		var basicImg = '<c:url value="/webAttach/thumnails/" />'
+	    		$imgDiv.css
+			});
 		
     });
     
-    function replaceModalwindow(offset, currPlace) {
-    	$('.ui-dialog').css('top', offset.top +'px');
-    	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
-    }
+	    function replaceModalwindow(offset, currPlace) {
+	    	$('.ui-dialog').css('top', offset.top +'px');
+	    	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
+	    }
 
+	   	function fn_dataParamSetting(category, fileMax, type, filesIds){
+	   		var fileExtn = '';
+	   		
+	   		if(type == "img"){
+	   			fileExtn = 'jpg|jpeg|png|bmp|gif';
+	   		} else {
+	   			fileExtn = '';
+	   		}
+	   		
+	   		var params = {
+	   				Category : category,
+						Accept : fileExtn,
+	   				Max : Number(fileMax),
+	   				Type : type,
+	   				FileIds : filesIds
+	   			}
+	   		
+	   		return params;
+	   	}
+	   	
      //학교추가
     var fn_addSch = function()
     {
@@ -719,39 +755,21 @@
 			$("form").submit();
     	}
     	
-    	function settingFormName() { 
-    		 $('#addClerks tbody tr').each(function (i) {
-    	            $(this).find('input').each(function () {
-    	                $(this).attr('name', 'CustomerClerk[' + i + '].' + $(this).attr('name'));
-    	            });
-    	            $(this).find('select').each(function () {
-    	                $(this).attr('name', 'CustomerClerk[' + i + '].' + $(this).attr('name'));
-    	            });
-    	        });
-    	}
     	
-    	function doFinish(){
-    		
-    		  alert('파일이 삭제됩니다.');
-    	}
+       	function doSync(){
+// 		 goJsonSave();
+//   		goSave();
+	}
+
+//  	function goJsonSave(){      	
+// // 		var formData = $("form").serialize ();
+// // 		var params = $("form").serialize();
+// // 		BIT.callAjax('${contextPath}/myInfo/jsonUpdateGnrSubMyInfo.do'
+// // 				, 'post'
+// // 				, params
+// // 				, function(responseText){
+// // 					return false;
+// // 				});
+//  	}
     	
-    	function fn_dataParamSetting(category, fileMax, type, filesIds){
-    		var fileExtn = '';
-    		
-    		if(type == "img"){
-    			fileExtn = 'jpg|jpeg|png|bmp|gif';
-    		} else {
-    			fileExtn = '';
-    		}
-    		
-    		var params = {
-    				Category : category,
-					Accept : fileExtn,
-    				Max : Number(fileMax),
-    				Type : type,
-    				FileIds : filesIds
-    			}
-    		
-    		return params;
-    	}
  </script>

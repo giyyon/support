@@ -252,6 +252,20 @@ public class EntrprsManageVO  extends UserDefaultVO{
 	/** 대표주소공개여부                  */
 	private String adresOthbcAt                   ;
 	
+	/**사업구분        */
+	 private String bsnSe ;     
+	/**회원유형        */
+	 private String entrprsMberType;
+	/**회원분류        */
+	 private String entrprsMberSe;
+	/**접속일자        */
+	 private String loginDe;
+	/**수정일자        */
+	 private String updtDe;
+	 
+	/**첨부관리용파일ID*/
+	 private String atchManageFileId;
+	
 	/**
 	 * oldPassword attribute 값을  리턴한다.
 	 * @return String
@@ -1555,6 +1569,90 @@ public class EntrprsManageVO  extends UserDefaultVO{
 	public void setAdresOthbcAt(String adresOthbcAt) {
 	
 		this.adresOthbcAt = adresOthbcAt;
+	}
+	/**
+	 * @return the atchManageFileId
+	 */
+	public String getAtchManageFileId() {
+	
+		return atchManageFileId;
+	}
+	/**
+	 * @param atchManageFileId the atchManageFileId to set
+	 */
+	public void setAtchManageFileId(String atchManageFileId) {
+	
+		this.atchManageFileId = atchManageFileId;
+	}
+	/**
+	 * @return the bsnSe
+	 */
+	public String getBsnSe() {
+	
+		return bsnSe;
+	}
+	/**
+	 * @param bsnSe the bsnSe to set
+	 */
+	public void setBsnSe(String bsnSe) {
+	
+		this.bsnSe = bsnSe;
+	}
+	/**
+	 * @return the entrprsMberType
+	 */
+	public String getEntrprsMberType() {
+	
+		return entrprsMberType;
+	}
+	/**
+	 * @param entrprsMberType the entrprsMberType to set
+	 */
+	public void setEntrprsMberType(String entrprsMberType) {
+	
+		this.entrprsMberType = entrprsMberType;
+	}
+	/**
+	 * @return the entrprsMberSe
+	 */
+	public String getEntrprsMberSe() {
+	
+		return entrprsMberSe;
+	}
+	/**
+	 * @param entrprsMberSe the entrprsMberSe to set
+	 */
+	public void setEntrprsMberSe(String entrprsMberSe) {
+	
+		this.entrprsMberSe = entrprsMberSe;
+	}
+	/**
+	 * @return the loginDe
+	 */
+	public String getLoginDe() {
+	
+		return loginDe;
+	}
+	/**
+	 * @param loginDe the loginDe to set
+	 */
+	public void setLoginDe(String loginDe) {
+	
+		this.loginDe = loginDe;
+	}
+	/**
+	 * @return the updtDe
+	 */
+	public String getUpdtDe() {
+	
+		return updtDe;
+	}
+	/**
+	 * @param updtDe the updtDe to set
+	 */
+	public void setUpdtDe(String updtDe) {
+	
+		this.updtDe = updtDe;
 	}
 	
 	

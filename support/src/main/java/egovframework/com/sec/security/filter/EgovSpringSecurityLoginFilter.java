@@ -139,7 +139,7 @@ public class EgovSpringSecurityLoginFilter implements Filter {
 					String password = httpRequest.getParameter("password");
 					
 				    //보안점검 후속 조치(Password 검증)
-					if (password == null || password.equals("") || password.length() < 8 || password.length() > 20) {
+					if (password == null || password.equals("") || password.length() < 6 || password.length() > 20) {
 						httpRequest.setAttribute("message", egovMessageSource.getMessage("fail.common.login.password"));
 						RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(loginURL);
 						dispatcher.forward(httpRequest, httpResponse);

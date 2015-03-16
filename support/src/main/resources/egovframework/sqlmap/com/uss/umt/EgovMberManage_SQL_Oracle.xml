@@ -10,7 +10,7 @@
     <typeAlias  alias="mberCareerVO"       type = "egovframework.com.uss.umt.service.MberManageCareerVO"/>
     <typeAlias  alias="mberDegreeVO"       type = "egovframework.com.uss.umt.service.MberManageDegreeVO"/>
     <typeAlias  alias="mberPaperVO"       type = "egovframework.com.uss.umt.service.MberManagePaperVO"/>
-    
+    <typeAlias  alias="mberActiveTyVO"       type = "egovframework.com.uss.umt.service.MberManageActiveTyVO"/>
 
     <resultMap id="stplatMap" class="egovframework.com.uss.umt.service.StplatVO">
         <result property="useStplatId"         column="USE_STPLAT_ID"          columnIndex="1"/>
@@ -76,59 +76,113 @@
         <result property="homeAdres"         column="HOME_ADRES"  />
         <result property="homeDetailAdres"         column="HOME_DETAIL_ADRES"  />
         <result property="mailSendTarget"         column="MAIL_SEND_TARGET"  />
-        <result property="notice"         column="NOTICE"  />                
+        <result property="notice"         column="NOTICE"  />             
+        <result property="atchHistFileId"         column="ATCH_HIST_FILE_ID"  />             
+        <result property="atchPortFileId"         column="ATCH_PORT_FILE_ID"  />           
+		<result property="bsnsSe"         column="BSNS_SE"  />           
+		<result property="mberType"         column="MBER_TYPE"  />           
+		<result property="mberSe"         column="MBER_SE"  />           
+		<result property="loginDe"         column="LOGIN_DE"  />           
+		<result property="updtDe"         column="UPDT_DE"  />           
+		<result property="atchManageFileId"         column="ATCH_MANAGE_FILE_ID"  /> 
         <result property="mberManageDegreeVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectDegreeList"/>
 		<result property="mberManageCareerVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectCareerList"/>
 		<result property="mberManageAwardVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectAwardList"/>
-		<result property="mberManagePaperVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectPaperList"/>                    
+		<result property="mberManagePaperVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectPaperList"/>       
+		<result property="mberManageActiveTyVOList" column="MBER_ID" javaType="java.util.ArrayList" select="mberManageDAO.selectActiveTyList"/>
     </resultMap>                      
     
-    
-    
- <select id="mberManageDAO.selectMberList" parameterClass="userSearchVO" resultClass="egovMap">
-SELECT * FROM ( SELECT rownum rn, TB.* FROM (
-    SELECT 
-        ESNTL_ID               as "uniqId",
-        'USR01'               as "userTy",
-        MBER_ID               as "userId",
-        MBER_NM               as "userNm",
-        MBER_EMAIL_ADRES      as "emailAdres",
-        AREA_NO               as "areaNo",
-        MIDDLE_TELNO          as "middleTelno",
-        END_TELNO             as "endTelno",
-        MBTLNUM           as "moblphonNo",
-        GROUP_ID              as "groupId",
-        MBER_STTUS            as "sttus",
-        SBSCRB_DE             as "sbscrbDe"
-    FROM    COMTNGNRLMBER
-    WHERE 1=1
-        <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
-            MBER_STTUS LIKE  #sbscrbSttus#
-        </isNotEqual>
-        <isEqual prepend="AND" property="searchCondition" compareValue="0">
-            MBER_ID LIKE #searchKeyword#
-        </isEqual>
-        <isEqual prepend="AND" property="searchCondition" compareValue="1">
-            MBER_NM LIKE '%' ||#searchKeyword#|| '%'
-        </isEqual>
-        ORDER BY 12 DESC
-        ) TB ) WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+	<select id="mberManageDAO.selectMberList" parameterClass="userSearchVO" resultClass="egovMap">
+		SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+		    SELECT 
+                a.ESNTL_ID               as "uniqId",
+                'USR01'               as "userTy",
+                a.MBER_ID               as "mberId",
+                a.MBER_NM               as "userNm",
+                a.MBER_EMAIL_ADRES      as "emailAdres",
+                a.AREA_NO               as "areaNo",
+                a.MIDDLE_TELNO          as "middleTelno",
+                a.END_TELNO             as "endTelno",
+                a.MBTLNUM           as "moblphonNo",
+                a.GROUP_ID              as "groupId",
+                a.MBER_STTUS            as "sttus",
+                to_char(a.SBSCRB_DE,'yyyy-mm-dd')             as "sbscrbDe",
+                a.ATCH_IMG_MAIN_FILE_ID  as "atchImgMainFileId",
+                a.MBER_TYPE              as "mberType",
+                a.MBER_SE                as "mberSe",
+                cd.CODE_NM              as "mberSeNm",
+                a.IHIDNUM                as "ihidnum",
+                a.MBER_STTUS             as "mberSttus",
+                a.MBER_FXNUM             as "mberFxnum",
+                a.PSTINST                as "pstinst",
+                a.ADRES                  as "adres",
+                to_char(a.LOGIN_DE,'yyyy-mm-dd')                 as "loginDe"
+		    FROM    COMTNGNRLMBER a
+		                   ,COMTCCMMNDETAILCODE cd
+	        <isNotEqual prepend="" property="searchActiveTyCd" compareValue="">
+	         			  , COMTNGNRLMBER_ACTIVE_TY b
+	        </isNotEqual>                
+		    WHERE a.MBER_TYPE = cd.CODE
+		    AND      cd.CODE_ID = 'SUP012'
+		    <isNotEqual prepend="" property="searchActiveTyCd" compareValue="">
+			 			AND a.MBER_ID = b.MBER_ID
+			 			AND b.ACTIVE_TY_CD = 	#searchActiveTyCd#	
+	        </isNotEqual>
+		     <isNotEqual prepend="AND" property="searchMberType" compareValue="">
+	            a.MBER_TYPE =  #searchMberType#
+	        </isNotEqual>
+	        <isNotEqual prepend="AND" property="searchMberSe" compareValue="">
+	            a.MBER_SE =  #searchMberSe#
+	        </isNotEqual>
+	        <isEqual prepend="AND" property="searchCnd" compareValue="0">
+	            a.MBER_ID LIKE '%'||#searchWrd#|| '%'
+	        </isEqual>
+	        <isEqual prepend="AND" property="searchCnd" compareValue="1">
+	            a.MBER_NM LIKE '%' ||#searchWrd#|| '%'
+	        </isEqual>
+	        <isNotEqual prepend="AND" property="searchBsnsSe" compareValue="">
+	            a.BSNS_SE =  #searchBsnsSe#
+	        </isNotEqual>
+			<isEqual prepend="ORDER BY" property="sortType" compareValue="0">
+				<![CDATA[	a.SBSCRB_DE DESC		]]>
+			</isEqual>	
+			<isEqual prepend="ORDER BY" property="sortType" compareValue="1">
+				<![CDATA[	a.UPDT_DE DESC		]]>
+			</isEqual>
+			<isEqual prepend="ORDER BY" property="sortType" compareValue="2">
+				<![CDATA[	a.LOGIN_DE DESC		]]>
+			</isEqual>
+	        
+	        ) TB ) WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
     </select>
     
     
         <select id="mberManageDAO.selectMberListTotCnt" parameterClass="userSearchVO" resultClass="int">
             SELECT COUNT(1) totcnt
-            FROM   COMTNGNRLMBER
+            FROM   COMTNGNRLMBER a
+ 	        <isNotEqual prepend="" property="searchActiveTyCd" compareValue="">
+	         			  , COMTNGNRLMBER_ACTIVE_TY b
+	        </isNotEqual>       
             WHERE 1=1
-            <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
-                MBER_STTUS LIKE  #sbscrbSttus#
-            </isNotEqual>
-            <isEqual prepend="AND" property="searchCondition" compareValue="0">
-                MBER_ID LIKE #searchKeyword#
+		    <isNotEqual prepend="" property="searchActiveTyCd" compareValue="">
+			 			AND a.MBER_ID = b.MBER_ID
+			 			AND b.ACTIVE_TY_CD = 	#searchActiveTyCd#	
+	        </isNotEqual>
+		     <isNotEqual prepend="AND" property="searchMberType" compareValue="">
+	            a.MBER_TYPE =  #searchMberType#
+	        </isNotEqual>
+	        <isNotEqual prepend="AND" property="searchMberSe" compareValue="">
+	            a.MBER_SE =  #searchMberSe#
+	        </isNotEqual>
+            <isEqual prepend="AND" property="searchCnd" compareValue="0">
+                a.MBER_ID LIKE '%'||#searchWrd#|| '%'
             </isEqual>
-            <isEqual prepend="AND" property="searchCondition" compareValue="1">
-                MBER_NM LIKE '%' ||#searchKeyword#|| '%'
+            <isEqual prepend="AND" property="searchCnd" compareValue="1">
+               a. MBER_NM LIKE '%' ||#searchWrd#|| '%'
             </isEqual>
+	        <isNotEqual prepend="AND" property="searchBsnsSe" compareValue="">
+	            a.BSNS_SE =  #searchBsnsSe#
+	        </isNotEqual>
     </select>
     
     <insert id="mberManageDAO.insertMber_S">
@@ -245,6 +299,13 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
         ]]>
     </insert>   
     
+    <insert id="mberManageDAO.insertActiveTy" parameterClass="mberActiveTyVO">
+        <![CDATA[
+        	INSERT INTO COMTNGNRLMBER_ACTIVE_TY (MBER_ID      ,ACTIVE_TY_CD)
+        		VALUES (#mberId#     ,#activeTyCd#)
+        ]]>
+    </insert>   
+    
     <delete id="mberManageDAO.deleteMber_S">
         <![CDATA[
             DELETE FROM COMTNGNRLMBER 
@@ -280,6 +341,13 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
         ]]>
     </delete>
     
+    <delete id="mberManageDAO.deleteActiveTy">
+        <![CDATA[
+            DELETE FROM COMTNGNRLMBER_ACTIVE_TY 
+            WHERE MBER_ID=#delId#
+        ]]>
+    </delete>
+    
     <select id="mberManageDAO.selectMber_S" resultClass="mberVO">
         <![CDATA[
             SELECT
@@ -309,35 +377,7 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
         ]]>
     </select>
     
-<!--     <select id="mberManageDAO.selectMberById" resultClass="mberVO"> -->
-<!--         <![CDATA[ -->
-<!--             SELECT -->
-<!--                 ESNTL_ID          uniqId, -->
-<!--                 'USR01'          userTy, -->
-<!--                 MBER_ID          mberId, -->
-<!--                 MBER_NM          mberNm, -->
-<!--                 PASSWORD         password, -->
-<!--                 PASSWORD_HINT    passwordHint, -->
-<!--                 PASSWORD_CNSR    passwordCnsr, -->
-<!--                 IHIDNUM          ihidnum, -->
-<!--                 SEXDSTN_CODE     sexdstnCode, -->
-<!--                 ZIP              zip, -->
-<!--                 ADRES            adres, -->
-<!--                 AREA_NO          areaNo, -->
-<!--                 MBER_STTUS       mberSttus, -->
-<!--                 DETAIL_ADRES     detailAdres, -->
-<!--                 END_TELNO        endTelno, -->
-<!--                 MBTLNUM      moblphonNo, -->
-<!--                 GROUP_ID         groupId, -->
-<!--                 MBER_FXNUM       mberFxnum, -->
-<!--                 MBER_EMAIL_ADRES mberEmailAdres, -->
-<!--                 MIDDLE_TELNO     middleTelno, -->
-<!--                 SBSCRB_DE        sbscrbDe -->
-<!--             FROM COMTNGNRLMBER -->
-<!--             WHERE MBER_ID=#mberId# -->
-<!--         ]]> -->
-<!--     </select> -->
-    
+
    <select id="mberManageDAO.selectMberById" resultMap="mberManageVOMap">
         <![CDATA[
             SELECT
@@ -398,7 +438,15 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
 								HOME_ADRES               ,
 								HOME_DETAIL_ADRES        ,
 								MAIL_SEND_TARGET         ,
-								NOTICE                   
+								NOTICE                   ,
+								ATCH_HIST_FILE_ID      ,  
+								ATCH_PORT_FILE_ID ,
+								BSNS_SE,
+								MBER_TYPE,
+								MBER_SE,
+								LOGIN_DE,
+								UPDT_DE,
+								ATCH_MANAGE_FILE_ID								
             FROM COMTNGNRLMBER               
             WHERE MBER_ID=#mberId#           
         ]]>                                  
@@ -467,6 +515,16 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
             ORDER BY PAPER_SN
         ]]>                                  
     </select>      
+
+    <select id="mberManageDAO.selectActiveTyList" resultClass="mberActiveTyVO">
+        <![CDATA[
+            SELECT	MBER_ID    AS mberId   ,						
+							ACTIVE_TY_CD  AS ActiveTyCd  
+           FROM COMTNGNRLMBER_ACTIVE_TY               
+            WHERE MBER_ID=#mberId#           
+            ORDER BY ACTIVE_TY_CD
+        ]]>                                  
+    </select>      
     
     <update id="mberManageDAO.updateMber_S">
         <![CDATA[
@@ -525,7 +583,8 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
 											PSTINST_DEPT_NM          = #pstinstDeptNm#,              
 											OFCPS_NM                 = #ofcpsNm#,                    
 											PSTINST_OTHBC_AT           = #pstinstOthbcAt#,             
-											CONTAC_OTHBC_AT            = #contacOthbcAt#        
+											CONTAC_OTHBC_AT            = #contacOthbcAt#,
+											UPDT_DE = SYSDATE
 			WHERE ESNTL_ID=#uniqId#				
         ]]>
     </update>
@@ -553,7 +612,8 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
 								MAIL_SEND_TARGET        =#mailSendTarget#   ,
 								NOTICE                  =#notice#           ,
 								ATCH_HIST_FILE_ID       =#atchHistFileId#   ,
-								ATCH_PORT_FILE_ID       =#atchPortFileId#   
+								ATCH_PORT_FILE_ID       =#atchPortFileId#   ,
+								UPDT_DE = SYSDATE
 			WHERE ESNTL_ID=#uniqId#				
         ]]>
     </update>      
@@ -582,7 +642,8 @@ SELECT * FROM ( SELECT rownum rn, TB.* FROM (
         <![CDATA[
             UPDATE COMTNGNRLMBER 
             SET 
-                   MBER_STTUS   =  'W'
+                   MBER_STTUS   =  'W',
+                   MBER_TYPE = 'D01'
             WHERE  MBER_ID  = #mberId#
         ]]>
     </update>

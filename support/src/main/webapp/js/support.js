@@ -29,48 +29,121 @@
 			}
 		}
 		
-		
-		function sleep(num){	//[1/1000초]
-			 var now = new Date();
-			   var stop = now.getTime() + num;
-			   while(true){
-				 now = new Date();
-				 if(now.getTime() > stop)return;
-			   }
-			}
-		
-
-		/* 파일 불러올때 텍스트아레아 높이 가져오기 
-		   아래 window처럼 해야 하는데 예제는 숨겨져 있으니 안됨 
-		   버튼에 클릭 이벤트에 추가했다는거만 틀립니다.*/
-		window.onload = function(){
-		    save_textarea_height = document.getElementById('notice').scrollHeight;
-		}
-		/* 텍스트상자 클릭시 빈칸으로 초기화 */
-		function resize(tarea_obj) {
-			if(tarea_obj.scrollHeight > tarea_obj.clientHeight){
-        tarea_obj.style.height = (1+tarea_obj.scrollHeight)+"px";
-			}
-			else if((event.keyCode==8 || event.keyCode==46) && tarea_obj.scrollHeight > save_textarea_height){
-				/* 백스페이드 키와 delete키 삭제시 아레아 창 줄어들기 */
-				tarea_obj.style.height = "1px";
-					tarea_obj.style.height = (1+tarea_obj.scrollHeight)+"px";
-					/* 만약 삭제할때 높이가 save_textarea_height 보다 작다면
-					   기본 설정 높이로 초기화 */
-					if(tarea_obj.scrollHeight < save_textarea_height){
-					  tarea_obj.style.height = save_textarea_height+"px";	
-					}
-			}
-			/* else는 쓰기 애매함 */
-			
-			/* 참조(http://stackoverflow.com/questions/995168/textarea-to-resize-based-on-content-length)
-					function resize(obj) {
-					  obj.style.height = "1px";
-					  obj.style.height = (20+obj.scrollHeight)+"px";
-					}
-					el . style . height =  
-					( el . scrollHeight > el . clientHeight )  ?  ( el . scrollHeight )+ "px"  :  "60px" ;
-      */
-			}
-
+//		$(document).ready(function(){
+//			//----------------------------------------------------------------------------------------------------------------------------------------
+//			//첨부파일 등록하는 전용 스크립트
+//			$('[name=btnFileUpload]').click(function(e) {
+//	    		
+//	    		var offset = $(this).offset();
+//	    		var currPlace = $('body').scrollTop();
+//	    		var thisType = $(this).attr('data_type');
+//	    		var category = $(this).attr('data_category');
+//	    		var fileMax = $(this).attr('data_fileMax');
+//	    		
+//	    		var $imgId = $(this).parent().find(':hidden');
+//	    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+//	    		var $imgDiv = $(this).closest('dl').find('dt');
+//	    		
+//	    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
+//	    		e.preventDefault();
+//	    				
+//	    		var options = {
+//	    			url : '<c:url value="/files/uploadPage.do" />',
+//	    			width : 550,
+//	    			height : 400,
+//	    			closeCallback : closeCallback,
+//	    			title : '[File upload center]',
+//	    			data : params,
+//	    			buttonType : 0
+//	    		};
+//	    		var $dialog = BIT.modalDialog(options);
+//	    		
+//	    		function closeCallback(returnValue) {
+//	    			if (returnValue != null && returnValue.length > 0) {
+//	    				debugger;
+//	    				var files = returnValue;
+//	    				var fileIds = '';
+//	    				var fileNames = '';
+//	    				//단일 이미지 처리시에만 적용 올려진 썸네일 이미지를 리턴받아 화면상에 이미지 영역에 뿌려줌
+//	    				var imgUrl = "";
+//	    				
+//	    				for (var i = 0; i < files.length; i++) {
+//	    					if (fileIds) {
+//	    						fileIds = files[i].atchFileId;
+//	    						fileNames += ',' + files[i].orignlFileNm;
+//	    					} else {
+//	    						fileIds = files[i].atchFileId;
+//	    						fileNames = files[i].orignlFileNm;
+//	    						imgUrl =   '<c:url value="/files/imageSrc.do?path=" />'+files[i].category  +'/thumnails&physical=' + files[i].streFileNm;    
+////		    						imgUrl =  '<c:url value="/webAttach/thumnails/" />' + files[i].streFileNm;
+//	    					}
+//	    				}
+//	    				var options = {"background":"url("+imgUrl+")", 'background-repeat' : 'no-repeat', 'background-position':'center left'};
+//	    				$imgId.val(fileIds);
+//	    				$fileNmme.val(fileNames);
+//	    				if(thisType == 'img'){
+//	    					$imgDiv.css(options);
+//	    				}
+//	    				
+//	    			} else {
+//	    				$imgId.val('');
+//	    				$fileNmme.val('');
+//	    				if(thisType == 'img'){
+//	    					$imgDiv.css('background', 'url(/img/noimg.png)');
+//	    				}
+//	    				
+//	    			}
+//	    		}
+//	    	});
+//
+//	    	$('[name=btnFileDownload]').click(function(e) {
+//	    		e.preventDefault();
+//	    		var category = $(this).attr('data_category');
+//	    		var $imgId = $(this).parent().find(':hidden');
+//	    		COM.openFileListPopup(category, $imgId.val());
+//	    	});
+//
+//			$('[name=btnImgDelete]').click(function(e){
+//				$(this).parent().find(':hidden').val('');
+//	    		$(this).parent('').find('[name=file1_text]').val('');
+//			});
+//			
+//			$('[name=btnFileDelete]').click(function(e){
+//				var $imgId = $(this).parent().find(':hidden');
+//	    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+//	    		var $imgDiv = $(this).closest('dl').find('dt');
+//				
+//	    		$imgId.val('');
+//	    		$fileNmme.val('');
+//	    		var basicImg = '<c:url value="/webAttach/thumnails/" />';
+//	    		$imgDiv.css;
+//			});
+//					
+//			
+//		});
+//		
+//		function fn_dataParamSetting(category, fileMax, type, filesIds){
+//	   		var fileExtn = '';
+//	   		
+//	   		if(type == "img"){
+//	   			fileExtn = 'jpg|jpeg|png|bmp|gif';
+//	   		} else {
+//	   			fileExtn = '';
+//	   		}
+//	   		
+//	   		var params = {
+//	   				Category : category,
+//						Accept : fileExtn,
+//	   				Max : Number(fileMax),
+//	   				Type : type,
+//	   				FileIds : filesIds
+//	   			}
+//	   		
+//	   		return params;
+//	   	}
+//
+//	    function replaceModalwindow(offset, currPlace) {
+//	    	$('.ui-dialog').css('top', offset.top +'px');
+//	    	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
+//	    }
 		

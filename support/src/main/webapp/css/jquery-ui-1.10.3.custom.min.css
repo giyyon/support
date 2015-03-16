@@ -863,6 +863,10 @@ body .ui-tooltip {
     border: 1px solid #ddd;
     background: #fff url(images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x;
     color: #555;
+
+/* 	border: 1px solid #555555; */
+/* 	background: #000000 url("images/ui-bg_loop_25_000000_21x21.png") 50% 50% repeat; */
+/* 	color: #ffffff; */
 }
 
     .ui-widget-content a {

@@ -35,7 +35,7 @@
 			width : 510,
 			height : 300,
 			closeCallback : closeCallback,
-			title : 'Files',
+			title : '[File upload center]',
 			data : {
 				Category : 'Sample',
 				Accept : 'jpg|jpeg|png|bmp|gif',

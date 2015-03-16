@@ -45,12 +45,6 @@
                             </ul>
                         </div>
                     </div>
-                    <ul class="step_wrap">
-                    	<li><img src="${contextPath}/img/step01.png" alt="약관동의"></li>
-                        <li><img src="${contextPath}/img/step02.png" alt="2.실명확인"></li>
-                        <li class="select"><img src="${contextPath}/img/step03_on.png" alt="3. 회원정보입력"></li>
-                        <li class="end"><img src="${contextPath}/img/step04.png" alt="4. 가입완료"></li>
-                    </ul>
                     
                     <div class="mem_info fll txt12">
                    	본정보는 아래와 같이 활용할 수 있습니다. <br/>
@@ -97,13 +91,20 @@
 		                                        <ul class="panel">
 		                                        	<li id="tab1">
 			                                        	<dl class="pic_regist">
-				                                        	<dt>
-				                                            </dt>
+			                                        		<c:choose>
+			                                        			<c:when test= "${entrprsManageVO.atchImgLogoFileId ==null || entrprsManageVO.atchImgLogoFileId ==''}">
+				                                        			<dt class="img_div"  ></dt>
+				                                        		</c:when>
+				                                        		<c:otherwise>				                                        		
+				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${entrprsManageVO.atchImgLogoFileId}) 0% 50% no-repeat;"></dt>
+				                                        		</c:otherwise>
+				                                        	</c:choose>
 				                                            <dd class="file_sector">
 				                                            	<input name="file1_text"  type="text" class="w200">
-				                                            	<input type="hidden" name="atchImgLogoFileId" />
-			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
-			                                            		<a href="#"><img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+				                                            	<form:hidden path="atchImgLogoFileId" />
+			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -114,30 +115,45 @@
 				                                        </li>
 				                                        <li id="tab2">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+				                                        		<c:choose>
+				                                        			<c:when test= "${entrprsManageVO.atchImg1FileId ==null || entrprsManageVO.atchImg1FileId ==''}">
+					                                        			<dt class="img_div"  ></dt>
+					                                        		</c:when>
+					                                        		<c:otherwise>				                                        		
+					                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${entrprsManageVO.atchImg1FileId}) 0% 50% no-repeat;"></dt>
+					                                        		</c:otherwise>
+					                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg1FileId" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
-					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<form:hidden path="atchImg1FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+				                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+				                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 						                                            <span class="con_inf2 fl100">
-						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
-																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
-																	* 파일포맷은 RGB모드의 JPG, GIF가 가장 좋습니다..
-																	</span>
-					                                        </dd>
+							                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
+																		* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
+																		* 파일포맷은 RGB모드의 JPG, GIF가 가장 좋습니다..
+																		</span>
+					                                        	</dd>
 					                                        </dl>
 			                                        </li>
 			                                        <li id="tab3">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+				                                        		<c:choose>
+				                                        			<c:when test= "${entrprsManageVO.atchImg2FileId ==null || entrprsManageVO.atchImg2FileId ==''}">
+					                                        			<dt class="img_div"  ></dt>
+					                                        		</c:when>
+					                                        		<c:otherwise>				                                        		
+					                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${entrprsManageVO.atchImg2FileId}) 0% 50% no-repeat;"></dt>
+					                                        		</c:otherwise>
+					                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg2FileId" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"  />
-					                                            	<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<form:hidden path="atchImg2FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            			<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+					                                            
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -149,13 +165,20 @@
 			                                        </li>
 			                                        <li id="tab4">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+				                                        		<c:choose>
+				                                        			<c:when test= "${entrprsManageVO.atchImg3FileId ==null || entrprsManageVO.atchImg3FileId ==''}">
+					                                        			<dt class="img_div"  ></dt>
+					                                        		</c:when>
+					                                        		<c:otherwise>				                                        		
+					                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${entrprsManageVO.atchImg3FileId}) 0% 50% no-repeat;"></dt>
+					                                        		</c:otherwise>
+					                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg3FileId" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"  />
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<form:hidden path="atchImg3FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            			<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -167,15 +190,21 @@
 			                                        </li>
 			                                        <li id="tab5">
 				                                        	<dl class="pic_regist">
-					                                        	<dt>
-					                                            </dt>
+				                                        		<c:choose>
+				                                        			<c:when test= "${entrprsManageVO.atchImg4FileId ==null || entrprsManageVO.atchImg4FileId ==''}">
+					                                        			<dt class="img_div"  ></dt>
+					                                        		</c:when>
+					                                        		<c:otherwise>				                                        		
+					                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${entrprsManageVO.atchImg4FileId}) 0% 50% no-repeat;"></dt>
+					                                        		</c:otherwise>
+					                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-					                                            	<input type="hidden" name="atchImg4FileId" />
-			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"  />
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
-					                                            
-						                                            <span class="con_inf2 fl100">
+					                                            	<form:hidden path="atchImg4FileId" />
+			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+			                                            			<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+					                                            	<span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
 																	* 파일포맷은 RGB모드의 JPG, GIF가 가장 좋습니다..
@@ -217,20 +246,31 @@
                                 </li>
                                 <li><strong>소개서</strong>
                                 	<span class="con">
-                                		<input name="file1_text" type="text" class="w200">
-										<input type="hidden" name="atchReportFileId" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
-                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+
+                                    <input name="file1_text" type="text" class="w200">
+									<form:hidden path="atchReportFileId" />
+									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
+                                    <br>
+                                     <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
+										<c:param name="param_atchFileId" value="${entrprsManageVO.atchReportFileId}" />
+									</c:import>
                                     </span>
                                 </li>
                                 <li><strong>포트폴리오</strong>
                                 	<span class="con">
-                                    	<input name="file1_text" type="text" class="w200">
-										<input type="hidden" name="atchPortFileId" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" alt="찾아보기"   >
-                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+                                    <input name="file1_text" type="text" class="w200">
+									<form:hidden path="atchPortFileId" />
+									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
+                                    <br>
+                                     <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
+										<c:param name="param_atchFileId" value="${entrprsManageVO.atchPortFileId}" />
+									</c:import>
                                     </span>
                                 </li>         
                              </ul>
@@ -463,68 +503,113 @@
 	    			return false;
 	    		});
     	
-	    	$('[name=btnFileUpload]').click(function(e) {
-	    		
-	    		var offset = $(this).offset();
-	    		var currPlace = $('body').scrollTop();
-	    		var $imgId = $(this).parent().find(':hidden');
-	    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
-	    		
-	    		e.preventDefault();
-	    			
-	    		var options = {
-	    			url : '<c:url value="/files/uploadPage.do" />',
-	    			width : 510,
-	    			height : 300,
-	    			closeCallback : closeCallback,
-	    			title : 'Files',
-	    			data : {
-	    				Category : 'Sample',
-	    				Accept : 'jpg|jpeg|png|bmp|gif',
-	    				Max : 1,
-	    				FileIds : $imgId.val()
-	    			},
-	    			buttonType : 0
-	    		};
-	    		var $dialog = BIT.modalDialog(options);
-	    		
-	    		//모달창의 위치를 재조정
-	    		replaceModalwindow(offset, currPlace);
-	    		function closeCallback(returnValue) {
-	    			if (returnValue != null && returnValue.length > 0) {
-	    				debugger;
-	    				var files = returnValue;
-	    				var fileIds = '';
-	    				var fileNames = '';
-	    				for (var i = 0; i < files.length; i++) {
-	    					if (fileIds) {
-	    						fileIds += ',' + files[i].fileId;
-	    						fileNames += ',' + files[i].realName;
-	    					} else {
-	    						fileIds = files[i].fileId;
-	    						fileNames = files[i].realName;
-	    					}
-	    				}
-	    				$imgId.val(fileIds);
-	    				$fileNmme.val(fileNames);
-	    			} else {
-	    				$imgId.val('');
-	    				$fileNmme.val('');
-	    			}
-	    		}
-	    	});
+		$('[name=btnFileUpload]').click(function(e) {
+    		
+    		var offset = $(this).offset();
+    		var currPlace = $('body').scrollTop();
+    		var thisType = $(this).attr('data_type');
+    		var category = $(this).attr('data_category');
+    		var fileMax = $(this).attr('data_fileMax');
+    		
+    		var $imgId = $(this).parent().find(':hidden');
+    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+    		var $imgDiv = $(this).closest('dl').find('dt');
+    		
+    		var params = fn_dataParamSetting(category, fileMax, thisType, $imgId.val());
+    		e.preventDefault();
+    				
+    		var options = {
+    			url : '<c:url value="/files/uploadPage.do" />',
+    			width : 650,
+    			height : 400,
+    			closeCallback : closeCallback,
+    			title : '[File upload center]',
+    			data : params,
+    			buttonType : 0
+    		};
+    		var $dialog = BIT.modalDialog(options);
+    		
+    		function closeCallback(returnValue) {
+    			if (returnValue != null && returnValue.length > 0) {
+    				var files = returnValue;
+    				var fileIds = '';
+    				var fileNames = '';
+    				//단일 이미지 처리시에만 적용 올려진 썸네일 이미지를 리턴받아 화면상에 이미지 영역에 뿌려줌
+    				var imgUrl = "";
+    				
+    				for (var i = 0; i < files.length; i++) {
+    					if (fileIds) {
+    						fileIds = files[i].atchFileId;
+    						fileNames += ',' + files[i].orignlFileNm;
+    					} else {
+    						fileIds = files[i].atchFileId;
+    						fileNames = files[i].orignlFileNm;
+    						imgUrl =   '<c:url value="/files/imageSrc.do?path=" />'+files[i].category  +'/thumnails&physical=' + files[i].streFileNm;    
+//	    						imgUrl =  '<c:url value="/webAttach/thumnails/" />' + files[i].streFileNm;
+    					}
+    				}
+    				var options = {"background":"url("+imgUrl+")", 'background-repeat' : 'no-repeat', 'background-position':'center left'};
+    				$imgId.val(fileIds);
+    				$fileNmme.val(fileNames);
+    				if(thisType == 'img'){
+    					$imgDiv.css(options);
+    				}
+    				
+    			} else {
+    				$imgId.val('');
+    				$fileNmme.val('');
+    				if(thisType == 'img'){
+    					$imgDiv.css('background', 'url(/img/noimg.png)');
+    				}
+    				
+    			}
+    		}
+    	});
 
-	    	$('#btnFileDownload').click(function(e) {
-	    		e.preventDefault();
-	    		COM.openFileListPopup('Sample', $('#fileIds').val());
-	    	});
-	
+    	$('[name=btnFileDownload]').click(function(e) {
+    		e.preventDefault();
+    		var category = $(this).attr('data_category');
+    		var $imgId = $(this).parent().find(':hidden');
+    		COM.openFileListPopup(category, $imgId.val());
+    	});
+
 		$('[name=btnImgDelete]').click(function(e){
 			$(this).parent().find(':hidden').val('');
     		$(this).parent('').find('[name=file1_text]').val('');
 		});
-    });
-    
+		
+		$('[name=btnFileDelete]').click(function(e){
+			var $imgId = $(this).parent().find(':hidden');
+    		var $fileNmme = $(this).parent('').find('[name=file1_text]');
+    		var $imgDiv = $(this).closest('dl').find('dt');
+			
+    		$imgId.val('');
+    		$fileNmme.val('')
+    		var basicImg = '<c:url value="/webAttach/thumnails/" />'
+    		$imgDiv.css
+		});
+	
+});
+   	function fn_dataParamSetting(category, fileMax, type, filesIds){
+   		var fileExtn = '';
+   		
+   		if(type == "img"){
+   			fileExtn = 'jpg|jpeg|png|bmp|gif';
+   		} else {
+   			fileExtn = '';
+   		}
+   		
+   		var params = {
+   				Category : category,
+					Accept : fileExtn,
+   				Max : Number(fileMax),
+   				Type : type,
+   				FileIds : filesIds
+   			}
+   		
+   		return params;
+   	}
+
     function replaceModalwindow(offset, currPlace) {
     	$('.ui-dialog').css('top', offset.top +'px');
     	$( 'html, body' ).animate( { scrollTop : currPlace }, 0);
@@ -534,15 +619,27 @@
 			$("form").submit();
     	}
     	
-    	function settingFormName() { 
-    		 $('#addClerks tbody tr').each(function (i) {
-    	            $(this).find('input').each(function () {
-    	                $(this).attr('name', 'CustomerClerk[' + i + '].' + $(this).attr('name'));
-    	            });
-    	            $(this).find('select').each(function () {
-    	                $(this).attr('name', 'CustomerClerk[' + i + '].' + $(this).attr('name'));
-    	            });
-    	        });
+       	
+       	function doSync(){
+// 		 goJsonSave();
+       		goSave();
+     	}
+       	function doJsonSync(){
+   		 goJsonSave();
+  	 	}
+       	
+      	function goJsonSave(){      	
+      	
+    		var formData = $("form").serialize ();
     		
-    	}
+    		
+    		var params = $("form").serialize();
+    		BIT.callAjax('${contextPath}/myInfo/jsonUpdateEntSubMyInfo.do'
+    				, 'post'
+    				, params
+    				, function(responseText){
+    					return false;
+    				});
+      	}
+    	
  </script>

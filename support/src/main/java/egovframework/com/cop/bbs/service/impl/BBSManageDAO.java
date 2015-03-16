@@ -92,6 +92,16 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     }
 
     /**
+     * 이전 게시물 id에 대하여 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public BoardVO selectAdminBeforeBoardArticle(BoardVO boardVO) throws Exception {
+	return (BoardVO)select("BBSManageDAO.selectAdminBeforeBoardArticle", boardVO);
+    }
+    /**
      * 다음 게시물 id에 대하여 조회 한다.
      * 
      * @param boardVO
@@ -100,6 +110,19 @@ public class BBSManageDAO extends EgovComAbstractDAO {
      */
     public BoardVO selectNextBoardArticle(BoardVO boardVO) throws Exception {
 	return (BoardVO)select("BBSManageDAO.selectNextBoardArticle", boardVO);
+    }
+    
+
+    
+    /**
+     * 다음 게시물 id에 대하여 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public BoardVO selectAdminNextBoardArticle(BoardVO boardVO) throws Exception {
+	return (BoardVO)select("BBSManageDAO.selectAdminNextBoardArticle", boardVO);
     }
     
     /**
@@ -113,6 +136,18 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     public List<BoardVO> selectBoardArticleList(BoardVO boardVO) throws Exception {
 	return (List<BoardVO>) list("BBSManageDAO.selectBoardArticleList", boardVO);
     }
+    
+    /**
+     * 조건에 맞는 게시물 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<BoardVO> selectAdminBoardArticleList(BoardVO boardVO) throws Exception {
+	return (List<BoardVO>) list("BBSManageDAO.selectAdminBoardArticleList", boardVO);
+    }
 
     /**
      * 조건에 맞는 게시물 목록에 대한 전체 건수를 조회 한다.
@@ -123,6 +158,18 @@ public class BBSManageDAO extends EgovComAbstractDAO {
      */
     public int selectBoardArticleListCnt(BoardVO boardVO) throws Exception {
 	return (Integer)select("BBSManageDAO.selectBoardArticleListCnt", boardVO);
+    }
+    
+
+    /**
+     * 조건에 맞는 게시물 목록에 대한 전체 건수를 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public int selectAdminBoardArticleListCnt(BoardVO boardVO) throws Exception {
+	return (Integer)select("BBSManageDAO.selectAdminBoardArticleListCnt", boardVO);
     }
 
     /**

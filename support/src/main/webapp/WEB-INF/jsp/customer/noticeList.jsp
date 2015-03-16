@@ -90,31 +90,13 @@
 							<li class="choice"><p selectedOrderType=""><c:out value='${searchVO.sortTypeNm}'/></p>
 								<div>
 									<ul>
-									<li><p orderType=""0>최근등록순</p></li>
+									<li><p orderType="0">최근등록순</p></li>
 									<li><p orderType="1">최근인기순</p></li>
 									<li><p orderType="2">최근수정일순</p></li>
 									</ul>
 								</div>
 							</li>	
 						</ul>
-					</div>
- 
-					<div class="pop-layer-cover">
-						<div class="bg"></div>
-						<div id="layer2" class="pop-layer">
-							<div class="pop-container">
-								<div class="pop-conts">
-									<!--content //-->
-									<p class="ctxt mb20"><strong><span>첨부파일</span></strong><br>
-									</p>
-									<div class="layerContent"></div>
-									<div class="btn-r">
-										<a href="#" class="cbtn">Close</a>
-									</div>
-									<!--// content-->
-								</div>
-							</div>
-						</div>
 					</div>
 
             <!-- 목록리스트 -->
@@ -151,7 +133,8 @@
 									<span class="file">
 										<c:choose>
 											<c:when test="${fn:length(result.atchFileId) > 0}">
-												<a href="#" class="btn-example" onclick="layer_open('layer2', '${result.atchFileId}');return false;"><img src="${contextPath}/img/ico_hwp.png" alt="아래한글"></a>
+												<input type="hidden"name="atchFileId"  value="<c:out value='${result.atchFileId}'/>"/>
+													<img name="btnFileDownload"  data_type="file"   src="${contextPath}/img/ico_hwp.png" alt="아래한글">
 											</c:when>
 											<c:otherwise>
 											&nbsp;
@@ -183,12 +166,10 @@
 		$("#subForm").attr({action:"${contextPath}/customer/noticeInqire.do", target:""});
 		
 		$("p[orderType]").bind("click", function(){
-			alert($(this).attr("orderType"));
 			$("p[selectedOrderType]").text($(this).text());
 			$("#frm input[name=sortType]").val($(this).attr("orderType")   ); 
 			$("#subForm input[name=sortType]").val($(this).attr("orderType")   ); 
 			$("#frm").submit();
-			
 		});
 	})
 	
@@ -224,56 +205,15 @@
 	     }).responseText;
 	     $('#idName').html(AjaxHTML);
 	} 
+	
+	$('[name=btnFileDownload]').click(function(e) {
+		e.preventDefault();
+		var category = $(this).attr('data_category');
+		var $imgId = $(this).parent().find(':hidden');
+		COM.openFileListPopup(category, $imgId.val());
+	});
 	</script>
 	
-<script type="text/javascript">
-	function layer_open(el, fileId){
-
-		var temp = $('#' + el);
-		var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
-
-		if(bg){
-			$('.pop-layer-cover').fadeIn();	//'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
-		}else{
-			temp.fadeIn();
-		}
-
-		// 화면의 중앙에 레이어를 띄운다.
-		if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
-		else temp.css('top', '0px');
-		if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
-		else temp.css('left', '0px');
-		
-		//$(".layerContent").load("${contextPath}/cmm/fms/selectFileInfs.do"+"?param_atchFileId"+fileId);
-
-		// 요래 하면 여러가지 다양한 ajax 옵션을 줄수 있어서 개인적으로 더 선호한다.
-		$.ajax({
-		    url : "${contextPath}/cmm/fms/selectFileInfs.do",
-		    dataType : "html",
-		    type : "post",  // post 또는 get
-		    data : { param_atchFileId:fileId},   // 호출할 url 에 있는 페이지로 넘길 파라메터
-		    success : function(result){
-		        $(".layerContent").html(result);
-		    }
-		});
-		
-		
-		temp.find('a.cbtn').click(function(e){
-			if(bg){
-				$('.pop-layer-cover').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-			}else{
-				temp.fadeOut();
-			}
-			e.preventDefault();
-		});
-
-		$('.pop-layer-cover .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
-			$('.pop-layer-cover').fadeOut();
-			e.preventDefault();
-		});
-
-	}				
-</script>
 
 
 	

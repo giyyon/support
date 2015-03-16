@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import egovframework.com.cmm.service.EgovProperties;
+
 /**
  * @Class Name  : Board.java
  * @Description : 게시물에 대한 데이터 처리 모델
@@ -115,19 +117,39 @@ public class Board implements Serializable {
 	 */
 	private String ntceBgndeView = "";
 	
+    //---------------------------------
+    // 2015.02.05 : 기능 추가
+    //---------------------------------
+    
+    /** 게시유형코드(사업/행사/운영)*/
+    private String nttTyCode = "";
+    
+    /** 게시유형코드(사업/행사/운영)*/
+    private String nttTyCodeNm = "";
+    
     /** 참조URL */
     private String refrnUrl1 = "";
     private String refrnUrl2 = "";
     private String refrnUrl3 = "";
     private String refrnUrl4 = "";
     private String refrnUrl5 = "";	
+    
+    /**  2015.03.11 : 로그인한 사용자의 사업유형
+     * 로그인한 시스템의 사업 유형(사업자지정(A:특성화고등, B:대학원, C:온라인교육센터)) 
+     * *    이 필드는 getter만 존재한다.*/
+    private String bsnsSe = "";
+    /** 사업구분(특성화고등학교/대학원/온라인교육센터) */
+    private String bsnsSeNm	     = ""; 
+    /** 사업구분공유 */
+    private String bsnsSeShare	= "";
+    /** 게시물상태코드 */
+    private String nttSttusCode= "";	
+
 	
 	/**
 	 * @return the refrnUrl1
 	 */
 	public String getRefrnUrl1() {
-		if (refrnUrl1 != null && -1 == refrnUrl1.indexOf("http://"))
-			refrnUrl1 = "http://"+refrnUrl1;
 		return refrnUrl1;
 	}
 
@@ -143,8 +165,6 @@ public class Board implements Serializable {
 	 * @return the refrnUrl2
 	 */
 	public String getRefrnUrl2() {
-		if (refrnUrl2 != null && -1 == refrnUrl2.indexOf("http://"))
-			refrnUrl2 = "http://"+refrnUrl2;
 		return refrnUrl2;
 	}
 
@@ -160,8 +180,6 @@ public class Board implements Serializable {
 	 * @return the refrnUrl3
 	 */
 	public String getRefrnUrl3() {
-		if (refrnUrl3 != null &&  -1 == refrnUrl3.indexOf("http://"))
-			refrnUrl3 = "http://"+refrnUrl3;
 		return refrnUrl3;
 	}
 
@@ -177,8 +195,6 @@ public class Board implements Serializable {
 	 * @return the refrnUrl4
 	 */
 	public String getRefrnUrl4() {
-		if (refrnUrl4 != null && -1 == refrnUrl4.indexOf("http://"))
-			refrnUrl4 = "http://"+refrnUrl4;
 		return refrnUrl4;
 	}
 
@@ -194,8 +210,6 @@ public class Board implements Serializable {
 	 * @return the refrnUrl5
 	 */
 	public String getRefrnUrl5() {
-		if (refrnUrl5 != null && -1 == refrnUrl5.indexOf("http://"))
-			refrnUrl5 = "http://"+refrnUrl5;
 		return refrnUrl5;
 	}
 
@@ -581,4 +595,93 @@ public class Board implements Serializable {
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this);
 	}
+
+	/**
+	 * @return the nttTyCodeNm
+	 */
+	public String getNttTyCodeNm() {
+	
+		return nttTyCodeNm;
+	}
+
+	/**
+	 * @param nttTyCodeNm the nttTyCodeNm to set
+	 */
+	public void setNttTyCodeNm(String nttTyCodeNm) {
+	
+		this.nttTyCodeNm = nttTyCodeNm;
+	}
+
+	/**
+	 * @return the nttTyCode
+	 */
+	public String getNttTyCode() {
+	
+		return nttTyCode;
+	}
+
+	/**
+	 * @param nttTyCode the nttTyCode to set
+	 */
+	public void setNttTyCode(String nttTyCode) {
+	
+		this.nttTyCode = nttTyCode;
+	}
+
+	/**
+	 * @return the bsnsSe
+	 */
+	public String getBsnsSe() {
+		bsnsSe = EgovProperties.getProperty("Globals.BsnsSe");
+		return bsnsSe;
+	}
+
+	/**
+	 * @return the bsnsSeNm
+	 */
+	public String getBsnsSeNm() {
+	
+		return bsnsSeNm;
+	}
+
+	/**
+	 * @param bsnsSeNm the bsnsSeNm to set
+	 */
+	public void setBsnsSeNm(String bsnsSeNm) {
+	
+		this.bsnsSeNm = bsnsSeNm;
+	}
+
+	/**
+	 * @return the bsnsSeShare
+	 */
+	public String getBsnsSeShare() {
+	
+		return bsnsSeShare;
+	}
+
+	/**
+	 * @param bsnsSeShare the bsnsSeShare to set
+	 */
+	public void setBsnsSeShare(String bsnsSeShare) {
+	
+		this.bsnsSeShare = bsnsSeShare;
+	}
+
+	/**
+	 * @return the nttSttusCode
+	 */
+	public String getNttSttusCode() {
+	
+		return nttSttusCode;
+	}
+
+	/**
+	 * @param nttSttusCode the nttSttusCode to set
+	 */
+	public void setNttSttusCode(String nttSttusCode) {
+	
+		this.nttSttusCode = nttSttusCode;
+	}
+	
 }

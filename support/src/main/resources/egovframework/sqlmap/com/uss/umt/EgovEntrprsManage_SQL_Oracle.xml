@@ -325,7 +325,8 @@
 							OFCPS_NM                     = #ofcpsNm#,
 							APPLCNT_RECV_AT              = #applcntRecvAt#,
 							CXFC_OTHBC_AT                = #cxfcOthbcAt#,
-							ADRES_OTHBC_AT              =#adresOthbcAt#
+							ADRES_OTHBC_AT              =#adresOthbcAt#,
+							UPDT_DE = SYSDATE
             WHERE ESNTL_ID=#uniqId#
         ]]>
     </update>   
@@ -364,7 +365,8 @@
 							TAX_AREA_NO                  = #taxAreaNo#,
 							TAX_ENTRPRS_MIDDLE_TELNO     = #taxEntrprsMiddleTelno#,
 							TAX_ENTRPRS_END_TELNO        = #taxEntrprsEndTelno#,
-							NOTICE                       = #notice#							
+							NOTICE                       = #notice#							,
+							UPDT_DE = SYSDATE
             WHERE ESNTL_ID=#uniqId#
         ]]>
     </update>   
@@ -394,7 +396,8 @@
         <![CDATA[
             UPDATE COMTNENTRPRSMBER 
             SET 
-                   ENTRPRS_MBER_STTUS   =  'W'
+                   ENTRPRS_MBER_STTUS   =  'W',
+                   ENTRPRS_MBER_TYPE = 'D01'
             WHERE  ENTRPRS_MBER_ID  = #entrprsmberId#
         ]]>
     </update>

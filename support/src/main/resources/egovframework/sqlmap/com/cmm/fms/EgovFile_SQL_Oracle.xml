@@ -70,6 +70,19 @@
 		]]>
 	</insert>	
 	
+	<insert id="FileManageDAO.insertFileDetailAdvence" parameterClass="FileVO" >
+		<![CDATA[
+			INSERT INTO COMTNFILEDETAIL
+			( ATCH_FILE_ID, FILE_SN, FILE_STRE_COURS, STRE_FILE_NM, 
+			  ORIGNL_FILE_NM, FILE_EXTSN, FILE_SIZE, FILE_CN,  CATEGORY)
+			VALUES
+			( #atchFileId#, 
+			  (SELECT NVL(MAX(FILE_SN),0) + 1 FROM COMTNFILEDETAIL WHERE  ATCH_FILE_ID= #atchFileId#),
+			 #fileStreCours#, #streFileNm#, 
+			 #orignlFileNm#, #fileExtsn#, #fileMg#, #fileCn#, #category# )			
+		]]>
+	</insert>	
+	
 	<delete id="FileManageDAO.deleteFileDetail" parameterClass="FileVO" >
 		<![CDATA[
 			DELETE FROM COMTNFILEDETAIL
@@ -92,7 +105,7 @@
  		<![CDATA[
 			SELECT 
 				ATCH_FILE_ID, FILE_CN, FILE_SN, FILE_STRE_COURS, STRE_FILE_NM,
-				FILE_EXTSN, ORIGNL_FILE_NM, FILE_SIZE, CATEOGRY
+				FILE_EXTSN, ORIGNL_FILE_NM, FILE_SIZE, CATEGORY
 			FROM
 				COMTNFILEDETAIL
 			WHERE

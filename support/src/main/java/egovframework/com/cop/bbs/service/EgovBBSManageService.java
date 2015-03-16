@@ -35,7 +35,7 @@ public interface EgovBBSManageService {
      * @param Board
      * @throws Exception
      */
-    public void insertBoardArticle(Board Board) throws Exception;
+    public long insertBoardArticle(Board Board) throws Exception;
 
     /**
      * 게시물 대하여 상세 내용을 조회 한다.
@@ -58,6 +58,14 @@ public interface EgovBBSManageService {
     public BoardVO selectBeforeBoardArticle(BoardVO boardVO) throws Exception;
     
     /**
+     * 이전 게시물 id 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public BoardVO selectAdminBeforeBoardArticle(BoardVO boardVO) throws Exception;
+    /**
      * 다음 게시물 id 조회 한다.
      * 
      * @param boardVO
@@ -66,7 +74,14 @@ public interface EgovBBSManageService {
      */
     public BoardVO selectNextBoardArticle(BoardVO boardVO) throws Exception;
     
-    
+    /**
+     * 다음 게시물 id 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public BoardVO selectAdminNextBoardArticle(BoardVO boardVO) throws Exception;
     
 
     /**
@@ -77,6 +92,17 @@ public interface EgovBBSManageService {
      * @throws Exception
      */
     public Map<String, Object> selectBoardArticles(BoardVO boardVO, String attrbFlag) throws Exception;
+
+    
+    
+    /**
+     * 조건에 맞는 게시물 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> selectAdminBoardArticles(BoardVO boardVO, String attrbFlag) throws Exception;
 
     /**
      * 게시물 한 건의 내용을 수정 한다.

@@ -2,10 +2,11 @@ package egovframework.com.uss.umt.service;
 
 import java.io.Serializable;
 
+
 /**
  * 사용자정보 VO클래스로서일반회원, 기업회원, 업무사용자의  비지니스로직 처리시 기타조건성 항을 구성한다.
- * @author 공통서비스 개발팀 조재영
- * @since 2009.04.10
+ * @author 박세은
+ * @since 2015.03.15
  * @version 1.0
  * @see
  *
@@ -14,23 +15,44 @@ import java.io.Serializable;
  *   
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- *   2009.04.10  조재영          최초 생성
+ *   2015.03.15 박세은          최초 생성
  *
  * </pre>
  */
-public class UserDefaultVO implements Serializable {
+public class UserDefaultVO implements Serializable{
 	
-	/** 검색조건-회원상태     (0, A, D, P)*/
-    private String sbscrbSttus = "0";
+	/** 검색조건 사업유형 */
+	private String searchBsnsSe = "";
 	
+	/** 검색조건 회원유형 /개인회원/기업회원/14세미만/해외/탈퇴/비회원*/
+	private String searchMberType = "";
+	private String searchMberTypeNm = "전체회원분류";
+	
+	
+	/** 검색조건 회원분류 /최고관리자/개인정보관리자/일반관리자/운영위원/전문위원/장학생회원/인증회원/일반회원*/
+	private String searchMberSe = "";
+	private String searchMberSeNm = "전체회원유형";
+	
+
+	/** 검색조건 활동분류 /전문가/고등학교전문가/대학원전문가/강사/통신원*/
+	private String searchActiveTyCd = "";
+	private String searchActiveTyCdNm = "전체활동분류";
+	
+
 	/** 검색조건 */
-    private String searchCondition = "";
+    private String searchCnd = "";
     
     /** 검색Keyword */
-    private String searchKeyword = "";
+    private String searchWrd = "";
     
     /** 검색사용여부 */
     private String searchUseYn = "";
+    
+    /** 정렬형태 Default:0*/
+    private String sortType = "0";   
+    
+    /** 정렬 조건이름 */
+    private String sortTypeNm = "";
     
     /** 현재페이지 */
     private int pageIndex = 1;
@@ -50,52 +72,85 @@ public class UserDefaultVO implements Serializable {
     /** recordCountPerPage */
     private int recordCountPerPage = 10;
 
+
 	/**
-	 * sbscrbSttus attribute 값을  리턴한다.
-	 * @return String
+	 * @return the searchBsnsSe
 	 */
-	public String getSbscrbSttus() {
-		return sbscrbSttus;
+	public String getSearchBsnsSe() {
+	
+		return searchBsnsSe;
 	}
 
 	/**
-	 * sbscrbSttus attribute 값을 설정한다.
-	 * @param sbscrbSttus String
+	 * @param searchBsnsSe the searchBsnsSe to set
 	 */
-	public void setSbscrbSttus(String sbscrbSttus) {
-		this.sbscrbSttus = sbscrbSttus;
+	public void setSearchBsnsSe(String searchBsnsSe) {
+	
+		this.searchBsnsSe = searchBsnsSe;
 	}
 
 	/**
-	 * searchCondition attribute 값을  리턴한다.
-	 * @return String
+	 * @return the searchMberType
 	 */
-	public String getSearchCondition() {
-		return searchCondition;
+	public String getSearchMberType() {
+	
+		return searchMberType;
 	}
 
 	/**
-	 * searchCondition attribute 값을 설정한다.
-	 * @param searchCondition String
+	 * @param searchMberType the searchMberType to set
 	 */
-	public void setSearchCondition(String searchCondition) {
-		this.searchCondition = searchCondition;
+	public void setSearchMberType(String searchMberType) {
+	
+		this.searchMberType = searchMberType;
 	}
 
 	/**
-	 * searchKeyword attribute 값을  리턴한다.
-	 * @return String
+	 * @return the searchMberSe
 	 */
-	public String getSearchKeyword() {
-		return searchKeyword;
+	public String getSearchMberSe() {
+	
+		return searchMberSe;
 	}
 
 	/**
-	 * searchKeyword attribute 값을 설정한다.
-	 * @param searchKeyword String
+	 * @param searchMberSe the searchMberSe to set
 	 */
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
+	public void setSearchMberSe(String searchMberSe) {
+	
+		this.searchMberSe = searchMberSe;
+	}
+
+	/**
+	 * @return the searchCnd
+	 */
+	public String getSearchCnd() {
+	
+		return searchCnd;
+	}
+
+	/**
+	 * @param searchCnd the searchCnd to set
+	 */
+	public void setSearchCnd(String searchCnd) {
+	
+		this.searchCnd = searchCnd;
+	}
+
+	/**
+	 * @return the searchWrd
+	 */
+	public String getSearchWrd() {
+	
+		return searchWrd;
+	}
+
+	/**
+	 * @param searchWrd the searchWrd to set
+	 */
+	public void setSearchWrd(String searchWrd) {
+	
+		this.searchWrd = searchWrd;
 	}
 
 	/**
@@ -209,7 +264,99 @@ public class UserDefaultVO implements Serializable {
 	public void setRecordCountPerPage(int recordCountPerPage) {
 		this.recordCountPerPage = recordCountPerPage;
 	}
+
+	/**
+	 * @return the searchActiveTyCd
+	 */
+	public String getSearchActiveTyCd() {
+	
+		return searchActiveTyCd;
+	}
+
+	/**
+	 * @param searchActiveTyCd the searchActiveTyCd to set
+	 */
+	public void setSearchActiveTyCd(String searchActiveTyCd) {
+	
+		this.searchActiveTyCd = searchActiveTyCd;
+	}
+
+	/**
+	 * @return the sortType
+	 */
+	public String getSortType() {
+	
+		return sortType;
+	}
+
+	/**
+	 * @param sortType the sortType to set
+	 */
+	public void setSortType(String sortType) {
+	
+		this.sortType = sortType;
+	}
     
-    
+	/**
+	 * @return the sortTypeNm
+	 */
+	public String getSortTypeNm() {
+		if(sortType.equals("0")){
+			sortTypeNm = "최근가입일순";
+		}else if(sortType.equals("1")){
+			sortTypeNm = "최근수정일순";
+		}else if(sortType.equals("2")){
+			sortTypeNm = "최근접속일순";
+		}
+		return sortTypeNm;
+	}
+
+	/**
+	 * @return the searchMberTypeNm
+	 */
+	public String getSearchMberTypeNm() {
+	
+		return searchMberTypeNm;
+	}
+
+	/**
+	 * @param searchMberTypeNm the searchMberTypeNm to set
+	 */
+	public void setSearchMberTypeNm(String searchMberTypeNm) {
+	
+		this.searchMberTypeNm = searchMberTypeNm;
+	}
+
+	/**
+	 * @return the searchMberSeNm
+	 */
+	public String getSearchMberSeNm() {
+	
+		return searchMberSeNm;
+	}
+
+	/**
+	 * @param searchMberSeNm the searchMberSeNm to set
+	 */
+	public void setSearchMberSeNm(String searchMberSeNm) {
+	
+		this.searchMberSeNm = searchMberSeNm;
+	}
+
+	/**
+	 * @return the searchActiveTyCdNm
+	 */
+	public String getSearchActiveTyCdNm() {
+	
+		return searchActiveTyCdNm;
+	}
+
+	/**
+	 * @param searchActiveTyCdNm the searchActiveTyCdNm to set
+	 */
+	public void setSearchActiveTyCdNm(String searchActiveTyCdNm) {
+	
+		this.searchActiveTyCdNm = searchActiveTyCdNm;
+	}
 
 }

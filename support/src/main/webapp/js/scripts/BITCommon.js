@@ -1131,6 +1131,14 @@ function BitCommonClass() {
             title: opts.title,
             resizable: false,
             modal: true,
+            show: {
+                effect: 'fade',
+                duration: 200
+            },
+            hide: {
+                effect: 'fade',
+                duration: 200
+            },
             width: opts.width,
             height: convertHeightToIntFromPercent(opts.height)
         });

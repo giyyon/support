@@ -76,25 +76,26 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      *
      * @see egovframework.com.cop.bbs.brd.service.EgovBBSManageService#insertBoardArticle(egovframework.com.cop.bbs.brd.service.Board)
      */
-    public void insertBoardArticle(Board board) throws Exception {
+    public long insertBoardArticle(Board board) throws Exception {
 	// SORT_ORDR는 부모글의 소트 오더와 같게, NTT_NO는 순서대로 부여
 
-	if ("Y".equals(board.getReplyAt())) {
-	    // 답글인 경우 1. Parnts를 세팅, 2.Parnts의 sortOrdr을 현재글의 sortOrdr로 가져오도록, 3.nttNo는 현재 게시판의 순서대로
-	    // replyLc는 부모글의 ReplyLc + 1
-
-	    board.setNttId(nttIdgenService.getNextIntegerId());	// 답글에 대한 nttId 생성
-	    bbsMngDAO.replyBoardArticle(board);
-
-	} else {
-	    // 답글이 아닌경우 Parnts = 0, replyLc는 = 0, sortOrdr = nttNo(Query에서 처리)
-	    board.setParnts("0");
-	    board.setReplyLc("0");
-	    board.setReplyAt("N");
-	    board.setNttId(nttIdgenService.getNextIntegerId());//2011.09.22
-
-	    bbsMngDAO.insertBoardArticle(board);
-	}
+		if ("Y".equals(board.getReplyAt())) {
+		    // 답글인 경우 1. Parnts를 세팅, 2.Parnts의 sortOrdr을 현재글의 sortOrdr로 가져오도록, 3.nttNo는 현재 게시판의 순서대로
+		    // replyLc는 부모글의 ReplyLc + 1
+	
+		    board.setNttId(nttIdgenService.getNextIntegerId());	// 답글에 대한 nttId 생성
+		    bbsMngDAO.replyBoardArticle(board);
+	
+		} else {
+		    // 답글이 아닌경우 Parnts = 0, replyLc는 = 0, sortOrdr = nttNo(Query에서 처리)
+		    board.setParnts("0");
+		    board.setReplyLc("0");
+		    board.setReplyAt("N");
+		    board.setNttId(nttIdgenService.getNextIntegerId());//2011.09.22
+	
+		    bbsMngDAO.insertBoardArticle(board);
+		}
+		return board.getNttId();
     }
 
     
@@ -177,6 +178,46 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
 
 	return map;
     }
+    
+	/**
+     * 조건에 맞는 게시물 목록을 조회 한다.
+     *
+     * @see egovframework.com.cop.bbs.brd.service.EgovBBSManageService#selectBoardArticles(egovframework.com.cop.bbs.brd.service.BoardVO)
+     */
+    public Map<String, Object> selectAdminBoardArticles(BoardVO boardVO, String attrbFlag) throws Exception {
+	List<BoardVO> list = bbsMngDAO.selectAdminBoardArticleList(boardVO);
+	List<BoardVO> result = new ArrayList<BoardVO>();
+
+	if ("BBSA01".equals(attrbFlag)) {
+	    // 유효게시판 임
+	    String today = EgovDateUtil.getToday();
+
+	    BoardVO vo;
+	    Iterator<BoardVO> iter = list.iterator();
+	    while (iter.hasNext()) {
+		vo = (BoardVO)iter.next();
+
+		if (!"".equals(vo.getNtceBgnde()) || !"".equals(vo.getNtceEndde())) {
+		    if (EgovDateUtil.getDaysDiff(today, vo.getNtceBgnde()) > 0 || EgovDateUtil.getDaysDiff(today, vo.getNtceEndde()) < 0) {
+			// 시작일이 오늘날짜보다 크거나, 종료일이 오늘 날짜보다 작은 경우
+			vo.setIsExpired("Y");
+		    }
+		}
+		result.add(vo);
+	    }
+	} else {
+	    result = list;
+	}
+
+	int cnt = bbsMngDAO.selectAdminBoardArticleListCnt(boardVO);
+
+	Map<String, Object> map = new HashMap<String, Object>();
+
+	map.put("resultList", result);
+	map.put("resultCnt", Integer.toString(cnt));
+
+	return map;
+    }    
 
     /**
      * 게시물 한 건의 내용을 수정 한다.
@@ -223,4 +264,18 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
     public String getPasswordInf(Board board) throws Exception {
 	return bbsMngDAO.getPasswordInf(board);
     }
+
+	@Override
+	public BoardVO selectAdminBeforeBoardArticle(BoardVO boardVO) throws Exception {
+
+		// TODO Auto-generated method stub
+		return bbsMngDAO.selectAdminBeforeBoardArticle(boardVO);
+	}
+
+	@Override
+	public BoardVO selectAdminNextBoardArticle(BoardVO boardVO) throws Exception {
+
+		// TODO Auto-generated method stub
+		return bbsMngDAO.selectAdminBeforeBoardArticle(boardVO);
+	}
 }

@@ -44,6 +44,16 @@ public interface EgovFileMngService {
      * @throws Exception
      */
     public String insertFileInfs(List<?> fvoList) throws Exception;
+    
+    /**
+	 * 여러 개의 파일에 대한 정보(속성 및 상세)를 등록한다.
+	 * 이 기능은 파일 순번을 사용자가 계산하는 방식이 아니라 db의 최종 입력값 +1 하는 방식을 적용
+	 * 이렇게 되면 첨부파일을 추가적으로 올릴때 유용하게 처리할수 있음. 기존에는 처리 불가. (기존:0번부터 발번 처리).
+     *
+     * @param fvoList
+     * @throws Exception
+     */
+    public String insertFileInfsAdvence(List<?> fvoList) throws Exception;
 
     /**
      * 여러 개의 파일에 대한 정보(속성 및 상세)를 수정한다.

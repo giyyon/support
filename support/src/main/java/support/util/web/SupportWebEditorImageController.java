@@ -81,7 +81,7 @@ public class SupportWebEditorImageController {
      * @throws Exception
      */
     @RequestMapping(value="/imageSrc.do",method=RequestMethod.GET)
-    public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void imageSrc(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	String subPath = request.getParameter("path");
 	String physical = request.getParameter("physical");
 	String mimeType = request.getParameter("contentType");
