@@ -4,10 +4,7 @@
 <script type="text/javascript" src="${contextPath}/js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="${contextPath}/js/jquery.mainslider.js"></script>
 <script type="text/javascript" src="${contextPath}/js/support.js"></script>
-
 <script type="text/javascript" src="${contextPath}/ckeditor/ckeditor.js"></script>
-
-<!-- <script src="<c:url value='/js/scripts/jquery-1.10.2.min.js'/>"></script> --> 
 <script src="<c:url value='/js/scripts/jquery-ui-1.10.3.custom.min.js'/>"></script>
 <script src="<c:url value='/js/scripts/json2.js'/>"></script>
 <script src="<c:url value='/js/scripts/jquery.form.js'/>"></script>
@@ -18,8 +15,6 @@
 <script src="<c:url value='/js/scripts/BITCommon.js'/>"></script>
 <script src="<c:url value='/js/scripts/Common.js'/>"></script>
 
-<link href="<c:url value='/css/jquery.fileupload.css'/>" rel="stylesheet" />
-<link href="<c:url value='/css/jquery.fileupload-ui.css'/>" rel="stylesheet" />
 <script src="<c:url value='/js/scripts/jquery.fileupload.js'/>"></script>
 <script src="<c:url value='/js/scripts/tmpl.min.js'/>"></script>
 <script src="<c:url value='/js/scripts/load-image.min.js'/>"></script>
@@ -31,6 +26,8 @@
 <script src="<c:url value='/js/scripts/jquery.fileupload-image.js'/>"></script>
 <script src="<c:url value='/js/scripts/jquery.multiDownload.js'/>"></script>
 
+<link href="<c:url value='/css/jquery.fileupload.css'/>" rel="stylesheet" />
+<link href="<c:url value='/css/jquery.fileupload-ui.css'/>" rel="stylesheet" />
 <link href="<c:url value='/css/jquery-ui-1.10.3.custom.min.css'/>" rel="stylesheet" />
 <link href="${contextPath}/css/necgis.css" rel="stylesheet" type="text/css" />
 <link href="${contextPath}/css/common.css" rel="stylesheet" type="text/css" />

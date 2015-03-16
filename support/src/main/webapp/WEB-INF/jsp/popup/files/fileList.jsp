@@ -77,5 +77,10 @@
 		$('#div_close').click(function() {
 			$.cookie('fileIds', '');
 		});
+		
+		function ufn_closeModal(){
+			BIT.modalDialogCloseClick('modalApply', fileOptions.data.containerId);
+			//첨부파일을 파일 DB에서 삭제 및 등록 이후 원 데이터 테이블의 fileID에 해당하는 컬럼도 갱신, 동기화 위한 메소드 호출. parent.doFinish()는 해당 화면에서 구현한다.	
+		}
 	</script>
 </div>

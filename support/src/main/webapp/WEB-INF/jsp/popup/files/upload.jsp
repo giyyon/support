@@ -146,13 +146,8 @@ $(document).ready(function(){
 		if($('input[name=atchFileId]').val() == null || $('input[name=atchFileId]').val() == ''){
 			$('input[name=atchFileId]').val(serverAtchFileId);
 		}
-		//-------------------------------------------------------------------------------------------------------------------------------------- 	
 		$('#fileupload').fileupload({
-<<<<<<< HEAD
 			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&AtchFileId=' + $('input[name=atchFileId]').val(),
-=======
-			url : '<c:url value="/files/upload.do?Category=" />' + fileOptions.data.Category + '&atchFileId=' + $('[name=atchFileId]').val(),
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			maxFileSize : 10000000,
 			maxNumberOfFiles : parseInt(fileOptions.data.Max),
 			acceptFileTypes : fileOptions.data.Accept == null ? new RegExp('') : new RegExp('(.|)(' + unescape(fileOptions.data.Accept) + ')$'),
@@ -176,13 +171,6 @@ $(document).ready(function(){
 						};
 						if (fileOptions.data.Type == "img") {
 							file.thumbnailUrl =  '<c:url value="/files/imageSrc.do?path=" />'+fileOptions.data.Category  +'/thumnails&physical='  + item.streFileNm;
-<<<<<<< HEAD
-=======
-							
-// 							file.thumbnailUrl =  fileOptions.data.Category+'/thumnails/" />' + item.streFileNm;
-							
-							
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 						}
 						files.push(file);
 					}
@@ -212,15 +200,8 @@ $(document).ready(function(){
 				}
 				//setFileIds(newFiles);
 				$(this).closest('.modalContainer').data('data', newFiles);
-<<<<<<< HEAD
-=======
-			//첨부파일을 파일 DB에서 삭제한 이후 원 데이터 테이블의 fileID에 해당하는 컬럼도 갱신, 동기화 위한 메소드 호출. parent.doFinish()는 해당 화면에서 구현한다.	
-			parent.doFinish();
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			},
 			completed : function(e, data) {
-// 				debugger;
-				
 				if (data.result) {
 					data = data.result;
 				}
@@ -244,7 +225,6 @@ $(document).ready(function(){
 
 		if (fileIds != null && fileIds != '' && fileIds != 'undefined') {
 			$('#fileupload').addClass('fileupload-processing');
-// 			debugger;
 			$.ajax({
 				url : '<c:url value="/files/getFiles.do?fileIds=" />' + fileIds,
 				dataType : 'json',
