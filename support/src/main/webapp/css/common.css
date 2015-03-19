@@ -9,7 +9,7 @@ src:local(※),url('../font/NanumGothic.woff') format("woff");
 /* BIN Reset CSS*/
 *{ margin:0; padding:0; vertical-align:top}
 body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0} 
-body,button,table{font-family:'나눔고딕', NanumGothic, '돋움', 'Dotum', 'sans-serif', 'Tahoma'; font-size:13px; color:#4a4a4a; font-weight:normal;line-height:24px;} 
+body,button,table{font-size: 1em;font-family:'나눔고딕', NanumGothic, '돋움', 'Dotum', 'sans-serif', 'Tahoma'; font-size:13px; color:#4a4a4a; font-weight:normal;line-height:24px;} 
 textarea,input,select{font-family:'나눔고딕', NanumGothic, '돋움', 'Dotum', 'sans-serif', 'Tahoma'; font-size:100%; color:#4a4a4a; font-weight:normal;}
 img,fieldset{border:0} 
 img, video { max-width:100%}
@@ -18,7 +18,7 @@ ul,ol,li{list-style:none;}
 select,textarea {vertical-align:middle;}
 
 table { border-collapse:collapse; border-spacing:0;}
-a {text-decoration:none; color:#4a4a4a!important; }
+a {text-decoration:none; color:#353535!important; }
 a:hover{color:#000 !important; }
 label { cursor:pointer;}
 .blind, legend, hr, caption { display:block; overflow:hidden; position:absolute; top:0; left:-1000em;}
@@ -60,6 +60,7 @@ a:active, a:hover {outline:0;}
 .ml16 {margin-left:16px !important;}
 .ml10 {margin-left:10px !important;}
 .ml6 {margin-left:6px !important;}
+
 
 .mr20 {margin-right:20px !important;}
 .mr16 {margin-right:16px !important;}
@@ -148,3 +149,4 @@ a:active, a:hover {outline:0;}
 
 .tlin20{ line-height:20px}
 .les3 { letter-spacing:-0.03em}
+

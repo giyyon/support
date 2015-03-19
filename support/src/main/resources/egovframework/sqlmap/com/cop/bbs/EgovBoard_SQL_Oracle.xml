@@ -33,7 +33,13 @@
 		<result property="bsnsSe" column="BSNS_SE" columnIndex="17"/>
 		<result property="bsnsSeNm" column="BSNS_SE_NM" columnIndex="18"/>		
 		<result property="nttSttusCode" column="NTT_STTUS_CODE" columnIndex="19"/>				
-		<result property="seq" column="SEQ" columnIndex="20"/>
+		<result property="seq" column="SEQ"  columnIndex="20"/>
+		<result property="nttNo" column="NTT_NO" columnIndex="21"/>
+		<result property="cpyrhtEr" column="CPYRHT_ER" columnIndex="22"/>
+		<result property="trndSe" column="TRND_SE" columnIndex="23"/>
+		<result property="refrnUrl1" column="REFRN_URL1" columnIndex="24"/>
+		<result property="nttCn" column="NTT_CN" columnIndex="25"/>		
+		<result property="scrapId" column="SCRAP_ID" columnIndex="26"/>
 	</resultMap>
 
 	<resultMap id="boardDetail" class="egovframework.com.cop.bbs.service.BoardVO">
@@ -74,6 +80,9 @@
 		<result property="lastUpdusrId" column="LAST_UPDUSR_ID" columnIndex="33"/>
 		<result property="lastUpdusrNm" column="LAST_UPDUSR_NM" columnIndex="34"/>
 		<result property="nttTyCode" column="NTT_TY_CODE" columnIndex="34"/>		
+		<result property="cpyrhtEr" column="CPYRHT_ER" columnIndex="35"/>
+		<result property="trndSe" column="TRND_SE" columnIndex="36"/>
+		<result property="keyword" column="KEYWORD" columnIndex="37"/>
 	</resultMap>
 
 	<resultMap id="sortList" class="egovframework.com.cop.bbs.service.BoardVO">
@@ -117,16 +126,18 @@
 			 PARNTSCTT_NO, NTT_NO, ANSWER_LC, ATCH_FILE_ID,
 			 FRST_REGISTER_ID, FRST_REGIST_PNTTM, USE_AT, LAST_UPDUSR_ID, LAST_UPDT_PNTTM,
 			 REFRN_URL1, REFRN_URL2, REFRN_URL3, REFRN_URL4, REFRN_URL5,
-			  NTT_TY_CODE, BSNS_SE, BSNS_SE_SHARE, NTT_STTUS_CODE
+			  NTT_TY_CODE, BSNS_SE, BSNS_SE_SHARE, NTT_STTUS_CODE,
+			  CPYRHT_ER, TRND_SE, KEYWORD			  
 			 )
 			VALUES
 			( #nttId#, #bbsId#, #nttSj#, #nttCn#, #nttNo#, 
 			  #ntcrId#, #ntcrNm#, #password#, #inqireCo#, 
 			  #ntceBgnde#, #ntceEndde#, #replyAt#, 
-			  #parnts#, 1, #replyLc#, #atchFileId#,
+			  #parnts#, #nttNo#, #replyLc#, #atchFileId#,
 			  #frstRegisterId#, SYSDATE, 'Y', #frstRegisterId#, SYSDATE,
 			  #refrnUrl1#, #refrnUrl2#, #refrnUrl3#, #refrnUrl4#, #refrnUrl5#,
-			   #nttTyCode#, #bsnsSe#, #bsnsSeShare#, #nttSttusCode#
+			   #nttTyCode#, #bsnsSe#, #bsnsSeShare#, #nttSttusCode#,
+			  #cpyrhtEr#, #trndSe#  , #keyword#
 			 )			
 		]]>
 	</insert>
@@ -190,7 +201,13 @@
 	                                             c.CODE_NM as NTT_TY_CODE_NM,
 	                                             a.BSNS_SE,
 	                                             d.CODE_NM as BSNS_SE_NM,
-	                                             a.NTT_STTUS_CODE
+	                                             a.NTT_STTUS_CODE,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 '' as NTT_CN,
+												 '' as SCRAP_ID
 									FROM    COMTNBBS a
 												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID												 
 												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
@@ -252,7 +269,13 @@
 	                                             c.CODE_NM as NTT_TY_CODE_NM,
 	                                             a.BSNS_SE,
 	                                             d.CODE_NM as BSNS_SE_NM,
-	                                             a.NTT_STTUS_CODE
+	                                             a.NTT_STTUS_CODE,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 '' as NTT_CN,
+												 '' as SCRAP_ID
 									FROM    COMTNBBS a
 												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID												 
 												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
@@ -299,17 +322,294 @@
 			]]>				
 	</select>	
 	
+	<select id="BBSManageDAO.selectTrendArticleList" parameterClass="BoardVO" resultMap="boardList" >
+		<![CDATA[
+			SELECT * 
+			FROM ( 
+						SELECT rownum as SEQ, TB.* 
+						FROM (
+	                                  SELECT  a.NTT_ID, a.NTT_SJ, 
+	                                             a.FRST_REGISTER_ID, 
+	                                             NVL(b.USER_NM, a.NTCR_NM) as FRST_REGISTER_NM,     
+	                                             TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM,     
+	                                             a.RDCNT, 
+	                                             a.PARNTSCTT_NO, 
+	                                             a.ANSWER_AT, 
+	                                             a.ANSWER_LC, 
+	                                             a.USE_AT, 
+	                                             a.ATCH_FILE_ID,    
+	                                             a.BBS_ID, rtrim(a.NTCE_BGNDE) NTCE_BGNDE, rtrim(a.NTCE_ENDDE) NTCE_ENDDE,
+	                                             a.NTT_TY_CODE,
+	                                             '' as NTT_TY_CODE_NM,
+	                                             a.BSNS_SE,
+	                                             d.CODE_NM as BSNS_SE_NM,
+	                                             a.NTT_STTUS_CODE,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 a.NTT_CN,
+												 '' as SCRAP_ID
+									FROM    COMTNBBS a
+												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.TRND_SE = c.CODE
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE d ON a.BSNS_SE = d.CODE		
+									WHERE	a.BBS_ID = #bbsId#
+									AND      c.CODE_ID = 'SUP016'			
+									AND      d.CODE_ID = 'SUP010'			
+									AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe# )
+									AND      a.NTT_STTUS_CODE = '02'
+									AND      a.USE_AT = 'Y'	
+			]]>
+				<isEqual prepend="AND" property="searchCnd" compareValue="0">
+					<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>
+				<isEqual prepend="AND" property="searchCnd" compareValue="1">
+					<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>	
+				<isEqual prepend="AND" property="searchCnd" compareValue="2">
+					<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>				
+				<isNotEqual prepend="AND" property="trndSe" compareValue="">
+					<![CDATA[	a.TRND_SE = #trndSe# 		]]>
+				</isNotEqual>				
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="0">
+					<![CDATA[	a.SORT_ORDR DESC, NTT_NO ASC		]]>
+				</isEqual>	
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="1">
+					<![CDATA[	a.RDCNT DESC, NTT_NO ASC		]]>
+				</isEqual>
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="2">
+					<![CDATA[	a.LAST_UPDT_PNTTM DESC, NTT_NO ASC		]]>
+				</isEqual>					
+				
+			<![CDATA[			
+				 				 ) TB 
+						)
+			WHERE SEQ BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+			]]>				
+	</select>	
+
+	<select id="BBSManageDAO.selectTrendScrapArticleList" parameterClass="BoardVO" resultMap="boardList" >
+		<![CDATA[
+			SELECT * 
+			FROM ( 
+						SELECT rownum as SEQ, TB.* 
+						FROM (
+	                                  SELECT  a.NTT_ID, a.NTT_SJ, 
+	                                             a.FRST_REGISTER_ID, 
+	                                             NVL(b.USER_NM, a.NTCR_NM) as FRST_REGISTER_NM,     
+	                                             TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM,     
+	                                             a.RDCNT, 
+	                                             a.PARNTSCTT_NO, 
+	                                             a.ANSWER_AT, 
+	                                             a.ANSWER_LC, 
+	                                             a.USE_AT, 
+	                                             a.ATCH_FILE_ID,    
+	                                             a.BBS_ID, rtrim(a.NTCE_BGNDE) NTCE_BGNDE, rtrim(a.NTCE_ENDDE) NTCE_ENDDE,
+	                                             a.NTT_TY_CODE,
+	                                             '' as NTT_TY_CODE_NM,
+	                                             a.BSNS_SE,
+	                                             d.CODE_NM as BSNS_SE_NM,
+	                                             a.NTT_STTUS_CODE,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 a.NTT_CN,
+												 scrap.SCRAP_ID
+									FROM    COMTNBBS a
+												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.TRND_SE = c.CODE
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE d ON a.BSNS_SE = d.CODE
+												LEFT OUTER JOIN COMTNSCRAP scrap ON a.BBS_ID = scrap.BBS_ID and a.NTT_ID = scrap.NTT_ID
+									WHERE	a.BBS_ID = #bbsId#
+									AND      c.CODE_ID = 'SUP016'			
+									AND      d.CODE_ID = 'SUP010'			
+									AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe# )
+									AND      a.NTT_STTUS_CODE = '02'
+									AND      a.USE_AT = 'Y'	
+									AND      scrap.USE_AT = 'Y'
+									AND      scrap.FRST_REGISTER_ID = #frstRegisterId#			
+			]]>
+				<isEqual prepend="AND" property="searchCnd" compareValue="0">
+					<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>
+				<isEqual prepend="AND" property="searchCnd" compareValue="1">
+					<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>	
+				<isEqual prepend="AND" property="searchCnd" compareValue="2">
+					<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>				
+				<isNotEqual prepend="AND" property="trndSe" compareValue="">
+					<![CDATA[	a.TRND_SE = #trndSe# 		]]>
+				</isNotEqual>				
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="0">
+					<![CDATA[	a.SORT_ORDR DESC, NTT_NO ASC		]]>
+				</isEqual>	
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="1">
+					<![CDATA[	a.RDCNT DESC, NTT_NO ASC		]]>
+				</isEqual>
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="2">
+					<![CDATA[	a.LAST_UPDT_PNTTM DESC, NTT_NO ASC		]]>
+				</isEqual>					
+				
+			<![CDATA[			
+				 				 ) TB 
+						)
+			WHERE SEQ BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+			]]>				
+	</select>	
+	
+	<select id="BBSManageDAO.selectMyTrendArticleList" parameterClass="BoardVO" resultMap="boardList" >
+		<![CDATA[
+			SELECT * 
+			FROM ( 
+						SELECT rownum as SEQ, TB.* 
+						FROM (
+	                                  SELECT  a.NTT_ID, a.NTT_SJ, 
+	                                             a.FRST_REGISTER_ID, 
+	                                             NVL(b.USER_NM, a.NTCR_NM) as FRST_REGISTER_NM,     
+	                                             TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM,     
+	                                             a.RDCNT, 
+	                                             a.PARNTSCTT_NO, 
+	                                             a.ANSWER_AT, 
+	                                             a.ANSWER_LC, 
+	                                             a.USE_AT, 
+	                                             a.ATCH_FILE_ID,    
+	                                             a.BBS_ID, rtrim(a.NTCE_BGNDE) NTCE_BGNDE, rtrim(a.NTCE_ENDDE) NTCE_ENDDE,
+	                                             a.NTT_TY_CODE,
+	                                             '' as NTT_TY_CODE_NM,
+	                                             a.BSNS_SE,
+	                                             d.CODE_NM as BSNS_SE_NM,
+	                                             a.NTT_STTUS_CODE,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 a.NTT_CN,
+												 '' as SCRAP_ID
+									FROM    COMTNBBS a
+												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.TRND_SE = c.CODE
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE d ON a.BSNS_SE = d.CODE		
+									WHERE	a.BBS_ID = #bbsId#
+									AND      c.CODE_ID = 'SUP016'			
+									AND      d.CODE_ID = 'SUP010'
+									AND      a.FRST_REGISTER_ID = #frstRegisterId#			
+									AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe# )
+									AND      a.USE_AT = 'Y'	
+			]]>
+				<isEqual prepend="AND" property="searchCnd" compareValue="0">
+					<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>
+				<isEqual prepend="AND" property="searchCnd" compareValue="1">
+					<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>	
+				<isEqual prepend="AND" property="searchCnd" compareValue="2">
+					<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>				
+				<isNotEqual prepend="AND" property="trndSe" compareValue="">
+					<![CDATA[	a.TRND_SE = #trndSe# 		]]>
+				</isNotEqual>				
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="0">
+					<![CDATA[	a.SORT_ORDR DESC, NTT_NO ASC		]]>
+				</isEqual>	
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="1">
+					<![CDATA[	a.RDCNT DESC, NTT_NO ASC		]]>
+				</isEqual>
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="2">
+					<![CDATA[	a.LAST_UPDT_PNTTM DESC, NTT_NO ASC		]]>
+				</isEqual>					
+				
+			<![CDATA[			
+				 				 ) TB 
+						)
+			WHERE SEQ BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+			]]>				
+	</select>	
+	
+	<select id="BBSManageDAO.selectAdminTrendArticleList" parameterClass="BoardVO" resultMap="boardList" >
+		<![CDATA[
+			SELECT * 
+			FROM ( 
+						SELECT rownum as SEQ, TB.* 
+						FROM (
+	                                  SELECT  a.NTT_ID, a.NTT_SJ, 
+	                                             a.FRST_REGISTER_ID, 
+	                                             NVL(b.USER_NM, a.NTCR_NM) as FRST_REGISTER_NM,     
+	                                             TO_CHAR(a.FRST_REGIST_PNTTM, 'YYYY-MM-DD') as FRST_REGIST_PNTTM,     
+	                                             a.RDCNT, 
+	                                             a.PARNTSCTT_NO, 
+	                                             a.ANSWER_AT, 
+	                                             a.ANSWER_LC, 
+	                                             a.USE_AT, 
+	                                             a.ATCH_FILE_ID,    
+	                                             a.BBS_ID, rtrim(a.NTCE_BGNDE) NTCE_BGNDE, rtrim(a.NTCE_ENDDE) NTCE_ENDDE,
+	                                             a.NTT_TY_CODE,	                
+	                                             '' as NTT_TY_CODE_NM,                             
+	                                             a.BSNS_SE,
+	                                             d.CODE_NM as BSNS_SE_NM,
+	                                             a.NTT_STTUS_CODE,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 a.NTT_CN,
+												 '' as SCRAP_ID
+									FROM    COMTNBBS a
+												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID												 
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.TRND_SE = c.CODE
+												LEFT OUTER JOIN COMTCCMMNDETAILCODE d ON a.BSNS_SE = d.CODE		
+									WHERE	a.BBS_ID = #bbsId#
+									AND      c.CODE_ID = 'SUP016'
+									AND      d.CODE_ID = 'SUP010'		
+									AND      a.USE_AT = 'Y'				
+									AND      a.BSNS_SE_SHARE IN 
+																							(SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe#
+																							]]>
+																							<isNotEqual prepend="intersect" property="searchBsnsSe" compareValue="">
+																								<![CDATA[  SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #searchBsnsSe# 		]]>
+																							</isNotEqual>
+									                                                        <![CDATA[   
+									                                                         )
+			]]>
+				<isEqual prepend="AND" property="searchCnd" compareValue="0">
+					<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>
+				<isEqual prepend="AND" property="searchCnd" compareValue="1">
+					<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>	
+				<isEqual prepend="AND" property="searchCnd" compareValue="2">
+					<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+				</isEqual>				
+				<isNotEqual prepend="AND" property="trndSe" compareValue="">
+					<![CDATA[	a.TRND_SE = #trndSe# 		]]>
+				</isNotEqual>					
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="0">
+					<![CDATA[	a.SORT_ORDR DESC, NTT_NO ASC		]]>
+				</isEqual>	
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="1">
+					<![CDATA[	a.RDCNT DESC, NTT_NO ASC		]]>
+				</isEqual>
+				<isEqual prepend="ORDER BY" property="sortType" compareValue="2">
+					<![CDATA[	a.LAST_UPDT_PNTTM DESC, NTT_NO ASC		]]>
+				</isEqual>					
+				
+			<![CDATA[			
+				 				 ) TB 
+						)
+			WHERE SEQ BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
+			]]>				
+	</select>		
+	
+	
 	<select id="BBSManageDAO.selectBoardArticleListCnt" parameterClass="BoardVO" resultClass="java.lang.Integer" >
 		<![CDATA[
 			SELECT
 				COUNT(a.NTT_ID)
-			FROM COMTNBBS a
-			        LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID
-			        LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
-			        LEFT OUTER JOIN COMTCCMMNDETAILCODE d ON a.BSNS_SE = d.CODE			        
-			WHERE a.BBS_ID = #bbsId#
-			AND      c.CODE_ID = 'SUP001'
-			AND      d.CODE_ID = 'SUP010'				
+			FROM COMTNBBS a      
+			WHERE a.BBS_ID = #bbsId#				
 			AND      a.USE_AT = 'Y'		
 			AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe#
 			                                                           )
@@ -333,13 +633,8 @@
 		<![CDATA[
 			SELECT
 				COUNT(a.NTT_ID)
-			FROM COMTNBBS a
-			        LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID
-			        LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
-			        LEFT OUTER JOIN COMTCCMMNDETAILCODE d ON a.BSNS_SE = d.CODE			        
-			WHERE a.BBS_ID = #bbsId#
-			AND      c.CODE_ID = 'SUP001'
-			AND      d.CODE_ID = 'SUP010'						
+			FROM COMTNBBS a			        
+			WHERE a.BBS_ID = #bbsId#			
 			AND      a.USE_AT = 'Y'
 			AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe# 
 																		]]>
@@ -363,6 +658,113 @@
 			</isNotEqual>			
 	</select>		
  
+	<select id="BBSManageDAO.selectTrendArticleListCnt" parameterClass="BoardVO" resultClass="java.lang.Integer" >
+		<![CDATA[
+			SELECT
+				COUNT(a.NTT_ID)
+			FROM COMTNBBS a			        
+			WHERE a.BBS_ID = #bbsId#
+			AND      a.USE_AT = 'Y'		
+			AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe#
+			                                                           )
+		    AND      a.NTT_STTUS_CODE = '02'
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>	
+			<isEqual prepend="AND" property="searchCnd" compareValue="2">
+				<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isNotEqual prepend="AND" property="trndSe" compareValue="">
+				<![CDATA[	a.TRND_SE = #trndSe# 		]]>
+			</isNotEqual>	
+	</select> 
+	
+	<select id="BBSManageDAO.selectTrendScrapArticleListCnt" parameterClass="BoardVO" resultClass="java.lang.Integer" >
+		<![CDATA[
+			SELECT
+				COUNT(a.NTT_ID)
+			FROM COMTNBBS a			        
+						LEFT OUTER JOIN COMTNSCRAP scrap ON a.BBS_ID = scrap.BBS_ID and a.NTT_ID = scrap.NTT_ID
+			WHERE a.BBS_ID = #bbsId#
+			AND      a.USE_AT = 'Y'		
+			AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe#
+			                                                           )
+		    AND      a.NTT_STTUS_CODE = '02'
+		    AND      scrap.USE_AT = 'Y'
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>	
+			<isEqual prepend="AND" property="searchCnd" compareValue="2">
+				<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isNotEqual prepend="AND" property="trndSe" compareValue="">
+				<![CDATA[	a.TRND_SE = #trndSe# 		]]>
+			</isNotEqual>	
+	</select> 
+	
+<select id="BBSManageDAO.selectMyTrendArticleListCnt" parameterClass="BoardVO" resultClass="java.lang.Integer" >
+		<![CDATA[
+			SELECT
+				COUNT(a.NTT_ID)
+			FROM COMTNBBS a			        
+			WHERE a.BBS_ID = #bbsId#
+			AND      a.USE_AT = 'Y'		
+			AND      a.FRST_REGISTER_ID = #frstRegisterId#
+			AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe#
+			                                                           )
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>	
+			<isEqual prepend="AND" property="searchCnd" compareValue="2">
+				<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isNotEqual prepend="AND" property="trndSe" compareValue="">
+				<![CDATA[	a.TRND_SE = #trndSe# 		]]>
+			</isNotEqual>	
+	</select> 
+	
+	<select id="BBSManageDAO.selectAdminTrendArticleListCnt" parameterClass="BoardVO" resultClass="java.lang.Integer" >
+		<![CDATA[
+			SELECT
+				COUNT(a.NTT_ID)
+			FROM COMTNBBS a			        
+			WHERE a.BBS_ID = #bbsId#			
+			AND      a.USE_AT = 'Y'
+			AND      a.BSNS_SE_SHARE IN (SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #bsnsSe# 
+																		]]>
+																		<isNotEqual prepend="intersect" property="searchBsnsSe" compareValue="">
+																			<![CDATA[  SELECT BSNS_SE_DETAIL FROM  BSNS_SE WHERE BSNS_SE =  #searchBsnsSe# 		]]>
+																		</isNotEqual>
+					                                                       <![CDATA[   
+			)
+		]]>
+			<isEqual prepend="AND" property="searchCnd" compareValue="0">
+				<![CDATA[	a.NTT_SJ LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isEqual prepend="AND" property="searchCnd" compareValue="1">
+				<![CDATA[	a.NTT_CN LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>	
+			<isEqual prepend="AND" property="searchCnd" compareValue="2">
+				<![CDATA[	b.USER_NM LIKE '%' || #searchWrd# || '%' 		]]>
+			</isEqual>
+			<isNotEqual prepend="AND" property="nttTyCode" compareValue="">
+				<![CDATA[	a.TRND_SE = #nttTyCode# 		]]>
+			</isNotEqual>			
+	</select>		
+	
+ 
 	<select id="BBSManageDAO.selectBoardArticle" parameterClass="BoardVO" resultMap="boardDetail" >
 		<![CDATA[
 			SELECT
@@ -376,7 +778,7 @@
 				c.FILE_ATCH_POSBL_AT, c.ATCH_POSBL_FILE_NUMBER, c.BBS_NM,
 				a.REFRN_URL1, a.REFRN_URL2, a.REFRN_URL3, a.REFRN_URL4, a.REFRN_URL5,
 				a.BSNS_SE_SHARE, a.NTT_STTUS_CODE,
-				a.LAST_UPDUSR_ID, d.USER_NM as LAST_UPDUSR_NM, a.NTT_TY_CODE
+				a.LAST_UPDUSR_ID, d.USER_NM as LAST_UPDUSR_NM, a.NTT_TY_CODE, CPYRHT_ER, TRND_SE, KEYWORD
 			FROM COMTNBBS a
 						LEFT OUTER JOIN COMVNUSERMASTER b	ON a.FRST_REGISTER_ID = b.ESNTL_ID 
 						LEFT OUTER JOIN COMVNUSERMASTER d	ON a.LAST_UPDUSR_ID = d.ESNTL_ID 
@@ -407,7 +809,13 @@
 	                                             a.BSNS_SE,
 	                                             d.CODE_NM as BSNS_SE_NM,
 	                                             a.NTT_STTUS_CODE,                                          
-	                                             c.CODE_NM as NTT_TY_CODE_NM
+	                                             c.CODE_NM as NTT_TY_CODE_NM,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 '' as NTT_CN,
+												 '' as SCRAP_ID
 									FROM    COMTNBBS a
 												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID 
 												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
@@ -469,7 +877,13 @@
 	                                             a.BSNS_SE,
 	                                             d.CODE_NM as BSNS_SE_NM,
 	                                             a.NTT_STTUS_CODE,	                                             
-	                                             c.CODE_NM as NTT_TY_CODE_NM
+	                                             c.CODE_NM as NTT_TY_CODE_NM,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 '' as NTT_CN,
+												 '' as SCRAP_ID
 									FROM    COMTNBBS a
 												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID 
 												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
@@ -530,7 +944,13 @@
 	                                             a.BSNS_SE,
 	                                             d.CODE_NM as BSNS_SE_NM,
 	                                             a.NTT_STTUS_CODE,	                                             
-	                                             c.CODE_NM as NTT_TY_CODE_NM
+	                                             c.CODE_NM as NTT_TY_CODE_NM,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 '' as NTT_CN,
+												 '' as SCRAP_ID
 									FROM    COMTNBBS a
 												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID 
 												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
@@ -592,7 +1012,13 @@
 	                                             a.BSNS_SE,
 	                                             d.CODE_NM as BSNS_SE_NM,
 	                                             a.NTT_STTUS_CODE,	                                             
-	                                             c.CODE_NM as NTT_TY_CODE_NM
+	                                             c.CODE_NM as NTT_TY_CODE_NM,
+	                                             a.NTT_NO,
+	                                             a.CPYRHT_ER,
+												 a.TRND_SE,
+												 a.REFRN_URL1,
+												 '' as NTT_CN,
+												 '' as SCRAP_ID
 									FROM    COMTNBBS a
 												LEFT OUTER JOIN COMVNUSERMASTER b ON a.FRST_REGISTER_ID = b.ESNTL_ID 
 												LEFT OUTER JOIN COMTCCMMNDETAILCODE c ON a.NTT_TY_CODE = c.CODE
@@ -651,6 +1077,18 @@
 				REFRN_URL4 = #refrnUrl4#,
 				REFRN_URL5 = #refrnUrl5#,
 				BSNS_SE_SHARE = #bsnsSeShare#,
+				NTT_STTUS_CODE = #nttSttusCode#,
+				CPYRHT_ER = #cpyrhtEr#,
+				TRND_SE = #trndSe#,
+				KEYWORD = #keyword#				
+			WHERE BBS_ID = #bbsId#
+			AND NTT_ID = #nttId#
+ 		]]>
+ 	</update>
+ 	
+ 	<update id="BBSManageDAO.updateBoardNttSttusCode" parameterClass="Board">
+ 		<![CDATA[
+			UPDATE COMTNBBS SET 
 				NTT_STTUS_CODE = #nttSttusCode#
 			WHERE BBS_ID = #bbsId#
 			AND NTT_ID = #nttId#
@@ -695,9 +1133,9 @@
  	<update id="BBSManageDAO.updateInqireCo" parameterClass="BoardVO">
  		<![CDATA[
 			UPDATE COMTNBBS SET 
-				RDCNT = #inqireCo#,
-				LAST_UPDUSR_ID = #lastUpdusrId#,
-				LAST_UPDT_PNTTM = SYSDATE
+				RDCNT = (SELECT NVL(MAX(RDCNT),0)+1 AS RDCNT FROM COMTNBBS
+									WHERE BBS_ID = #bbsId#
+									AND NTT_ID = #nttId#) 
 			WHERE BBS_ID = #bbsId#
 			AND NTT_ID = #nttId#
  		]]>

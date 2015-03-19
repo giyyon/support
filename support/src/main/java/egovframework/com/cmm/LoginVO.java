@@ -74,7 +74,7 @@ public class LoginVO implements Serializable{
 	
 	
 	/**
-	 * @return the userBsnSe
+	 * @return the userBsnsSe
 	 */
 	public String getUserBsnsSe() {
 		userBsnsSe = EgovProperties.getProperty("Globals.BsnsSe");

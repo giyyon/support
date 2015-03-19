@@ -14,12 +14,10 @@
         	<div id="content-group">
         		<div id="lnb-group">
             		<ul id="lnb">
-                	<li><a href="#" class="select">공지사항</a></li>
-					<li><a href="#">뉴스레터</a></li>
-					<li><a href="#">문의∙제안∙신고</a></li>
-                    <li><a href="#">온라인도움말</a></li>
-					<li><a href="#">서비스정책</a></li>
-					<li><a href="#">회원정보</a></li>
+               	    <li><a href="/myInfo/myInfoView.do" class="select">회원정보 관리</a></li>
+					<li><a href="#">문의∙제안∙신고 관리</a></li>
+					<li><a href="/myInfo/trendList.do">최신동향정보 관리</a></li>
+                    <li><a href="#">생생현장소식 관리 </a></li>
                 	</ul>
                     
                     <ul class="quick">
@@ -198,8 +196,8 @@
                                                                         <input name="file1_text" type="text" class="w200">
                                     <form:hidden path="atchBizFileId" />
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%--                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">     --%>
                                    	<span class="con_inf txt11 fl100 fcYg">* 5M 미만의 파일만 허용됩니다.</span>
                                     <br>
                                      <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">

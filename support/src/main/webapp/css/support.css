@@ -100,8 +100,8 @@ a.tip_long p {
     display: none;
     position: absolute;
     top: -25px;
-    left: -230px;
-    width: 500px;
+    left: -150px;
+    width: 450px;
     padding: 5px;
     z-index: 100;
     background: #5b7ad3;

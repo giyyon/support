@@ -1313,14 +1313,14 @@ public class MberManageVO extends UserDefaultVO{
 		this.atchPortFileId = atchPortFileId;
 	}
 	/**
-	 * @return the bsnSe
+	 * @return the bsnsSe
 	 */
 	public String getBsnsSe() {
 	
 		return bsnsSe;
 	}
 	/**
-	 * @param bsnSe the bsnSe to set
+	 * @param bsnsSe the bsnsSe to set
 	 */
 	public void setBsnsSe(String bsnsSe) {
 	

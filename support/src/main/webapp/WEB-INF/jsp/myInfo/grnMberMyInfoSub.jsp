@@ -15,9 +15,9 @@
         	<div id="content-group">
         		<div id="lnb-group">
             		<ul id="lnb">
-               	    <li><a href="#" class="select">회원정보 관리</a></li>
+               	    <li><a href="/myInfo/myInfoView.do" class="select">회원정보 관리</a></li>
 					<li><a href="#">문의∙제안∙신고 관리</a></li>
-					<li><a href="#">최신동향정보 관리</a></li>
+					<li><a href="/myInfo/trendList.do">최신동향정보 관리</a></li>
                     <li><a href="#">생생현장소식 관리 </a></li>
                 	</ul>
                     
@@ -89,7 +89,7 @@
 				                                        		</c:when>
 
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgMainFileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImgMainFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 				                                        	
@@ -97,8 +97,7 @@
 				                                            	<input name="file1_text"  type="text" class="w200">
 				                                            	<form:hidden path="atchImgMainFileId"/>
 			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -114,15 +113,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgJobFileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImgJobFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImgJobFileId"/>
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -138,15 +137,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgManFileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImgManFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImgManFileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -162,15 +161,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImg1FileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImg1FileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImg1FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드">
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> 
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드">
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>  --%>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -186,15 +185,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImg2FileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImg2FileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImg2FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
-			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -218,13 +217,13 @@
                                     </span> 
                                 </li>
                                 <li><strong>홈페이지</strong>
-                                    <span class="con"><form:input path="homepageUrl" class="long" /> </span> 
+                                    <span class="con"><form:input path="homepageUrl" class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /> </span> 
                                 </li>
                                 <li><strong>블로그</strong>
-                                    <span class="con"><form:input path="blogUrl" class="long"/></span> 
+                                    <span class="con"><form:input path="blogUrl" class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /></span> 
                                 </li>
                                  <li><strong>소셜</strong>
-                                    <span class="con"><form:input path="socialUrl" class="long"/></span> 
+                                    <span class="con"><form:input path="socialUrl" class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /></span> 
                                 </li>
                                 <li><strong>자택전화</strong>
                                 	<span class="con">
@@ -457,8 +456,8 @@
 	                                    <input name="file1_text" type="text" class="w200">
 										<form:hidden path="atchHistFileId" />
 										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-	                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-	                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                   
+	                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 	                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                    --%>
                                     </div>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
@@ -473,8 +472,8 @@
                                     <input name="file1_text" type="text" class="w200">
 									<form:hidden path="atchPortFileId" />
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"   alt="다운로드"> 
-                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"   alt="다운로드"> 
+<%--                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">     --%>
                                     </div>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
@@ -498,10 +497,6 @@
                                  	}
                                     );
                                     </script>       
-<!--                                 	<textarea rows="4" cols="60" name="atte_rows" id="notice"  onkeyup="resize(this)"> -->
-<!--                                 	</textarea> -->
-                                    <!--가로 665사이즈 입력폼 -->
-<%--                                     <img src="${contextPath}/img/smart_form.png" width="665" height="328">  --%>
                                     </span>
                                 </li>
                             </ul>
@@ -831,11 +826,6 @@
 					return false;
 				});
   	}
-
-   	
-   	function doFinish(){
-   		  alert('파일이 삭제됩니다.');
-   	}
    	
    	function fn_dataParamSetting(category, fileMax, type, filesIds){
    		var fileExtn = '';

@@ -79,7 +79,6 @@ public class BBSManageDAO extends EgovComAbstractDAO {
 	return (BoardVO)select("BBSManageDAO.selectBoardArticle", boardVO);
     }
 
-    
     /**
      * 이전 게시물 id에 대하여 조회 한다.
      * 
@@ -138,6 +137,43 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     }
     
     /**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<BoardVO> selectTrendArticleList(BoardVO boardVO) throws Exception {
+	return (List<BoardVO>) list("BBSManageDAO.selectTrendArticleList", boardVO);
+    }
+    /**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<BoardVO> selectTrendScrapArticleList(BoardVO boardVO) throws Exception {
+	return (List<BoardVO>) list("BBSManageDAO.selectTrendScrapArticleList", boardVO);
+    }
+    
+    
+    /**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<BoardVO> selectMyTrendArticleList(BoardVO boardVO) throws Exception {
+	return (List<BoardVO>) list("BBSManageDAO.selectMyTrendArticleList", boardVO);
+    }
+    
+    
+    /**
      * 조건에 맞는 게시물 목록을 조회 한다.
      * 
      * @param boardVO
@@ -150,6 +186,17 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     }
 
     /**
+     * 조건에 맞는 최신동향정보 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<BoardVO> selectAdminTrendArticleList(BoardVO boardVO) throws Exception {
+	return (List<BoardVO>) list("BBSManageDAO.selectAdminTrendArticleList", boardVO);
+    }
+    /**
      * 조건에 맞는 게시물 목록에 대한 전체 건수를 조회 한다.
      * 
      * @param boardVO
@@ -158,6 +205,37 @@ public class BBSManageDAO extends EgovComAbstractDAO {
      */
     public int selectBoardArticleListCnt(BoardVO boardVO) throws Exception {
 	return (Integer)select("BBSManageDAO.selectBoardArticleListCnt", boardVO);
+    }
+    
+    /**
+     * 조건에 맞는 최신동향 목록에 대한 전체 건수를 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public int selectTrendArticleListCnt(BoardVO boardVO) throws Exception {
+	return (Integer)select("BBSManageDAO.selectTrendArticleListCnt", boardVO);
+    }
+    /**
+     * 조건에 맞는 최신동향 목록에 대한 전체 건수를 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public int selectTrendScrapArticleListCnt(BoardVO boardVO) throws Exception {
+	return (Integer)select("BBSManageDAO.selectTrendScrapArticleListCnt", boardVO);
+    }
+    /**
+     * 조건에 맞는 최신동향 목록에 대한 전체 건수를 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public int selectMyTrendArticleListCnt(BoardVO boardVO) throws Exception {
+	return (Integer)select("BBSManageDAO.selectMyTrendArticleListCnt", boardVO);
     }
     
 
@@ -171,7 +249,17 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     public int selectAdminBoardArticleListCnt(BoardVO boardVO) throws Exception {
 	return (Integer)select("BBSManageDAO.selectAdminBoardArticleListCnt", boardVO);
     }
-
+    
+    /**
+     * 조건에 맞는 최신동향 정보 목록에 대한 전체 건수를 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public int selectAdminTrendArticleListCnt(BoardVO boardVO) throws Exception {
+	return (Integer)select("BBSManageDAO.selectAdminTrendArticleListCnt", boardVO);
+    }    
     /**
      * 게시물 한 건의 내용을 수정 한다.
      * 
@@ -181,7 +269,16 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     public void updateBoardArticle(Board board) throws Exception {
 	update("BBSManageDAO.updateBoardArticle", board);
     }
-
+    
+    /**
+     * 게시물의 등록 상태 정보를 수정한다. (01:임시, 02:등록)
+     * 
+     * @param board
+     * @throws Exception
+     */
+    public void updateBoardNttSttusCode(Board board) throws Exception {
+	update("BBSManageDAO.updateBoardNttSttusCode", board);
+    }
     /**
      * 게시물 한 건을 삭제 한다.
      * 

@@ -36,7 +36,10 @@
 	                    <li><a href= "#"  onclick="javascript:getBsnsSeList('C') "  <c:if test="${searchVO.searchBsnsSe == 'C' }"> class="select"</c:if>>온라인 교육센터</a></li>    	                    
 	                </ul>
 	                <div class="srh_wrap tlr mtf14">
-	                <form name="frm" id="frm"  method="post">
+	                	<ul class="lst_m">
+	                    	<li class="wrt"><a href="/admin/noticeInsertPage.do">글쓰기</a></li>
+	                 	</ul>
+                <form name="frm" id="frm"  method="post">
 						<input type="hidden" name="bbsId" value="<c:out value='${boardVO.bbsId}'/>" />
 						<input type="hidden" name="nttId"  value="0" />
 						<input type="hidden" name="bbsTyCode" value="<c:out value='${brdMstrVO.bbsTyCode}'/>" />
@@ -46,10 +49,7 @@
 						<input name="searchBsnsSe" type="hidden" value="<c:out value='${searchVO.searchBsnsSe}'/>"/>
 						<input name="searchNttTy" type="hidden" value="<c:out value='${searchVO.searchNttTy}'/>"/>
 						<input name="sortType" type="hidden" value="<c:out value='${searchVO.sortType}'/>"/>
-						<ul class="lst_m">
-	                    	<li class="wrt"><a href="/admin/noticeInsertPage.do">글쓰기</a></li>
-	                 	</ul>
-                
+					
 	                  	<select name="searchCnd" class="select" title="검색조건선택">
 							   <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if> >제목</option>
 							   <option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if> >내용</option>
@@ -89,24 +89,6 @@
 						</ul>
 					</div>
  
-					<div class="pop-layer-cover">
-						<div class="bg"></div>
-						<div id="layer2" class="pop-layer">
-							<div class="pop-container">
-								<div class="pop-conts">
-									<!--content //-->
-									<p class="ctxt mb20"><strong><span>첨부파일</span></strong><br>
-									</p>
-									<div class="layerContent"></div>
-									<div class="btn-r">
-										<a href="#" class="cbtn">Close</a>
-									</div>
-									<!--// content-->
-								</div>
-							</div>
-						</div>
-					</div>
-
           <!-- 목록리스트 -->
           <div class="list_box">
 				<table class="mem_list">
@@ -156,13 +138,8 @@
 									<span class="file">
 										<c:choose>
 											<c:when test="${fn:length(result.atchFileId) > 0}">
-											
-											
 												<input type="hidden"name="atchFileId"  value="<c:out value='${result.atchFileId}'/>"/>
-<%--                                   				<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드">  --%>
-<%-- 												<a href="#" class="btn-example" onclick="layer_open('layer2', '${result.atchFileId}');return false;"> --%>
-													<img name="btnFileDownload"  data_type="file"   src="${contextPath}/img/ico_hwp.png" alt="아래한글">
-<!-- 												</a> -->
+												<img name="btnFileDownload"  data_type="file"   src="${contextPath}/img/ico_hwp.png" alt="아래한글">
 											</c:when>
 											<c:otherwise>
 											&nbsp;
@@ -172,7 +149,15 @@
 								</td>
 								<td class="num2"><span class="date"><c:out value="${result.frstRegisterPnttm}"/></span></td>
 								<td class="num2"><span class="hit"><c:out value="${result.inqireCo}"/></span></td>
-								<td class="rmx"><a href="#"><img src="${contextPath}/img/ico_regist.png" alt="등록"></a>
+								<td class="rmx">
+																<c:choose>
+																	<c:when test="${result.nttSttusCode == '01'}">
+																		<a href="javacript:#"  ><img src="${contextPath}/img/admin/ico_ing.png" alt="등록"   data="02"  onclick="javascript:layer_open( '<c:out value='${result.nttId}'/>' , '<c:out value='${result.nttSj}' />'  , $(this)  )" ></a>
+																	</c:when>
+																	<c:otherwise>
+																	<a href="javacript:#"  ><img src="${contextPath}/img/ico_regist.png" alt="등록"   data="01" onclick="javascript:layer_open('<c:out value='${result.nttId}'/>' , '<c:out value='${result.nttSj}' />'  , $(this)  )" ></a>
+																	</c:otherwise>
+																</c:choose>
 								                               <a href="/admin/noticeModifyPage.do?nttId=<c:out value="${result.nttId}"/>"><img src="${contextPath}/img/ico_modify.png" alt="수정"></a>
 								                               <a href="/admin/deleteBoardArticle.do?nttId=<c:out value="${result.nttId}"/>"><img src="${contextPath}/img/ico_delete.png" alt="삭제"></a>
 								                               <input name="delChk" class="check" type="checkbox" value="<c:out value="${result.nttId}"/>"></td>
@@ -181,6 +166,36 @@
 						</form>
 							
           	</table>   
+          	<!--//팝업 레이어 -->
+					<div class="pop-layer-cover">
+						<div class="bg"></div>
+						<div id="layer2" class="pop-layer">
+							<div class="pop-container">
+								<div class="pop-conts">
+									<!--//content -->
+									<p class="ctxt mb20"><strong><span>게시 상태 변경</span></strong><br>
+									</p>
+									<div class="layerContent">
+										<form name = "popupForm" >
+											<input type="hidden" name="bbsId" value="BBSMSTR_000000000001" >
+											<input type="hidden"  name="nttSttusCode" > 
+											<input type="hidden"  name="nttId">
+											<div id="targetText"></div><br>
+											<input type="button" id="popupBtn" class="btn-style"  value="게시 상태 변경 ">
+										</form>
+									</div>
+									<div class="layerContent_result">
+									</div>
+									<div class="btn-r">
+										<div  class="cbtn">Close</div>
+									</div>
+									<!--//content -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--//팝업 레이어 -->			
+          	
           	        </div>
                     <!-- //목록리스트 -->
                     <!--pageing -->
@@ -257,7 +272,7 @@
 
 	function goDeleteArray(){
 		if(confirm("선택된 항목이 일괄 삭제 됩니다. \n 일괄 삭제하시겠습니까?")){
-			$("#subForm").attr({action:"${contextPath}/admin/deleteCheckedList.do"});
+			$("#subForm").attr({action:"${contextPath}/admin/deleteCheckedNoticeList.do"});
 			$("#subForm").submit();
 		}
 	}
@@ -270,10 +285,17 @@
 	});
 	</script>
 	
-<script type="text/javascript">
-	function layer_open(el, fileId){
-
-		var temp = $('#' + el);
+	<script type="text/javascript">
+	function layer_open( targetId, targetSubject, $Object){
+		var nttSttusCode = $Object.attr('data'); 
+		var nttSttusCodeNm =($Object.attr('data') == '01')?'임시':'등록';
+ 		
+		
+		
+		$(".layerContent_result").hide();
+		$(".layerContent").show();
+		
+		var temp = $('#layer2');
 		var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
 
 		if(bg){
@@ -288,21 +310,39 @@
 		if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
 		else temp.css('left', '0px');
 		
-		//$(".layerContent").load("${contextPath}/cmm/fms/selectFileInfs.do"+"?param_atchFileId"+fileId);
-
-		// 요래 하면 여러가지 다양한 ajax 옵션을 줄수 있어서 개인적으로 더 선호한다.
-		$.ajax({
-		    url : "${contextPath}/cmm/fms/selectFileInfs.do",
-		    dataType : "html",
-		    type : "post",  // post 또는 get
-		    data : { param_atchFileId:fileId},   // 호출할 url 에 있는 페이지로 넘길 파라메터
-		    success : function(result){
-		        $(".layerContent").html(result);
-		    }
-		});
+		$("#targetText").html("["+targetSubject+"] <br>본글의 게시 상태를 ["+nttSttusCodeNm+"]상태 변경하시겠습니까?");
+		$("form[name=popupForm] input[name=nttSttusCode]").val(nttSttusCode);
+		$("form[name=popupForm] input[name=nttId]").val(targetId);
 		
-		
-		temp.find('a.cbtn').click(function(e){
+		temp.find('#popupBtn').bind('click', function() {
+			doSubmit();  
+		  });
+			 
+		var doSubmit = function(){
+			temp.find('#popupBtn').unbind('click');
+			var infoData = $("form[name=popupForm]").serialize();
+	 		$.ajax({
+			    url : "${contextPath}/admin/jsonUpdateBoardNttSttusCode.do",
+			    dataType : "json",
+			    type : "post",  // post 또는 get
+			    data :infoData,   // 호출할 url 에 있는 페이지로 넘길 파라메터
+			    success : function(result){
+			        $(".layerContent_result").html("정상적으로 변경 처리 되었습니다.");
+			        $(".layerContent").hide();
+			        $(".layerContent_result").show();
+			        if(nttSttusCode == '01'){
+			        	$Object.attr("src","/img/admin/ico_ing.png");
+			        	$Object.attr("data", "02");
+			        }
+			        else{
+			        	$Object.attr("src","/img/ico_regist.png");
+			        	$Object.attr("data", "01");
+			        }
+			    }
+			});
+		};	
+			
+		temp.find('div.cbtn').click(function(e){
 			if(bg){
 				$('.pop-layer-cover').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
 			}else{
@@ -310,12 +350,11 @@
 			}
 			e.preventDefault();
 		});
-
-		$('.pop-layer-cover .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+		
+		//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+		$('.pop-layer-cover .bg').click(function(e){	
 			$('.pop-layer-cover').fadeOut();
 			e.preventDefault();
 		});
-
-	}				
+	}
 </script>
-

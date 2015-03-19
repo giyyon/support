@@ -57,8 +57,11 @@ public class EgovEntrprsManageServiceImpl extends EgovAbstractServiceImpl implem
 	 */
     public String insertEntrprsmber(EntrprsManageVO entrprsManageVO) throws Exception  {
         //고유아이디 셋팅
-    	String uniqId = idgenService.getNextStringId();
-        entrprsManageVO.setUniqId(uniqId);
+		String uniqId = "";
+		if (entrprsManageVO.getUniqId() == null || entrprsManageVO.getUniqId().equals("")){
+			uniqId = idgenService.getNextStringId();
+			entrprsManageVO.setUniqId(uniqId);
+		}
         //패스워드 암호화
 		String pass = EgovFileScrty.encryptPassword(entrprsManageVO.getEntrprsMberPassword());
 		entrprsManageVO.setEntrprsMberPassword(pass);

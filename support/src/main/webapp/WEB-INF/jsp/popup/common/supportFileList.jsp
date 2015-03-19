@@ -8,16 +8,6 @@
 
 %>
 
-<script type="text/javascript">
-
-	function fn_egov_downFile(atchFileId, fileSn){
-		window.open("<c:url value='/files/download.do?atchFileId="+atchFileId+"&fileSn="+fileSn+"'/>");
-	}
-	$(document).ready(function(){
-		var size = "("+BIT.formatFileSize($(".calSize").attr("fileSize"))+")";
-		$(".calSize").append(size);;  
-	});
-</script>
 
 <!--<title>파일목록</title> -->
 
@@ -25,7 +15,8 @@
 		<c:forEach var="fileVO" items="${fileList}" varStatus="status">
 		<tr>
 			<td>
-					<div class="calSize"  fileSize='${fileVO.fileMg}'> <c:out value="${fileVO.orignlFileNm}"/>&nbsp; </div>
+					<div class="calSize"  fileSize='${fileVO.fileMg}'> <c:out value="${fileVO.orignlFileNm}"/>&nbsp; 
+					<script>document.write('('+BIT.formatFileSize(${fileVO.fileMg})+')')</script> </div>
 			</td>
 		</tr>
 		</c:forEach>
@@ -35,3 +26,17 @@
 			</tr>
 	    </c:if>
 	</table>
+	
+<script type="text/javascript">
+
+	function fn_egov_downFile(atchFileId, fileSn){
+// 		window.open("<c:url value='/files/download.do?atchFileId="+atchFileId+"&fileSn="+fileSn+"'/>");
+	}
+// 	$(document).ready(function(){
+// 		$(".calSize").each(function(){
+// 			var size = "("+BIT.formatFileSize($(this).attr("fileSize"))+")";
+// 			$(this).append(size);
+// 		});
+
+// 	});
+</script>

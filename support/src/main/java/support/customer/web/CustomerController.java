@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -85,25 +88,6 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	public String index(ModelMap model) {
 		return "basic_customer/noticeList";
 	}
-	@RequestMapping(value="/notice2.do", method = RequestMethod.GET)
-	public String notice2(ModelMap model) {
-		return "default";
-	}
-	
-	@RequestMapping(value="/notice3.do", method = RequestMethod.GET)
-	public ModelAndView notice(ModelMap model, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		
-		//String redirectUrl = request.getContextPath() + "/futures/topic/view.fts?"
-		String redirectUrl = "/cop/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000001";
-		RedirectView rv = new RedirectView(redirectUrl);
-		rv.setExposeModelAttributes(false);
-		
-		mav.setViewName(redirectUrl);
-		
-		return mav;
-		
-	}
 	
     /**
      * 게시물에 대한 목록을 조회한다.
@@ -115,7 +99,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
      * @throws Exception
      */
     @RequestMapping("/noticeList.do")
-    public String selectNoticeBoardArticles(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+    public String noticeList(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 
 	//log.debug(this.getClass().getName() + " user.getId() "+ user.getId());
@@ -210,7 +194,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
      * @throws Exception
      */
     @RequestMapping("/noticeInqire.do")
-    public String selectNoticeBoardArticle(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+    public String noticeInqire(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 
 	// 조회수 증가 여부 지정
@@ -301,7 +285,7 @@ public class CustomerController implements ApplicationContextAware, Initializing
      * @throws Exception
      */
     @RequestMapping("/noticeInqirePopUp.do")
-    public String selectNoticeBoardArticlePopUp(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+    public String noticeInqirePopUp(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 
 	// 조회수 증가 여부 지정
@@ -377,4 +361,36 @@ public class CustomerController implements ApplicationContextAware, Initializing
 	return ".popup_noticeInqirePopUp";
     }
     
+	/**
+	 * 약관  화면
+	 * @param 
+	 * @return 회사 소개  화면
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/terms.do")
+	public String terms() throws Exception {
+		return ".basic_customer/terms";
+	}
+	
+	/**
+	 * 개인정보 정책  화면
+	 * @param 
+	 * @return 회사 소개  화면
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/privateInfoPolicy.do")
+	public String privateInfoPolicy() throws Exception {
+		return ".basic_customer/privateInfoPolicy";
+	}
+	
+	/**
+	 * 개인정보 정책  화면
+	 * @param 
+	 * @return 회사 소개  화면
+	 * @exception Exception
+	 */
+	@RequestMapping(value = "/emailInfoPolicy.do")
+	public String emailInfoPolicy() throws Exception {
+		return ".basic_customer/emailInfoPolicy";
+	}
 }

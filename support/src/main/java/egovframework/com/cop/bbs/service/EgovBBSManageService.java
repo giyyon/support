@@ -93,8 +93,33 @@ public interface EgovBBSManageService {
      */
     public Map<String, Object> selectBoardArticles(BoardVO boardVO, String attrbFlag) throws Exception;
 
+    /**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> selectTrendArticleList(BoardVO boardVO, String attrbFlag) throws Exception;
+    /**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> selectTrendScrapArticleList(BoardVO boardVO, String attrbFlag) throws Exception;
     
     
+    
+    /**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> selectMyTrendArticleList(BoardVO boardVO, String attrbFlag) throws Exception;
     /**
      * 조건에 맞는 게시물 목록을 조회 한다.
      * 
@@ -104,6 +129,17 @@ public interface EgovBBSManageService {
      */
     public Map<String, Object> selectAdminBoardArticles(BoardVO boardVO, String attrbFlag) throws Exception;
 
+    
+    
+    /**
+     * 조건에 맞는 최신동향 정보 게시물 목록을 조회 한다.
+     * 
+     * @param boardVO
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> selectAdminTrendArticleList(BoardVO boardVO, String attrbFlag) throws Exception;
+
     /**
      * 게시물 한 건의 내용을 수정 한다.
      * 
@@ -112,6 +148,14 @@ public interface EgovBBSManageService {
      */
     public void updateBoardArticle(Board Board) throws Exception;
 
+    
+    /**
+     *  게시물의 등록 상태 정보를 수정한다. (01:임시, 02:등록)
+     * 
+     * @param Board
+     * @throws Exception
+     */
+    public void updateBoardNttSttusCode(Board Board) throws Exception;
     /**
      * 방명록에 대한 목록을 조회 한다.
      * 

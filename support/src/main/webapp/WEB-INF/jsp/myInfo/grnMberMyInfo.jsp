@@ -15,9 +15,9 @@
         	<div id="content-group">
         		<div id="lnb-group">
             		<ul id="lnb">
-               	    <li><a href="#" class="select">회원정보 관리</a></li>
+               	    <li><a href="/myInfo/myInfoView.do" class="select">회원정보 관리</a></li>
 					<li><a href="#">문의∙제안∙신고 관리</a></li>
-					<li><a href="#">최신동향정보 관리</a></li>
+					<li><a href="/myInfo/trendList.do">최신동향정보 관리</a></li>
                     <li><a href="#">생생현장소식 관리 </a></li>
                 	</ul>
                     
@@ -60,7 +60,7 @@
                                
                     <form:form commandName="mberManageVO"  id="form">      
 	                    <input type="hidden" id="mberEmailAdres" name="mberEmailAdres" value="<c:out value='${loginVO.email}'/>">
-	                    <input type="hidden" id="moblphonNo"  name="moblphonNo"  value="<c:out value='${loginVO.mbTlNum}'/>">
+<%-- 	                    <input type="hidden" id="moblphonNo"  name="moblphonNo"  value="<c:out value='${loginVO.mbTlNum}'/>"> --%>
 	                    <input type="hidden" id="ihidnum" name="ihidnum" > <!--주민번호 -->
 	                    <input type="hidden" id="userSe" name="userSe" value="<c:out value='${loginVO.userSe}'/>">
 	                    <input type="hidden" id="zip" name="zip" value='' ><!-- 우편번호 -->

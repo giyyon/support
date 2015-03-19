@@ -18,12 +18,12 @@
         	<div id="content-group">
         		<div id="lnb-group">
             		<ul id="lnb">
-									<li class="smenu2"><a href="#" class="select">전체개인회원 관리</a></li>
-									<li class="smenu3"><a href="#">- 협약개인회원</a></li>
-									<li class="smenu3"><a href="#">- 운영위원</a></li>
-									<li class="smenu3"><a href="#">- 전문위원</a></li>
-									<li class="smenu2"><a href="#">전체기관∙기업회원 관리</a></li>
-									<li class="smenu3"><a href="#">- 협약기관∙기업회원</a></li>
+									<li class="smenu2"><a href="/admin/gnrMberList.do" class="select">전체개인회원 관리</a></li>
+									<li class="smenu3"><a href="/admin/gnrMberList.do">- 협약개인회원</a></li>
+									<li class="smenu3"><a href="/admin/gnrMberList.do">- 운영위원</a></li>
+									<li class="smenu3"><a href="/admin/gnrMberList.do">- 전문위원</a></li>
+									<li class="smenu2"><a href="/admin/entMberList.do">전체기관∙기업회원 관리</a></li>
+									<li class="smenu3"><a href="/admin/entMberList.do">- 협약기관∙기업회원</a></li>
                </ul>
             	</div>
             	<!--//lnb-group -->
@@ -43,7 +43,7 @@
                     </ul>
                     <div class="srh_wrap tlr mtf14">
                     	<ul class="lst_m">
-                            <li class="minfo"><a href="#">비회원등록</a></li>
+                            <li class="minfo"><a href="/admin/gnrMberDetail.do">비회원등록</a></li>
                         </ul>
                         
                     	<form name="frm" id="frm"  method="post">
@@ -56,7 +56,7 @@
 						<input name="searchMberSeNm" type="hidden" value="<c:out value='${userSearchVO.searchMberSeNm}'/>"/>
 						<input name="searchMberType" type="hidden" value="<c:out value='${userSearchVO.searchMberType}'/>"/>
 						<input name="searchMberTypeNm" type="hidden" value="<c:out value='${userSearchVO.searchMberTypeNm}'/>"/>
-						<input type="hidden" name="mberId"  value="test"/>	
+						<input type="hidden" name="mberId"  />	
 
 	                  	<select name="searchCnd" class="select" title="검색조건선택">
 						   <option value="0" <c:if test="${userSearchVO.searchCnd == '0'}">selected="selected"</c:if> >아이디</option>
@@ -150,8 +150,7 @@
 								<input name="searchMberSeNm" type="hidden" value="<c:out value='${userSearchVO.searchMberSeNm}'/>"/>
 								<input name="searchMberType" type="hidden" value="<c:out value='${userSearchVO.searchMberType}'/>"/>
 								<input name="searchMberTypeNm" type="hidden" value="<c:out value='${userSearchVO.searchMberTypeNm}'/>"/>
-				             	<input type="hidden" name="seq" value="<c:out value='${result.seq}'/>"/>	
-				             	<input type="hidden" name="mberId"  value="test"/>	
+				             	<input type="hidden" name="seq" value="<c:out value='${result.seq}'/>"/>
             			     <c:forEach var="result" items="${resultList}" varStatus="status">
 					          <tr>
 									<td class="num"><a href="#" class="tip">고유번호 <p><c:out value='${result.uniqId}'/></p></a><br><span><c:if test='${result.mberType == "C01" }'>탈퇴</c:if></span></td>
@@ -161,8 +160,7 @@
 					                                        			<img src="${contextPath}/img/noimg.png">
 					                                        		</c:when>
 					                                        		<c:otherwise>		
-					                                        			<img src="${contextPath}/files/imageSrcByFileId.do?fileId=${result.atchImgMainFileId}"  style="height: auto; 0% 50% no-repeat;">		                                        		
-	<%-- 				                                        			<dt class="img_div"  style="background: url(${contextPath}/files/imageSrcByFileId.do?fileId=${result.atchImgMainFileId}) 0% 50% no-repeat;"></dt> --%>
+					                                        			<img src="${contextPath}/files/imageThumnailSrcByFileId.do?fileId=${result.atchImgMainFileId}"  style="height: auto; 0% 50% no-repeat;">		                                        		
 					                                        		</c:otherwise>
 					                                        	</c:choose>
 	                                
@@ -178,7 +176,7 @@
 	                                <td class="txt11_space"><c:out value='${result.userNm}'/><br><c:out value='${result.ihidnum}'/></td>
 	                                <td class="num2"><c:out value='${result.moblphonNo}'/><br><a href="#"><c:out value='${result.emailAdres}'/></a></td>
 	                                <td class="num2"><c:out value='${result.areaNo}'/>-<c:out value='${result.middleTelno}'/>-<c:out value='${result.endTelno}'/><br><c:out value='${result.mberFxnum}'/></td>
-	                                <td><c:out value='${result.pstinst}'/><br><a href="#" class="tip_long"><c:out value='${fn:substring(result.adres,0,10)}'/> <p><c:out value='${result.adres}'/></p></td>
+	                                <td><c:out value='${result.pstinst}'/><br><a href="#" class="tip_long"><c:out value='${fn:substring(result.adres,0,7)}'/> <p><c:out value='${result.adres}'/>&nbsp; <c:out value='${result.detailAdres}'/></p></td>
 	                                <td class="num2"><c:out value='${result.sbscrbDe}'/><br><c:out value='${result.loginDe}'/></td>
 	                                <td class="m_ch">
 	                                <p onclick='goMberDetail("${result.mberId}")'  style="cursor:pointer"><img src="${contextPath}/img/admin/ico_detail.png" alt="회원상세정보" >  회원상세정보</p>
@@ -214,6 +212,7 @@
 											<input type="hidden" value="111111" name="password">
 											<input type="hidden" name="mberId">
 											<input type="hidden"  name="uniqId">
+											<input type="hidden"  name="userSe" value="GNR">
 											<div id="targetText"></div><br>
 											<input type="button" id="passwordBtn" class="btn-style"  value="비밀번호 변경">
 										</form>

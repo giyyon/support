@@ -143,6 +143,8 @@
 	.list_head .Hfile {float:left;width:7%; text-align:center;font-size:12px; border-right:solid 1px #e8e8e8;}
 	.list_head .Hdate {float:left;width:13%; text-align:center;font-size:12px !important;border-right:solid 1px #e8e8e8;}
 	.list_head .Hhit {float:left;width:11%; text-align:center;font-size:12px}
+	.list_head .Hpicinf  {float:left;width:29%; text-align:center;border-right:solid 1px #e8e8e8;}
+	.list_head .Hpntinf  {float:left;width:70%; text-align:center;}
 
 .bbs_lst {float:left; width:100%; border-bottom:1px solid #efefef; padding:14px 0 14px 0; color:#656565; line-height:18px; }.bbs_lst img { vertical-align:middle}
 	.bbs_lst .num{ float:left; width:7%;font-size:12px;text-align:center;}.bbs_lst .num em { color:#c96562 !important}
@@ -151,6 +153,31 @@
 	.bbs_lst .file {float:left;width:7%; text-align:center;font-size:12px}
 	.bbs_lst .date {float:left;width:13%; text-align:center;font-size:12px !important}
 	.bbs_lst .hit {float:left;width:11%; text-align:center;font-size:12px}
+	.picinf {float:left;width:13%; min-width:100px; text-align:center; margin-right:20px}
+	.picimg {width:100px;height:74px; border:solid 1px #E8E8E8}
+	.picimg img{width:100px;height:74px; padding-left:0 !important}
+	.picimg a{width:100px;height:74px; display:block }
+	.pntinf {float:left;width:100%; text-align:left; margin:8px 0}
+	.pntinf p {float:left; width:100%; line-height:20px;}
+	.pntinf p a {  color:#000 !important;font-weight:bold; padding-bottom:8px; padding-right:10px; }
+	.pntinf p .viw { color:#7D7D7D}
+	.pntinf p .viw em { padding:0 6px; color:#CCCCCC}
+	.pntinf p .viw a{ font-size:11px;font-weight:normal; color:#da7673 !important; display:inline-block;padding-right:0; }
+	.pntinf p .re {color:#c3c3c3;display:inline-block}
+	.pntinf p .re a{ font-size:11px;font-weight:bold; color:#727272 !important; display:inline-block; padding-left:3px}
+	.pntinf span {}
+	.pntinf span a { color:#868686 !important;}	
+	.pntinf ul { margin-top:10px; font-size:11px; width:100%; float:left}
+	.pntinf li{ float:left; width:40%; text-align:left}
+	.pntinf li a { color:#5b7ad3 !important}
+	.pntinf li.num { text-align:right; width:60%}
+	.pntinf li.num em{color:#CCC !important}
+	.picimg_s {width:120px;height:80px; border:solid 1px #E8E8E8}
+	.picimg_s img{width:120px;height:80px; padding-left:0 !important}
+	.picimg_s a{width:120px;height:80px; display:block }
+
+	.ing_end { background:url(../img/ico_end.png) 0 6px no-repeat; padding-left:16px;float:left; width:50px }
+	.ing_work {background:url(../img/ico_ing.png) 0 6px no-repeat; padding-left:16px;float:left; width:50px}
 
 .view_info_lst { float:left;width:100%; font-size:11px; position:relative; padding:14px 0 19px 0; border-bottom:solid 1px #f2f2f2; }
 .view_info { float:left;width:100%; font-size:11px; position:relative; padding:14px 0 19px 0;}.view_info em{color:#b6b6b6; padding:0 8px}
@@ -176,14 +203,37 @@
 .bview_box ul li{ float:left;}
 .bview_box ul li strong { float:left;width:70px; color:#000000; border-right:solid 1px #e8e8e8; margin-right:14px; padding-left:4px}
 .bview_box ul li.full{width:100%;border-bottom:solid 1px #d8d8d8; padding:9px 0}
-/*.bview_box ul li.full input { margin-right:5px}*/
+.bview_box ul li.full dl dt { float:left; width:20%; text-align:center}
+.bview_box ul li.full dl dt img { padding-top:3px}
+.bview_box ul li.full dl dd { float:left; width:80%}
+.bview_box ul li.full dl dd .con-box{float:left; width:100%;border-bottom:solid 1px #d8d8d8; padding:7px 0}
+.bview_box ul li.full dl dd .con-boxw{float:left; width:100%;border-bottom:0; padding:7px 0}
+.bview_box ul li.full dl dd .con-boxh{float:left; width:50%;border-bottom:solid 1px #d8d8d8; padding:7px 0}
+.bview_box ul li.full dl dd strong { float:left;width:80px; color:#000000; border-right:solid 1px #e8e8e8; margin-right:14px; padding-left:4px}
+.bview_box ul.in_full ul {width:100%; float:left;border-bottom:solid 1px #fff;}
+.bview_box ul.in_full ul li {width:100%; float:left}
 .bview_box ul li.part { width:50%;padding:9px 0}
 .bview_box ul li.part .file_bx { float:left; display:block}
 .bview_box ul li.part2 { width:33.3%;padding:9px 0;border-bottom:solid 1px #d8d8d8;}
 .bview_box ul li.partl { width:50%;padding:9px 0;border-bottom:solid 1px #d8d8d8;}
 .bview_box ul li span { display:block}
 .bview_box .cont { float:left; width:100%; padding:30px 0; text-align:left; border-bottom:solid 1px #CCCCCC}
+.bview_box ul li.full textarea { width:680px; padding:10px 0; border:1px solid #CCC;}
+.bview_box ul li em { color:#686868; padding-left:15px; font-size:12px; display:inline-block}
+.bview_box ul li em img{ padding-right:4px}
+.bview_box input { height:32px}
 
+.bview_box2 { float:left;border-top:0;margin-top:5px;border-top:solid 1px #333333; width:100%; position:relative}
+.bview_box2 ul{}
+.bview_box2 ul li{ float:left;}
+.bview_box2 ul li strong { float:left;width:100px; color:#000000; border-right:solid 1px #e8e8e8; margin-right:14px; padding-left:4px}
+.bview_box2 ul li.full{width:100%;border-bottom:solid 1px #d8d8d8; padding:9px 0}
+.bview_box2 ul li.part { width:50%;padding:9px 0;border-bottom:solid 1px #d8d8d8; }
+.bview_box2 ul li.part .file_bx { float:left; display:block}
+.bview_box2 ul li span { display:block}
+.bview_box2 ul li select { height:28px; line-height:28px; font-size:13px; margin:0}
+
+.thanks { background-color:#f1f6ff; text-align:center; float:left; margin:20px 0; padding:12px 0; font-weight:600; color:#039; line-height:24px; font-size:14px}
 ul.wrt_box { float:left;margin-top:20px; width:100%; position:relative; background-color:#f7f7f7}
 ul.wrt_box li{ float:left;border-bottom:solid 1px #fff; padding:12px 0; width:100%}
 ul.wrt_box li strong { float:left;width:90px; color:#000000; border-right:solid 1px #e8e8e8; margin-right:14px; padding-left:18px;border-right:solid 1px #fff;}
@@ -219,6 +269,7 @@ ul.wrt_box li.next { background:url(../img/ico_next.png) 75px 16px no-repeat}
 .mem_info_sect .txt2 .inf{ color:#7588e1; display:block; margin:5px 0 10px; font-size:15px}
 .mem_info_sect input { height:32px; margin:2px 0}
 .mem_info_sect select { height:32px}
+.mem_info_sect .text_w { height:200px}
 .mem_info { width:94%; border-bottom:solid 1px #E0E0E0;border-top:solid 1px #E0E0E0; background-color:#faf8f1; padding:3%}
 .mem_box{border-top:2px solid #2043a3;border-bottom:1px solid #2043a3;}
 .mem_btn { margin:0 auto; width:304px;float:none}
@@ -275,6 +326,15 @@ ul.lst_m li.wrt { background:url(../img/ico_swrt.png) no-repeat; background-posi
 ul.lst_m li.minfo { background:url(../img/ico_sminf.png) no-repeat; background-position:4px 3px; padding-left:22px;}
 ul.lst_m li a { width:auto;color:#8d8d8d !important; font-size:11px; line-height:21px;   }
 ul.lst_m li.br { border-right: solid 1px #dfdfdf}
+
+.reply_w {float:left;margin-top:20px; width:99.7%; position:relative; background-color:#f8f8f8; border:solid 1px #eaeaea}
+.reply_w .txtbox { float:left; width:94%; margin:3%; position:relative; }
+.reply_w .txtbox .bn_reply { position:absolute; width:14.9%; height:60px; background:#FFF; display:block; right:0; border:solid 1px #ededed}
+.reply_w .txtbox .bn_reply a{ display:block;width:100%; height:60px; text-align:center; line-height:60px; font-weight:600; }
+.reply_w .txtbox textarea{ width:85%; height:60px; border:solid 1px #ededed}
+.review { float:left;width:93.8%;border-left:solid 1px #ededed;border-right:solid 1px #ededed;border-bottom:solid 1px #ededed; padding:12px 3%;}
+.review dt {float:left;width:11%; color:#000000; font-size:13px}
+.review dd {float:left; font-size:12px; color:#717171; width:86.5%; border-left:solid 1px #ededed; padding-left:2%; line-height:20px}
 	
 /*페이징*/
 .paginate_complex{padding:35px 0 10px;line-height:normal;text-align:center; width:100%; float:left;}
@@ -321,7 +381,7 @@ table.mem_list .mem {font-size:11px; vertical-align:middle; color:#7f8db4}
 table.mem_list .m_ch a{ color:#b39762 !important}
 table.mem_list .rmx img{ padding-top:3px}table.mem_list .rmx a { padding-right:1px}
 
-.num2{font-size:11px;color:#5d5d5d; font-family:Tahoma, Geneva,sans-serif;text-align:center}
+.num2{font-size:11px;color:#5d5d5d; text-align:center}
 
 .long { width:398px}
 .long2 { width:293px}

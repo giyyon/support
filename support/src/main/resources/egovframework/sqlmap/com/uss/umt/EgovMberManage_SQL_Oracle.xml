@@ -105,7 +105,6 @@
                 a.END_TELNO             as "endTelno",
                 a.MBTLNUM           as "moblphonNo",
                 a.GROUP_ID              as "groupId",
-                a.MBER_STTUS            as "sttus",
                 to_char(a.SBSCRB_DE,'yyyy-mm-dd')             as "sbscrbDe",
                 a.ATCH_IMG_MAIN_FILE_ID  as "atchImgMainFileId",
                 a.MBER_TYPE              as "mberType",
@@ -116,13 +115,15 @@
                 a.MBER_FXNUM             as "mberFxnum",
                 a.PSTINST                as "pstinst",
                 a.ADRES                  as "adres",
-                to_char(a.LOGIN_DE,'yyyy-mm-dd')                 as "loginDe"
+                a.DETAIL_ADRES as "detailAdres",
+                to_char(a.LOGIN_DE,'yyyy-mm-dd')                 as "loginDe",
+                to_char(a.UPDT_DE,'yyyy-mm-dd')                 as "updtDe"
 		    FROM    COMTNGNRLMBER a
 		                   ,COMTCCMMNDETAILCODE cd
 	        <isNotEqual prepend="" property="searchActiveTyCd" compareValue="">
 	         			  , COMTNGNRLMBER_ACTIVE_TY b
 	        </isNotEqual>                
-		    WHERE a.MBER_TYPE = cd.CODE
+		    WHERE a.MBER_SE = cd.CODE
 		    AND      cd.CODE_ID = 'SUP012'
 		    <isNotEqual prepend="" property="searchActiveTyCd" compareValue="">
 			 			AND a.MBER_ID = b.MBER_ID
@@ -529,23 +530,62 @@
     <update id="mberManageDAO.updateMber_S">
         <![CDATA[
             UPDATE COMTNGNRLMBER 
-            SET MBER_ID          = #mberId#,
-                MBER_NM          = #mberNm#,
-                PASSWORD_HINT    = #passwordHint#,
-                PASSWORD_CNSR    = #passwordCnsr#,
-                IHIDNUM          = #ihidnum#,
-                SEXDSTN_CODE     = #sexdstnCode#,
-                ZIP              = #zip#,
-                ADRES            = #adres#,
-                AREA_NO          = #areaNo#,
-                MBER_STTUS       = #mberSttus#,
-                DETAIL_ADRES     = #detailAdres#,
-                END_TELNO        = #endTelno#,
-                MBTLNUM      = #moblphonNo#,
-                GROUP_ID         = #groupId#,
-                MBER_FXNUM       = #mberFxnum#,
-                MBER_EMAIL_ADRES = #mberEmailAdres#,
-                MIDDLE_TELNO     = #middleTelno#
+            SET 
+							IHIDNUM                  = #ihidnum#,                        
+							ZIP                      = #zip#,                        
+							ADRES                    = #adres#,                      
+							AREA_NO                  = #areaNo#,                     
+							DETAIL_ADRES              = #detailAdres#,                
+							END_TELNO                = #endTelno#,                   
+							MBTLNUM                  = #moblphonNo#,                    
+							MBER_FXNUM               = #mberFxnum#,                  
+							MBER_EMAIL_ADRES          = #mberEmailAdres#,             
+							MIDDLE_TELNO             = #middleTelno#,                
+							SEXDSTN_CODE             = #sexdstnCode#,                
+							SUN_LUNAR                = #sunLunar#,                   
+							NM_OTHBC_AT                = #nmOthbcAt#,                  
+							BIRTH_OTHBC_AT             = #birthOthbcAt#,               
+							SEXDSTN_OTHBC_AT           = #sexdstnOthbcAt#,             
+							MBER_EMAIL_ADRES_OTHBC_AT   = #mberEmailAdresOthbcAt#,     
+							NICK                     = #nick#,                       
+							NICK_OTHBC_AT              = #nickOthbcAt#,                
+							JOB_AREA                  = #jobArea#,                    
+							JOB_TYPE                 = #jobType#,                    
+							JOB_CLASS                = #jobClass#,                   
+							JOB_OTHBC_AT               = #jobOthbcAt#,                 
+							TEL_OTHBC_AT               = #telOthbcAt#,                 
+							ADRES_OTHBC_AT             = #adresOthbcAt#,               
+							RECV_AT                   = #recvAt#,                     
+							PSTINST                  = #pstinst#,                    
+							PSTINST_DEPT_NM          = #pstinstDeptNm#,              
+							OFCPS_NM                 = #ofcpsNm#,                    
+							PSTINST_OTHBC_AT           = #pstinstOthbcAt#,             
+							CONTAC_OTHBC_AT            = #contacOthbcAt#,
+							MBER_ENG_NM             =#mberEngNm#        ,
+							ATCH_IMG_MAIN_FILE_ID   =#atchImgMainFileId#,
+							ATCH_IMG_JOB_FILE_ID    =#atchImgJobFileId# ,
+							ATCH_IMG_MAN_FILE_ID    =#atchImgManFileId# ,
+							ATCH_IMG_1_FILE_ID      =#atchImg1FileId#   ,
+							ATCH_IMG_2_FILE_ID      =#atchImg2FileId#   ,
+							SHORT_NOTICE            =#shortNotice#      ,
+							HOMEPAGE_URL            =#homepageUrl#      ,
+							BLOG_URL                =#blogUrl#          ,
+							SOCIAL_URL              =#socialUrl#        ,
+							HOME_AREA_NO            =#homeAreaNo#       ,
+							HOME_MIDDLE_TELNO       =#homeMiddleTelno#  ,
+							HOME_END_TELNO          =#homeEndTelno#     ,
+							HOME_ZIP                =#homeZip#          ,
+							HOME_ADRES              =#homeAdres#        ,
+							HOME_DETAIL_ADRES       =#homeDetailAdres#  ,
+							MAIL_SEND_TARGET        =#mailSendTarget#   ,
+							NOTICE                  =#notice#           ,
+							ATCH_HIST_FILE_ID       =#atchHistFileId#   ,
+							ATCH_PORT_FILE_ID = #atchPortFileId#   ,
+							BSNS_SE = #bsnsSe#   ,
+							MBER_TYPE = #mberType#   ,
+							MBER_SE = #mberSe#   ,
+							ATCH_MANAGE_FILE_ID = #atchManageFileId#   ,
+							UPDT_DE = SYSDATE        
             WHERE ESNTL_ID=#uniqId#
         ]]>
     </update>
@@ -643,7 +683,7 @@
             UPDATE COMTNGNRLMBER 
             SET 
                    MBER_STTUS   =  'W',
-                   MBER_TYPE = 'D01'
+                   MBER_TYPE = 'C01'
             WHERE  MBER_ID  = #mberId#
         ]]>
     </update>

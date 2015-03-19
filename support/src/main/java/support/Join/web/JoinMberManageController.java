@@ -287,17 +287,6 @@ public class JoinMberManageController {
 		return ".basic_join/grnMberInsert4";
 	}
 	
-	@RequestMapping("/test.do")
-//	@RequestMapping("gnrMberInsertSub.do")
-	public String test( HttpServletRequest request, Model model)
-			throws Exception {
-
-
-		return "redirect:/join/GnrMberInsertView3.do";
-	}
-	
-	
-	
 	/**
 	 * 일반회원등록화면-최종 저장 .
 	 * @param userSearchVO 검색조건정보
@@ -672,84 +661,6 @@ public class JoinMberManageController {
     	
     	}
 		return JSONResponseUtil.getJSONResponse(total);
-	}
-
-	/**
-	 * 일반회원정보 수정후 목록조회 화면으로 이동한다.
-	 * @param mberManageVO 일반회원수정정보
-	 * @param bindingResult 입력값검증용 bindingResult
-	 * @param model 화면모델
-	 * @return forward:/uss/umt/EgovMberManage.do
-	 * @throws Exception
-	 */
-	@RequestMapping("/uss/umt/EgovMberSelectUpdt.do")
-	public String updateMber(@ModelAttribute("mberManageVO") MberManageVO mberManageVO, BindingResult bindingResult, Model model) throws Exception {
-
-		beanValidator.validate(mberManageVO, bindingResult);
-		if (bindingResult.hasErrors()) {
-			return "egovframework/com/uss/umt/EgovEntrprsMberSelectUpdt";
-		} else {
-			if (mberManageVO.getGroupId().equals("")) {
-				mberManageVO.setGroupId(null);
-			}
-			mberManageService.updateMber(mberManageVO);
-			//Exception 없이 진행시 수정성공메시지
-			model.addAttribute("resultMsg", "success.common.update");
-			return "forward:/uss/umt/EgovMberManage.do";
-		}
-	}
-
-	/**
-	 * 일반회원정보삭제후 목록조회 화면으로 이동한다.
-	 * @param checkedIdForDel 삭제대상 아이디 정보
-	 * @param userSearchVO 검색조건정보
-	 * @param model 화면모델
-	 * @return forward:/uss/umt/EgovMberManage.do
-	 * @throws Exception
-	 */
-	@RequestMapping("/uss/umt/EgovMberDelete.do")
-	public String deleteMber(@RequestParam("checkedIdForDel") String checkedIdForDel, @ModelAttribute("searchVO") UserDefaultVO userSearchVO, Model model) throws Exception {
-		mberManageService.deleteMber(checkedIdForDel);
-		//Exception 없이 진행시 삭제성공메시지
-		model.addAttribute("resultMsg", "success.common.delete");
-		return "forward:/uss/umt/EgovMberManage.do";
-	}
-
-	/**
-	 * 일반회원가입신청 등록화면으로 이동한다.
-	 * @param userSearchVO 검색조건
-	 * @param mberManageVO 일반회원가입신청정보
-	 * @param commandMap 파라메터전달용 commandMap
-	 * @param model 화면모델
-	 * @return uss/umt/EgovMberSbscrb
-	 * @throws Exception
-	 */
-	@RequestMapping("/uss/umt/EgovMberSbscrbView.do")
-	public String sbscrbMberView(@ModelAttribute("userSearchVO") UserDefaultVO userSearchVO, @ModelAttribute("mberManageVO") MberManageVO mberManageVO,
-			@CommandMap Map<String, Object> commandMap, Model model) throws Exception {
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		//패스워드힌트목록을 코드정보로부터 조회
-		vo.setCodeId("COM022");
-		List<?> passwordHint_result = cmmUseService.selectCmmCodeDetail(vo);
-		//성별구분코드를 코드정보로부터 조회
-		vo.setCodeId("COM014");
-		List<?> sexdstnCode_result = cmmUseService.selectCmmCodeDetail(vo);
-
-		model.addAttribute("passwordHint_result", passwordHint_result); //패스워트힌트목록
-		model.addAttribute("sexdstnCode_result", sexdstnCode_result); //성별구분코드목록
-		if (!"".equals((String) commandMap.get("realname"))) {
-			model.addAttribute("mberNm", (String) commandMap.get("realname")); //실명인증된 이름 - 주민번호 인증
-			model.addAttribute("ihidnum", (String) commandMap.get("ihidnum")); //실명인증된 주민등록번호 - 주민번호 인증
-		}
-		if (!"".equals((String) commandMap.get("realName"))) {
-			model.addAttribute("mberNm", (String) commandMap.get("realName")); //실명인증된 이름 - ipin인증
-		}
-
-		//mberManageVO.setGroupId("DEFAULT");
-		mberManageVO.setMberSttus("DEFAULT");
-
-		return "egovframework/com/uss/umt/EgovMberSbscrb";
 	}
 
 	/**

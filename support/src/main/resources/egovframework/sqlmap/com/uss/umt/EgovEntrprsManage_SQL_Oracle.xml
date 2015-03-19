@@ -245,7 +245,14 @@
 							TAX_ENTRPRS_END_TELNO        taxEntrprsEndTelno,
 							NOTICE                       notice,
 							CXFC_OTHBC_AT                cxfcOthbcAt,
-							ADRES_OTHBC_AT    adresOthbcAt
+							ADRES_OTHBC_AT    adresOthbcAt,
+							BSNS_SE                            bsnsSe,
+							ENTRPRS_MBER_TYPE  entrprsMberType,
+							ENTRPRS_MBER_SE       entrprsMberSe,
+							LOGIN_DE                        loginDe,
+							UPDT_DE                         updtDe,
+							ATCH_MANAGE_FILE_ID atchManageFileId
+							
 			FROM COMTNENTRPRSMBER
 			WHERE ENTRPRS_MBER_ID=#entrprsmberId#
         ]]>
@@ -255,26 +262,85 @@
         <![CDATA[
             UPDATE COMTNENTRPRSMBER 
             SET 
-                ENTRPRS_MBER_ID               = #entrprsmberId#,
-                ENTRPRS_SE_CODE              = #entrprsSeCode#,
-                BIZRNO                       = #bizrno#,
-                JURIRNO                      = #jurirno#,
-                CMPNY_NM                     = #cmpnyNm#,
-                CXFC                         = #cxfc#,
-                ZIP                          = #zip#,
-                ADRES                        = #adres#,
-                ENTRPRS_MIDDLE_TELNO         = #entrprsMiddleTelno#,
-                FXNUM                        = #fxnum#,
-                INDUTY_CODE                  = #indutyCode#,
-                APPLCNT_NM                   = #applcntNm#,
-                ENTRPRS_MBER_STTUS           = #entrprsMberSttus#,
-                ENTRPRS_MBER_PASSWORD_HINT   = #entrprsMberPasswordHint#,
-                ENTRPRS_MBER_PASSWORD_CNSR   = #entrprsMberPasswordCnsr#,
-                GROUP_ID                     = #groupId#,
-                DETAIL_ADRES                 = #detailAdres#,
-                ENTRPRS_END_TELNO            = #entrprsEndTelno#,
-                AREA_NO                      = #areaNo#,
-                APPLCNT_EMAIL_ADRES          = #applcntEmailAdres#
+							ENTRPRS_SE_CODE              = #entrprsSeCode#,
+							BIZRNO                       = #bizrno#,
+							JURIRNO                      = #jurirno#,
+							CMPNY_NM                     = #cmpnyNm#,
+							CXFC                         = #cxfc#,
+							ZIP                          = #zip#,
+							ADRES                        = #adres#,
+							ENTRPRS_MIDDLE_TELNO         = #entrprsMiddleTelno#,
+							FXNUM                        = #fxnum#,
+							INDUTY_CODE                  = #indutyCode#,
+							APPLCNT_NM                   = #applcntNm#,
+							GROUP_ID                     = #groupId#,
+							DETAIL_ADRES                 = #detailAdres#,
+							ENTRPRS_END_TELNO            = #entrprsEndTelno#,
+							AREA_NO                      = #areaNo#,
+							APPLCNT_EMAIL_ADRES          = #applcntEmailAdres#,
+							MBTLNUM                      = #mbtlnum#,
+							NICK                         = #nick#,
+							CMPNY_NM_OTHBC_AT            = #cmpnyNmOthbcAt#,
+							BIZRNO_OTHBC_AT              = #bizrnoOthbcAt#,
+							NICK_OTHBC_AT                = #nickOthbcAt#,
+							JOB_AREA                     = #jobArea#,
+							JOB_TYPE                     = #jobType#,
+							JOB_CLASS                    = #jobClass#,
+							JOB_OTHBC_AT                 = #jobOthbcAt#,
+							ESTABLISH_YEAR               = #establishYear#,
+							ESTABLISH_MONTH              = #establishMonth#,
+							ESTABLISH_DAY                = #establishDay#,
+							ESTABLISH_OTHBC_AT           = #establishOthbcAt#,
+							REPRSNT_EMAIL_ADRES          = #reprsntEmailAdres#,
+							REPRSNT_EMAIL_ADRES_OTHBC_AT = #reprsntEmailAdresOthbcAt#,
+							REPRSNT_RECV_AT              = #reprsntRecvAt#,
+							REPRSNT_AREA_NO              = #reprsntAreaNo#,
+							REPRSNT_ENTRPRS_MIDDLE_TELNO = #reprsntEntrprsMiddleTelno#,
+							REPRSNT_ENTRPRS_END_TELNO    = #reprsntEntrprsEndTelno#,
+							TEL_OTHBC_AT                 = #telOthbcAt#,
+							FXNUM_OTHBC_AT               = #fxnumOthbcAt#,
+							ATCH_BIZ_FILE_ID             = #atchBizFileId#,
+							PSTINST_DEPT_NM              = #pstinstDeptNm#,
+							OFCPS_NM                     = #ofcpsNm#,
+							APPLCNT_RECV_AT              = #applcntRecvAt#,
+							CXFC_OTHBC_AT                = #cxfcOthbcAt#,
+							ADRES_OTHBC_AT              =#adresOthbcAt#,
+							ATCH_IMG_LOGO_FILE_ID        = #atchImgLogoFileId#,
+							ATCH_IMG_1_FILE_ID           = #atchImg1FileId#,
+							ATCH_IMG_2_FILE_ID           = #atchImg2FileId#,
+							ATCH_IMG_3_FILE_ID           = #atchImg3FileId#,
+							ATCH_IMG_4_FILE_ID           = #atchImg4FileId#,
+							SHORT_NOTICE                 = #shortNotice#,
+							HOMEPAGE_URL                 = #homepageUrl#,
+							BLOG_URL                     = #blogUrl#,
+							SOCIAL_URL                   = #socialUrl#,
+							EMP_CNT                      = #empCnt#,
+							CAPITAL_MONEY                = #capitalMoney#,
+							SALES_MONEY                  = #salesMoney#,
+							ATCH_REPORT_FILE_ID          = #atchReportFileId#,
+							ATCH_PORT_FILE_ID            = #atchPortFileId#,
+							MNG_NM                       = #mngNm#,
+							MNG_PSTINST_DEPT_NM          = #mngPstinstDeptNm#,
+							MNG_OFCPS_NM                 = #mngOfcpsNm#,
+							MNG_EMAIL_ADRES              = #mngEmailAdres#,
+							MNG_MBTLNUM                  = #mngMbtlnum#,
+							MNG_AREA_NO                  = #mngAreaNo#,
+							MNG_ENTRPRS_MIDDLE_TELNO     = #mngEntrprsMiddleTelno#,
+							MNG_ENTRPRS_END_TELNO        = #mngEntrprsEndTelno#,
+							TAX_NM                       = #taxNm#,
+							TAX_PSTINST_DEPT_NM          = #taxPstinstDeptNm#,
+							TAX_OFCPS_NM                 = #taxOfcpsNm#,
+							TAX_EMAIL_ADRES              = #taxEmailAdres#,
+							TAX_MBTLNUM                  = #taxMbtlnum#,
+							TAX_AREA_NO                  = #taxAreaNo#,
+							TAX_ENTRPRS_MIDDLE_TELNO     = #taxEntrprsMiddleTelno#,
+							TAX_ENTRPRS_END_TELNO        = #taxEntrprsEndTelno#,
+							NOTICE                       = #notice#							,
+							BSNS_SE = #bsnsSe#   ,
+							ENTRPRS_MBER_TYPE = #entrprsMberType#   ,
+							ENTRPRS_MBER_SE = #entrprsMberSe#   ,
+							ATCH_MANAGE_FILE_ID = #atchManageFileId#   ,
+							UPDT_DE = SYSDATE
             WHERE ESNTL_ID=#uniqId#
         ]]>
     </update>
@@ -397,7 +463,7 @@
             UPDATE COMTNENTRPRSMBER 
             SET 
                    ENTRPRS_MBER_STTUS   =  'W',
-                   ENTRPRS_MBER_TYPE = 'D01'
+                   ENTRPRS_MBER_TYPE = 'C01'
             WHERE  ENTRPRS_MBER_ID  = #entrprsmberId#
         ]]>
     </update>
@@ -414,47 +480,82 @@
     <select id="entrprsManageDAO.selectEntrprsMberList" parameterClass="userSearchVO" resultClass="egovMap">
         SELECT * FROM ( SELECT rownum rn, TB.* FROM (
             SELECT 
-                ESNTL_ID               as "uniqId",
-                'USR02'               as "userTy",
-                ENTRPRS_MBER_ID        as "userId",
-                CMPNY_NM              as "cmpnyNm",
-                APPLCNT_NM            as "userNm",
-                APPLCNT_EMAIL_ADRES   as "emailAdres",
-                AREA_NO               as "areaNo",
-                ENTRPRS_MIDDLE_TELNO  as "middleTelno",
-                ENTRPRS_END_TELNO     as "endTelno",
-                ''                    as "moblphonNo",
-                GROUP_ID              as "groupId",
-                ENTRPRS_MBER_STTUS    as "sttus",
-                SBSCRB_DE             as "sbscrbDe"
-            FROM    COMTNENTRPRSMBER
-            WHERE 1=1
-        <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
-            ENTRPRS_MBER_STTUS LIKE  #sbscrbSttus#
-        </isNotEqual>
-        <isEqual prepend="AND" property="searchCondition" compareValue="0">
-            ENTRPRS_MBER_ID LIKE #searchKeyword#
-        </isEqual>
-        <isEqual prepend="AND" property="searchCondition" compareValue="1">
-            APPLCNT_NM LIKE '%' ||#searchKeyword#|| '%'
-        </isEqual>
-        ORDER BY 13 DESC
+				               a.ESNTL_ID               as "uniqId",
+				                'USR02'               as "userTy",
+				                a.ENTRPRS_MBER_ID               as "entrprsmberId",
+				                a.APPLCNT_NM               as "applcntNm",
+				                a.ESTABLISH_YEAR         as "establishYear",
+								a.ESTABLISH_MONTH    as "establishMonth",
+								a.ESTABLISH_DAY           as "establishDay",
+				                 a.APPLCNT_EMAIL_ADRES      as "applcntEmailAdres",
+				                a.REPRSNT_AREA_NO               as "reprsntAreaNo",
+				                a.REPRSNT_ENTRPRS_MIDDLE_TELNO          as "reprsntEntrprsMiddleTelno",
+				                a.REPRSNT_ENTRPRS_END_TELNO             as "reprsntEntrprsEndTelno",
+				                a.MBTLNUM           as "mbtlnum",
+				                a.GROUP_ID              as "groupId",
+				                to_char(a.SBSCRB_DE,'yyyy-mm-dd')             as "sbscrbDe",
+				                a.ATCH_IMG_LOGO_FILE_ID  as "atchImgLogoFileId",
+				                a.ENTRPRS_MBER_TYPE              as "entrprsMberType",
+				                a.ENTRPRS_MBER_SE                as "entrprsMberSe",
+				                cd.CODE_NM              as "entrprsMberSeNm",
+				                a.ENTRPRS_MBER_STTUS            as "entrprsMberSttus",
+				                a.FXNUM             as "fxnum",
+				                a.CMPNY_NM              as "cmpnyNm",
+				                a.ADRES                  as "adres",
+				                a.DETAIL_ADRES as "detailAdres",
+				                to_char(a.LOGIN_DE,'yyyy-mm-dd')                 as "loginDe",
+				                to_char(a.UPDT_DE,'yyyy-mm-dd')                 as "updtDe"                
+            FROM    COMTNENTRPRSMBER a
+		                   ,COMTCCMMNDETAILCODE cd
+		    WHERE a.ENTRPRS_MBER_SE = cd.CODE
+		    AND      cd.CODE_ID = 'SUP015'
+		     <isNotEqual prepend="AND" property="searchMberType" compareValue="">
+	            a.ENTRPRS_MBER_TYPE =  #searchMberType#
+	        </isNotEqual>
+	        <isNotEqual prepend="AND" property="searchMberSe" compareValue="">
+	            a.ENTRPRS_MBER_SE =  #searchMberSe#
+	        </isNotEqual>
+	        <isEqual prepend="AND" property="searchCnd" compareValue="0">
+	            a.ENTRPRS_MBER_ID LIKE '%'||#searchWrd#|| '%'
+	        </isEqual>
+	        <isEqual prepend="AND" property="searchCnd" compareValue="1">
+	            a.APPLCNT_NM LIKE '%' ||#searchWrd#|| '%'
+	        </isEqual>
+	        <isNotEqual prepend="AND" property="searchBsnsSe" compareValue="">
+	            a.BSNS_SE =  #searchBsnsSe#
+	        </isNotEqual>
+			<isEqual prepend="ORDER BY" property="sortType" compareValue="0">
+				<![CDATA[	a.SBSCRB_DE DESC		]]>
+			</isEqual>	
+			<isEqual prepend="ORDER BY" property="sortType" compareValue="1">
+				<![CDATA[	a.UPDT_DE DESC		]]>
+			</isEqual>
+			<isEqual prepend="ORDER BY" property="sortType" compareValue="2">
+				<![CDATA[	a.LOGIN_DE DESC		]]>
+			</isEqual>
+
         ) TB ) WHERE rn BETWEEN #firstIndex# + 1 AND #firstIndex# + #recordCountPerPage#
     </select>
     
     
         <select id="entrprsManageDAO.selectEntrprsMberListTotCnt" parameterClass="userSearchVO" resultClass="int">
             SELECT COUNT(1) totcnt
-            FROM    COMTNENTRPRSMBER
-	        WHERE 1=1
-        <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
-            ENTRPRS_MBER_STTUS LIKE  #sbscrbSttus#
-        </isNotEqual>
-        <isEqual prepend="AND" property="searchCondition" compareValue="0">
-            ENTRPRS_MBER_ID LIKE #searchKeyword#
-        </isEqual>
-        <isEqual prepend="AND" property="searchCondition" compareValue="1">
-            APPLCNT_NM LIKE '%' ||#searchKeyword#|| '%'
-        </isEqual>
+            FROM    COMTNENTRPRSMBER a
+           WHERE 1=1
+ 		     <isNotEqual prepend="AND" property="searchMberType" compareValue="">
+	            a.ENTRPRS_MBER_TYPE =  #searchMberType#
+	        </isNotEqual>
+	        <isNotEqual prepend="AND" property="searchMberSe" compareValue="">
+	            a.ENTRPRS_MBER_SE =  #searchMberSe#
+	        </isNotEqual>
+	        <isEqual prepend="AND" property="searchCnd" compareValue="0">
+	            a.ENTRPRS_MBER_ID LIKE '%'||#searchWrd#|| '%'
+	        </isEqual>
+	        <isEqual prepend="AND" property="searchCnd" compareValue="1">
+	            a.APPLCNT_NM LIKE '%' ||#searchWrd#|| '%'
+	        </isEqual>
+	        <isNotEqual prepend="AND" property="searchBsnsSe" compareValue="">
+	            a.BSNS_SE =  #searchBsnsSe#
+	        </isNotEqual>
     </select>
 </sqlMap>

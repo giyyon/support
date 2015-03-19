@@ -105,14 +105,10 @@
 				                                            </dt>
 				                                            <dd class="file_sector">
 				                                            	<input name="file1_text"  type="text" class="w200">
-<<<<<<< HEAD
 				                                            	<form:hidden path="atchImgMainFileId"/>
-=======
-				                                            	<input type="hidden" name="atchImgMainFileId" />
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제"> --%>
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -127,14 +123,10 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-<<<<<<< HEAD
 					                                            	<form:hidden path="atchImgJobFileId"/>
-=======
-					                                            	<input type="hidden" name="atchImgJobFileId" />
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -149,14 +141,10 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-<<<<<<< HEAD
 					                                            	<form:hidden path="atchImgManFileId" />
-=======
-					                                            	<input type="hidden" name="atchImgManFileId" />
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -172,14 +160,10 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-<<<<<<< HEAD
 					                                            	<form:hidden path="atchImg1FileId" />
-=======
-					                                            	<input type="hidden" name="atchImg1FileId" />
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -195,14 +179,10 @@
 					                                            </dt>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
-<<<<<<< HEAD
 					                                            	<form:hidden path="atchImg2FileId" />
-=======
-					                                            	<input type="hidden" name="atchImg2FileId" />
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
-			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -227,13 +207,13 @@
                                     </span> 
                                 </li>
                                 <li><strong>홈페이지</strong>
-                                    <span class="con"><input type="text" id='homepageUrl' class="long" value="http://"></span> 
+                                    <span class="con"><input type="text" id='homepageUrl' class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" ></span> 
                                 </li>
                                 <li><strong>블로그</strong>
-                                    <span class="con"><input type="text" id='blogUrl' class="long" value="http://"></span> 
+                                    <span class="con"><input type="text" id='blogUrl' class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" ></span> 
                                 </li>
                                  <li><strong>소셜</strong>
-                                    <span class="con"><input type="text" id='socialUrl'  class="long" value="http://"></span> 
+                                    <span class="con"><input type="text" id='socialUrl'  class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" ></span> 
                                 </li>
                                 <li><strong>자택전화</strong>
                                 	<span class="con">
@@ -449,16 +429,10 @@
                                 <li><strong>이력서</strong>
                                 	<span class="con">
                                 		<input name="file1_text" type="text" class="w200">
-<<<<<<< HEAD
 									<form:hidden path="atchHistFileId" />
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                   
-=======
-										<input type="hidden" name="atchHistFileId" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%--                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                    --%>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
                                      <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
@@ -469,16 +443,10 @@
                                 <li><strong>포트폴리오</strong>
                                 	<span class="con">
                                     	<input name="file1_text" type="text" class="w200">
-<<<<<<< HEAD
 									<form:hidden path="atchPortFileId" />
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"   alt="다운로드"> 
-                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
-=======
-										<input type="hidden" name="atchPortFileId" />
-										<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="3" data_category="memberAttach" data_type="file" alt="찾아보기"   >
-                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"   alt="다운로드"> 
+<%--                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">     --%>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
                                      <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
@@ -618,10 +586,6 @@
 	    		
 	    		function closeCallback(returnValue) {
 	    			if (returnValue != null && returnValue.length > 0) {
-<<<<<<< HEAD
-=======
-// 	    				debugger;
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
 	    				var files = returnValue;
 	    				var fileIds = '';
 	    				var fileNames = '';
@@ -790,29 +754,9 @@
     			});
 			$("form").submit();
     	}
-    	
-    	
-<<<<<<< HEAD
+
        	function doSync(){
-// 		 goJsonSave();
-//   		goSave();
+
 	}
 
-//  	function goJsonSave(){      	
-// // 		var formData = $("form").serialize ();
-// // 		var params = $("form").serialize();
-// // 		BIT.callAjax('${contextPath}/myInfo/jsonUpdateGnrSubMyInfo.do'
-// // 				, 'post'
-// // 				, params
-// // 				, function(responseText){
-// // 					return false;
-// // 				});
-//  	}
-=======
-    	function doFinish(){
-    		
-    		  alert('파일이 삭제됩니다.');
-    	}
->>>>>>> branch 'master' of https://github.com/giyyon/support.git
-    	
  </script>

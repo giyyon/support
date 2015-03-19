@@ -87,8 +87,8 @@
 									<form:hidden path="atchFileId" />
 									<input name="file1_text" type="text" class="w400">
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
+                                   	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%--                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">     --%>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
                                      <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
@@ -98,11 +98,11 @@
                                 </li>
                                 <li><strong>참조사이트</strong>
                                     <span class="con">
-                                    	<form:input path="refrnUrl1"   class="w400"  /><br>
-                                    	<form:input path="refrnUrl2"   class="w400"  /><br>
-                                    	<form:input path="refrnUrl3"   class="w400"  /><br>
-                                    	<form:input path="refrnUrl4"   class="w400"  /><br>
-                                    	<form:input path="refrnUrl5"   class="w400"  />
+                                    	<form:input path="refrnUrl1"   class="w400"  placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /><br>
+                                    	<form:input path="refrnUrl2"   class="w400"  placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /><br>
+                                    	<form:input path="refrnUrl3"   class="w400"  placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /><br>
+                                    	<form:input path="refrnUrl4"   class="w400"  placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /><br>
+                                    	<form:input path="refrnUrl5"   class="w400"   placeholder="http://  를 포함한 전체 URL을 입력바랍니다" />
                                     </span>
                                 </li>
                                 <li><strong>내용</strong>
@@ -155,11 +155,7 @@
   	});
     
 	$('#bsnsSeShareRangeAll').on("click", function(e){
-		if($(this).prop("checked")){
-			$("input[name=bsnsSeShareRange]").prop('checked',true);
-		}else{
-			$("input[name=bsnsSeShareRange]").prop('checked',false);
-		}
+		$("input[name=bsnsSeShareRange]").prop('checked', $(this).is(':checked'));
 		setDefaultBsnsSe();
 		setBsnsSeShare();
 	});

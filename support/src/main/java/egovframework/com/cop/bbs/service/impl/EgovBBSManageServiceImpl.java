@@ -130,9 +130,9 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
      */
     public BoardVO selectBoardArticle(BoardVO boardVO) throws Exception {
 	if (boardVO.isPlusCount()) {
-	    int iniqireCo = bbsMngDAO.selectMaxInqireCo(boardVO);
-
-	    boardVO.setInqireCo(iniqireCo);
+//	    int iniqireCo = bbsMngDAO.selectMaxInqireCo(boardVO);
+//
+//	    boardVO.setInqireCo(iniqireCo);
 	    bbsMngDAO.updateInqireCo(boardVO);
 	}
 
@@ -148,27 +148,27 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
 	List<BoardVO> list = bbsMngDAO.selectBoardArticleList(boardVO);
 	List<BoardVO> result = new ArrayList<BoardVO>();
 
-	if ("BBSA01".equals(attrbFlag)) {
-	    // 유효게시판 임
-	    String today = EgovDateUtil.getToday();
-
-	    BoardVO vo;
-	    Iterator<BoardVO> iter = list.iterator();
-	    while (iter.hasNext()) {
-		vo = (BoardVO)iter.next();
-
-		if (!"".equals(vo.getNtceBgnde()) || !"".equals(vo.getNtceEndde())) {
-		    if (EgovDateUtil.getDaysDiff(today, vo.getNtceBgnde()) > 0 || EgovDateUtil.getDaysDiff(today, vo.getNtceEndde()) < 0) {
-			// 시작일이 오늘날짜보다 크거나, 종료일이 오늘 날짜보다 작은 경우
-			vo.setIsExpired("Y");
-		    }
-		}
-		result.add(vo);
-	    }
-	} else {
-	    result = list;
-	}
-
+//	if ("BBSA01".equals(attrbFlag)) {
+//	    // 유효게시판 임
+//	    String today = EgovDateUtil.getToday();
+//
+//	    BoardVO vo;
+//	    Iterator<BoardVO> iter = list.iterator();
+//	    while (iter.hasNext()) {
+//		vo = (BoardVO)iter.next();
+//
+//		if (!"".equals(vo.getNtceBgnde()) || !"".equals(vo.getNtceEndde())) {
+//		    if (EgovDateUtil.getDaysDiff(today, vo.getNtceBgnde()) > 0 || EgovDateUtil.getDaysDiff(today, vo.getNtceEndde()) < 0) {
+//			// 시작일이 오늘날짜보다 크거나, 종료일이 오늘 날짜보다 작은 경우
+//			vo.setIsExpired("Y");
+//		    }
+//		}
+//		result.add(vo);
+//	    }
+//	} else {
+//	    result = list;
+//	}
+	result = list;
 	int cnt = bbsMngDAO.selectBoardArticleListCnt(boardVO);
 
 	Map<String, Object> map = new HashMap<String, Object>();
@@ -178,6 +178,76 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
 
 	return map;
     }
+    
+	/**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     *
+     * @see egovframework.com.cop.bbs.brd.service.EgovBBSManageService#selectBoardArticles(egovframework.com.cop.bbs.brd.service.BoardVO)
+     */
+    public Map<String, Object> selectTrendArticleList(BoardVO boardVO, String attrbFlag) throws Exception {
+	 
+	List<BoardVO> result = bbsMngDAO.selectTrendArticleList(boardVO);
+
+	int cnt = bbsMngDAO.selectTrendArticleListCnt(boardVO);
+
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("resultList", result);
+	map.put("resultCnt", Integer.toString(cnt));
+
+	return map;
+    }
+    
+	/**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     *
+     * @see egovframework.com.cop.bbs.brd.service.EgovBBSManageService#selectBoardArticles(egovframework.com.cop.bbs.brd.service.BoardVO)
+     */
+    public Map<String, Object> selectTrendScrapArticleList(BoardVO boardVO, String attrbFlag) throws Exception {
+	 
+	List<BoardVO> result = bbsMngDAO.selectTrendScrapArticleList(boardVO);
+
+	int cnt = bbsMngDAO.selectTrendScrapArticleListCnt(boardVO);
+
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("resultList", result);
+	map.put("resultCnt", Integer.toString(cnt));
+
+	return map;
+    }    
+	/**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     *
+     * @see egovframework.com.cop.bbs.brd.service.EgovBBSManageService#selectBoardArticles(egovframework.com.cop.bbs.brd.service.BoardVO)
+     */
+    public Map<String, Object> selectMyTrendArticleList(BoardVO boardVO, String attrbFlag) throws Exception {
+	 
+	List<BoardVO> result = bbsMngDAO.selectMyTrendArticleList(boardVO);
+
+	int cnt = bbsMngDAO.selectMyTrendArticleListCnt(boardVO);
+
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("resultList", result);
+	map.put("resultCnt", Integer.toString(cnt));
+
+	return map;
+    }
+    
+	/**
+     * 조건에 맞는 최신동향 목록을 조회 한다.
+     *
+     * @see egovframework.com.cop.bbs.brd.service.EgovBBSManageService#selectBoardArticles(egovframework.com.cop.bbs.brd.service.BoardVO)
+     */
+    public Map<String, Object> selectAdminTrendArticleList(BoardVO boardVO, String attrbFlag) throws Exception {
+
+	List<BoardVO> result = bbsMngDAO.selectAdminTrendArticleList(boardVO);
+	int cnt = bbsMngDAO.selectAdminTrendArticleListCnt(boardVO);
+
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("resultList", result);
+	map.put("resultCnt", Integer.toString(cnt));
+
+	return map;
+    }    
     
 	/**
      * 조건에 맞는 게시물 목록을 조회 한다.
@@ -227,7 +297,15 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
     public void updateBoardArticle(Board board) throws Exception {
 	bbsMngDAO.updateBoardArticle(board);
     }
-
+    
+    /**
+     *  게시물의 등록 상태 정보를 수정한다. (01:임시, 02:등록)
+     *
+     * @see egovframework.com.cop.bbs.brd.service.EgovBBSManageService#updateBoardArticle(egovframework.com.cop.bbs.brd.service.Board)
+     */
+    public void updateBoardNttSttusCode(Board board) throws Exception {
+	bbsMngDAO.updateBoardNttSttusCode(board);
+    }
     /**
      * 방명록 내용을 삭제 한다.
      *

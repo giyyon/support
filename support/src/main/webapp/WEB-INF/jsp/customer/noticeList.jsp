@@ -15,12 +15,12 @@
         	<div id="content-group">
         		<div id="lnb-group">
             		<ul id="lnb">
-                	<li><a href="#" class="select">공지사항</a></li>
+                	<li><a href="/customer/noticeList.do" class="select">공지사항</a></li>
 					<li><a href="#">뉴스레터</a></li>
 					<li><a href="#">문의∙제안∙신고</a></li>
                     <li><a href="#">온라인도움말</a></li>
-					<li><a href="#">서비스정책</a></li>
-					<li><a href="#">회원정보</a></li>
+					<li><a href="/customer/terms.do">서비스정책</a></li>
+					<li><a href="/myInfo/myInfoView.do">회원정보</a></li>
                 	</ul>
                     
                     <ul class="quick">
@@ -68,12 +68,10 @@
                                        
                     
                           <select name="searchCnd" class="select" title="검색조건선택">
-														   <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if> >제목</option>
-														   <option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if> >내용</option>
-														   <c:if test="${anonymous != 'true'}">
-														   <option value="2" <c:if test="${searchVO.searchCnd == '2'}">selected="selected"</c:if> >작성자</option>
-														   </c:if>
-													</select>      
+							   <option value="0" <c:if test="${searchVO.searchCnd == '0'}">selected="selected"</c:if> >제목</option>
+							   <option value="1" <c:if test="${searchVO.searchCnd == '1'}">selected="selected"</c:if> >내용</option>
+							   <option value="2" <c:if test="${searchVO.searchCnd == '2'}">selected="selected"</c:if> >작성자</option>
+							</select>      
                 	        <img src="${contextPath}/img/srp_spc.png" width="11" height="30">
                 	        <input name="searchWrd" class="inp180" type="text" size="35" value='<c:out value="${searchVO.searchWrd}"/>' maxlength="35" ><a href="#" onclick="javascript:getSearchCndList() "><img src="${contextPath}/img/btn_srh.png" alt="검색"></a>
                     	</form>
@@ -148,8 +146,7 @@
 
                     </div>
                     <!-- //목록리스트 -->
-                    <!--pageing -->
-                    
+                    <!--pageing -->                    
                     <div class="paginate_complex">
 						<ui:pagination paginationInfo="${paginationInfo}" type="supportImage" jsFunction="linkPage" />
 					</div>

@@ -145,7 +145,17 @@ public class Board implements Serializable {
     /** 게시물상태코드 */
     private String nttSttusCode= "";	
 
-	
+    /** 저작권자 */
+    private String cpyrhtEr= "";	
+    /** 최신동향정보분류 */
+    private String trndSe= "";	
+    
+    /** 키워드 */
+    private String keyword = "";
+    
+    /*스크랩 id */
+    private String scrapId = "";
+    
 	/**
 	 * @return the refrnUrl1
 	 */
@@ -683,5 +693,71 @@ public class Board implements Serializable {
 	
 		this.nttSttusCode = nttSttusCode;
 	}
+
+	/**
+	 * @return the cpyrhtEr
+	 */
+	public String getCpyrhtEr() {
+	
+		return cpyrhtEr;
+	}
+
+	/**
+	 * @param cpyrhtEr the cpyrhtEr to set
+	 */
+	public void setCpyrhtEr(String cpyrhtEr) {
+	
+		this.cpyrhtEr = cpyrhtEr;
+	}
+
+	/**
+	 * @return the trndSe
+	 */
+	public String getTrndSe() {
+	
+		return trndSe;
+	}
+
+	/**
+	 * @param trndSe the trndSe to set
+	 */
+	public void setTrndSe(String trndSe) {
+	
+		this.trndSe = trndSe;
+	}
+
+	/**
+	 * @return the keyword
+	 */
+	public String getKeyword() {
+	
+		return keyword;
+	}
+
+	/**
+	 * @param keyword the keyword to set
+	 */
+	public void setKeyword(String keyword) {
+	
+		this.keyword = keyword;
+	}
+
+	/**
+	 * @return the scrapId
+	 */
+	public String getScrapId() {
+	
+		return scrapId;
+	}
+
+	/**
+	 * @param scrapId the scrapId to set
+	 */
+	public void setScrapId(String scrapId) {
+	
+		this.scrapId = scrapId;
+	}
+	
+	
 	
 }

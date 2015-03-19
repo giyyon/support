@@ -18,12 +18,12 @@
         	<div id="content-group">
         		<div id="lnb-group">
             		<ul id="lnb">
-									<li class="smenu2"><a href="#" class="select">전체개인회원 관리</a></li>
-									<li class="smenu3"><a href="#">- 협약개인회원</a></li>
-									<li class="smenu3"><a href="#">- 운영위원</a></li>
-									<li class="smenu3"><a href="#">- 전문위원</a></li>
-									<li class="smenu2"><a href="#">전체기관∙기업회원 관리</a></li>
-									<li class="smenu3"><a href="#">- 협약기관∙기업회원</a></li>
+									<li class="smenu2"><a href="/admin/gnrMberList.do" class="select">전체개인회원 관리</a></li>
+									<li class="smenu3"><a href="/admin/gnrMberList.do">- 협약개인회원</a></li>
+									<li class="smenu3"><a href="/admin/gnrMberList.do">- 운영위원</a></li>
+									<li class="smenu3"><a href="/admin/gnrMberList.do">- 전문위원</a></li>
+									<li class="smenu2"><a href="/admin/entMberList.do">전체기관∙기업회원 관리</a></li>
+									<li class="smenu3"><a href="/admin/entMberList.do">- 협약기관∙기업회원</a></li>
                </ul>
             	</div>
             	<!--//lnb-group -->
@@ -56,10 +56,14 @@
                                
                     <form:form commandName="mberManageVO"  id="form">      
 	                    <input type="hidden" id="mberEmailAdres" name="mberEmailAdres" value="<c:out value='${mberManageVO.mberEmailAdres}'/>">
-	                    <input type="hidden" id="moblphonNo"  name="moblphonNo"  value="<c:out value='${mberManageVO.moblphonNo}'/>">
+<%-- 	                    <input type="hidden" id="moblphonNo"  name="moblphonNo"  value="<c:out value='${mberManageVO.moblphonNo}'/>"> --%>
 	                    <input type="hidden" id="ihidnum" name="ihidnum" > <!--주민번호 -->
 	                    <input type="hidden" id="zip" name="zip" value='' ><!-- 우편번호 -->
 	                    <input type="hidden" name="uniqId" value = '<c:out value='${mberManageVO.uniqId}'/>'>
+	                     <input type="hidden" id="mberId" name="mberId" value='<c:out value='${mberManageVO.mberId}'/>' >
+	                     <input type="hidden" id="withdrawId" name="withdrawId" value='<c:out value='${mberManageVO.mberId}'/>' >
+	                     <input type="hidden" id="userSe" name="userSe" value='GNR' >
+	                     <input type='hidden' id="isNewRegister"  name="isNewRegister"  value="<c:out value='${isNewRegister}'/>">
 	                     
                     <!-- 회원관리정보 -->
                     <div class="mem_info_sect">
@@ -67,7 +71,7 @@
                         <div class="mem_box fl100">
                         	<ul class="info_put fl100">
                             	<li><strong>일반관리 </strong>
-                                	<span class="con"> <a href="javascript:goChangPassword();"><img src="${contextPath}/img/btn_pwch.png" alt="비밀번호변경"></a> <a href="#"><img src="${contextPath}/img/btn_email.png" alt="전자메일"></a> <a href="#"><img src="${contextPath}/img/btn_sns.png" alt="문자보내기"></a> <a href="#"><img src="${contextPath}/img/btn_out.png" alt="강제탈퇴"></a></span>
+                                	<span class="con"> <a href="javascript:goChangPassword();"><img src="${contextPath}/img/btn_pwch.png" alt="비밀번호변경"></a> <a href="#"><img src="${contextPath}/img/btn_email.png" alt="전자메일"></a> <a href="#"><img src="${contextPath}/img/btn_sns.png" alt="문자보내기"></a> <a href="javascript:goWithdraw();"><img src="${contextPath}/img/btn_out.png" alt="강제탈퇴"></a></span>
                                 </li>
                                 <li><strong>사업분류  </strong>
                                 	<span class="con">
@@ -121,8 +125,8 @@
                                     <input name="" type="text" class="w200">
 									<form:hidden path="atchManageFileId" />
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-									<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"   alt="다운로드"> 
-									<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+									<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"   alt="다운로드"> 
+<%-- 									<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제"> --%>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
                                      <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
@@ -144,14 +148,14 @@
                         	<ul class="info_put fl100">
                             	<li><strong>성명</strong>
                                 	<span class="con">
-                                	<c:out value='${mberManageVO.mberNm}'/>
+                                	 <form:input path="mberNm" class="w100" />
                                 	<span class="chk2">
                                 	<form:checkbox path="nmOthbcAt" value="Y"  label="공개(비공개시 아이디로 대체) "/>
                                 	 </span></span> 
                                 </li>
                                 <li><strong>아이핀번호</strong><span class="con"><a href="#">비인증<!-- img src="../img/btn_ipinch.png" alt="아이핀병경">--></a></span> </li>
                                 <li><strong>* 아이디</strong>
-                                    <span class="con"><c:out value='${mberManageVO.mberId}'/>
+                                    <span class="con"><c:out value='${mberManageVO.mberId}'/> (고유번호:<c:out value='${mberManageVO.uniqId}'/>)
                                      </span> 
                                 </li>
                                 <li><strong>* 현재비밀번호</strong>
@@ -241,56 +245,16 @@
 											<form:option value='1940' label="1940" />
                                         </form:select>                              	
                                 
-										<form:select path="birthMonth">
-											<form:option value="" label="월" />
-										  <form:option value="1" label="1" />
-										  <form:option value="2" label="2" />
-										  <form:option value="3" label="3" />
-										  <form:option value="4" label="4" />
-										  <form:option value="5" label="5" />
-										  <form:option value="6" label="6" />
-										  <form:option value="7" label="7" />
-										  <form:option value="8" label="8" />
-										  <form:option value="9" label="9" />
-										  <form:option value="10" label="10" />
-										  <form:option value="11" label="11" />
-										  <form:option value="12" label="12" />
-										</form:select>										
-                                        
-											<form:select path="birthDay" >
-											<form:option value=""   label="일" />
-											<form:option value="1"  label="1" />
-											<form:option value="2"  label="2" />
-											<form:option value="3"  label="3" />
-											<form:option value="4"  label="4" />
-											<form:option value="5"  label="5" />
-											<form:option value="6"  label="6" />
-											<form:option value="7"  label="7" />
-											<form:option value="8"  label="8" />
-											<form:option value="9"  label="9" />
-											<form:option value="10" label="10" />
-											<form:option value="11" label="11" />
-											<form:option value="12" label="12" />
-											<form:option value="13" label="13" />
-											<form:option value="14" label="14" />
-											<form:option value="15" label="15" />
-											<form:option value="16" label="16" />
-											<form:option value="17" label="17" />
-											<form:option value="18" label="18" />
-											<form:option value="19" label="19" />
-											<form:option value="20" label="20" />
-											<form:option value="21" label="21" />
-											<form:option value="22" label="22" />
-											<form:option value="23" label="23" />
-											<form:option value="24" label="24" />
-											<form:option value="25" label="25" />
-											<form:option value="26" label="26" />
-											<form:option value="27" label="27" />
-											<form:option value="28" label="28" />
-											<form:option value="29" label="29" />
-											<form:option value="30" label="30" />
-											<form:option value="31" label="31" />
-											</form:select>
+                                		<form:select path="birthMonth" id="birthMonth" title="생년월">
+                                			<form:option value="" label="월" />
+										    <form:options items="${month_result}" itemValue="code" itemLabel="codeNm"/>
+										</form:select>
+								
+                                		<form:select path="birthDay" id="birthDay" title="생년일">
+                                			<form:option value=""   label="일" />
+										    <form:options items="${day_result}" itemValue="code" itemLabel="codeNm"/>
+										</form:select>
+			                             
                                         <form:select  path="sunLunar" >
                                             <form:option value='1'  label="양력" />
                                             <form:option value='2'  label="음력" />
@@ -416,7 +380,7 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgMainFileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImgMainFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 				                                        	
@@ -424,8 +388,8 @@
 				                                            	<input name="file1_text"  type="text" class="w200">
 				                                            	<form:hidden path="atchImgMainFileId"/>
 			                                            		<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">
+			                                            		<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            		<img name="btnFileDelete" src="${contextPath}/img/btn_delete.png" alt="삭제"> --%>
 					                                            <span class="con_inf2 fl100">
 					                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -441,15 +405,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgJobFileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImgJobFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImgJobFileId"/>
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"   >
-					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
 																	* 사진크기는 <span class="fcYg">1:1비율(90x115픽셀, 100kbyte 이하)</span>에서 최적화되어 보입니다.<br/>
@@ -465,15 +429,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImgManFileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImgManFileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImgManFileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+					                                            	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -490,15 +454,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImg1FileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImg1FileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImg1FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg" data_type="img"  alt="찾아보기"  />
-			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -515,15 +479,15 @@
 				                                        			<dt class="img_div"  ></dt>
 				                                        		</c:when>
 				                                        		<c:otherwise>				                                        		
-				                                        			<dt class="img_div"  style="background: url(/files/imageSrcByFileId.do?fileId=${mberManageVO.atchImg2FileId}) 0% 50% no-repeat;"></dt>
+				                                        			<dt class="img_div"  style="background: url(/files/imageThumnailSrcByFileId.do?fileId=${mberManageVO.atchImg2FileId}) 0% 50% no-repeat;"></dt>
 				                                        		</c:otherwise>
 				                                        	</c:choose>
 					                                            <dd>
 					                                            	<input name="file1_text"  type="text" class="w200">
 					                                            	<form:hidden path="atchImg2FileId" />
 			                                            			<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="1" data_category="memberImg"  data_type="img"  alt="찾아보기"  />
-			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a>
+			                                            			<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%-- 			                                            			<img src="${contextPath}/img/btn_delete.png" alt="삭제"></a> --%>
 					                                            
 						                                            <span class="con_inf2 fl100">
 						                                            * 일반게시판, 자기소개, 댓글 등에서 대표이미지로 사용됩니다.<br/>
@@ -548,13 +512,13 @@
                                     </span> 
                                 </li>
                                 <li><strong>홈페이지</strong>
-                                    <span class="con"><form:input path="homepageUrl" class="long" /> </span> 
+                                    <span class="con"><form:input path="homepageUrl" class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다"  /> </span> 
                                 </li>
                                 <li><strong>블로그</strong>
-                                    <span class="con"><form:input path="blogUrl" class="long"/></span> 
+                                    <span class="con"><form:input path="blogUrl" class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /></span> 
                                 </li>
                                  <li><strong>소셜</strong>
-                                    <span class="con"><form:input path="socialUrl" class="long"/></span> 
+                                    <span class="con"><form:input path="socialUrl" class="long" placeholder="http://  를 포함한 전체 URL을 입력바랍니다" /></span> 
                                 </li>
                                 <li><strong>자택전화</strong>
                                 	<span class="con">
@@ -784,10 +748,10 @@
                                 <li><strong>이력서</strong>
                                 	<span class="con">
                                     <input name="file1_text" type="text" class="w200">
-									<form:hidden path="atchHistFileId"  mark="hist" />
+									<form:hidden path="atchHistFileId"  />
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                   	<img name="btnFileDownload" mark="hist" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
-                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                   
+                                   	<img name="btnFileDownload" mark="hist" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
+<%--                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">                                    --%>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
                                      <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
@@ -798,10 +762,10 @@
                                 <li><strong>포트폴리오</strong>
                                 	<span class="con">
                                     <input name="file1_text" type="text" class="w200">
-									<form:hidden path="atchPortFileId" mark="port" />
+									<form:hidden path="atchPortFileId" />
 									<img name="btnFileUpload" src="${contextPath}/img/btn_find.png" data_fileMax="5" data_category="memberAttach"  data_type="file"  alt="찾아보기"   >
-                                   	<img name="btnFileDownload" mark="port" src="${contextPath}/img/btn_down.png"   alt="다운로드"> 
-                                   	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">    
+                                   	<img name="btnFileDownload" mark="port" src="${contextPath}/img/btn_down2.png"   alt="다운로드"> 
+<%--                                    	<img name="btnImgDelete" src="${contextPath}/img/btn_delete.png" alt="삭제">     --%>
                                     <span class="con_inf txt11 fl100 fcYg">* 10M 미만의 파일만 허용됩니다.</span>
                                     <br>
                                      <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
@@ -839,7 +803,7 @@
                     
                     <!-- 버튼영역 -->
                     <div class="mbtn_wrap">
-                   		<a href="#"><img src="${contextPath}/img/btn_regist.png" alt="등록"  onclick="goSave();"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소"></a></div>
+                   		<a href="#"><img src="${contextPath}/img/btn_regist.png" alt="등록"  onclick="goSave();"></a><a href="#"><img src="${contextPath}/img/btn_cancle.png" alt="취소" onclick="goList();"></a></div>
                     <!-- //버튼영역 -->
 
             	</div>
@@ -870,6 +834,11 @@
 		    																					$("#ihidnum").val(  $( "#birthYear option:selected" ).val() + '.' + $( "#birthMonth option:selected" ).val() + '.' + $( "#birthDay option:selected" ).val() );                                                                                   
 		});
 		
+		
+		
+		if($("#isNewRegister").val() == 'true'){
+			$('#mberType').val('D01').attr('selected', 'selected');
+		}
 		
 		$('input[name=chkActiveTyCd]').each(function(){
 			var chkValue = $(this).val();
@@ -1001,9 +970,6 @@
 
     	$('[name=btnFileDownload]').click(function(e) {
     		e.preventDefault();
-    		var markValue = $(this).attr('mark');
-    		alert(markValue);
-    		
     		var category = $(this).attr('data_category');
     		var $imgId = $(this).parent().find(':hidden');
     		COM.openFileListPopup(category, $imgId.val());
@@ -1164,23 +1130,24 @@
 	}
 	
 	function doSync(){
-//		 goJsonSave();
-		goSave();
+		if($("#isNewRegister").val() != 'true')
+			goSave();
 	}
 	
    	function doJsonSync(){
-  		 goJsonSave();
+   		if($("#isNewRegister").val() != 'true')
+  		 	goJsonSave();
  	 }
 
 	function goJsonSave(){      	
-	var formData = $("form").serialize ();
-	var params = $("form").serialize();
-	BIT.callAjax('${contextPath}/myInfo/jsonUpdateGnrSubMyInfo.do'
-			, 'post'
-			, params
-			, function(responseText){
-				return false;
-			});
+		var formData = $("form").serialize ();
+		var params = $("form").serialize();
+		BIT.callAjax('${contextPath}/admin/jsonUpdateGnrInfo.do'
+				, 'post'
+				, params
+				, function(responseText){
+					return false;
+				});
 	}
 	
 	function isOkAllproperty(){
@@ -1204,7 +1171,17 @@
  			return 'OK';
  	}
 
-	
+ 	
+ 	function goWithdraw(){      	
+ 		$("form").attr({action:"${contextPath}/admin/updateWithdraw.do", target:""});
+ 		$("form").submit();
+ 	}
+ 	
+ 	function goList(){      	
+ 		$("form").attr({action:"${contextPath}/admin/gnrMberList.do", target:""});
+ 		$("form").submit();
+ 	}	
+ 	
   	function goChangPassword(){      	
   		
  			var chkPd = chkPassword() ;

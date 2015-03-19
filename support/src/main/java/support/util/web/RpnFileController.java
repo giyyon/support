@@ -318,10 +318,9 @@ public class RpnFileController {
      * @param response
      * @throws Exception
      */
-    @RequestMapping(value="/imageSrcByFileId.do",method=RequestMethod.GET)
-    public void imageSrcByFileId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value="/imageThumnailSrcByFileId.do",method=RequestMethod.GET)
+    public void imageThumnailSrcByFileId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        
 		String fileId = request.getParameter("fileId");
 		FileVO fvo = new FileVO();
 		fvo.setAtchFileId(fileId);

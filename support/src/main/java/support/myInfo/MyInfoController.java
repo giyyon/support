@@ -3,6 +3,7 @@ package support.myInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import support.common.model.JsonObject;
@@ -30,10 +32,16 @@ import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.SessionVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
+import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import egovframework.com.cop.bbs.service.Board;
+import egovframework.com.cop.bbs.service.BoardMaster;
+import egovframework.com.cop.bbs.service.BoardVO;
+import egovframework.com.cop.bbs.service.EgovBBSManageService;
+import egovframework.com.cop.bbs.service.EgovBBSScrapService;
+import egovframework.com.cop.bbs.service.ScrapVO;
 import egovframework.com.cop.ems.service.EgovSndngMailRegistService;
 import egovframework.com.sec.rgm.service.EgovAuthorGroupService;
-import egovframework.com.uat.uia.service.EgovLoginService;
 import egovframework.com.uss.umt.service.EgovEntrprsManageService;
 import egovframework.com.uss.umt.service.EgovMberManageService;
 import egovframework.com.uss.umt.service.EntrprsManageVO;
@@ -42,8 +50,10 @@ import egovframework.com.uss.umt.service.MberManageCareerVO;
 import egovframework.com.uss.umt.service.MberManageDegreeVO;
 import egovframework.com.uss.umt.service.MberManagePaperVO;
 import egovframework.com.uss.umt.service.MberManageVO;
+import egovframework.com.utl.fcc.service.EgovDateUtil;
 import egovframework.com.utl.sim.service.EgovFileScrty;
 import egovframework.rte.fdl.property.EgovPropertyService;
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 /**
  * 일반회원관련 요청을  비지니스 클래스로 전달하고 처리된결과를  해당   웹 화면으로 전달하는  Controller를 정의한다
@@ -80,9 +90,9 @@ public class MyInfoController {
 	@Resource(name = "EgovCmmUseService")
 	private EgovCmmUseService cmmUseService;
 
-	/** EgovPropertyService */
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertiesService;
+
+    @Resource(name = "propertiesService")
+    protected EgovPropertyService propertyService;    // egovframework.com.cmm.service.EgovProperties.java
 	
 
 	/** EgovMessageSource */
@@ -97,12 +107,17 @@ public class MyInfoController {
 	@Resource(name = "sndngMailRegistService")
     private EgovSndngMailRegistService sndngMailRegistService;
 	
-	/** EgovLoginService */
-	@Resource(name = "loginService")
-	private EgovLoginService loginService;
-	
     @Resource(name = "egovAuthorGroupService")
     private EgovAuthorGroupService egovAuthorGroupService;
+    
+    
+    @Resource(name = "EgovBBSManageService")
+    private EgovBBSManageService bbsMngService;
+    
+    @Resource(name="EgovBBSScrapService")
+    protected EgovBBSScrapService bbsScrapService;
+
+
     
 	/** log */
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -364,14 +379,9 @@ public class MyInfoController {
 		LOGGER.debug("loginVOgetid정보"+loginVO.getId());
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
 		
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		String returnpage = "";
-		
 		mberManageService.updateMberMain(mberManageVO);
 		//Exception 없이 진행시 수정성공메시지
 		model.addAttribute("resultMsg", "success.common.update");
-		
 		
         if("F".equals(progressStauts)){
 			return "forward:/myInfo/myInfoView.do";
@@ -399,10 +409,6 @@ public class MyInfoController {
 
 		LOGGER.debug("loginVOgetid정보"+loginVO.getId());
 		LOGGER.debug("loginVOgetuserSe 정보"+loginVO.getUserSe());
-		
-		ComDefaultCodeVO vo = new ComDefaultCodeVO();
-
-		String returnpage = "";
 		
 		entrprsManageService.updateEntrprsmberMain(entrprsManageVO);
 		//Exception 없이 진행시 수정성공메시지
@@ -793,4 +799,390 @@ public class MyInfoController {
 		return "redirect:" + returnPage;
 	}	
 	
+    /**
+     * 최신동향정보 목록을 조회한다.
+     * 
+     * @param boardVO
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/trendList.do") 
+    public String trendList(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+
+	//최신동향 게시판 아이디 : BBSMSTR_000000000002
+	
+	boardVO.setBbsId("BBSMSTR_000000000002");
+
+	//최신동향 게시판 정렬 순서 
+	if("".equals(boardVO.getSortType())){
+			boardVO.setSortType("0");
+    }
+	
+	boardVO.setPageUnit(propertyService.getInt("pageUnit"));
+	boardVO.setPageSize(propertyService.getInt("pageSize"));
+
+	PaginationInfo paginationInfo = new PaginationInfo();
+	
+	paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
+	paginationInfo.setRecordCountPerPage(boardVO.getPageUnit());
+	paginationInfo.setPageSize(boardVO.getPageSize());
+
+	boardVO.setFrstRegisterId(user.getId());
+	boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+	boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
+	boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+
+	Map<String, Object> map = bbsMngService.selectMyTrendArticleList(boardVO, "");
+	int totCnt = Integer.parseInt((String)map.get("resultCnt"));
+	
+	paginationInfo.setTotalRecordCount(totCnt);
+
+	model.addAttribute("resultList", map.get("resultList"));
+	model.addAttribute("resultCnt", map.get("resultCnt"));
+	model.addAttribute("boardVO", boardVO);
+	model.addAttribute("paginationInfo", paginationInfo);
+
+	return ".basic_myInfo/trendList";
+    }
+    
+    
+        /**
+         * 최신동향정보 목록을 조회한다.
+         * 
+         * @param boardVO
+         * @param sessionVO
+         * @param model
+         * @return
+         * @throws Exception
+         */
+        @RequestMapping("/trendScrapList.do") 
+        public String trendScrapList(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+    	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+
+    	//최신동향 게시판 아이디 : BBSMSTR_000000000002
+    	boardVO.setBbsId("BBSMSTR_000000000002");
+
+    	//최신동향 게시판 정렬 순서 
+    	if("".equals(boardVO.getSortType())){
+    			boardVO.setSortType("0");
+        }
+    	
+    	boardVO.setPageUnit(propertyService.getInt("pageUnit"));
+    	boardVO.setPageSize(propertyService.getInt("pageSize"));
+
+    	PaginationInfo paginationInfo = new PaginationInfo();
+    	
+    	paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
+    	paginationInfo.setRecordCountPerPage(boardVO.getPageUnit());
+    	paginationInfo.setPageSize(boardVO.getPageSize());
+
+    	boardVO.setFrstRegisterId(user.getId());
+    	boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+    	boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
+    	boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+
+    	Map<String, Object> map = bbsMngService.selectTrendScrapArticleList(boardVO, "");
+    	int totCnt = Integer.parseInt((String)map.get("resultCnt"));
+    	
+    	paginationInfo.setTotalRecordCount(totCnt);
+
+    	model.addAttribute("resultList", map.get("resultList"));
+    	model.addAttribute("resultCnt", map.get("resultCnt"));
+    	model.addAttribute("boardVO", boardVO);
+    	model.addAttribute("paginationInfo", paginationInfo);
+
+    	return ".basic_myInfo/trendScrapList";
+        }
+    
+    /**
+     * 게시물에 대한 상세 정보를 조회한다.
+     * 
+     * @param boardVO
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/trendModify.do")
+    public String trendModify(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+
+	// 조회수 증가 여부 지정
+	boardVO.setPlusCount(true);
+
+	//최신동향  아이디 : BBSMSTR_000000000002
+	boardVO.setBbsId("BBSMSTR_000000000002");
+	
+	//최신동향  정렬 순서 
+	
+	if("".equals(boardVO.getSortType())){
+		boardVO.setSortType("0");
+    }
+
+	// 등록 화면에서 등록 후  redirect 된 경우 nttId를 model 객체에서 뽑아와야 한다.
+	if(model.get("nttId") != null){
+		long nttId = (Long.parseLong(model.get("nttId").toString()));
+		if(nttId != 0){
+			boardVO.setNttId(nttId);
+		}	
+	}	
+	
+	BoardVO vo = new BoardVO();
+	if(boardVO.getNttId() != 0){
+		 vo = bbsMngService.selectBoardArticle(boardVO);
+	}else{
+		vo.setBbsId("BBSMSTR_000000000002");
+		// 신규 등록인 경우
+		vo.setFrstRegisterId(user.getId());
+		vo.setFrstRegisterNm(user.getName());
+		vo.setFrstRegisterPnttm(EgovDateUtil.getCurrentDate("yyyy-mm-dd"));
+		vo.setNtcrId(user.getId());
+		vo.setNtcrNm(user.getName());
+		
+		//공유 범위 지정. 관리자가 아닌 경우 공유 범위는 접속 중인 시스템의 범위를 따라간다.
+		String bsnsSe = EgovProperties.getProperty("Globals.BsnsSe");
+		String bsnsSeShare = "";
+		if (bsnsSe.equals("A"))
+			bsnsSeShare = "100";
+		else if (bsnsSe.equals("B"))
+			bsnsSeShare = "010";
+		else if (bsnsSe.equals("C"))
+			bsnsSeShare = "001";
+		vo.setBsnsSeShare(bsnsSeShare);
+	}
+
+	model.addAttribute("result", vo);
+
+	ComDefaultCodeVO codeVo = new ComDefaultCodeVO();
+	//최신동향정보분류 목록
+	codeVo.setCodeId("SUP016");
+	List<?> trendSe_result = cmmUseService.selectCmmCodeDetail(codeVo);
+	model.addAttribute("trendSe_result", trendSe_result); 
+
+	return ".basic_myInfo/trendModify";
+    }
+	
+    /**
+     * 게시물을 등록한다.
+     * 
+     * @param boardVO
+     * @param board
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping("/insertTrendArticle.do")
+    public String insertTrendArticle(
+//    		                                                      final MultipartHttpServletRequest multiRequest, 
+    		                                                      @ModelAttribute("searchVO") BoardVO boardVO, 
+	                                                              @ModelAttribute("board") Board board, 
+	                                                              RedirectAttributes redirectAttributes,
+                                                              	  ModelMap model) throws Exception {
+
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+		long nttId = 0;
+		if (isAuthenticated) {
+		    board.setFrstRegisterId(user.getId());
+		    // 최신동향  게시판 아이디 : BBSMSTR_000000000001
+		    board.setBbsId("BBSMSTR_000000000002");
+		    	    
+		    board.setPassword("");	// dummy 오류 수정 (익명이 아닌 경우 validator 처리를 위해 dummy로 지정됨)
+		    
+		    nttId = 0;
+			if( board.getNttId() == 0 ){
+				nttId = bbsMngService.insertBoardArticle(board);	
+				board.setNttId(nttId);
+			}else{
+			    board.setLastUpdusrId(user.getId());
+				bbsMngService.updateBoardArticle(board);
+				nttId = board.getNttId();
+			}	
+		}
+		model.addAttribute("result", board);
+		
+		redirectAttributes.addFlashAttribute("nttId",String.valueOf(nttId));
+		
+		if("01".equals(board.getNttSttusCode())){
+			//임시 등록
+			return "redirect:/myInfo/trendModify.do";
+		}else{
+			//등록
+			return "redirect:/myInfo/trendList.do";
+		}
+    }
+    
+    /**
+     *  최신동향 스크랩을  등록한다.
+     * 
+     * @param boardVO
+     * @param board
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping("/jsonInsertTrendScrapArticle.do")
+    public ResponseEntity<String> jsonInsertTrendScrapArticle(
+//    		                                                      final MultipartHttpServletRequest multiRequest, 
+    		                                                      @ModelAttribute("board") Board board, 
+	                                                              RedirectAttributes redirectAttributes,
+                                                              	  ModelMap model) throws Exception {
+
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+		if (isAuthenticated) {
+		    board.setFrstRegisterId(user.getId());
+		    // 최신동향  게시판 아이디 : BBSMSTR_000000000001
+		    ScrapVO scrapVO = new ScrapVO();
+		    scrapVO.setBbsId("BBSMSTR_000000000002");
+		    scrapVO.setNttId(board.getNttId());
+		    scrapVO.setScrapNm("최신동향 정보 스크랩입니다");
+		    scrapVO.setFrstRegisterId(user.getId());
+		    bbsScrapService.insertScrap(scrapVO);	
+		}
+		HashMap<String, Object> total  = new HashMap<String, Object>();
+		
+		total.put("IsSucceed", Boolean.TRUE);
+		total.put("Message",  "스크랩 되었습니다. 스크랩 내용은 내 정보 메뉴에서 확인 가능합니다.");	
+		return JSONResponseUtil.getJSONResponse(total);
+    }
+    
+
+    /**
+     * 게시물에 대한 내용을 삭제한다.
+     * 
+     * @param boardVO
+     * @param board
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/deleteTrendArticle.do")
+    public String deleteTrendArticle(@ModelAttribute("searchVO") BoardVO boardVO, @ModelAttribute("board") Board board,
+	    @ModelAttribute("bdMstr") BoardMaster bdMstr, ModelMap model) throws Exception {
+	
+	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+	Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+
+	if (isAuthenticated) {
+	    board.setLastUpdusrId(user.getUniqId());
+	    
+	    //최신동향 게시판 아이디 : BBSMSTR_000000000001
+		board.setBbsId("BBSMSTR_000000000002");
+		
+	    bbsMngService.deleteBoardArticle(board);
+	}
+
+	return "redirect:/myInfo/trendList.do";
+    }
+    
+    /**
+     * 게시물에 대한 내용을 삭제한다.
+     * 
+     * @param boardVO
+     * @param board
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/deleteTrendScrapArticle.do")
+    public String deleteTrendScrapArticle(@ModelAttribute("searchVO") BoardVO boardVO, @ModelAttribute("board") Board board,
+	    @ModelAttribute("bdMstr") BoardMaster bdMstr, ModelMap model) throws Exception {
+	
+	Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+
+	if (isAuthenticated) {
+	    //최신동향 게시판 아이디 : BBSMSTR_000000000002
+		ScrapVO scrapVO = new ScrapVO();
+		scrapVO.setScrapId(board.getScrapId());
+		bbsScrapService.deleteScrap(scrapVO);
+	}
+	return "redirect:/myInfo/trendScrapList.do";
+    }
+    
+    /**
+     * 게시물에 대한 내용을 삭제한다.
+     * 
+     * @param boardVO
+     * @param board
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/deleteCheckedTrendList.do")
+    public String deleteCheckedTrendList(@ModelAttribute("searchVO") BoardVO boardVO,
+    		                                                      @ModelAttribute("board") Board board,
+    		                                                      @ModelAttribute("bdMstr") BoardMaster bdMstr, 
+    		                                                      @RequestParam(value="delChk", required=true) List<String> delChk,
+    		                                                      ModelMap model) throws Exception {
+	
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+	
+		if (isAuthenticated) {
+		    board.setLastUpdusrId(user.getUniqId());
+		    
+		    //최신동향 아이디 : BBSMSTR_000000000002
+			board.setBbsId("BBSMSTR_000000000002");
+			
+			//삭제
+			if(delChk == null || delChk.size() == 0 ){
+
+			}else{
+				
+				for(int i =  0 ;  i < delChk.size() ; i++){
+					board.setNttId((Long.parseLong(delChk.get(i))));
+					bbsMngService.deleteBoardArticle(board);
+				}		
+			}
+		}
+	
+		return "redirect:/myInfo/trendList.do";
+    }
+    
+    /**
+     * 게시물에 대한 내용을 삭제한다.
+     * 
+     * @param boardVO
+     * @param board
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/deleteCheckedTrendScrapList.do")
+    public String deleteCheckedTrendScrapList(@ModelAttribute("searchVO") BoardVO boardVO,
+    		                                                      @ModelAttribute("board") Board board,
+    		                                                      @ModelAttribute("bdMstr") BoardMaster bdMstr, 
+    		                                                      @RequestParam(value="delChk", required=true) List<String> delChk,
+    		                                                      ModelMap model) throws Exception {
+	
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+	
+		if (isAuthenticated) {
+			//삭제
+			if(delChk == null || delChk.size() == 0 ){
+
+			}else{
+				ScrapVO scrapVO = null;
+				for(int i =  0 ;  i < delChk.size() ; i++){
+					scrapVO = new ScrapVO();
+					scrapVO.setScrapId((String)delChk.get(i));
+					bbsScrapService.deleteScrap(scrapVO);
+				}		
+			}
+		}
+	
+		return "redirect:/myInfo/trendScrapList.do";
+    }
 }

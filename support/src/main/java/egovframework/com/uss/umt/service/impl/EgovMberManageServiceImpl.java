@@ -60,9 +60,12 @@ public class EgovMberManageServiceImpl extends EgovAbstractServiceImpl implement
 	 * @throws Exception
 	 */
 	public String insertMber(MberManageVO mberManageVO) throws Exception  {
-		//고유아이디 셋팅
-		String uniqId = idgenService.getNextStringId();
-		mberManageVO.setUniqId(uniqId);
+		//고유아이디 셋팅-(예외 처리 : 관리자 모드 에서 비회원 가입을 하는 경우 선 얻어온 id를 활용하여 신규 등록 처리한다.)
+		String uniqId = "";
+		if (mberManageVO.getUniqId() == null || mberManageVO.getUniqId().equals("")){
+			uniqId = idgenService.getNextStringId();
+			mberManageVO.setUniqId(uniqId);
+		}
 		//패스워드 암호화
 		String pass = EgovFileScrty.encryptPassword(mberManageVO.getPassword());
 		mberManageVO.setPassword(pass);
@@ -119,10 +122,35 @@ public class EgovMberManageServiceImpl extends EgovAbstractServiceImpl implement
 	 * @throws Exception
 	 */
 	public void updateMber(MberManageVO mberManageVO) throws Exception {
-		//패스워드 암호화
-		String pass = EgovFileScrty.encryptPassword(mberManageVO.getPassword());
-		mberManageVO.setPassword(pass);
+		//관리자 + 기본 + 부가정보 기록
 		mberManageDAO.updateMber(mberManageVO);
+		
+		//수상정보 갱신
+		if(mberManageVO.getMberManageAwardVOList() != null){
+			mberManageDAO.deleteAward(mberManageVO.getMberId());
+			mberManageDAO.insertAward(mberManageVO.getMberManageAwardVOList());
+		}
+		
+		//경력정보 갱신
+		if(mberManageVO.getMberManageCareerVOList() != null){
+			mberManageDAO.deleteCareer(mberManageVO.getMberId());
+			mberManageDAO.insertCareer(mberManageVO.getMberManageCareerVOList());
+		}
+		//학위정보 갱신
+		if(mberManageVO.getMberManageDegreeVOList() != null){
+			mberManageDAO.deleteDegree(mberManageVO.getMberId());
+			mberManageDAO.insertDegree(mberManageVO.getMberManageDegreeVOList());
+		}
+		//논문정보 갱신
+		if(mberManageVO.getMberManagePaperVOList() != null){
+			mberManageDAO.deletePaper(mberManageVO.getMberId());
+			mberManageDAO.insertPaper(mberManageVO.getMberManagePaperVOList());
+		}
+		//활동분류 갱신
+		if(mberManageVO.getMberManageActiveTyVOList() != null){
+			mberManageDAO.deleteActiveTy(mberManageVO.getMberId());
+			mberManageDAO.insertActiveTy(mberManageVO.getMberManageActiveTyVOList());
+		}
 	}
 	
 	/**
@@ -131,7 +159,7 @@ public class EgovMberManageServiceImpl extends EgovAbstractServiceImpl implement
 	 * @throws Exception
 	 */
 	public void updateMberMain(MberManageVO mberManageVO) throws Exception {
-		//패스워드 암호화
+		//기본 정보 기록
 		mberManageDAO.updateMberMain(mberManageVO);
 	}
 	/**

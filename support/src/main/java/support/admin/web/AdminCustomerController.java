@@ -1,65 +1,37 @@
 package support.admin.web;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
-import support.login.web.LoginController;
+import support.util.JSONResponseUtil;
 import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
-import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.com.cop.bbs.service.Board;
 import egovframework.com.cop.bbs.service.BoardMaster;
 import egovframework.com.cop.bbs.service.BoardMasterVO;
 import egovframework.com.cop.bbs.service.BoardVO;
 import egovframework.com.cop.bbs.service.EgovBBSAttributeManageService;
-import egovframework.com.cop.bbs.service.EgovBBSCommentService;
 import egovframework.com.cop.bbs.service.EgovBBSManageService;
-import egovframework.com.cop.bbs.service.EgovBBSSatisfactionService;
-import egovframework.com.cop.bbs.service.EgovBBSScrapService;
-import egovframework.com.uss.umt.service.MberManageAwardVO;
 import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -503,6 +475,39 @@ public class AdminCustomerController implements ApplicationContextAware, Initial
 		}
     }
     
+    
+    /**
+     * 게시물의 등록 상태 정보를 수정한다. (01:임시, 02:등록)
+     * 
+     * @param boardVO
+     * @param board
+     * @param sessionVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping("/jsonUpdateBoardNttSttusCode.do")
+    public ResponseEntity<String> jsonupdateBoardNttSttusCode(
+	                                                              @ModelAttribute("board") Board board, 
+	                                                              RedirectAttributes redirectAttributes,
+	    ModelMap model) throws Exception {
+
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+		long nttId = 0;
+		if (isAuthenticated) {
+		    board.setFrstRegisterId(user.getId());
+		    //각 화면별 게시판 아이디를 정확히 넘겨 받아야 한다. : 공지사항  BBSMSTR_000000000001, 최신 동향  : BBSMSTR_000000000002
+		    logger.debug("게시판 오픈 상태 정보 : getBbsId : "+board.getBbsId());
+		    logger.debug("게시판 오픈 상태 정보 : nttsttusCode : "+board.getNttSttusCode());
+			bbsMngService.updateBoardNttSttusCode(board);
+		}
+		HashMap<String, Object> total  = new HashMap<String, Object>();
+		total.put("IsSucceed", Boolean.TRUE);
+		return JSONResponseUtil.getJSONResponse(total);
+    }
+    
     /**
      * 게시물에 대한 내용을 삭제한다.
      * 
@@ -543,8 +548,8 @@ public class AdminCustomerController implements ApplicationContextAware, Initial
      * @return
      * @throws Exception
      */
-    @RequestMapping("/deleteCheckedList.do")
-    public String deleteCheckedList(@ModelAttribute("searchVO") BoardVO boardVO,
+    @RequestMapping("/deleteCheckedNoticeList.do")
+    public String deleteCheckedNoticeList(@ModelAttribute("searchVO") BoardVO boardVO,
     		                                                      @ModelAttribute("board") Board board,
     		                                                      @ModelAttribute("bdMstr") BoardMaster bdMstr, 
     		                                                      @RequestParam(value="delChk", required=true) List<String> delChk,

@@ -21,7 +21,7 @@
                     
                     <!-- 뷰 -->
                     <div class="view_info mtf5 mb5">
-                    	No.<c:out value="${result.nttId}"/><em>|</em>Hits.<c:out value="${result.inqireCo}"/><em>|</em><c:out value="${result.frstRegisterPnttm}"/>
+                    	No.<c:out value="${result.nttNo}"/><em>|</em>Hits.<c:out value="${result.inqireCo}"/><em>|</em><c:out value="${result.frstRegisterPnttm}"/>
                         <div class="ico_box_w">
                             <ul class="ico_box">
                             <li class="face"><a href="#" title="페이스북">페이스북</a></li>

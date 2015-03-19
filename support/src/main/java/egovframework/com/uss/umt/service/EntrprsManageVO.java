@@ -253,11 +253,12 @@ public class EntrprsManageVO  extends UserDefaultVO{
 	private String adresOthbcAt                   ;
 	
 	/**사업구분        */
-	 private String bsnSe ;     
+	 private String bsnsSe ;     
 	/**회원유형        */
 	 private String entrprsMberType;
 	/**회원분류        */
 	 private String entrprsMberSe;
+	 private String entrprsMberSeNm;	
 	/**접속일자        */
 	 private String loginDe;
 	/**수정일자        */
@@ -1584,19 +1585,20 @@ public class EntrprsManageVO  extends UserDefaultVO{
 	
 		this.atchManageFileId = atchManageFileId;
 	}
+
 	/**
-	 * @return the bsnSe
+	 * @return the bsnsSe
 	 */
-	public String getBsnSe() {
+	public String getBsnsSe() {
 	
-		return bsnSe;
+		return bsnsSe;
 	}
 	/**
-	 * @param bsnSe the bsnSe to set
+	 * @param bsnsSe the bsnsSe to set
 	 */
-	public void setBsnSe(String bsnSe) {
+	public void setBsnsSe(String bsnsSe) {
 	
-		this.bsnSe = bsnSe;
+		this.bsnsSe = bsnsSe;
 	}
 	/**
 	 * @return the entrprsMberType
@@ -1653,6 +1655,20 @@ public class EntrprsManageVO  extends UserDefaultVO{
 	public void setUpdtDe(String updtDe) {
 	
 		this.updtDe = updtDe;
+	}
+	/**
+	 * @return the entrprsMberSeNm
+	 */
+	public String getEntrprsMberSeNm() {
+	
+		return entrprsMberSeNm;
+	}
+	/**
+	 * @param entrprsMberSeNm the entrprsMberSeNm to set
+	 */
+	public void setEntrprsMberSeNm(String entrprsMberSeNm) {
+	
+		this.entrprsMberSeNm = entrprsMberSeNm;
 	}
 	
 	

@@ -3,6 +3,7 @@ package egovframework.com.uss.umt.service.impl;
 import java.util.List;
 
 import egovframework.com.cmm.service.impl.EgovComAbstractDAO;
+import egovframework.com.uss.umt.service.MberManageActiveTyVO;
 import egovframework.com.uss.umt.service.MberManageAwardVO;
 import egovframework.com.uss.umt.service.MberManageCareerVO;
 import egovframework.com.uss.umt.service.MberManageDegreeVO;
@@ -195,6 +196,29 @@ public class MberManageDAO extends EgovComAbstractDAO{
 		 for(int i = 0; i < mberManagePaperVOList.size() ; i++){
 			 mberManagePaperVO = (MberManagePaperVO)mberManagePaperVOList.get(i);
 			 insert("mberManageDAO.insertPaper", mberManagePaperVO);
+		 }
+	     return "";
+	 }
+	 
+	   /**
+	* 수상정보를 데이터베이스에서 삭제
+	* @param delId 삭제 대상 일반회원아이디
+	*/
+	public void deleteActiveTy(String delId){
+	   delete("mberManageDAO.deleteActiveTy", delId);
+	}
+
+	 /**
+	  *  활동분류의 기본정보를 화면에서 입력하여 항목의 정합성을 체크하고 데이터베이스에 저장
+	  * @param mberManageActiveTyVOList 일반회원 등록정보
+	  * @return String 등록결과
+	  */
+	 public String insertActiveTy(List<MberManageActiveTyVO> mberManageActiveTyVOList){
+    
+		 MberManageActiveTyVO mberManageActiveTyVO = null;
+		 for(int i = 0; i < mberManageActiveTyVOList.size() ; i++){
+			 mberManageActiveTyVO = (MberManageActiveTyVO)mberManageActiveTyVOList.get(i);
+			 insert("mberManageDAO.insertActiveTy", mberManageActiveTyVO);
 		 }
 	     return "";
 	 }

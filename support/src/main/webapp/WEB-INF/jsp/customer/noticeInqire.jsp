@@ -87,7 +87,7 @@
                         </div>
                     </div>
 										<div class="etc_info">
-										  No.<c:out value="${result.nttId}"/><em>|</em>Hits.<c:out value="${result.inqireCo}"/><em>|</em><c:out value="${result.frstRegisterPnttm}"/>
+										  No.<c:out value="${result.nttNo}"/><em>|</em>Hits.<c:out value="${result.inqireCo}"/><em>|</em><c:out value="${result.frstRegisterPnttm}"/>
                     </div>
                     <!------------ //20150209추가/변경--------- -->
                     
@@ -98,7 +98,7 @@
                             <li class="part"><strong><span>첨부파일</span></strong>
                            		 <div class="file_bx">
                           		    <form:hidden path="atchFileId" />
-                                  	<img name="btnFileDownload" src="${contextPath}/img/btn_down.png"    data_type="file"   alt="다운로드"> 
+                                  	<img name="btnFileDownload" src="${contextPath}/img/btn_down2.png"    data_type="file"   alt="다운로드"> 
                                    <br>
                                     <c:import url="/files/selectFileInfsAdvence.do" charEncoding="utf-8">
 									<c:param name="param_atchFileId" value="${result.atchFileId}" />
